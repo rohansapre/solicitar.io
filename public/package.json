@@ -1,12 +1,13 @@
 {
-  "name": "startbootstrap-sb-admin",
-  "title": "SB Admin",
-  "version": "4.0.0-alpha",
-  "homepage": "http://startbootstrap.com/template-overviews/sb-admin",
-  "author": "Start Bootstrap",
-  "license": {
-    "type": "MIT",
-    "url": "https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE"
+  "name": "web-dev-project",
+  "version": "1.0.0",
+  "description": "Web Dev at Northeastern University",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "chart.js": "^2.5.0",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.15"
   },
   "devDependencies": {
     "bootstrap": "^4.0.0-alpha.6",
@@ -22,11 +23,10 @@
     "jquery": "^3.1.1",
     "tether": "^1.4.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/BlackrockDigital/startbootstrap-sb-admin.git"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
-  "dependencies": {
-    "chart.js": "^2.5.0"
-  }
+  "author": "Jose G. Annunziato",
+  "license": "ISC"
 }

@@ -1,14 +1,36 @@
 {
-  "name": "web-dev",
+  "name": "web-dev-project",
   "version": "1.0.0",
   "description": "Web Dev at Northeastern University",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.15.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.3",
     "express": "^4.13.4",
-    "mongoose": "^4.4.15"
+    "express-session": "^1.14.2",
+    "mongojs": "^2.4.0",
+    "mongoose": "^4.9.1",
+    "multer": "^1.2.0",
+    "passport": "^0.3.2",
+    "passport-google-oauth": "^1.0.0",
+    "passport-local": "^1.0.0",
+    "q": "^1.4.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
+    "browser-sync": "^2.13.0",
+    "font-awesome": "^4.6.3",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.10",
+    "gulp-header": "^1.8.7",
+    "gulp-less": "^3.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "^1.5.4",
+    "jquery": "^3.1.1",
+    "tether": "^1.4.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
