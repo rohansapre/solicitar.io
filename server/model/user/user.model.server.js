@@ -12,6 +12,8 @@ userModel.createUser = createUser;
 userModel.findUserById = findUserById;
 userModel.findUserByUsername = findUserByUsername;
 userModel.findUserByCredentials = findUserByCredentials;
+userModel.updateUser = updateUser;
+userModel.deleteUser = deleteUser;
 
 module.exports = userModel;
 
@@ -41,7 +43,7 @@ function findUserByUsername(username) {
     var d = q.defer();
     userModel.findOne({username: username}, function (err, user) {
         if(err)
-            d.reject(err)
+            d.reject(err);
         else
             d.resolve(user);
     });
@@ -51,6 +53,28 @@ function findUserByUsername(username) {
 function findUserByCredentials(username, password) {
     var d = q.defer();
     userModel.findOne({username: username, password: password}, function (err, user) {
+        if(err)
+            d.reject(err);
+        else
+            d.resolve(user);
+    });
+    return d.promise;
+}
+
+function updateUser(userId, user) {
+    var d = q.defer();
+    userModel.findByIdAndUpdate(userId, user, function (err, user) {
+        if(err)
+            d.reject(err);
+        else
+            d.resolve(user);
+    });
+    return d.promise;
+}
+
+function deleteUser(userId) {
+    var d = q.defer();
+    userModel.findByIdAndRemove(userId, function (err, user) {
         if(err)
             d.reject(err);
         else
