@@ -6,6 +6,8 @@
 body {
     padding-top: 54px;
     padding-left: 0;
+    background-image: url("picture.jpg");
+    background-size: 100%;
 }
 
 @media (min-width: 992px) {
@@ -257,7 +259,7 @@ body {
 }
 
 .btn-fb {
-    color: #fff;
+    color: #ffffff;
     background-color: #3b5998;
 }
 
@@ -278,4 +280,7 @@ body {
 
 .nav-link {
     margin-right: 100px;
+}
+a .btn-fb {
+    color: red;
 }
