@@ -3,7 +3,8 @@
         .module("ProjectMaker")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($location, UserService) {
+    function RegisterController($rootScope, $location, UserService) {
+        $rootScope.bodyLayout = 'reg';
         var vm = this;
 
         // event handlers
@@ -16,6 +17,7 @@
         function create(user) {
             console.log(user);
             if (user.password==user.passverify) {
+                user.type = 'APPLICANT';
                 UserService
                     .findUserByUsername(user.username)
                     .success(function(user) {

@@ -1,92 +1,52 @@
-<script src="../../../js/my.js"></script>
-<nav id="mainNav" class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarExample" aria-controls="navbarExample" aria-expanded="false"
-            aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <a class="navbar-brand" href="#">solicitar.io</a>
-
-    <div class="collapse navbar-collapse " id="navbarExample">
-        <ul class="navbar-nav ml-auto">
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle mr-lg-5" data-toggle="dropdown">Login<span class="caret"></span></a>
-                <div class="dropdown-menu" aria-labelledby="messagesDropdown">
-                    <div class="dropdown-item social-buttons">
-                        <div class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</div>
-                        <div class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</div>
-                    </div>
-                    <div class="dropdown-divider"></div>
-                    <div class="container-fluid">
-                    <div ng-show="model.error" class="alert alert-danger" role="alert">
-                        {{model.error}}
-                    </div>
-                    </div>
-                    <form class="form" role="form" id="login-nav">
-                        <div class="form-group container-fluid">
-                            <label for="username" class="sr-only">Username</label>
-                            <input type="text" id="username" class="form-control" ng-model="user.username"
-                                   placeholder="Username" required>
-                        </div>
-                        <div class="form-group container-fluid">
-                            <label for="passwords" class="sr-only">Password</label>
-                            <input type="password" class="form-control" id="passwords" placeholder="Password" ng-model="user.password" required>
-                            <div class="help-block text-right"><a href="">Forgot password?</a></div>
-                        </div>
-                        <div class="form-group container-fluid">
-                            <button type="submit" class="btn btn-primary btn-block" ng-click="model.login(user)">Sign
-                                In
-                            </button>
-                        </div>
-                        <div class="checkbox container-fluid">
-                            <label>
-                                <input type="checkbox"> Remember Me !
-                            </label>
-                        </div>
-                    </form>
-
-                </div>
-            </li>
-
-            <!--<li class="nav-item">-->
-                <!--<a class="btn btn-primary" href="#/register"><i class="fa fa-fw fa-sign-out"></i> Sign-->
-                    <!--Up-->
-                <!--</a>-->
-            <!--</li>-->
-            <li class="nav-item">
-            <button class="btn btn-primary" id="buttonup" data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-sign-out"></i>
-                Sign Up</button>
-            </li>
-        </ul>
-    </div>
-</nav>
-
+<!-- Large modal -->
+<style>
+    .nav-tabs {
+        margin-bottom: 15px;
+    }
+    .sign-with {
+        margin-top: 25px;
+        padding: 20px;
+    }
+    div#OR {
+        height: 30px;
+        width: 30px;
+        border: 1px solid #C2C2C2;
+        border-radius: 50%;
+        font-weight: bold;
+        line-height: 28px;
+        text-align: center;
+        font-size: 12px;
+        float: right;
+        position: absolute;
+        right: -16px;
+        top: 40%;
+        z-index: 1;
+        background: #DFDFDF;
+    }
+</style>
+<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Login modal</button>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="container"> <h4 class="modal-title" id="myModalLabel">
-                    Welcome to solicitar.io !</h4> </div>
-                <button type="button" class="close" id="buttondown" data-dismiss="modal" aria-hidden="true">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     ×</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Login/Registration - <a href="http://www.jquery2dotnet.com">jquery2dotnet.com</a></h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-8" style="border-right: 1px dotted #C2C2C2;padding-right: 30px;">
                         <!-- Nav tabs -->
-                        <div class="container">
                         <ul class="nav nav-tabs">
-                            <!--<li><button class="btn btn-primary" data-toggle="modal" data-target="#Registration"><i class="fa fa-fw fa-sign-out"></i>-->
-                                <!--Sign Up</button></li>-->
-                            <li class="active"><a data-target="#Registration" data-toggle="tab">Registration</a></li>
+                            <li class="active"><a href="#Login" data-toggle="tab">Login</a></li>
+                            <li><a href="#Registration" data-toggle="tab">Registration</a></li>
                         </ul>
-                        </div>
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div class="tab-pane" id="Login">
+                            <div class="tab-pane active" id="Login">
                                 <form role="form" class="form-horizontal">
                                     <div class="form-group">
                                         <label for="email" class="col-sm-2 control-label">
@@ -113,7 +73,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="tab-pane active" id="Registration">
+                            <div class="tab-pane" id="Registration">
                                 <form role="form" class="form-horizontal">
                                     <div class="form-group">
                                         <label for="email" class="col-sm-2 control-label">
@@ -189,38 +149,3 @@
         </div>
     </div>
 </div>
-
-
-<!--<div class="container">-->
-
-<!--<h1>Login</h1>-->
-
-<!--<div ng-show="model.error" class="alert alert-danger" role="alert">-->
-<!--{{model.error}}-->
-<!--</div>-->
-
-<!--<label for="username">Username</label>-->
-<!--<input id="username" class="form-control" ng-model="user.username" type="text" placeholder="Username"/>-->
-<!--<label for="password">Password</label>-->
-<!--<input id="password" class="form-control" ng-model="user.password" type="password" placeholder="Password"/>-->
-<!--<a class="btn btn-primary btn-block" ng-click="model.login(user)">-->
-<!--Login-->
-<!--</a>-->
-<!--<a class="btn btn-success btn-block" href="#/register">-->
-<!--Register-->
-<!--</a>-->
-<!--</div>-->
-<ul class="white">
-<div id="newpost">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:700|Roboto:900" rel="stylesheet">
-    solicitar.io
-</div>
-<div class="offwhite" id="newpost2">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:700|Roboto:900" rel="stylesheet">
-    Talk to recruiters from around the world and find the right job.<br>
-    It is easy, quick and rewarding!<br>
-
-</div>
-</ul>
-
-

@@ -30,7 +30,7 @@
                 controllerAs: "model"
             })
             .when("/register", {
-                templateUrl: "views/user/templates/register.view.client.html",
+                templateUrl: "views/user/templates/registers.view.client.html",
                 controller: "RegisterController",
                 controllerAs: "model"
             })
@@ -40,7 +40,7 @@
                 // controllerAs: "model"
             })
             .when("/playground", {
-                templateUrl: "playground/playground.html",
+                templateUrl: "views/user/templates/registers.view.client.html",
                 controller: "playgroundController",
                 controllerAs: "model"
             })

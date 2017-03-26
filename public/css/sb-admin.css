@@ -6,9 +6,9 @@
 body {
     padding-top: 54px;
     padding-left: 0;
-    background-image: url("picture.jpg");
-    background-size: 100%;
 }
+
+
 
 @media (min-width: 992px) {
     body {
@@ -283,4 +283,66 @@ body {
 }
 a .btn-fb {
     color: red;
+}
+
+.nav-tabs {
+    margin-bottom: 15px;
+}
+.sign-with {
+    margin-top: 25px;
+    padding: 20px;
+}
+div#OR {
+    height: 30px;
+    width: 30px;
+    border: 1px solid #C2C2C2;
+    border-radius: 50%;
+    font-weight: bold;
+    line-height: 28px;
+    text-align: center;
+    font-size: 12px;
+    float: right;
+    position: absolute;
+    right: -16px;
+    top: 40%;
+    z-index: 1;
+    background: #DFDFDF;
+}
+
+body .modal {
+    /* new custom width */
+    /* must be half of the width, minus scrollbar on the left (30px) */
+    margin-top: 20vh;
+}
+
+.white {
+    top: 30vh;
+    left: 0vh;
+    position: fixed;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 60px;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.offwhite {
+    /*left: 50%;*/
+    /*position: fixed;*/
+    font-family: 'Open Sans', sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+    color: #ffffff;
+    opacity: 0.8;
+}
+
+.home {
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('picture.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.reg {
+    background-color: #34515E;
 }
