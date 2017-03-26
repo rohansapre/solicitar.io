@@ -37,6 +37,9 @@
                 templateUrl: "dashboard.html",
                 // controller: "ProfileController",
                 // controllerAs: "model"
+            })
+            .when("/playground", {
+                templateUrl: "playgound/playground.html"
             });
 
         // $locationProvider.html5Mode(true);

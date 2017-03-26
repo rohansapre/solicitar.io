@@ -6159,7 +6159,7 @@ module.exports = function(Chart) {
 			},
 
 			/**
-			 * Point mode returns all elements that hit test based on the event position
+			 * Point mode returns all elements that hit setup based on the event position
 			 * of the event
 			 * @function Chart.Interaction.modes.intersect
 			 * @param chart {chart} the chart we are returning items from
@@ -6204,7 +6204,7 @@ module.exports = function(Chart) {
 			},
 
 			/**
-			 * x mode returns the elements that hit-test at the current x coordinate
+			 * x mode returns the elements that hit-setup at the current x coordinate
 			 * @function Chart.Interaction.modes.x
 			 * @param chart {chart} the chart we are returning items from
 			 * @param e {Event} the event we are find things at
@@ -6235,7 +6235,7 @@ module.exports = function(Chart) {
 			},
 
 			/**
-			 * y mode returns the elements that hit-test at the current y coordinate
+			 * y mode returns the elements that hit-setup at the current y coordinate
 			 * @function Chart.Interaction.modes.y
 			 * @param chart {chart} the chart we are returning items from
 			 * @param e {Event} the event we are find things at
