@@ -1,12 +1,58 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xs-6">
-            <div class="container-fluid">
+        <div class="col-xs-6 pull-left">
+            <div class="container-fluid pull-left">
+
+                <h4>Peer Camera</h4>
+                <div id="peer-camera" class="camera">
+                    <video width="300" height="300" autoplay></video>
+                </div>
+
+                <div id="messenger-wrapper">
+                    <div class="container-fluid pull-left">
+                        <h1>Peer Messenger</h1>
+
+                        <!--
+                          Display the login form and messaging form.
+                          This allows the user to send messages to their peer and make a video call.
+                        -->
+                        <div id="connect" ng-hide="model.connectHide">
+                            <h4>ID: {{model.ownId}} </h4>
+                            <input type="text" name="name" id="name" placeholder="Name" ng-model="model.name">
+                            <input type="text" name="peer_id" id="peer_id" placeholder="Peer ID" ng-model="model.peerId"    >
+                            <div id="connected_peer_container" class="hidden" ng-hide="model.containerHide">
+                                Connected Peer:
+                                <span id="connected_peer" ng-model= "model.connectedPeer" ng-hide="model.connectedHide"></span>
+                            </div>
+                            <button id="login" ng-click="model.login()">Login</button>
+                        </div>
+
+                        <div id="chat" class="hidden" ng-hide="model.chatHide">
+                            <div id="messages-container">
+                                <ul id="messages"></ul>
+                            </div>
+                            <div id="message-container">
+                                <input type="text" name="message" id="message" placeholder="Type message..">
+                                <button id="send-message">Send Message</button>
+                                <button id="call" ng-click="model.call()">Call</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Display video of the current user -->
+
+                <div id="my-camera" class="camera">
+                    <h4>Your Camera</h4>
+                    <video width="200" height="200" autoplay></video>
+                </div>
+
+
                 LOLk;jcvxbgdsf gijdfs
             </div>
         </div>
         <div class="col-xs-6">
-            <div class="container-fluid pull-down">
+            <div class="container-fluid">
                 <a class="btn btn-success btn-block" ng-click="model.createNewPad()" ng-show="model.visible">Create New
                     Pad</a>
 
