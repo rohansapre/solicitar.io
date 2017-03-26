@@ -35,7 +35,7 @@
             }
             vm.ownId = ownId;
 
-
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
             initializeWebRTC();
 
         }
