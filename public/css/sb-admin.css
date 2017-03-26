@@ -346,3 +346,7 @@ body .modal {
 .reg {
     background-color: #34515E;
 }
+
+.leftalign {
+    float: left;
+}

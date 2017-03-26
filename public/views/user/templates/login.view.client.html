@@ -6,7 +6,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <a class="navbar-brand" href="#">solicitar.io</a>
+    <a class="navbar-brand" href="">solicitar.io</a>
 
     <div class="collapse navbar-collapse " id="navbarExample">
         <ul class="navbar-nav ml-auto">
@@ -63,19 +63,19 @@
     </div>
 </nav>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="container"> <h4 class="modal-title" id="myModalLabel">
+                <div class="container-fluid"> <h4 class="modal-title leftalign" id="myModalLabel">
                     Welcome to solicitar.io !</h4> </div>
                 <button type="button" class="close" id="buttondown" data-dismiss="modal" aria-hidden="true">
                     ×</button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-8" style="border-right: 1px dotted #C2C2C2;padding-right: 30px;">
+                    <div class="col-md-12" style="border-right: 1px dotted #C2C2C2;padding-right: 20px;">
                         <!-- Nav tabs -->
                         <div class="container">
                         <ul class="nav nav-tabs">
@@ -86,104 +86,107 @@
                         </div>
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div class="tab-pane" id="Login">
-                                <form role="form" class="form-horizontal">
-                                    <div class="form-group">
-                                        <label for="email" class="col-sm-2 control-label">
-                                            Email</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="email1" placeholder="Email" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1" class="col-sm-2 control-label">
-                                            Password</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Email" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-2">
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <button type="submit" class="btn btn-primary btn-sm">
-                                                Submit</button>
-                                            <a href="javascript:;">Forgot your password?</a>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                            <!--<div class="tab-pane" id="Login">-->
+                                <!--<form role="form" class="form-horizontal">-->
+                                    <!--<div class="form-group">-->
+                                        <!--<label for="email" class="col-sm-2 control-label">-->
+                                            <!--Email</label>-->
+                                        <!--<div class="col-md-12">-->
+                                            <!--<input type="email" class="form-control" id="email1" placeholder="Email" />-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<label for="exampleInputPassword1" class="col-sm-2 control-label">-->
+                                            <!--Password</label>-->
+                                        <!--<div class="col-md-12">-->
+                                            <!--<input type="email" class="form-control" id="exampleInputPassword1" placeholder="Email" />-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="row">-->
+                                        <!--<div class="col-sm-2">-->
+                                        <!--</div>-->
+                                        <!--<div class="col-md-12">-->
+                                            <!--<button type="submit" class="btn btn-primary btn-sm">-->
+                                                <!--Submit</button>-->
+                                            <!--<a href="javascript:;">Forgot your password?</a>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</form>-->
+                            <!--</div>-->
                             <div class="tab-pane active" id="Registration">
                                 <form role="form" class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="email" class="col-sm-2 control-label">
-                                            Name</label>
-                                        <div class="col-sm-10">
+                                        <label for="email" class="col-md-12 control-label">
+                                            Full Name</label>
+                                        <div class="col-md-12">
                                             <div class="row">
-                                                <div class="col-md-3">
-                                                    <select class="form-control">
-                                                        <option>Mr.</option>
-                                                        <option>Ms.</option>
-                                                        <option>Mrs.</option>
-                                                    </select>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" ng-model="user.firstname" placeholder="First Name" />
                                                 </div>
-                                                <div class="col-md-9">
-                                                    <input type="text" class="form-control" placeholder="Name" />
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" ng-model="user.lastname" placeholder="Last Name" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="email" class="col-sm-2 control-label">
-                                            Email</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="email" placeholder="Email" />
+                                        <label for="mobile" class="col-sm-2 control-label">
+                                            Username</label>
+                                        <div class="col-md-12">
+                                            <input type="text" class="form-control" id="mobile" ng-model="user.username" placeholder="Username" />
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="mobile" class="col-sm-2 control-label">
-                                            Mobile</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="mobile" placeholder="Mobile" />
+                                        <label for="email" class="col-sm-2 control-label">
+                                            Email</label>
+                                        <div class="col-md-12">
+                                            <input type="email" class="form-control" ng-model="user.email" id="email" placeholder="Email" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="password" class="col-sm-2 control-label">
                                             Password</label>
-                                        <div class="col-sm-10">
-                                            <input type="password" class="form-control" id="password" placeholder="Password" />
+                                        <div class="col-md-12">
+                                            <input type="password" class="form-control" id="password" ng-model="user.password" placeholder="Password" />
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="form-group">
+                                        <label for="passwordagain" class="col-md-12 control-label">
+                                            Retype Password</label>
+                                        <div class="col-md-12">
+                                            <input type="password" class="form-control" id="passwordagain" ng-model="user.passverify" placeholder="Retype Password" />
+                                        </div>
+                                    </div>
+                                    <div class="row container">
                                         <div class="col-sm-2">
                                         </div>
-                                        <div class="col-sm-10">
-                                            <button type="button" class="btn btn-primary btn-sm">
-                                                Save & Continue</button>
-                                            <button type="button" class="btn btn-default btn-sm">
-                                                Cancel</button>
+                                        <div class="col-md-12">
+                                            <a class="btn btn-primary" ng-click= "model.create(user)">
+                                                Register</a>
+                                            <a class="btn btn-default" href="#/login">
+                                                Cancel</a>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
-                        <div id="OR" class="hidden-xs">
-                            OR</div>
+                        <!--<div id="OR" class="hidden-xs">-->
+                            <!--OR</div>-->
                     </div>
-                    <div class="col-md-4">
-                        <div class="row text-center sign-with">
-                            <div class="col-md-12">
-                                <h3>
-                                    Sign in with</h3>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="btn-group btn-group-justified">
-                                    <a href="#" class="btn btn-primary">Facebook</a> <a href="#" class="btn btn-danger">
-                                    Google</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!--<div class="col-md-4">-->
+                        <!--<div class="row text-center sign-with">-->
+                            <!--<div class="col-md-12">-->
+                                <!--<h3>-->
+                                    <!--Sign in with</h3>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-12">-->
+                                <!--<div class="btn-group btn-group-justified">-->
+                                    <!--<a href="#" class="btn btn-primary">Facebook</a> <a href="#" class="btn btn-danger">-->
+                                    <!--Google</a>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
