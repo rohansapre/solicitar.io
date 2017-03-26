@@ -1,15 +1,16 @@
-(function(){
+(function () {
     angular
         .module("ProjectMaker")
         .config(configuration);
 
     function configuration($routeProvider, $locationProvider, $httpProvider) {
 
-        $httpProvider.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+        // /$httpProvider.defaults.headers.post['Content-Type'] = 'application/json';
+        //$httpProvider.defaults.headers.removeAttr()
         $httpProvider.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
+        //$locationProvider.html5Mode(true);
 
         $routeProvider
-            //user routes
             .when("/login", {
 
                 templateUrl: "views/user/templates/login.view.client.html",
@@ -34,12 +35,19 @@
                 controllerAs: "model"
             })
             .when("/user/:uid", {
-                templateUrl: "dashboard.html",
+                templateUrl: "dashboard.html"
                 // controller: "ProfileController",
                 // controllerAs: "model"
             })
             .when("/playground", {
-                templateUrl: "playgound/playground.html"
+                templateUrl: "playground/playground.html",
+                controller: "playgroundController",
+                controllerAs: "model"
+            })
+            .when("/playground/:pgid", {
+                templateUrl: "playground/playground.html",
+                controller: "playgroundController",
+                controllerAs: "model"
             });
 
         // $locationProvider.html5Mode(true);
