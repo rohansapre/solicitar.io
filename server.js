@@ -22,9 +22,11 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/public'));
 
-
-require("./server/app.js")(app);
+require ("./setup/app.js")(app);
 
 var port      = process.env.PORT || 3000;
+
+var server = require('./server/app.js');
+server(app);
 
 app.listen(port);

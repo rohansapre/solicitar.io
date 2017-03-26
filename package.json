@@ -1,7 +1,7 @@
 {
-  "name": "web-dev-project",
+  "name": "solicitar.io",
   "version": "1.0.0",
-  "description": "Web Dev at Northeastern University",
+  "description": "Web Dev Project",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.15.1",
@@ -35,6 +35,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "Jose G. Annunziato",
+  "author": "Amul Mehta, Rohan Sapre, Tushar Gupta",
   "license": "ISC"
 }
