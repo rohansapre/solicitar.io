@@ -39,6 +39,11 @@
                 // controller: "ProfileController",
                 // controllerAs: "model"
             })
+            .when("/recruiter/:uid", {
+                templateUrl: "views/recruiter/templates/dash.html",
+                controller: "RecruiterController",
+                controllerAs: "model"
+            })
             .when("/playground", {
                 templateUrl: "views/user/templates/registers.view.client.html",
                 controller: "playgroundController",
