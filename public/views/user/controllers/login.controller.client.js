@@ -55,7 +55,10 @@
 
                 promise.success(function(user) {
                     if (user) {
-                        $location.url("/user/" + user._id);
+                        if(user.type === 'RECRUITER') {
+                            $location.url("/recruiter/" + user._id);
+                        } else
+                            $location.url("/user/" + user._id);
                     }
                     else {
                         vm.error = "User not found!";
