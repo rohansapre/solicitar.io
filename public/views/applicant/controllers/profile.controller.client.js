@@ -14,10 +14,16 @@
             vm.userId = $routeParams['uid'];
             var promise = UserService.findUserById(vm.userId);
             promise.success(function(user) {
+
+                console.log(user);
+
+
                 vm.user = user;
+                console.log('dkn');
             });
 
             userId = vm.userId
+            console.log(vm.user);
 
         }
         init();

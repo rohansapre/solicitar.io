@@ -178,6 +178,7 @@ body {
 
     #mainNav .navbar-collapse .navbar-nav.sidebar-nav > .nav-item > .nav-link {
         padding: 1em;
+        width: inherit;
     }
 
     #mainNav .navbar-collapse .navbar-nav.sidebar-nav > .nav-item .sidebar-second-level,
@@ -316,7 +317,7 @@ body .modal {
 }
 
 .white {
-    top: 30vh;
+    top: 25vh;
     left: 0vh;
     position: fixed;
     font-family: 'Open Sans', sans-serif;
@@ -349,4 +350,8 @@ body .modal {
 
 .leftalign {
     float: left;
+}
+
+.colwhite {
+    color: #ffffff;
 }

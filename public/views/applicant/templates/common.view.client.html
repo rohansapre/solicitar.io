@@ -1,0 +1,12 @@
+<div ng-switch="model.user.type">
+    <div ng-switch-when="APPLICANT">
+        <ng-include src="'views/applicant/templates/applicant/applicant.view.client.html'"></ng-include>
+    </div>
+    <div ng-switch-when="RECRUITER">
+        <ng-include src="'views/applicant/templates/recruiter.view.client.html'"></ng-include>
+    </div>
+
+    <div ng-switch-when="INTERVIEWER">
+        <ng-include src="'views/applicant/templates/interviewer.view.client.html'"></ng-include>
+    </div>
+</div>

@@ -34,6 +34,7 @@
         }
 
         function findUserById(userId) {
+            console.log('was in user.service.client.js');
             return $http.get("/api/user/"+userId);
         }
 

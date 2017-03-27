@@ -35,9 +35,14 @@
                 controllerAs: "model"
             })
             .when("/user/:uid", {
-                templateUrl: "dashboard.html"
-                // controller: "ProfileController",
-                // controllerAs: "model"
+                templateUrl: "views/applicant/templates/common.view.client.html",
+                controller: "ProfileController",
+                controllerAs: "model"
+            })
+            .when("/user/:uid/editprofile", {
+                templateUrl: "views/applicant/templates/editprofile.view.client.html",
+                controller: "ProfileController",
+                controllerAs: "model"
             })
             .when("/playground", {
                 templateUrl: "views/user/templates/registers.view.client.html",

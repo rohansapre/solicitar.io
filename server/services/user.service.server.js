@@ -29,10 +29,13 @@ module.exports = function (app, userModel) {
     }
 
     function findUserById(req, res) {
+
+        //console.log('also in server');
         var userId = req.params.userId;
         userModel
             .findUserById(userId)
             .then(function (user) {
+                console.log(user);
                 res.json(user);
             }, function (error) {
                 res.sendStatus(500).send(error);
