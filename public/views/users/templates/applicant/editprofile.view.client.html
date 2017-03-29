@@ -1,12 +1,12 @@
-<div class="container-fluid">
+<div class="container-fluid" onpageshow="getwidth()">
 
     <ol class="breadcrumb my-3">
         <li class="breadcrumb-item"><a href="">Homepage</a></li>
         <li class="breadcrumb-item active">{{model.user.firstName}}'s Profile</li>
     </ol>
     <!-- Card Columns -->
-        <div class="card-columns">
-            <div class="card">
+        <div class="card-deck">
+            <div class="card" style="width: 20rem;">
                 <h3 class="card-header">Featured <button class="btn btn-primary pull-right" onclick="editMethod()">Edit Profile</button></h3>
                 <img class="card-img-top img-fluid w-100" src="http://placehold.it/350x150" alt="Card image cap">
                 <div class="card-block" id="profcard">
@@ -40,11 +40,19 @@
                     </form>
                     </p>
                 </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
+                <!--<div class="card-footer">-->
+                    <!--<small class="text-muted">Last updated 3 mins ago</small>-->
+                <!--</div>-->
             </div>
+            <div class="card" id="forthewidth">
+                <h3 class="card-header">Resume <button class="btn btn-primary pull-right" onclick="editMethod()">Edit Resume</button></h3>
+                <div class="card-block">
+                    <embed id="resumeframe" src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf" width="100%" height="getwidth()">
+                    <!--<div><iframe id="resumeframe" src="http://www.orimi.com/pdf-test.pdf" onload="getwidth()" style="border: none;"></iframe></div>-->
+                </div></div>
         </div>
+    <!--<div><iframe src="https://research.google.com/pubs/archive/44678.pdf"-->
+                 <!--width="800px" height="600px" ></iframe></div>-->
 
 </div>
 
@@ -78,6 +86,21 @@
             x.style.display = 'none';
         }
     }
+
+    function getwidth() {
+//        var iFrameID = document.getElementById('resumeframe');
+//        if (iFrameID) {
+//            // here you can make the height, I delete it first, then I make it again
+//            iFrameID.width = "";
+//            var temp = document.getElementById('forthewidth').clientWidth;
+//            iFrameID.width = temp + "px";
+////            iFrameID.height = temp + "px";
+//
+//            console.log(temp);
+        var h = window.innerHeight;
+        console.log(h);
+        return h;
+        }
 </script>
 
 <!--<div class="container">-->

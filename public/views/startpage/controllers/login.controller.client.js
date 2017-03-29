@@ -4,7 +4,7 @@
         .controller("LoginController", loginController);
 
     function loginController($rootScope, $location, UserService) {
-        $rootScope.bodyLayout = 'home';
+        // $rootScope.bodyLayout = 'home';
         var vm = this;
 
         // event handlers
