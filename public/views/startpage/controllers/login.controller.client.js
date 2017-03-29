@@ -56,7 +56,7 @@
                 promise.success(function(user) {
                     if (user) {
                         if(user.type === 'RECRUITER') {
-                            $location.url("/recruiter/" + user._id);
+                            $location.url("/startpage/" + user._id);
                         } else
                             $location.url("/startpage/" + user._id);
                     }

@@ -3,9 +3,13 @@
  * Copyright 2013-2017 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
+
+html{
+    height: 100%;
+}
 body {
     padding-top: 54px;
-    padding-left: 0;
+    pading-left: 0;
     background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('picture.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -359,4 +363,49 @@ body .modal {
 
 .colwhite {
     color: #ffffff;
+}
+.fullHeight{
+  display: table;
+}
+.content-body {
+    display: table-row;
+    height:100%;
+}
+
+.resume{
+    display: table-cell;
+    height:100%;
+}
+
+
+.nonedit {
+    background-color:rgba(0, 0, 0, 0);
+    border: none;
+    outline:none;
+    height:30px;
+    transition:height 1s;
+    -webkit-transition:height 1s;
+}
+.nonedit :focus {
+    height:50px;
+    font-size:16px;
+}
+
+#imgoverlay {
+    position:relative;
+    display:inline-block;
+    text-align:center;
+}
+
+.buttonoverlay {
+    position:absolute;
+    bottom:10px;
+    right:10px;
+}
+.marginRight{
+    margin-right: 10px;
+}
+
+.buttonmargin button {
+    margin-left: 5px;
 }

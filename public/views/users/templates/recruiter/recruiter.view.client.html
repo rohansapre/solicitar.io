@@ -6,13 +6,13 @@
     <div class="collapse navbar-collapse" id="navbarExample">
         <ul class="sidebar-nav navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href ng-click="tab='dash'"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                <a class="nav-link" href ng-click="tab='dash'"><i class="fa fa-fw fa-dashboard"></i> {{model.user.firstName}}'s Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href ng-click="tab='profile'"><i class="fa fa-fw fa-area-chart"></i> Profile</a>
+                <a class="nav-link" href ng-click="tab='profile'"><i class="fa fa-fw fa-area-chart"></i> My Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href ng-click="tab='upcoming'"><i class="fa fa-fw fa-cogs"></i> Upcoming Interviews</a>
+                <a class="nav-link" href ng-click="tab='upcoming'"><i class="fa fa-fw fa-cogs"></i> Interviewers</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"><i class="fa fa-fw fa-table"></i> Tasks</a>
@@ -75,21 +75,17 @@
     </div>
 </nav>
 
-
-
-<!--<ng-include src="views/users/templates/users/dashboard.users.view.client.html"></ng-include>-->
-
 <div ng-switch on="tab">
     <div ng-switch-when="dash">
-        <ng-include src="'views/users/templates/applicant/dashboard.applicant.view.client.html'"></ng-include>
+        <ng-include src="'views/users/templates/recruiter/dashboard.recruiter.view.client.html'"></ng-include>
     </div>
     <div ng-switch-when="profile">
-        <ng-include src="'views/users/templates/applicant/editprofile.view.client.html'"></ng-include>
+        <ng-include src="'views/users/templates/recruiter/editprofile.view.client.html'"></ng-include>
     </div>
     <div ng-switch-when="upcoming">
-        <ng-include src="'views/users/templates/applicant/upcoming.view.client.html'"></ng-include>
+        <ng-include src="'views/users/templates/recruiter/upcoming.view.client.html'"></ng-include>
     </div>
     <div ng-switch-default>
-        <ng-include src="'views/users/templates/applicant/dashboard.applicant.view.client.html'"></ng-include>
+        <ng-include src="'views/users/templates/recruiter/dashboard.recruiter.view.client.html'"></ng-include>
     </div>
 </div>
