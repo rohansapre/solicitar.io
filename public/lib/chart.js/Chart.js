@@ -3574,8 +3574,8 @@ module.exports = function(Chart) {
 		easing: '', // the easing to use for this animation
 		render: null, // render function used by the animation service
 
-		onAnimationProgress: null, // user specified callback to fire on each step of the animation
-		onAnimationComplete: null // user specified callback to fire when the animation finishes
+		onAnimationProgress: null, // startpage specified callback to fire on each step of the animation
+		onAnimationComplete: null // startpage specified callback to fire when the animation finishes
 	});
 
 	Chart.animationService = {
@@ -4243,7 +4243,7 @@ module.exports = function(Chart) {
 					chartInstance.draw(easeDecimal, stepDecimal, animationObject.currentStep);
 				};
 
-				// user events
+				// startpage events
 				animation.onAnimationProgress = animationOptions.onProgress;
 				animation.onAnimationComplete = onComplete;
 
@@ -4441,7 +4441,7 @@ module.exports = function(Chart) {
 
 			// Responsiveness is currently based on the use of an iframe, however this method causes
 			// performance issues and could be troublesome when used with ad blockers. So make sure
-			// that the user is still able to create a chart without iframe when responsive is false.
+			// that the startpage is still able to create a chart without iframe when responsive is false.
 			// See https://github.com/chartjs/Chart.js/issues/2210
 			if (me.options.responsive) {
 				listener = function() {
@@ -4770,7 +4770,7 @@ module.exports = function(Chart) {
 			// the internal meta data accordingly.
 			if (me._data !== data) {
 				if (me._data) {
-					// This case happens when the user replaced the data array instance.
+					// This case happens when the startpage replaced the data array instance.
 					unlistenArrayEvents(me._data, me);
 				}
 
@@ -4778,7 +4778,7 @@ module.exports = function(Chart) {
 				me._data = data;
 			}
 
-			// Re-sync meta data in case the user replaced the data array or if we missed
+			// Re-sync meta data in case the startpage replaced the data array or if we missed
 			// any updates and so make sure that we handle number of datapoints changing.
 			me.resyncElements();
 		},
@@ -6279,7 +6279,7 @@ module.exports = function() {
 		return this.controller;
 	};
 
-	// Globally expose the defaults to allow for user updating/changing
+	// Globally expose the defaults to allow for startpage updating/changing
 	Chart.defaults = {
 		global: {
 			responsive: true,
@@ -9285,14 +9285,14 @@ module.exports = function(Chart) {
 					tooltipItems.push(createTooltipItem(active[i]));
 				}
 
-				// If the user provided a filter function, use it to modify the tooltip items
+				// If the startpage provided a filter function, use it to modify the tooltip items
 				if (opts.filter) {
 					tooltipItems = tooltipItems.filter(function(a) {
 						return opts.filter(a, data);
 					});
 				}
 
-				// If the user provided a sorting function, use it to modify the tooltip items
+				// If the startpage provided a sorting function, use it to modify the tooltip items
 				if (opts.itemSort) {
 					tooltipItems = tooltipItems.sort(function(a, b) {
 						return opts.itemSort(a, b, data);
@@ -10364,7 +10364,7 @@ module.exports = function(Chart) {
 		if (renderHeight === null || renderHeight === '') {
 			if (canvas.style.height === '') {
 				// If no explicit render height and style height, let's apply the aspect ratio,
-				// which one can be specified by the user but also by charts as default option
+				// which one can be specified by the startpage but also by charts as default option
 				// (i.e. options.aspectRatio). If not specified, use canvas aspect ratio of 2.
 				canvas.height = canvas.width / (config.options.aspectRatio || 2);
 			} else {
@@ -10663,13 +10663,13 @@ module.exports = function(Chart) {
 			var findIndex;
 
 			if (me.options.ticks.min !== undefined) {
-				// user specified min value
+				// startpage specified min value
 				findIndex = helpers.indexOf(labels, me.options.ticks.min);
 				me.minIndex = findIndex !== -1 ? findIndex : me.minIndex;
 			}
 
 			if (me.options.ticks.max !== undefined) {
-				// user specified max value
+				// startpage specified max value
 				findIndex = helpers.indexOf(labels, me.options.ticks.max);
 				me.maxIndex = findIndex !== -1 ? findIndex : me.maxIndex;
 			}
@@ -10961,7 +10961,7 @@ module.exports = function(Chart) {
 			var tickOpts = opts.ticks;
 
 			// If we are forcing it to begin at 0, but 0 will already be rendered on the chart,
-			// do nothing since that would make the chart weird. If the user really wants a weird chart
+			// do nothing since that would make the chart weird. If the startpage really wants a weird chart
 			// axis, they can manually override it
 			if (tickOpts.beginAtZero) {
 				var minSign = helpers.sign(me.min);

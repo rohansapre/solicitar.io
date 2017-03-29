@@ -35,7 +35,7 @@
                 if(user != null) {
                     vm.message = "User Successfully Updated!"
                 } else {
-                    vm.error = "Unable to update user";
+                    vm.error = "Unable to update startpage";
                 }
             });
         }
@@ -45,7 +45,7 @@
             if(user != null) {
                 vm.message = "User Successfully Deleted!"
             } else {
-                vm.error = "Unable to delete user!";
+                vm.error = "Unable to delete startpage!";
             }
         }
     }

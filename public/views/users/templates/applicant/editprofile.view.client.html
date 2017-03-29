@@ -1,0 +1,119 @@
+<div class="container-fluid">
+
+    <ol class="breadcrumb my-3">
+        <li class="breadcrumb-item"><a href="">Homepage</a></li>
+        <li class="breadcrumb-item active">{{model.user.firstName}}'s Profile</li>
+    </ol>
+    <!-- Card Columns -->
+        <div class="card-columns">
+            <div class="card">
+                <h3 class="card-header">Featured <button class="btn btn-primary pull-right" onclick="editMethod()">Edit Profile</button></h3>
+                <img class="card-img-top img-fluid w-100" src="http://placehold.it/350x150" alt="Card image cap">
+                <div class="card-block" id="profcard">
+                    <h4 class="card-title">{{model.user.firstName}} {{model.user.lastName}}</h4>
+                    <p class="card-text">One line Introduction goes here! This space can be used for something else as
+                        well.</p>
+                </div>
+                <div class="card-block" id="editcard" style="display: none;">
+                    <h4 class="card-title">{{model.user.firstName}} {{model.user.lastName}}</h4>
+                    <p class="card-text">
+                    <form>
+
+                        <label>Username</label>
+                        <input class="form-control" type="text" ng-model="model.user.username" placeholder="Username"/>
+
+                        <label for="email">Email</label>
+                        <input id="email" class="form-control" type="email" ng-model="model.user.email" placeholder="Email" />
+
+                        <label for="first">First Name</label>
+                        <input id="first" class="form-control" type="text" ng-model="model.user.firstName" placeholder="First Name"/>
+
+                        <label for="last">Last Name</label>
+                        <input id="last" class="form-control" type="text" ng-model="model.user.lastName" placeholder="Last Name"/>
+                        <label></label>
+                        <a class="btn btn-success btn-block form-control" ng-click="model.updateUser(model.user)">
+                            Update Profile
+                        </a>
+                        <a class="btn btn-warning btn-block" ng-click="model.deleteUser()">
+                            Deregister
+                        </a>
+                    </form>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+<!-- jQuery Version 3.1.1 -->
+<script src="lib/jquery/jquery.js"></script>
+
+<!-- Tether -->
+<script src="lib/tether/tether.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Chart.js -->
+<script src="lib/chart.js/Chart.min.js"></script>
+
+<!-- SB Admin JavaScript -->
+<script src="js/sb-admin.min.js"></script>
+
+<script>
+    function editMethod() {
+        var x = document.getElementById('profcard');
+        if (x.style.display === 'none') {
+            x.style.display = 'block';
+        } else {
+            x.style.display = 'none';
+        }
+        var x = document.getElementById('editcard');
+        if (x.style.display === 'none') {
+            x.style.display = 'block';
+        } else {
+            x.style.display = 'none';
+        }
+    }
+</script>
+
+<!--<div class="container">-->
+<!--<div ng-show= "model.error" class="alert alert-danger" role="alert">-->
+<!--{{model.error}}-->
+<!--</div>-->
+
+<!--<div ng-show= "model.message" class="alert alert-success" role="alert">-->
+<!--{{model.message}}-->
+<!--</div>-->
+
+<!--<form>-->
+
+<!--<label>Username</label>-->
+<!--<input class="form-control" type="text" ng-model="model.user.username" placeholder="Username"/>-->
+
+<!--<label for="email">Email</label>-->
+<!--<input id="email" class="form-control" type="email" ng-model="model.user.email" placeholder="Email" />-->
+
+<!--<label for="first">First Name</label>-->
+<!--<input id="first" class="form-control" type="text" ng-model="model.user.firstName" placeholder="First Name"/>-->
+
+<!--<label for="last">Last Name</label>-->
+<!--<input id="last" class="form-control" type="text" ng-model="model.user.lastName" placeholder="Last Name"/>-->
+
+<!--<a class="btn btn-primary btn-block" href="#/user/{{model.userId}}/website">-->
+<!--Websites-->
+<!--</a>-->
+<!--<a class="btn btn-success btn-block" ng-click="model.updateUser(model.user)">-->
+<!--Update Profile-->
+<!--</a>-->
+<!--<a class="btn btn-warning btn-block" ng-click="model.deleteUser()">-->
+<!--Deregister-->
+<!--</a>-->
+<!--<a class="btn btn-danger btn-block" href="#/login">-->
+<!--Logout-->
+<!--</a>-->
+<!--</form>-->
+<!--</div>-->

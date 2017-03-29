@@ -24,31 +24,31 @@
                 lastName    : user.lastname,
                 email       : user.email
             };
-            return $http.post("/api/user", newUser);
+            return $http.post("/api/startpage", newUser);
 
         }
 
         function updateUser(userId, newUser) {
-            return $http.put("/api/user/"+userId, newUser);
+            return $http.put("/api/startpage/"+userId, newUser);
 
         }
 
         function findUserById(userId) {
-            console.log('was in user.service.client.js');
-            return $http.get("/api/user/"+userId);
+            console.log('was in startpage.service.client.js');
+            return $http.get("/api/startpage/"+userId);
         }
 
         function findUserByUsername(username) {
-            return $http.get("/api/user?username="+username);
+            return $http.get("/api/startpage?username="+username);
         }
 
         function findUserByCredentials(username, password) {
             console.log(username);
-            return $http.get("/api/user?username="+username+"&password="+password);
+            return $http.get("/api/startpage?username="+username+"&password="+password);
         }
 
         function deleteUser(userId) {
-            return $http.delete("/api/user/" + userId);
+            return $http.delete("/api/startpage/" + userId);
         }
     }
 })();

@@ -97,16 +97,16 @@
     </div>
 </nav>
 
-<!--<ng-include src="views/applicant/templates/applicant/dashboard.applicant.view.client.html"></ng-include>-->
+<!--<ng-include src="views/users/templates/users/dashboard.users.view.client.html"></ng-include>-->
 
 <div ng-switch on="tab">
     <div ng-switch-when="dash">
-        <ng-include src="'views/applicant/templates/applicant/dashboard.applicant.view.client.html'"></ng-include>
+        <ng-include src="'views/users/templates/applicant/dashboard.applicant.view.client.html'"></ng-include>
     </div>
     <div ng-switch-when="profile">
-        <ng-include src="'views/applicant/templates/applicant/editprofile.view.client.html'"></ng-include>
+        <ng-include src="'views/users/templates/applicant/editprofile.view.client.html'"></ng-include>
     </div>
     <div ng-switch-default>
-        <ng-include src="'views/applicant/templates/applicant/dashboard.applicant.view.client.html'"></ng-include>
+        <ng-include src="'views/users/templates/applicant/dashboard.applicant.view.client.html'"></ng-include>
     </div>
 </div>

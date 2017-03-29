@@ -40,7 +40,7 @@
                         if(user.type === 'RECRUITER') {
                             $location.url("/recruiter/" + user._id);
                         } else
-                            $location.url("/user/" + user._id);
+                            $location.url("/startpage/" + user._id);
                     }
                     else {
                         vm.error = "User not found!";

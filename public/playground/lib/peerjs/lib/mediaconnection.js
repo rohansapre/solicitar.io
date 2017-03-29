@@ -82,7 +82,7 @@ MediaConnection.prototype.answer = function(stream) {
  * Exposed functionality for users.
  */
 
-/** Allows user to close connection. */
+/** Allows startpage to close connection. */
 MediaConnection.prototype.close = function() {
   if (!this.open) {
     return;

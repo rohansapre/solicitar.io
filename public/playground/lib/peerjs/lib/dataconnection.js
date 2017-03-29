@@ -142,7 +142,7 @@ DataConnection.prototype._handleDataMessage = function(e) {
  * Exposed functionality for users.
  */
 
-/** Allows user to close connection. */
+/** Allows startpage to close connection. */
 DataConnection.prototype.close = function() {
   if (!this.open) {
     return;
@@ -152,7 +152,7 @@ DataConnection.prototype.close = function() {
   this.emit('close');
 }
 
-/** Allows user to send data. */
+/** Allows startpage to send data. */
 DataConnection.prototype.send = function(data, chunked) {
   if (!this.open) {
     this.emit('error', new Error('Connection is not open. You should listen for the `open` event before sending messages.'));

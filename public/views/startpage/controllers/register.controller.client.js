@@ -28,13 +28,13 @@
                         var promise = UserService.createUser(user);
                         promise
                             .success(function (user) {
-                                $location.url("/user/" + user._id);
+                                $location.url("/startpage/" + user._id);
                             });
 
                     });
-                // var newUser = UserService.createUser(user);
+                // var newUser = UserService.createUser(startpage);
                 // if(newUser) {
-                //     $location.url("/user/"+newUser._id);
+                //     $location.url("/startpage/"+newUser._id);
                 // }
                 // else {
                 //     vm.error = "User cannot be created";

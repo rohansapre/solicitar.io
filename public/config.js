@@ -13,34 +13,29 @@
         $routeProvider
             .when("/login", {
 
-                templateUrl: "views/user/templates/login.view.client.html",
+                templateUrl: "views/startpage/templates/login.view.client.html",
                 controller: "LoginController",
                 controllerAs: "model"
             })
             .when("/", {
-                templateUrl: "views/user/templates/login.view.client.html",
-                //templateUrl: "views/user/templates/login.view.client.html",
+                templateUrl: "views/startpage/templates/login.view.client.html",
+                //templateUrl: "views/startpage/templates/login.view.client.html",
                 controller: "LoginController",
                 controllerAs: "model"
             })
             .when("default", {
 
-                templateUrl: "views/user/templates/login.view.client.html",
+                templateUrl: "views/startpage/templates/login.view.client.html",
                 controller: "LoginController",
                 controllerAs: "model"
             })
             .when("/register", {
-                templateUrl: "views/user/templates/registers.view.client.html",
+                templateUrl: "views/startpage/templates/registers.view.client.html",
                 controller: "RegisterController",
                 controllerAs: "model"
             })
-            .when("/user/:uid", {
-                templateUrl: "views/applicant/templates/common.view.client.html",
-                controller: "ProfileController",
-                controllerAs: "model"
-            })
-            .when("/user/:uid/editprofile", {
-                templateUrl: "views/applicant/templates/editprofile.view.client.html",
+            .when("/startpage/:uid", {
+                templateUrl: "views/users/common.view.client.html",
                 controller: "ProfileController",
                 controllerAs: "model"
             })
@@ -50,7 +45,7 @@
                 controllerAs: "model"
             })
             .when("/playground", {
-                templateUrl: "views/user/templates/registers.view.client.html",
+                templateUrl: "views/startpage/templates/registers.view.client.html",
                 controller: "playgroundController",
                 controllerAs: "model"
             })

@@ -2,11 +2,11 @@
  * Created by rohansapre on 3/22/17.
  */
 module.exports = function (app, userModel) {
-    app.post("/api/user", createUser);
-    app.get("/api/user", findUser);
-    app.get("/api/user/:userId", findUserById);
-    app.put("/api/user/:userId", updateUser);
-    app.delete("/api/user/:userId", deleteUser);
+    app.post("/api/startpage", createUser);
+    app.get("/api/startpage", findUser);
+    app.get("/api/startpage/:userId", findUserById);
+    app.put("/api/startpage/:userId", updateUser);
+    app.delete("/api/startpage/:userId", deleteUser);
 
     function createUser(req, res) {
         var newUser = req.body;
