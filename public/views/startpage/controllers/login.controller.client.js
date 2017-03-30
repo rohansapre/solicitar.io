@@ -23,8 +23,6 @@
                 UserService.createUser(user)
                     .success(function (user) {
                         if (user) {
-                            console.log("Controller user: ");
-                            console.log(user);
                             $location.url("/user/" + user._id);
                         }
                         else
