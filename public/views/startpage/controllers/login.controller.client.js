@@ -49,9 +49,9 @@
                 promise.success(function(user) {
                     if (user) {
                         if(user.type === 'RECRUITER') {
-                            $location.url("/startpage/" + user._id);
+                            $location.url("/user/" + user._id);
                         } else
-                            $location.url("/startpage/" + user._id);
+                            $location.url("/user/" + user._id);
                     }
                     else {
                         vm.error = "User not found!";
