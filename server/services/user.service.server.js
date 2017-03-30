@@ -8,6 +8,24 @@ module.exports = function (app, userModel) {
     app.put("/api/user/:userId", updateUser);
     app.delete("/api/user/:userId", deleteUser);
 
+    // Image Upload Settings
+
+    var multer = require('multer');
+    var storage = multer.diskStorage({
+        destination: function (req, file, cd) {
+            cd(null, __dirname + "/../../public/uploads/images")
+        },
+        filename: function (req, file, cb) {
+            var extArray = file.mimetype.split("/");
+            var extension = extArray[extArray.length-1];
+            cb(null, 'profile_' + Date.now() + '.' + extension);
+        }
+    });
+    var upload = multer({storage: storage});
+
+    // routes
+    app.post("/api/upload/image", upload.single('profile-picture'), uploadImage);
+
     function createUser(req, res) {
         var newUser = req.body;
         userModel
@@ -87,5 +105,25 @@ module.exports = function (app, userModel) {
             }, function (error) {
                 res.sendStatus(500).send(error);
             })
+    }
+
+    function uploadImage(req, res) {
+        var userId = req.body.userId;
+        var picture = req.file;
+        var user = {
+            email: req.body.email,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            picture: req.protocol + '://' + req.get('host') + '/uploads/images/' + picture.filename
+        };
+        if (picture) {
+            console.log(picture.destination);
+            userModel.updateUser(userId, user)
+                .then(function (user) {
+                    res.redirect("/#/user/" + userId);
+                }, function (error) {
+                    res.sendStatus(500).send(error);
+                });
+        }
     }
 };
