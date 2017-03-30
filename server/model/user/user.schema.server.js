@@ -10,6 +10,9 @@ var userSchema = mongoose.Schema({
     firstName: String,
     lastName: String,
     type: { type: String, enum: users },
+    picture: String,
+    resume: String,
+    coverLetter: String,
     dateCreated: { type: Date, default: Date.now() }
 }, {collection: 'user'});
 

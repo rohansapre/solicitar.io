@@ -7,79 +7,93 @@
     <!-- Card Columns -->
     <div class="card-deck">
         <div class="card">
-            <h3 class="card-header"><small>Profile</small>
-                <button class="btn btn-primary pull-right" ng-click="model.updateUser(model.user)">Update Profile</button>
-            </h3>
-            <div id="imgoverlay">
-            <img class="card-img-top img-fluid w-100" src="http://placehold.it/350x150" alt="Card image cap" >
-                <button class="btn btn-primary buttonoverlay"> Change Profile Picture </button>
-            </div>
-            <div ng-show="model.error" class="alert alert-danger" role="alert">
-                {{model.error}}
-            </div>
-
-            <div ng-show="model.message" class="alert alert-success" role="alert">
-                {{model.message}}
-            </div>
-
-            <div class="card-block" id="profcard">
-                <h4 class="card-title">{{model.name}}</h4>
-                <p class="card-text">
-                <form>
-
-                <label><b>Username:</b></label>
-                <!--<p>{{model.user.username}}</p>-->
-                    <input class="form-control nonedit" type="text" ng-model="model.user.username" placeholder="Username" readonly disabled/>
-
-                <label for="email"><b>Email:</b></label>
-                    <input id="email" class="form-control" type="email" ng-model="model.user.email"
-                           placeholder="Email"/>
-
-                <label for="first"><b>First Name:</b></label>
-                    <input id="first" class="form-control" type="text" ng-model="model.user.firstName"
-                           placeholder="First Name"/>
-
-                <label for="last"><b>Last Name:</b></label>
-                    <input id="last" class="form-control" type="text" ng-model="model.user.lastName"
-                           placeholder="Last Name"/>
-                    <label></label>
-                    <button class="btn btn-warning btn-block" ng-click="model.deleteUser()">
-                        Deregister
+            <form action="/api/upload/image" method="post" enctype="multipart/form-data">
+                <h3 class="card-header">
+                    <small>Profile</small>
+                    <button class="btn btn-primary pull-right" ng-click="model.updateUser(model.user)">Update Profile
                     </button>
-                </form>
-                </p>
-            </div>
+                </h3>
+                <div class="card-block" id="imgoverlay">
+                    <img class="card-img-top img-fluid w-100" src="{{model.user.picture}}" alt="Card image cap">
+                    <input class="image-upload pull-left" type="file" id="picture-upload" name="profile-picture"/>
+                    <input name="userId" value="{{model.user._id}}" style="display: none"/>
+                    <input name="email" value="{{model.user.email}}" style="display: none"/>
+                    <input name="firstName" value="{{model.user.firstName}}" style="display: none"/>
+                    <input name="lastName" value="{{model.user.lastName}}" style="display: none"/>
+                    <button type="submit" class="btn btn-primary pull-right image-upload">Upload</button>
+                </div>
+                <div ng-show="model.error" class="alert alert-danger" role="alert">
+                    {{model.error}}
+                </div>
+
+                <div ng-show="model.message" class="alert alert-success" role="alert">
+                    {{model.message}}
+                </div>
+
+                <div class="card-block" id="profcard">
+                    <h4 class="card-title">{{model.name}}</h4>
+                    <p class="card-text">
+
+                        <label><b>Username:</b></label>
+                        <!--<p>{{model.user.username}}</p>-->
+                        <input class="form-control nonedit" type="text" ng-model="model.user.username"
+                               placeholder="Username" readonly disabled/>
+
+                        <label for="email"><b>Email:</b></label>
+                        <input id="email" class="form-control" type="email" ng-model="model.user.email"
+                               placeholder="Email"/>
+
+                        <label for="first"><b>First Name:</b></label>
+                        <input id="first" class="form-control" type="text" ng-model="model.user.firstName"
+                               placeholder="First Name"/>
+
+                        <label for="last"><b>Last Name:</b></label>
+                        <input id="last" class="form-control" type="text" ng-model="model.user.lastName"
+                               placeholder="Last Name"/>
+                        <label></label>
+                        <button class="btn btn-warning btn-block" ng-click="model.deleteUser()">
+                            Deregister
+                        </button>
+                    </p>
+                </div>
+            </form>
             <!--<div class="card-footer">-->
             <!--<small class="text-muted">Last updated 3 mins ago</small>-->
             <!--</div>-->
         </div>
-        <div class="card fullHeight  hidden-md-down" id="forthewidth">
-            <h3 class="card-header"><small>Resume</small>
+        <div class="card fullHeight hidden-md-down" id="forthewidth">
+                <h3 class="card-header">
+                    <small>Resume</small>
+                    <button class="btn btn-primary pull-right" onclick="editMethod()">Upload</button>
+                </h3>
+                <div class="card-block content-body">
+                    <!--<iframe src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf#view=fit"></iframe>-->
+                    <embed id="resumeframe" class="resume" src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf"
+                           width="100%">
+                        <!--<div><iframe id="resumeframe" src="http://www.orimi.com/pdf-test.pdf" onload="getwidth()" style="border: none;"></iframe></div>-->
+                </div>
+        </div>
+        <div class="card fullHeight hidden-md-down" id="forthewidth">
+            <h3 class="card-header">
+                <small>Cover Letter</small>
+
                 <button class="btn btn-primary pull-right" onclick="editMethod()">Upload</button>
             </h3>
             <div class="card-block content-body">
                 <!--<iframe src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf#view=fit"></iframe>-->
-                <embed id="resumeframe" class="resume" src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf" width="100%">
+                <embed id="resumeframe" class="resume" src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf"
+                       width="100%">
                     <!--<div><iframe id="resumeframe" src="http://www.orimi.com/pdf-test.pdf" onload="getwidth()" style="border: none;"></iframe></div>-->
             </div>
         </div>
-        <div class="card fullHeight  hidden-md-down" id="forthewidth">
-            <h3 class="card-header"><small>Cover Letter</small>
-                <button class="btn btn-primary pull-right" onclick="editMethod()">Upload</button>
-            </h3>
-            <div class="card-block content-body">
-                <!--<iframe src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf#view=fit"></iframe>-->
-                <embed id="resumeframe" class="resume" src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf" width="100%">
-                    <!--<div><iframe id="resumeframe" src="http://www.orimi.com/pdf-test.pdf" onload="getwidth()" style="border: none;"></iframe></div>-->
-            </div>
-        </div>
+
         <div class="card hidden-lg-up" id="forthewidth">
             <h3 class="card-header "><small>Resume</small>
                 <div class="btn-group pull-right marginRight" role="group" aria-label="...">
-                <button class="btn btn-primary">View</button>
+                    <button class="btn btn-primary">View</button>
                 </div>
                 <div class="btn-group pull-right marginRight " role="group" aria-label="ll">
-                <button class="btn btn-primary">Upload</button>
+                    <button class="btn btn-primary">Upload</button>
                 </div>
             </h3>
         </div>
@@ -115,20 +129,20 @@
 <!--<script src="js/sb-admin.min.js"></script>-->
 
 <script>
-//    function editMethod() {
-//        var x = document.getElementById('profcard');
-//        if (x.style.display === 'none') {
-//            x.style.display = 'block';
-//        } else {
-//            x.style.display = 'none';
-//        }
-//        var x = document.getElementById('editcard');
-//        if (x.style.display === 'none') {
-//            x.style.display = 'block';
-//        } else {
-//            x.style.display = 'none';
-//        }
-//    }
+    //    function editMethod() {
+    //        var x = document.getElementById('profcard');
+    //        if (x.style.display === 'none') {
+    //            x.style.display = 'block';
+    //        } else {
+    //            x.style.display = 'none';
+    //        }
+    //        var x = document.getElementById('editcard');
+    //        if (x.style.display === 'none') {
+    //            x.style.display = 'block';
+    //        } else {
+    //            x.style.display = 'none';
+    //        }
+    //    }
 
     function getwidth() {
 //        var iFrameID = document.getElementById('resumeframe');
