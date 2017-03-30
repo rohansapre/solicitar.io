@@ -56,6 +56,9 @@
 
         function onReceiveStream(stream, element_id){
             var video = $('#' + element_id + ' video')[0];
+            console.log("Stream");
+            console.log(stream);
+            console.log(window.URL.createObjectURL(stream));
             video.src = window.URL.createObjectURL(stream);
             window.peer_stream = stream;
         }
