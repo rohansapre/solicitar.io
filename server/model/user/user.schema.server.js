@@ -10,7 +10,6 @@ var userSchema = mongoose.Schema({
     firstName: String,
     lastName: String,
     type: { type: String, enum: users },
-    _organization: { type: mongoose.Schema.Types.ObjectId, ref: 'Organization' },
     dateCreated: { type: Date, default: Date.now() }
 }, {collection: 'user'});
 

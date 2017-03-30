@@ -2,11 +2,11 @@
  * Created by rohansapre on 3/22/17.
  */
 module.exports = function (app, userModel) {
-    app.post("/api/startpage", createUser);
-    app.get("/api/startpage", findUser);
-    app.get("/api/startpage/:userId", findUserById);
-    app.put("/api/startpage/:userId", updateUser);
-    app.delete("/api/startpage/:userId", deleteUser);
+    app.post("/api/user", createUser);
+    app.get("/api/user", findUser);
+    app.get("/api/user/:userId", findUserById);
+    app.put("/api/user/:userId", updateUser);
+    app.delete("/api/user/:userId", deleteUser);
 
     function createUser(req, res) {
         var newUser = req.body;
@@ -15,7 +15,11 @@ module.exports = function (app, userModel) {
             .then(function (user) {
                 res.json(user);
             }, function (error) {
-                res.sendStatus(500).send(error);
+                if(error.duplicate) {
+                    res.statusMessage = JSON.stringify(error);
+                    res.status(500).end();
+                } else
+                    res.sendStatus(500).send(error);
             })
     }
 
@@ -29,8 +33,6 @@ module.exports = function (app, userModel) {
     }
 
     function findUserById(req, res) {
-
-        //console.log('also in server');
         var userId = req.params.userId;
         userModel
             .findUserById(userId)
@@ -45,7 +47,6 @@ module.exports = function (app, userModel) {
     function findUserByCredentials(req, res) {
         var username = req.query.username;
         var password = req.query.password;
-        console.log("Reached server" + username);
         userModel
             .findUserByCredentials(username, password)
             .then(function (user) {

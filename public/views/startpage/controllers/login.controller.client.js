@@ -17,38 +17,31 @@
         init();
 
         function create(user) {
-            console.log(user);
-            if (user.password==user.passverify) {
+            if (user.password === user.passverify) {
                 user.type = 'APPLICANT';
-                UserService
-                    .findUserByUsername(user.username)
-                    .success(function(user) {
-                        vm.error = "That username is already taken";
+                delete user.passverify;
+                UserService.createUser(user)
+                    .success(function (user) {
+                        if (user) {
+                            console.log("Controller user: ");
+                            console.log(user);
+                            $location.url("/user/" + user._id);
+                        }
+                        else
+                            vm.error = "The user cannot be registered";
                     })
-                    .error(function(err){
-                        vm.message = "Available";
-                        var promise = UserService.createUser(user);
-                        promise
-                            .success(function (user) {
-                                $location.url("/startpage/" + user._id);
-                            });
-
+                    .error(function (error) {
+                        if (error.statusText.indexOf('duplicate')) {
+                            var duplicate = JSON.parse(error.statusText);
+                            vm.error = "That " + duplicate.field + " is already taken";
+                        }
                     });
-                // var newUser = UserService.createUser(startpage);
-                // if(newUser) {
-                //     $location.url("/startpage/"+newUser._id);
-                // }
-                // else {
-                //     vm.error = "User cannot be created";
-                // }
-            }
-            else {
-                vm.error = "Passwords do not match"
-            }
+            } else
+                vm.error = "Passwords do not match";
         }
 
         function login(user) {
-            if (user != null) {
+            if (user !== null) {
 
                 var promise = UserService
                     .findUserByCredentials(user.username, user.password);
@@ -56,9 +49,9 @@
                 promise.success(function(user) {
                     if (user) {
                         if(user.type === 'RECRUITER') {
-                            $location.url("/startpage/" + user._id);
+                            $location.url("/user/" + user._id);
                         } else
-                            $location.url("/startpage/" + user._id);
+                            $location.url("/user/" + user._id);
                     }
                     else {
                         vm.error = "User not found!";

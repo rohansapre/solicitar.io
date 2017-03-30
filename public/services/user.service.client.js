@@ -16,39 +16,27 @@
         return api;
 
         function createUser(user) {
-            var newUser = {
-                _id         : +new Date(),
-                username    : user.username,
-                password    : user.password,
-                firstName   : user.firstname,
-                lastName    : user.lastname,
-                email       : user.email
-            };
-            return $http.post("/api/startpage", newUser);
-
+            return $http.post("/api/user", user);
         }
 
         function updateUser(userId, newUser) {
-            return $http.put("/api/startpage/"+userId, newUser);
-
+            return $http.put("/api/user/"+userId, newUser);
         }
 
         function findUserById(userId) {
-            console.log('was in startpage.service.client.js');
-            return $http.get("/api/startpage/"+userId);
+            return $http.get("/api/user/"+userId);
         }
 
         function findUserByUsername(username) {
-            return $http.get("/api/startpage?username="+username);
+            return $http.get("/api/user?username="+username);
         }
 
         function findUserByCredentials(username, password) {
-            console.log(username);
-            return $http.get("/api/startpage?username="+username+"&password="+password);
+            return $http.get("/api/user?username="+username+"&password="+password);
         }
 
         function deleteUser(userId) {
-            return $http.delete("/api/startpage/" + userId);
+            return $http.delete("/api/user/" + userId);
         }
     }
 })();
