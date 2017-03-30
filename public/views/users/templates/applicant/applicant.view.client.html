@@ -15,6 +15,12 @@
                 <a class="nav-link" href ng-click="tab='upcoming'"><i class="fa fa-fw fa-cogs"></i> Upcoming Interviews</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href ng-click="tab='past'"><i class="fa fa-fw fa-cogs"></i> Past Interviews</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href ng-click="tab='new'"><i class="fa fa-fw fa-cogs"></i> Schedule Interview</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link"><i class="fa fa-fw fa-table"></i> Tasks</a>
             </li>
         </ul>
@@ -88,6 +94,12 @@
     </div>
     <div ng-switch-when="upcoming">
         <ng-include src="'views/users/templates/applicant/upcoming.view.client.html'"></ng-include>
+    </div>
+    <div ng-switch-when="past">
+        <ng-include src="'views/users/templates/applicant/past.view.client.html'"></ng-include>
+    </div>
+    <div ng-switch-when="new">
+        <ng-include src="'views/users/templates/applicant/newschedule.view.client.html'"></ng-include>
     </div>
     <div ng-switch-default>
         <ng-include src="'views/users/templates/applicant/dashboard.applicant.view.client.html'"></ng-include>
