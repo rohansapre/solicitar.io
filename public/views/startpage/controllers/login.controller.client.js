@@ -31,6 +31,7 @@
                             vm.error = "The user cannot be registered";
                     })
                     .error(function (error) {
+                        console.log(error);
                         if (error.statusText.indexOf('duplicate')) {
                             var duplicate = JSON.parse(error.statusText);
                             vm.error = "That " + duplicate.field + " is already taken";

@@ -20,6 +20,7 @@ module.exports = userModel;
 function createUser(user) {
     var d = q.defer();
     userModel.create(user, function (err, user) {
+        console.log(user);
         if(err) {
             var msg = err['errmsg'];
             if (msg.indexOf('duplicate key error') > -1) {
