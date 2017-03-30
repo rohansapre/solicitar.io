@@ -14,16 +14,9 @@
             vm.userId = $routeParams['uid'];
             var promise = UserService.findUserById(vm.userId);
             promise.success(function(user) {
-
-                console.log(user);
-
-
                 vm.user = user;
-                console.log('dkn');
+                vm.name = user.firstName + " " + user.lastName;
             });
-
-            userId = vm.userId
-            console.log(vm.user);
 
         }
         init();
@@ -34,6 +27,7 @@
                 .success(function (user) {
                 if(user != null) {
                     vm.message = "User Successfully Updated!"
+                    init();
                 } else {
                     vm.error = "Unable to update startpage";
                 }

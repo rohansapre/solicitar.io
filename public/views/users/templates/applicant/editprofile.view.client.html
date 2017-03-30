@@ -14,8 +14,16 @@
             <img class="card-img-top img-fluid w-100" src="http://placehold.it/350x150" alt="Card image cap" >
                 <button class="btn btn-primary buttonoverlay"> Change Profile Picture </button>
             </div>
+            <div ng-show="model.error" class="alert alert-danger" role="alert">
+                {{model.error}}
+            </div>
+
+            <div ng-show="model.message" class="alert alert-success" role="alert">
+                {{model.message}}
+            </div>
+
             <div class="card-block" id="profcard">
-                <h4 class="card-title">{{model.user.firstName}} {{model.user.lastName}}</h4>
+                <h4 class="card-title">{{model.name}}</h4>
                 <p class="card-text">
                 <form>
 
