@@ -1,6 +1,7 @@
 /**
  * Created by amulmehta on 3/26/17.
  */
+require('dotenv').load();
 var express = require('express');
 var https = require('https');
 var fs = require('fs');

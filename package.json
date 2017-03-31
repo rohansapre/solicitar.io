@@ -15,7 +15,9 @@
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
-    "q": "^1.4.1"
+    "q": "^1.4.1",
+    "dotenv": "^1.2.0",
+    "twilio": "^2.9.2"
   },
   "devDependencies": {
     "bootstrap": "^4.0.0-alpha.6",

@@ -20,9 +20,15 @@
         var api = {
             "getRef": getRef,
             "compile" : compile,
-            "getSubmissionResult": getSubmissionResult
+            "getSubmissionResult": getSubmissionResult,
+            "getToken": getToken
         };
         return api;
+
+
+        function getToken() {
+            return $http.get('/twilio/token');
+        }
 
         function getRef() {
             return firebase.database().ref();
