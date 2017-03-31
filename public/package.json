@@ -8,6 +8,7 @@
     "chart.js": "^2.5.0",
     "express": "^4.13.4",
     "mongoose": "^4.4.15",
+    "multer": "^1.2.0",
     "peerjs": "^0.3.14"
   },
   "devDependencies": {
