@@ -40,6 +40,11 @@
                 templateUrl: "playground/playground.html",
                 controller: "playgroundController",
                 controllerAs: "model"
+            })
+            .when("interview/:interviewId",{
+                templateUrl: "views/interview/templates/interview.view.client.html",
+                controller: "interviewController",
+                controllerAs: "model"
             });
     }
 })();

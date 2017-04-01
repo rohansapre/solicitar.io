@@ -34,4 +34,5 @@ module.exports = function (app) {
     require('./services/user.service.server.js')(app, userModel);
     require("./services/playground.service.server")(app);
     require('./services/recruiter.service.server')(app);
+    require('./services/interview.service.server')(app);
 };
