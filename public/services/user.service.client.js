@@ -11,7 +11,8 @@
             "findUserById": findUserById,
             "updateUser": updateUser,
             "deleteUser": deleteUser,
-            "findUserByUsername": findUserByUsername
+            "findUserByUsername": findUserByUsername,
+            "setAvailability": setAvailability
         };
         return api;
 
@@ -37,6 +38,20 @@
 
         function deleteUser(userId) {
             return $http.delete("/api/user/" + userId);
+        }
+
+        // Function used to set the availability of user
+        // Pass userID and times object which has the following structure:
+        // times = {
+        //    start: [startTimes],
+        //    end: [endTimes]
+        // }
+        function setAvailability(userId, times) {
+            return $http.post("/api/calendar/" + userId, times);
+        }
+
+        function updateAvailability(userId, times) {
+            return $http.put("/api/calendar/" + userId, times);
         }
     }
 })();

@@ -17,7 +17,6 @@
         function create(user) {
             console.log(user);
             if (user.password==user.passverify) {
-                user.type = 'APPLICANT';
                 UserService
                     .findUserByUsername(user.username)
                     .success(function(user) {

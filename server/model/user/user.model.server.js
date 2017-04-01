@@ -20,6 +20,7 @@ module.exports = userModel;
 
 function createUser(user) {
     var d = q.defer();
+    user.status = 'JOINED';
     userModel.create(user, function (err, user) {
         console.log(user);
         if(err) {
