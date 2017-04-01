@@ -17,7 +17,6 @@
         function create(user) {
             console.log(user);
             if (user.password==user.passverify) {
-                user.type = 'APPLICANT';
                 UserService
                     .findUserByUsername(user.username)
                     .success(function(user) {
@@ -28,7 +27,7 @@
                         var promise = UserService.createUser(user);
                         promise
                             .success(function (user) {
-                                $location.url("/startpage/" + user._id);
+                                $location.url("/user/" + user._id);
                             });
 
                     });

@@ -1,0 +1,39 @@
+/**
+ * Created by rohansapre on 4/1/17.
+ */
+var mongoose = require('mongoose');
+var q = require('q');
+var calendarSchema = require('./calendar.schema.server');
+var calendarModel = mongoose.model('Calendar', calendarSchema);
+
+// api
+
+calendarModel.setAvailability = setAvailability;
+calendarModel.updateAvailability = updateAvailability;
+
+function setAvailability(userId, times) {
+    var d = q.defer();
+    var calendar = {
+        _user: userId,
+        startTime: times.start,
+        endTime: times.end
+    };
+    calendarModel.create(calendar, function (err, calendar) {
+        if(err)
+            d.reject(err);
+        else
+            d.resolve(calendar);
+    });
+    return d.promise;
+}
+
+function updateAvailability(userId, times) {
+    var d = q.defer();
+    calendarModel.findOneAndUpdate({_user: userId}, {$set: {startTime: times.start, endTime: times.end}}, function (err, calendar) {
+        if(err)
+            d.reject(err);
+        else
+            d.resolve(calendar);
+    });
+    return d.promise;
+}

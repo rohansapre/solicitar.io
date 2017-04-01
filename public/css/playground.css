@@ -1,27 +1,28 @@
 #myCode {
     position: relative;
     margin: 20px auto;
-    width: 500px;
-    height: 1000px;
+    width: 800px;
+    height: 500px;
     overflow:auto;
+    display: block;
 }
 @import url(https://fonts.googleapis.com/css?family=Share+Tech+Mono);
 
 
 div#remote-media {
-    height: 43%;
-    width: 100%;
-    background-color: #fff;
-    text-align: center;
+    height: 50%;
+    width: 85%;
+    background-color: #000000;
     margin: auto;
+
 }
 
 div#remote-media video {
     border: 1px solid #272726;
-    margin: 3em 2em;
-    height: 70%;
-    max-width: 27% !important;
-    background-color: #272726;
+    margin: 1em 1em;
+    height: 85%;
+    max-width: 85% !important;
+    background-color: #000000;
     background-repeat: no-repeat;
 }
 
@@ -96,7 +97,7 @@ div#controls div#preview button#button-preview {
     padding-left: 1.5em;
 }
 
-div#controls div#log {
+div#controls div#log div#results {
     border: 1px solid #686865;
 }
 
@@ -121,17 +122,18 @@ div#controls div#room-controls button#button-leave {
     display: none;
 }
 
-div#controls div#log {
+div#controls div#log div#results {
     width: 35%;
     height: 9.5em;
     margin-top: 2.75em;
+    margin-left: 2em;
     text-align: left;
     padding: 1.5em;
-    float: right;
+    float: left;
     overflow-y: scroll;
 }
 
-div#controls div#log p {
+div#controls div#log div#results p {
     color: #686865;
     font-family: 'Share Tech Mono', 'Courier New', Courier, fixed-width;
     font-size: 1.25em;
@@ -139,4 +141,18 @@ div#controls div#log p {
     margin-left: 1em;
     text-indent: -1.25em;
     width: 90%;
+
+}
+div#results{
+    background-color: white;
+}
+
+.marginBottom{
+    margin-bottom: 10px;
+}
+.centerAlign{
+    text-align: center;
+    width: 50%;
+
+
 }

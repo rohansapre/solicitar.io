@@ -12,15 +12,16 @@
         vm.createNewPad = createNewPad;
         vm.compile = compile;
         vm.getResults = getResults;
-        vm.login = login;
-        vm.call = call;
-
+        vm.changeLanguage = changeLanguage;
 
 
         vm.cameraPreview = cameraPreview;
         vm.joinRoom = joinRoom;
         vm.leaveRoom = leaveRoom;
 
+
+        vm.languages = ['python', 'java', 'cpp'];
+        var languageId = 4;
         var firepadReference;
         var submissionId;
         var messages = [];
@@ -31,8 +32,24 @@
         vm.ownIdHide = true;
         vm.lol = "afasfs";
         vm.ownId = "dd";
-        var ownId;
 
+        vm.language = 'python';
+        var ownId;
+        var editor;
+
+        // ---- code Mirror options -------
+        var pythonOptions = {
+            name: "python",
+            version: 2,
+            singleLineStringErrors: false
+        };
+        var javaOptions = "text/x-java";
+
+        var cppOptions = "text/x-c++src";
+        var javaInitializationCode = "/* package whatever; // don't place package name! */\nimport java.io.*;\nimport java.util.Scanner;\npublic class program {\n public static void main(String[] args) {\n \tSystem.out.println(\"Hello Java\");\n \tScanner sc = new Scanner(System.in);\n \tString a = sc.nextLine();\n}";
+        var pythonInitializationCode = "print \"Hello World\"";
+        var cppInitializationCode="\#include \<iostream\>\nusing namespace std;\nint main() {\ncout<<\"Hello\";\nreturn 0;\n}"
+        // ------------------------------
 
         // Twilio
 
@@ -45,14 +62,28 @@
         function init() {
             var padId = $routeParams['pgid'];
             if (padId == null) {
+
                 vm.visible = true;
+                createNewPad();
             }
             else {
                 vm.visible = false;
-                initializePad()
+                initializePad();
             }
+
+            // playgroundService.getLanguages().success(function (data) {
+            //     console.log("dfsdf");
+            //    console.log(data);
+            //
+            // });
+
             vm.ownId = ownId;
             initializeTwilio();
+
+
+            //setupTwilio();
+
+
             // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
             // initializeWebRTC();
 
@@ -61,14 +92,14 @@
         init();
 
 
-
         //-------------- START TWILIO --------------------------
 
-        function initializeTwilio(){
+        function initializeTwilio() {
 
             // Check for WebRTC
             if (!navigator.webkitGetUserMedia && !navigator.mozGetUserMedia) {
                 alert('WebRTC is not available in your browser.');
+                // do something
             }
 
             // When we are about to transition away from this page, disconnect
@@ -93,7 +124,45 @@
                 twilioData = data;
 
 
+            });
 
+
+        }
+
+
+        function setupTwilio(){
+            //TODO: setup camera and microphone, try to connect to the room
+
+            // When we are about to transition away from this page, disconnect
+            // from the room, if joined.
+            window.addEventListener('beforeunload', leaveRoomIfJoined);
+
+
+            var tokenPromise = playgroundService.getToken();
+
+            tokenPromise.success(function (data) {
+
+                identity = data.identity;
+                console.log("identity");
+                console.log(identity);
+
+                document.getElementById('room-controls').style.display = 'block';
+
+                vm.joinDisabled = false;
+                vm.leaveDisabled = false;
+                twilioData = data;
+
+                playgroundService.getTwilioRoom().success(function (data) {
+
+                    roomName = data['roomName'];
+                    joinRoom();
+
+                }).error(function (err) {
+                    console.log(err);
+                });
+
+            }).error(function (err) {
+                console.log(err);
             });
 
 
@@ -104,33 +173,33 @@
         function cameraPreview() {
             var localTracksPromise =
                 previewTracks
-                ? Promise.resolve(previewTracks)
-                : Twilio.Video.createLocalTracks();
+                    ? Promise.resolve(previewTracks)
+                    : Twilio.Video.createLocalTracks();
 
-            localTracksPromise.then(function(tracks) {
+            localTracksPromise.then(function (tracks) {
                 previewTracks = tracks;
                 var previewContainer = document.getElementById('local-media');
                 if (!previewContainer.querySelector('video')) {
                     attachTracks(tracks, previewContainer);
                 }
-            }, function(error) {
+            }, function (error) {
                 console.error('Unable to access local media', error);
-                log('Unable to access Camera and Microphone');
+                console.log('Unable to access Camera and Microphone');
             });
         }
 
         function joinRoom() {
             roomName = document.getElementById('room-name').value;
             if (roomName) {
-                log("Joining room '" + roomName + "'...");
+                console.log("Joining room '" + roomName + "'...");
 
-                var connectOptions = { name: roomName, logLevel: 'debug' };
+                var connectOptions = {name: roomName, logLevel: 'debug'};
                 if (previewTracks) {
                     connectOptions.tracks = previewTracks;
                 }
 
-                Twilio.Video.connect(twilioData.token, connectOptions).then(roomJoined, function(error) {
-                    log('Could not connect to Twilio: ' + error.message);
+                Twilio.Video.connect(twilioData.token, connectOptions).then(roomJoined, function (error) {
+                    console.log('Could not connect to Twilio: ' + error.message);
                 });
             } else {
                 alert('Please enter a room name.');
@@ -138,7 +207,7 @@
         }
 
         function leaveRoom() {
-            log('Leaving room...');
+            console.log('Leaving room...');
             activeRoom.disconnect();
         }
 
@@ -146,7 +215,7 @@
 
         // Attach detach rooms
         function attachTracks(tracks, container) {
-            tracks.forEach(function(track) {
+            tracks.forEach(function (track) {
                 container.appendChild(track.attach());
             });
         }
@@ -157,8 +226,8 @@
         }
 
         function detachTracks(tracks) {
-            tracks.forEach(function(track) {
-                track.detach().forEach(function(detachedElement) {
+            tracks.forEach(function (track) {
+                track.detach().forEach(function (detachedElement) {
                     detachedElement.remove();
                 });
             });
@@ -176,14 +245,13 @@
         }
 
 
-
         //---------------------------------
 
         // Successfully connected!
         function roomJoined(room) {
             activeRoom = room;
 
-            log("Joined as '" + identity + "'");
+            console.log("Joined as '" + identity + "'");
             document.getElementById('button-join').style.display = 'none';
             document.getElementById('button-leave').style.display = 'inline';
 
@@ -193,38 +261,38 @@
                 attachParticipantTracks(room.localParticipant, previewContainer);
             }
 
-            room.participants.forEach(function(participant) {
-                log("Already in Room: '" + participant.identity + "'");
+            room.participants.forEach(function (participant) {
+                console.log("Already in Room: '" + participant.identity + "'");
                 var previewContainer = document.getElementById('remote-media');
                 attachParticipantTracks(participant, previewContainer);
             });
 
             // When a participant joins, draw their video on screen
-            room.on('participantConnected', function(participant) {
-                log("Joining: '" + participant.identity + "'");
+            room.on('participantConnected', function (participant) {
+                console.log("Joining: '" + participant.identity + "'");
             });
 
-            room.on('trackAdded', function(track, participant) {
-                log(participant.identity + " added track: " + track.kind);
+            room.on('trackAdded', function (track, participant) {
+                console.log(participant.identity + " added track: " + track.kind);
                 var previewContainer = document.getElementById('remote-media');
                 attachTracks([track], previewContainer);
             });
 
-            room.on('trackRemoved', function(track, participant) {
-                log(participant.identity + " removed track: " + track.kind);
+            room.on('trackRemoved', function (track, participant) {
+                console.log(participant.identity + " removed track: " + track.kind);
                 detachTracks([track]);
             });
 
             // When a participant disconnects, note in log
-            room.on('participantDisconnected', function(participant) {
-                log("Participant '" + participant.identity + "' left the room");
+            room.on('participantDisconnected', function (participant) {
+                console.log("Participant '" + participant.identity + "' left the room");
                 detachParticipantTracks(participant);
             });
 
             // When we are disconnected, stop capturing local video
             // Also remove media for all remote participants
-            room.on('disconnected', function() {
-                log('Left');
+            room.on('disconnected', function () {
+                console.log('Left');
                 detachParticipantTracks(room.localParticipant);
                 room.participants.forEach(detachParticipantTracks);
                 activeRoom = null;
@@ -234,10 +302,7 @@
         }
 
 
-
-
         //----------------------------------
-
 
 
         function log(message) {
@@ -250,104 +315,21 @@
         //-------------- END TWILIO --------------------------
 
 
+        // ---------- Firepad -----------------
 
 
+        function getCodeMirrorMode() {
+            switch (vm.language) {
+                case 'python':
+                    return pythonOptions;
+                case 'java':
+                    return javaOptions;
+                case 'cpp':
+                    return cppOptions;
+            }
+            return null;
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-        // function getVideo(callback){
-        //     navigator.getUserMedia({audio: true, video: true}, callback, function(error){
-        //         console.log(error);
-        //         alert('An error occured. Please try again');
-        //     });
-        // }
-        //
-        // getVideo(function(stream){
-        //     window.localStream = stream;
-        //     onReceiveStream(stream, 'my-camera');
-        // });
-        //
-        // function onReceiveStream(stream, element_id){
-        //     var video = $('#' + element_id + ' video')[0];
-        //
-        //     console.log("Stream");
-        //     console.log(element_id);
-        //     console.log(stream);
-        //     console.log(window.URL.createObjectURL(stream));
-        //     video.src = window.URL.createObjectURL(stream);
-        //     window.peer_stream = stream;
-        // }
-        //
-        //
-        //
-        // function handleMessage(data){
-        //     var header_plus_footer_height = 285;
-        //     var base_height = $(document).height() - header_plus_footer_height;
-        //     var messages_container_height = $('#messages-container').height();
-        //     messages.push(data);
-        //
-        //     var html = messages_template({'messages' : messages});
-        //     $('#messages').html(html);
-        //
-        //     if(messages_container_height >= base_height){
-        //         $('html, body').animate({ scrollTop: $(document).height() }, 500);
-        //     }
-        // }
-        // function updateID(id) {
-        //     vm.ownId =id.toString();
-        //     console.
-        //         log(vm.ownId);
-        // }
-        // function initializeWebRTC() {
-        //     peer = new Peer({
-        //         key:'2uclde8kln3a0pb9',
-        //         debug: 3,
-        //         config: {'iceServers': [
-        //         { url: 'stun:stun.l.google.com:19302' }, // Pass in optional STUN and TURN server for maximum network compatibility
-        //         { url: 'turn:numb.viagenie.ca:3478', credential: 'muazkh', username:'webrtc@live.com' },
-        //         { url: 'turn:numb.viagenie.ca', credential: 'muazkh', username:'webrtc@live.com' },
-        //         { url: 'turn:numb.viagenie.ca:3478', credential: 'peerjsdemo', username:'p.srikanta@gmail.com' },
-        //         { url: 'turn:192.158.29.39:3478?transport=udp', credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=', username:'28224511:1379330808' },
-        //         { url: 'turn:192.158.29.39:3478?transport=tcp', credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=', username:'28224511:1379330808' }
-        //         ]}
-        //     });
-        //     peer.on('open', function(){
-        //         console.log("my id");
-        //         console.log(peer.id);
-        //         ownId = peer.id;
-        //         updateID(peer.id);
-        //     });
-        //
-        //     peer.on('connection', function(connection){
-        //         conn = connection;
-        //         peer_id = connection.peer;
-        //         conn.on('data', handleMessage);
-        //
-        //         // $('#peer_id').addClass('hidden').val(peer_id);
-        //         vm.peerHide=true;
-        //         vm.peerId=peer_id;
-        //         // $('#connected_peer_container').removeClass('hidden');
-        //         vm.containerHide = false;
-        //         // $('#connected_peer').text(connection.metadata.username);
-        //         vm.connectedPeer = connection.metadata.username;
-        //     });
-        //
-        //     peer.on('call', function(call){
-        //         onReceiveCall(call);
-        //     });
-        //
-        //
-        //
-        // }
         function createNewPad() {
 
             var ref = firebase.database().ref();
@@ -359,15 +341,17 @@
         function initializePad() {
             var myTextarea = document.getElementById("myCode");
             console.log(myTextarea);
-            var editor = CodeMirror(myTextarea, {
-                lineNumbers: true
+            editor = CodeMirror(myTextarea, {
+                mode: getCodeMirrorMode(),
+                lineNumbers: true,
+                matchBrackets: true
             });
 
             // Get Firebase Database reference.
             var firepadRef = firebase.database().ref();
 
             var firepad = Firepad.fromCodeMirror(firepadRef, editor, {
-                defaultText: 'Hello, World!'
+                defaultText: pythonInitializationCode
             });
             firepadReference = firepad;
             var padId = $routeParams['pgid'];
@@ -379,80 +363,136 @@
                 console.log('Firebase data: ', firepadRef.toString());
             }
 
+            $('.powered-by-firepad').remove();
+
         }
 
         function compile() {
             // console.log("ffdfdf");
             // console.log(playgroundService.compile());
-            var data ={};
-            data['sourceCode']= firepadReference.getText().toString();
-            data['language'] = 4;
-            data['input'] =" ";
-
+            var data = {};
+            vm.result=false;
+            data['sourceCode'] = firepadReference.getText().toString();
+            data['language'] = languageId;
+            data['input'] = vm.input;
+            vm.compiling = true;
             playgroundService.compile(data)
                 .success(function (res) {
-                    submissionId= res.id;
+                    submissionId = res.id;
+
                     console.log(res);
+                    setTimeout(function () {
+                        getResults();
+                    }, 3000);
+
                 })
                 .error(function (err) {
+                    vm.compiling = false;
                     console.log(err);
                 });
 
         }
+
         function getResults() {
+            var redo = false;
             playgroundService.getSubmissionResult(submissionId)
                 .success(function (result) {
-                    if(result.result == 15)
-                        vm.result ="Output :   "+result.output;
+                    vm.compiling = false;
+                    if (result.status < 0 || result.status == 1 || result.status == 3)
+                        redo = true;
+                    if (result.result == 15)
+                        vm.result = "Output :   " + result.output;
+                    else if (result.result == 13 || result.result == 17 || result.result == 19 || result.result == 20 || result.result == 11 || result.result == 12)
+                        vm.result = result.cmpinfo;
+
                 })
                 .error(function (err) {
                         console.log(err);
                     }
-                )
-       }
-       
-       function login() {
-           name = vm.name;
-           peer_id = vm.peerId;
-           if(peer_id){
-               conn = peer.connect(peer_id, {metadata: {
-                   'username': name
-               }});
-               conn.on('data', handleMessage);
-           }
+                );
 
-           vm.chatHide = false;
-           vm.connectHide = true;
-       }
-
-        function sendMessage(){
-            var text = $('#message').val();
-            var data = {'from': name, 'text': text};
-
-            conn.send(data);
-            handleMessage(data);
-            $('#message').val('');
-        }
-        
-        function call() {
-            console.log('now calling: ' + peer_id);
-            console.log(peer);
-            var call = peer.call(peer_id, window.localStream);
-            call.on('stream', function(stream){
-                window.peer_stream = stream;
-                onReceiveStream(stream, 'peer-camera');
-            });
-
+            if(redo)
+                compile();
         }
 
+        function changeLanguage() {
+            console.log("language");
+            console.log(vm.language);
+
+            switch (vm.language) {
+                case 'python': {
+                    editor.setOption('mode', pythonOptions);
+                    editor.setOption('indentUnit', 4);
+                    editor.setOption('tabMode', "shift");
+                    languageId = 4;
+                    firepadReference.setText(pythonInitializationCode);
+                    break;
+                }
+                case 'java': {
+                    editor.setOption('mode', javaOptions);
+                    languageId = 10;
+                    firepadReference.setText(javaInitializationCode);
+                    break;
+                }
+                case 'cpp': {
+                    editor.setOption('mode', cppOptions);
+                    languageId = 1;
+                    firepadReference.setText(cppInitializationCode);
+                    break;
+                }
+
+            }
+
+            console.log(editor.getOption('mode'));
 
 
-        function onReceiveCall(call) {
-            call.answer(window.localStream);
-            call.on('stream', function (stream) {
-                window.peer_stream = stream;
-                onReceiveStream(stream, 'peer-camera');
-            });
         }
+
+
+        // ----- END Firepad -----------
+
+        // function login() {
+        //     name = vm.name;
+        //     peer_id = vm.peerId;
+        //     if(peer_id){
+        //         conn = peer.connect(peer_id, {metadata: {
+        //             'username': name
+        //         }});
+        //         conn.on('data', handleMessage);
+        //     }
+        //
+        //     vm.chatHide = false;
+        //     vm.connectHide = true;
+        // }
+        //
+        //  function sendMessage(){
+        //      var text = $('#message').val();
+        //      var data = {'from': name, 'text': text};
+        //
+        //      conn.send(data);
+        //      handleMessage(data);
+        //      $('#message').val('');
+        //  }
+        //
+        //  function call() {
+        //      console.log('now calling: ' + peer_id);
+        //      console.log(peer);
+        //      var call = peer.call(peer_id, window.localStream);
+        //      call.on('stream', function(stream){
+        //          window.peer_stream = stream;
+        //          onReceiveStream(stream, 'peer-camera');
+        //      });
+        //
+        //  }
+        //
+        //
+        //
+        //  function onReceiveCall(call) {
+        //      call.answer(window.localStream);
+        //      call.on('stream', function (stream) {
+        //          window.peer_stream = stream;
+        //          onReceiveStream(stream, 'peer-camera');
+        //      });
+        //  }
     }
 })();
