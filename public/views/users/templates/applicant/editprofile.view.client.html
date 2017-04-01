@@ -62,29 +62,42 @@
             <!--</div>-->
         </div>
         <div class="card fullHeight hidden-md-down" id="forthewidth">
+            <form action="/api/upload/resume" method="post" enctype="multipart/form-data">
                 <h3 class="card-header">
                     <small>Resume</small>
-                    <button class="btn btn-primary pull-right" onclick="editMethod()">Upload</button>
+                    <button type="submit" class="btn btn-primary pull-right">Upload</button>
                 </h3>
+                <div class="card-block">
+                    <!--TODO: Modify CSS file for updating class resume-upload-->
+                    <input class="resume-upload" type="file" id="resume-upload" name="resume" />
+                    <input name="userId" value="{{model.user._id}}" style="display: none"/>
+                </div>
                 <div class="card-block content-body">
                     <!--<iframe src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf#view=fit"></iframe>-->
-                    <embed id="resumeframe" class="resume" src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf"
+                    <embed id="resumeframe" class="resume" src="{{model.user.resume}}"
                            width="100%">
                         <!--<div><iframe id="resumeframe" src="http://www.orimi.com/pdf-test.pdf" onload="getwidth()" style="border: none;"></iframe></div>-->
                 </div>
+            </form>
         </div>
         <div class="card fullHeight hidden-md-down" id="forthewidth">
-            <h3 class="card-header">
-                <small>Cover Letter</small>
-
-                <button class="btn btn-primary pull-right" onclick="editMethod()">Upload</button>
-            </h3>
-            <div class="card-block content-body">
-                <!--<iframe src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf#view=fit"></iframe>-->
-                <embed id="resumeframe" class="resume" src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf"
-                       width="100%">
-                    <!--<div><iframe id="resumeframe" src="http://www.orimi.com/pdf-test.pdf" onload="getwidth()" style="border: none;"></iframe></div>-->
-            </div>
+            <form action="/api/upload/cover-letter" method="post" enctype="multipart/form-data">
+                <h3 class="card-header">
+                    <small>Cover Letter</small>
+                    <button type="submit" class="btn btn-primary pull-right">Upload</button>
+                </h3>
+                <div class="card-block">
+                    <!--TODO: Modify CSS file for updating class resume-upload-->
+                    <input class="resume-upload" type="file" id="cover-letter-upload" name="cover-letter" />
+                    <input name="userId" value="{{model.user._id}}" style="display: none"/>
+                </div>
+                <div class="card-block content-body">
+                    <!--<iframe src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf#view=fit"></iframe>-->
+                    <embed id="cover-letter-frame" class="cover-letter" src="{{model.user.coverLetter}}"
+                           width="100%">
+                        <!--<div><iframe id="resumeframe" src="http://www.orimi.com/pdf-test.pdf" onload="getwidth()" style="border: none;"></iframe></div>-->
+                </div>
+            </form>
         </div>
 
         <div class="card hidden-lg-up" id="forthewidth">

@@ -11,7 +11,7 @@ module.exports = function (app, userModel) {
     // Image Upload Settings
 
     var multer = require('multer');
-    var storage = multer.diskStorage({
+    var image_storage = multer.diskStorage({
         destination: function (req, file, cd) {
             cd(null, __dirname + "/../../public/uploads/images")
         },
@@ -21,10 +21,36 @@ module.exports = function (app, userModel) {
             cb(null, 'profile_' + Date.now() + '.' + extension);
         }
     });
-    var upload = multer({storage: storage});
+    var image_upload = multer({storage: image_storage});
+
+    var resume_storage = multer.diskStorage({
+        destination: function (req, file, cd) {
+            cd(null, __dirname + "/../../public/uploads/resumes")
+        },
+        filename: function (req, file, cb) {
+            var extArray = file.mimetype.split("/");
+            var extension = extArray[extArray.length-1];
+            cb(null, 'profile_' + Date.now() + '.' + extension);
+        }
+    });
+    var resume_upload = multer({storage: resume_storage});
+
+    var coverLetter_storage = multer.diskStorage({
+        destination: function (req, file, cd) {
+            cd(null, __dirname + "/../../public/uploads/coverletters")
+        },
+        filename: function (req, file, cb) {
+            var extArray = file.mimetype.split("/");
+            var extension = extArray[extArray.length-1];
+            cb(null, 'profile_' + Date.now() + '.' + extension);
+        }
+    });
+    var coverLetter_upload = multer({storage: coverLetter_storage});
 
     // routes
-    app.post("/api/upload/image", upload.single('profile-picture'), uploadImage);
+    app.post("/api/upload/image", image_upload.single('profile-picture'), uploadImage);
+    app.post("/api/upload/resume", resume_upload.single('resume'), uploadResume);
+    app.post("/api/upload/cover-letter", coverLetter_upload.single('cover-letter'), uploadCoverLetter);
 
     function createUser(req, res) {
         var newUser = req.body;
@@ -119,6 +145,34 @@ module.exports = function (app, userModel) {
         if (picture) {
             console.log(picture.destination);
             userModel.updateUser(userId, user)
+                .then(function (user) {
+                    res.redirect("/#/user/" + userId);
+                }, function (error) {
+                    res.sendStatus(500).send(error);
+                });
+        }
+    }
+
+    function uploadResume(req, res) {
+        var userId = req.body.userId;
+        var resume = req.file;
+        var resumePath = req.protocol + '://' + req.get('host') + '/uploads/resumes/' + resume.filename;
+        if (resume) {
+            userModel.updateUserFile(userId, resumePath, true)
+                .then(function (user) {
+                    res.redirect("/#/user/" + userId);
+                }, function (error) {
+                    res.sendStatus(500).send(error);
+                });
+        }
+    }
+
+    function uploadCoverLetter(req, res) {
+        var userId = req.body.userId;
+        var coverLetter = req.file;
+        var coverLetterPath = req.protocol + '://' + req.get('host') + '/uploads/coverletters/' + coverLetter.filename;
+        if (coverLetter) {
+            userModel.updateUserFile(userId, coverLetterPath, false)
                 .then(function (user) {
                     res.redirect("/#/user/" + userId);
                 }, function (error) {
