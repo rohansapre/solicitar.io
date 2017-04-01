@@ -19,12 +19,12 @@ body {
 
 
 
-@media (min-width: 992px) {
-    body {
-        padding-top: 56px;
-        padding-left: 250px;
-    }
-}
+/*@media (min-width: 992px) {*/
+    /*body {*/
+        /*padding-top: 56px;*/
+        /*padding-left: 250px;*/
+    /*}*/
+/*}*/
 
 .card-block-icon {
     font-size: 5rem;

@@ -1,0 +1,53 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-6 pull-left">
+
+
+            <div id="remote-media"></div>
+
+
+            <div id="controls">
+                <div id="preview">
+                    <p class="instructions">Hello Beautiful</p>
+                    <div id="local-media"></div>
+                    <button id="button-preview" ng-click="model.cameraPreview()">Preview My Camera</button>
+                </div>
+
+                <div id="room-controls">
+                    <p class="instructions">Room Name:</p>
+                    <input id="room-name" type="text" placeholder="Enter a room name"/>
+                    <button id="button-join" ng-click="model.joinDisabled || model.joinRoom()">Join Room</button>
+                    <button id="button-leave" ng-click="model.leaveDisabled || model.leaveRoom()">Leave Room</button>
+                </div>
+
+
+                <div id="log"></div>
+            </div>
+        </div>
+
+
+        <div class="col-xs-6 pull-right">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="languageOptions">Size</label>
+                        <select id="languageOptions" class="form-control" ng-model="model.language"
+                                ng-options="c for c in model.languages"></select>
+                    </div>
+                    <a class="btn btn-success btn-block" ng-click="model.createNewPad()" ng-show="model.visible">Create
+                        New
+                        Pad</a>
+
+                    <div id="myCode" ></div>
+                    <a class="btn btn-success btn-block" ng-click="model.compile()">Compile</a>
+                    <!--<a class="btn btn-success btn-block marginBottom" ng-click="model.getResults()">Get Results</a>-->
+                    <div ng-show="model.result" id="results">
+                        {{model.result}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
