@@ -29,7 +29,7 @@ module.exports = function (app) {
         };
         var stringData = JSON.stringify(data);
 
-        var user = 'rohansapre:fadfc14171974c3ecd1059adda6861cb-us15';
+        var user = process.env.MAILCHIMP_API_KEY;
         var path = '/3.0/';
         var host = 'us15.api.mailchimp.com';
         var options = {
