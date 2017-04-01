@@ -12,7 +12,8 @@
             "updateUser": updateUser,
             "deleteUser": deleteUser,
             "findUserByUsername": findUserByUsername,
-            "setAvailability": setAvailability
+            "setAvailability": setAvailability,
+            "updateAvailability": updateAvailability
         };
         return api;
 
@@ -46,6 +47,7 @@
         //    start: [startTimes],
         //    end: [endTimes]
         // }
+        // startTimes and endTimes are the array of Date objects
         function setAvailability(userId, times) {
             return $http.post("/api/calendar/" + userId, times);
         }

@@ -27,7 +27,7 @@
                         var promise = UserService.createUser(user);
                         promise
                             .success(function (user) {
-                                $location.url("/startpage/" + user._id);
+                                $location.url("/user/" + user._id);
                             });
 
                     });
