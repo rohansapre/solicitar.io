@@ -7,6 +7,7 @@
         var vm = this;
 
         // event handlers
+        vm.interview = interview;
         vm.updateUser = updateUser;
         vm.deleteUser = deleteUsers;
         vm.sendInvitations = sendInvitations;
@@ -54,6 +55,10 @@
                     } else
                         console.log("Cannot send invitation from controller");
                 });
+        }
+
+        function interview() {
+                $location.url("/user/" + user._id + "/interview/");
         }
     }
 })();

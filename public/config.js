@@ -45,6 +45,11 @@
                 templateUrl: "views/interview/templates/interview.view.client.html",
                 controller: "interviewController",
                 controllerAs: "model"
+            })
+            .when("/user/:uid/interview/", {
+                templateUrl: "views/interview/templates/interview.view.client.html",
+                controller: "interviewController",
+                controllerAs: "model"
             });
     }
 })();
