@@ -22,7 +22,8 @@
             "compile" : compile,
             "getSubmissionResult": getSubmissionResult,
             "getToken": getToken,
-            "getLanguages": getLanguages
+            "getLanguages": getLanguages,
+            "getTwilioRoom": getTwilioRoom
         };
         return api;
 
@@ -76,6 +77,10 @@
 
         function getLanguages() {
             return $http.get("http://00d6810d.compilers.sphere-engine.com/api/v3/languages?access_token=87cb4675d1197af6ff974ac87ab2e1fe");
+        }
+
+        function getTwilioRoom() {
+            return $http.get("link/to/server");
         }
     }
 })();

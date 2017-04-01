@@ -10,19 +10,19 @@
 
 
 div#remote-media {
-    height: 100%;
-    width: 33%;
-    background-color: #fff;
+    height: 50%;
+    width: 85%;
+    background-color: #000000;
     margin: auto;
-    float: left;
+
 }
 
 div#remote-media video {
     border: 1px solid #272726;
-    margin: 3em 2em;
+    margin: 1em 1em;
     height: 85%;
     max-width: 85% !important;
-    background-color: #272726;
+    background-color: #000000;
     background-repeat: no-repeat;
 }
 

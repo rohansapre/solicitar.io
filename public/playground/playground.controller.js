@@ -46,7 +46,7 @@
         var javaOptions = "text/x-java";
 
         var cppOptions = "text/x-c++src";
-        var javaInitializationCode = "/* package whatever; // don't place package name! */\nimport java.io.*;\nimport java.util.Scanner;\npublic class program {\n public static void main(String[] args) {\nSystem.out.println(\"Hello Java\");\nScanner sc = new Scanner(System.in);\nString a = sc.nextLine();\n}";
+        var javaInitializationCode = "/* package whatever; // don't place package name! */\nimport java.io.*;\nimport java.util.Scanner;\npublic class program {\n public static void main(String[] args) {\n \tSystem.out.println(\"Hello Java\");\n \tScanner sc = new Scanner(System.in);\n \tString a = sc.nextLine();\n}";
         var pythonInitializationCode = "print \"Hello World\"";
         var cppInitializationCode="\#include \<iostream\>\nusing namespace std;\nint main() {\ncout<<\"Hello\";\nreturn 0;\n}"
         // ------------------------------
@@ -62,7 +62,9 @@
         function init() {
             var padId = $routeParams['pgid'];
             if (padId == null) {
+
                 vm.visible = true;
+                createNewPad();
             }
             else {
                 vm.visible = false;
@@ -77,6 +79,11 @@
 
             vm.ownId = ownId;
             initializeTwilio();
+
+
+            //setupTwilio();
+
+
             // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
             // initializeWebRTC();
 
@@ -92,6 +99,7 @@
             // Check for WebRTC
             if (!navigator.webkitGetUserMedia && !navigator.mozGetUserMedia) {
                 alert('WebRTC is not available in your browser.');
+                // do something
             }
 
             // When we are about to transition away from this page, disconnect
@@ -121,6 +129,45 @@
 
         }
 
+
+        function setupTwilio(){
+            //TODO: setup camera and microphone, try to connect to the room
+
+            // When we are about to transition away from this page, disconnect
+            // from the room, if joined.
+            window.addEventListener('beforeunload', leaveRoomIfJoined);
+
+
+            var tokenPromise = playgroundService.getToken();
+
+            tokenPromise.success(function (data) {
+
+                identity = data.identity;
+                console.log("identity");
+                console.log(identity);
+
+                document.getElementById('room-controls').style.display = 'block';
+
+                vm.joinDisabled = false;
+                vm.leaveDisabled = false;
+                twilioData = data;
+
+                playgroundService.getTwilioRoom().success(function (data) {
+
+                    roomName = data['roomName'];
+                    joinRoom();
+
+                }).error(function (err) {
+                    console.log(err);
+                });
+
+            }).error(function (err) {
+                console.log(err);
+            });
+
+
+        }
+
         // Onclick functions
 
         function cameraPreview() {
@@ -137,14 +184,14 @@
                 }
             }, function (error) {
                 console.error('Unable to access local media', error);
-                log('Unable to access Camera and Microphone');
+                console.log('Unable to access Camera and Microphone');
             });
         }
 
         function joinRoom() {
             roomName = document.getElementById('room-name').value;
             if (roomName) {
-                log("Joining room '" + roomName + "'...");
+                console.log("Joining room '" + roomName + "'...");
 
                 var connectOptions = {name: roomName, logLevel: 'debug'};
                 if (previewTracks) {
@@ -152,7 +199,7 @@
                 }
 
                 Twilio.Video.connect(twilioData.token, connectOptions).then(roomJoined, function (error) {
-                    log('Could not connect to Twilio: ' + error.message);
+                    console.log('Could not connect to Twilio: ' + error.message);
                 });
             } else {
                 alert('Please enter a room name.');
@@ -160,7 +207,7 @@
         }
 
         function leaveRoom() {
-            log('Leaving room...');
+            console.log('Leaving room...');
             activeRoom.disconnect();
         }
 
@@ -204,7 +251,7 @@
         function roomJoined(room) {
             activeRoom = room;
 
-            log("Joined as '" + identity + "'");
+            console.log("Joined as '" + identity + "'");
             document.getElementById('button-join').style.display = 'none';
             document.getElementById('button-leave').style.display = 'inline';
 
@@ -215,37 +262,37 @@
             }
 
             room.participants.forEach(function (participant) {
-                log("Already in Room: '" + participant.identity + "'");
+                console.log("Already in Room: '" + participant.identity + "'");
                 var previewContainer = document.getElementById('remote-media');
                 attachParticipantTracks(participant, previewContainer);
             });
 
             // When a participant joins, draw their video on screen
             room.on('participantConnected', function (participant) {
-                log("Joining: '" + participant.identity + "'");
+                console.log("Joining: '" + participant.identity + "'");
             });
 
             room.on('trackAdded', function (track, participant) {
-                log(participant.identity + " added track: " + track.kind);
+                console.log(participant.identity + " added track: " + track.kind);
                 var previewContainer = document.getElementById('remote-media');
                 attachTracks([track], previewContainer);
             });
 
             room.on('trackRemoved', function (track, participant) {
-                log(participant.identity + " removed track: " + track.kind);
+                console.log(participant.identity + " removed track: " + track.kind);
                 detachTracks([track]);
             });
 
             // When a participant disconnects, note in log
             room.on('participantDisconnected', function (participant) {
-                log("Participant '" + participant.identity + "' left the room");
+                console.log("Participant '" + participant.identity + "' left the room");
                 detachParticipantTracks(participant);
             });
 
             // When we are disconnected, stop capturing local video
             // Also remove media for all remote participants
             room.on('disconnected', function () {
-                log('Left');
+                console.log('Left');
                 detachParticipantTracks(room.localParticipant);
                 room.participants.forEach(detachParticipantTracks);
                 activeRoom = null;
