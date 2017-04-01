@@ -1,4 +1,4 @@
-(function () {
+    (function () {
     angular
         .module("ProjectMaker")
         .factory("UserService", userService);

@@ -60,6 +60,7 @@
 
 
         function init() {
+            $("body").removeClass("dashboardMargin");
             var padId = $routeParams['pgid'];
             if (padId == null) {
 
