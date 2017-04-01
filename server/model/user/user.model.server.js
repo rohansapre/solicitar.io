@@ -14,11 +14,13 @@ userModel.findUserByUsername = findUserByUsername;
 userModel.findUserByCredentials = findUserByCredentials;
 userModel.updateUser = updateUser;
 userModel.deleteUser = deleteUser;
+userModel.updateUserFile = updateUserFile;
 
 module.exports = userModel;
 
 function createUser(user) {
     var d = q.defer();
+    user.status = 'JOINED';
     userModel.create(user, function (err, user) {
         console.log(user);
         if(err) {
@@ -80,6 +82,26 @@ function updateUser(userId, user) {
         else
             d.resolve(user);
     });
+    return d.promise;
+}
+
+function updateUserFile(userId, path, isResume) {
+    var d = q.defer();
+    if(isResume) {
+        userModel.findByIdAndUpdate(userId, {$set: {resume: path}}, function (err, user) {
+        if(err)
+            d.reject(err);
+        else
+            d.resolve(user);
+        });
+    } else {
+        userModel.findByIdAndUpdate(userId, {$set: {coverLetter: path}}, function (err, user) {
+            if(err)
+                d.reject(err);
+            else
+                d.resolve(user);
+        });
+    }
     return d.promise;
 }
 

@@ -4,7 +4,8 @@
 var mongoose = require('mongoose');
 var interviewSchema = mongoose.Schema({
     _schedule: {type: mongoose.Schema.Types.ObjectId, ref: 'Schedule'},
-    _codeshare: {type: mongoose.Schema.Types.ObjectId, ref: 'CodeShare'},
+    _firebase: {type: mongoose.Schema.Types.ObjectId, ref: 'Firebase'},
+    twilioRoom: String,
     studentFeedback: String,
     recruiterFeedback: String
 }, {collection: 'interview'});

@@ -12,7 +12,7 @@
                 <a class="nav-link" href ng-click="tab='profile'"><i class="fa fa-fw fa-area-chart"></i> My Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href ng-click="tab='upcoming'"><i class="fa fa-fw fa-cogs"></i> Interviewers</a>
+                <a class="nav-link" href ng-click="tab='interviewers'"><i class="fa fa-fw fa-cogs"></i> Interviewers</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"><i class="fa fa-fw fa-table"></i> Tasks</a>
@@ -82,8 +82,8 @@
     <div ng-switch-when="profile">
         <ng-include src="'views/users/templates/recruiter/editprofile.view.client.html'"></ng-include>
     </div>
-    <div ng-switch-when="upcoming">
-        <ng-include src="'views/users/templates/recruiter/upcoming.view.client.html'"></ng-include>
+    <div ng-switch-when="interviewers">
+        <ng-include src="'views/users/templates/recruiter/interviewers.view.client.html'"></ng-include>
     </div>
     <div ng-switch-default>
         <ng-include src="'views/users/templates/recruiter/dashboard.recruiter.view.client.html'"></ng-include>
