@@ -375,7 +375,7 @@
             // console.log("ffdfdf");
             // console.log(playgroundService.compile());
             var data = {};
-            vm.result=false;
+            vm.result="Compiling code...";
             data['sourceCode'] = firepadReference.getText().toString();
             data['language'] = languageId;
             data['input'] = vm.input;
@@ -405,7 +405,7 @@
                     if (result.status < 0 || result.status == 1 || result.status == 3)
                         redo = true;
                     if (result.result == 15)
-                        vm.result = "Output :   " + result.output;
+                        vm.result = result.output;
                     else if (result.result == 13 || result.result == 17 || result.result == 19 || result.result == 20 || result.result == 11 || result.result == 12)
                         vm.result = result.cmpinfo;
 
