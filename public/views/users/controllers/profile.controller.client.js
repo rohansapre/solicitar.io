@@ -3,10 +3,11 @@
         .module("ProjectMaker")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($routeParams, UserService, RecruiterService) {
+    function ProfileController($routeParams, $location, UserService, RecruiterService) {
         var vm = this;
 
         // event handlers
+        vm.interview = interview;
         vm.updateUser = updateUser;
         vm.deleteUser = deleteUsers;
         vm.sendInvitations = sendInvitations;
@@ -175,15 +176,20 @@
         }
 
         function sendInvitations() {
-            var emails = ['abc@def.com', 'ghi@jkl.com', 'mno@pqr.com'];
+            var emails = ['mht.amul@gmail.com', 'chaitanyakaul2001@gmail.com', 'tushar.gupta.cse@gmail.com', '11bit028@nirmauni.ac.in', 'tejagummalla95@gmail.com'];
             console.log("send invites");
             RecruiterService.sendInvitations(emails)
                 .success(function (status) {
                     if (status) {
                         console.log("Invitation sent from controller");
+                        console.log(status);
                     } else
                         console.log("Cannot send invitation from controller");
                 });
+        }
+
+        function interview() {
+                $location.url("/user/" + vm.user._id + "/interview/");
         }
     }
 })();

@@ -8,8 +8,20 @@ var calendarModel = mongoose.model('Calendar', calendarSchema);
 
 // api
 
+calendarModel.getAvailability = getAvailability;
 calendarModel.setAvailability = setAvailability;
 calendarModel.updateAvailability = updateAvailability;
+
+function getAvailability(userId) {
+    var d = q.defer();
+    calendarModel.findOne({_user: userId}, function (err, calendar) {
+        if(err)
+            d.reject(err);
+        else
+            d.resolve(calendar);
+    });
+    return d.promise;
+}
 
 function setAvailability(userId, times) {
     var d = q.defer();
