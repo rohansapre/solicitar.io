@@ -12,6 +12,8 @@ calendarModel.getAvailability = getAvailability;
 calendarModel.setAvailability = setAvailability;
 calendarModel.updateAvailability = updateAvailability;
 
+module.exports = calendarModel;
+
 function getAvailability(userId) {
     var d = q.defer();
     calendarModel.findOne({_user: userId}, function (err, calendar) {

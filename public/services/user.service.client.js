@@ -14,9 +14,12 @@
             "findUserByUsername": findUserByUsername,
             "getAvailability": getAvailability,
             "setAvailability": setAvailability,
-            "updateAvailability": updateAvailability
+            "updateAvailability": updateAvailability,
+            "scheduleInterview": scheduleInterview
         };
         return api;
+
+        // User CRUD Operations
 
         function createUser(user) {
             return $http.post("/api/user", user);
@@ -42,6 +45,8 @@
             return $http.delete("/api/user/" + userId);
         }
 
+        // Interview Availability
+
         function getAvailability(userId) {
             return $http.get("/api/calendar/" + userId);
         }
@@ -59,6 +64,12 @@
 
         function updateAvailability(userId, times) {
             return $http.put("/api/calendar/" + userId, times);
+        }
+
+        //  Schedule Interview
+
+        function scheduleInterview(userId, hire) {
+            return $http.post("/api/schedule/" + userId, hire);
         }
     }
 })();
