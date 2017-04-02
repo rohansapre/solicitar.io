@@ -3,7 +3,7 @@
         .module("ProjectMaker")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($routeParams, UserService, RecruiterService) {
+    function ProfileController($routeParams, $location, UserService, RecruiterService) {
         var vm = this;
 
         // event handlers
@@ -58,7 +58,7 @@
         }
 
         function interview() {
-                $location.url("/user/" + user._id + "/interview/");
+                $location.url("/user/" + vm.user._id + "/interview/");
         }
     }
 })();
