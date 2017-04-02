@@ -19,6 +19,7 @@ module.exports = function (app, calendarModel) {
     function setAvailability(req, res) {
         var userId = req.params.userId;
         var times = req.body;
+        console.log("calling calendar model");
         calendarModel.setAvailability(userId, times)
             .then(function (calendar) {
                 res.json(calendar);
