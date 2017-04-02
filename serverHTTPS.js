@@ -33,7 +33,7 @@ require ("./setup/app.js")(app);
 
 var options = {
     key: fs.readFileSync('setup/keys/agent2-key.pem'),
-    cert: fs.readFileSync('setup/keys/agent2-cert.cert')
+    cert: fs.readFileSync('setup/keys/agent2-cert.pem')
 };
 
 
