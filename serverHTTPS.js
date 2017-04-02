@@ -45,6 +45,11 @@ server(app);
 //app.listen(9000);
 
 // Create an HTTP service.
-app.listen(9000);
+
+
 // Create an HTTPS service identical to the HTTP service.
 https.createServer(options, app).listen(8443);
+http.get('*',function(req,res){
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    res.end();
+}).listen(9000);
