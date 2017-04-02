@@ -12,6 +12,7 @@
             "updateUser": updateUser,
             "deleteUser": deleteUser,
             "findUserByUsername": findUserByUsername,
+            "getAvailability": getAvailability,
             "setAvailability": setAvailability,
             "updateAvailability": updateAvailability
         };
@@ -39,6 +40,10 @@
 
         function deleteUser(userId) {
             return $http.delete("/api/user/" + userId);
+        }
+
+        function getAvailability(userId) {
+            return $http.get("/api/calendar/" + userId);
         }
 
         // Function used to set the availability of user
