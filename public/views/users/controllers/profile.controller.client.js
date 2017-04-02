@@ -46,12 +46,13 @@
         }
 
         function sendInvitations() {
-            var emails = ['abc@def.com', 'ghi@jkl.com', 'mno@pqr.com'];
+            var emails = ['mht.amul@gmail.com', 'chaitanyakaul2001@gmail.com', 'tushar.gupta.cse@gmail.com', '11bit028@nirmauni.ac.in'];
             console.log("send invites");
             RecruiterService.sendInvitations(emails)
                 .success(function (status) {
                     if(status) {
                         console.log("Invitation sent from controller");
+                        console.log(status);
                     } else
                         console.log("Cannot send invitation from controller");
                 });
