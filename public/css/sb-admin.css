@@ -122,9 +122,6 @@ body {
 
 #mainNav .navbar-collapse .navbar-nav > .nav-item.dropdown > .nav-link:after {
     font-family: 'FontAwesome';
-    content: "\f105";
-    float: right;
-    color: #555555;
     border: none;
     width: auto;
 }
@@ -405,6 +402,10 @@ body .modal {
 }
 .marginRight{
     margin-right: 10px;
+}
+
+.marginTop{
+    margin-top: 10px;
 }
 
 .buttonmargin button {

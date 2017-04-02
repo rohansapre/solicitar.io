@@ -1,80 +1,19 @@
-<!--<nav id="mainNav" class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse">-->
-<!--<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarExample" aria-controls="navbarExample" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--<span class="navbar-toggler-icon"></span>-->
-<!--</button>-->
-<!--<a class="navbar-brand" href="">solicitar.io</a>-->
-<!--<div class="collapse navbar-collapse" id="navbarExample">-->
-<!--<ul class="navbar-nav ml-auto">-->
-<!---->
-<!--<li class="nav-item dropdown">-->
-<!--<a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--<i class="fa fa-fw fa-envelope"></i> <span class="hidden-lg-up">Messages <span class="badge badge-pill badge-primary">12 New</span></span>-->
-<!--<span class="new-indicator text-primary hidden-md-down"><i class="fa fa-fw fa-circle"></i><span class="number">12</span></span>-->
-<!--</a>-->
-<!--<div class="dropdown-menu" aria-labelledby="messagesDropdown">-->
-<!--<h6 class="dropdown-header">New Messages:</h6>-->
-<!--<div class="dropdown-divider"></div>-->
-<!--<a class="dropdown-item" href="#">-->
-<!--<strong>David Miller</strong> <span class="small float-right text-muted">11:21 AM</span>-->
-<!--<div class="dropdown-message small">Hey there! This new version of SB Admin is pretty awesome! These messages clip off when they reach the end of the box so they don't overflow over to the sides!</div>-->
-<!--</a>-->
-<!--<div class="dropdown-divider"></div>-->
-<!--<a class="dropdown-item" href="#">-->
-<!--<strong>Jane Smith</strong> <span class="small float-right text-muted">11:21 AM</span>-->
-<!--<div class="dropdown-message small">I was wondering if you could meet for an appointment at 3:00 instead of 4:00. Thanks!</div>-->
-<!--</a>-->
-<!--<div class="dropdown-divider"></div>-->
-<!--<a class="dropdown-item" href="#">-->
-<!--<strong>John Doe</strong> <span class="small float-right text-muted">11:21 AM</span>-->
-<!--<div class="dropdown-message small">I've sent the final files over to you for review. When you're able to sign off of them let me know and we can discuss distribution.</div>-->
-<!--</a>-->
-<!--<div class="dropdown-divider"></div>-->
-<!--<a class="dropdown-item" href="#">-->
-<!--View All Messages-->
-<!--</a>-->
-<!--</div>-->
-<!--</li>-->
-<!--<li class="nav-item dropdown">-->
-<!--<a class="nav-link dropdown-toggle mr-lg-2" href="#" id="alertsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--<i class="fa fa-fw fa-bell"></i> <span class="hidden-lg-up">Alerts <span class="badge badge-pill badge-warning">6 New</span></span>-->
-<!--<span class="new-indicator text-warning hidden-md-down"><i class="fa fa-fw fa-circle"></i><span class="number">6</span></span>-->
-<!--</a>-->
-<!--<div class="dropdown-menu" aria-labelledby="alertsDropdown">-->
-<!--<a class="dropdown-item" href="#">Action</a>-->
-<!--<a class="dropdown-item" href="#">Another action</a>-->
-<!--<a class="dropdown-item" href="#">Something else here</a>-->
-<!--</div>-->
-<!--</li>-->
-<!--<li class="nav-item">-->
-<!--<form class="form-inline my-2 my-lg-0 mr-lg-2">-->
-<!--<div class="input-group">-->
-<!--<input type="text" class="form-control" placeholder="Search for...">-->
-<!--<span class="input-group-btn">-->
-<!--<button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>-->
-<!--</span>-->
-<!--</div>-->
-<!--</form>-->
-<!--</li>-->
-<!--<li class="nav-item">-->
-<!--<a class="nav-link" href="#/login"><i class="fa fa-fw fa-sign-out"></i> Logout</a>-->
-<!--</li>-->
-<!--</ul>-->
-<!--</div>-->
-<!--</nav>-->
-
 <nav id="mainNav" class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse">
-    <div class="col-xs-12 col-lg-5">
+    <div class="col-xs-12 col-lg-3">
         <a class="navbar-brand" href="">solicitar.io</a>
-        <div class="pull-right">
+        <div class="pull-right hidden-lg-up">
             <button class="btn btn-outline-danger">End Interview</button>
         </div>
         <!--<div class="navbar-text">-->
         <!--This is in col-4-->
         <!--</div>-->
     </div>
-    <div class="hidden-md-down col-sm-7">
+    <div class="hidden-md-down col-sm-9">
         <div class="pull-right">
-            <button class="btn btn-outline-success" ng-click="model.compile()">Compile Code</button>
+            <button class="btn btn-outline-danger">End Interview</button>
+        </div>
+        <div class="pull-right">
+            <button class="btn btn-outline-success marginRight" ng-click="model.compile()">Compile Code</button>
         </div>
         <div class="dropdown pull-right">
             <button class="btn btn-outline-info dropdown-toggle marginRight" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -95,18 +34,18 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12 col-md-5">
+        <div class="col-sm-12 col-lg-3">
 
             <!--<div id="remote-media"></div>-->
 
 
 
             <div id="controls">
-                <div class="card card-inverse" style="background-color: #000; border-color: #000;">
-                    <div class="card-block">
+                <div class="card card-inverse marginTop h-100" style="background-color: #292b2c; border-color: #292b2c;">
+                    <div class="card-block" style="padding: 0.25rem;">
                         <div id="remote-media"></div>
                     </div>
-                    <div class="card-block">
+                    <div class="card-block" style="padding: 0.25rem;">
                         <div id="preview">
                             <!--<p class="instructions">Hello Beautiful</p>-->
                             <div id="local-media"></div>
@@ -130,9 +69,9 @@
         </div>
 
 
-        <div class="hidden-md-down col-md-7">
+        <div class="hidden-md-down col-lg-9">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-lg-8">
                     <!--<div class="form-group">-->
                         <!--<label for="languageOptions">Size</label>-->
                         <!--<select id="languageOptions" class="form-control" ng-model="model.language"-->
@@ -144,12 +83,20 @@
                         Pad</a>
 
                     <div id="myCode"></div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="input">Input:</label>
-                        <textarea class="form-control" rows="5" ng-model="model.input" id="input"></textarea>
+                <div class="col-lg-4">
+                    <div class="card card-inverse w-100" style="background-color: #292b2c; border-color: #292b2c; margin-top: 10px; padding: 0.25rem;">
+                        <div class="card-header" style="padding: 0.25rem;">
+                            Command Line Inputs
+                        </div>
+                        <div class="card-block" style="padding: 0.25rem;">
+                    <!--<div class="form-group" style="margin-left: 10px; margin-top: 10px;">-->
+                            <textarea class="form-control" rows="5" ng-model="model.input" id="input" style="background-color: black"></textarea>
+                        </div>
                     </div>
-                    <div class="form-group">
+                </div>
+                    <div class="form-group" style="margin-left: 10px; margin-right: 10px;">
                         <label for="output">Output:</label>
 
                         <textarea ng-show="model.result" ng-model="model.result" class="form-control" rows="5"
@@ -161,6 +108,7 @@
                     <div ng-show="model.compiling" class="alert alert-info" id="compiling">
                         Compiling....
                     </div>
+                </div>
 
 
 

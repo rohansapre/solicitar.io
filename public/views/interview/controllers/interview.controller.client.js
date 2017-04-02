@@ -346,9 +346,11 @@
             editor = CodeMirror(myTextarea, {
                 mode: getCodeMirrorMode(),
                 lineNumbers: true,
-                matchBrackets: true
+                matchBrackets: true,
+                theme: 'base16-dark'
             });
 
+            editor.setOption("theme", "base16-dark");
             // Get Firebase Database reference.
             var firepadRef = firebase.database().ref();
 
