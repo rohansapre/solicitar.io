@@ -42,6 +42,9 @@
 
             <div id="controls">
                 <div class="card card-inverse marginTop h-100" style="background-color: #292b2c; border-color: #292b2c;">
+                    <div class="card-header">
+                        Video
+                    </div>
                     <div class="card-block" style="padding: 0.25rem;">
                         <div id="remote-media"></div>
                     </div>
@@ -78,16 +81,22 @@
                                 <!--ng-options="c for c in model.languages"></select>-->
                         <!--<button class="btn-block" ng-click="model.changeLanguage()">Change Language</button>-->
                     <!--</div>-->
-                    <a class="btn btn-success btn-block" ng-click="model.createNewPad()" ng-show="model.visible">Create
-                        New
-                        Pad</a>
-
-                    <div id="myCode"></div>
+                    <!--<a class="btn btn-success btn-block" ng-click="model.createNewPad()" ng-show="model.visible">Create-->
+                        <!--New-->
+                        <!--Pad</a>-->
+                <div class="card card-inverse" style="background-color: #292b2c; border-color: #292b2c; margin-top: 10px; padding: 0.25rem;">
+                    <div class="card-header">
+                        Code
+                    </div>
+                    <div class="card-block" style="padding: 0.25rem;">
+                        <div id="myCode"></div>
+                    </div>
+                </div>
                 </div>
 
                 <div class="col-lg-4">
                     <div class="card card-inverse w-100" style="background-color: #292b2c; border-color: #292b2c; margin-top: 10px; padding: 0.25rem;">
-                        <div class="card-header" style="padding: 0.25rem;">
+                        <div class="card-header">
                             Command Line Inputs
                         </div>
                         <div class="card-block" style="padding: 0.25rem;">
@@ -96,7 +105,7 @@
                         </div>
                     </div>
                     <div class="card card-inverse w-100" style="background-color: #292b2c; border-color: #292b2c; margin-top: 10px; padding: 0.25rem;">
-                        <div class="card-header" style="padding: 0.25rem;">
+                        <div class="card-header">
                             Console Output
                         </div>
                         <div class="card-block" style="padding: 0.25rem;">
