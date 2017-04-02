@@ -1,11 +1,18 @@
 #myCode {
     position: relative;
     margin: 20px auto;
-    width: 800px;
-    height: 500px;
+    width: 100%;
+    height: 100%;
     overflow:auto;
     display: block;
 }
+
+.firepad {
+    width: 100%;
+    height: 50%;
+}
+
+
 @import url(https://fonts.googleapis.com/css?family=Share+Tech+Mono);
 
 
