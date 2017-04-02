@@ -31,8 +31,10 @@ module.exports = function (app) {
     userModel.createUser(applicant);
     userModel.createUser(recruiter);
     userModel.createUser(interviewer);
+
+    var calendarModel = require('./model/calendar/calendar.model.server');
     require('./services/user.service.server.js')(app, userModel);
     require("./services/playground.service.server")(app);
     require('./services/recruiter.service.server')(app);
-    require('./services/interview.service.server')(app);
+    require('./services/calendar.service.server')(app, calendarModel);
 };
