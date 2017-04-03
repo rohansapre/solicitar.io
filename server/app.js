@@ -2,7 +2,6 @@
  * Created by rohansapre on 3/21/17.
  */
 module.exports = function (app) {
-    var userModel = require('./model/user/user.model.server');
     var applicant = {
         username: 'rohan',
         password: 'pass',
@@ -27,12 +26,21 @@ module.exports = function (app) {
         lastName: 'Mehta',
         type: 'INTERVIEWER'
     };
-    
+
+    var userModel = require('./model/user/user.model.server');
     userModel.createUser(applicant);
     userModel.createUser(recruiter);
     userModel.createUser(interviewer);
-    require('./services/user.service.server.js')(app, userModel);
+    var calendarModel = require('./model/calendar/calendar.model.server');
+    var scheduleModel = require('./model/schedule/schedule.model.server');
+    var model = {
+        user: userModel,
+        calendar: calendarModel,
+        schedule: scheduleModel
+    };
+    require('./services/user.service.server.js')(app, model);
     require("./services/playground.service.server")(app);
     require('./services/recruiter.service.server')(app);
-    require('./services/interview.service.server')(app);
+    require('./services/calendar.service.server')(app, model);
+    require('./services/schedule.service.server')(app, model);
 };

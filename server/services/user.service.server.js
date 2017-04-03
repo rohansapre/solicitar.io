@@ -1,7 +1,7 @@
 /**
  * Created by rohansapre on 3/22/17.
  */
-module.exports = function (app, userModel) {
+module.exports = function (app, model) {
     app.post("/api/user", createUser);
     app.get("/api/user", findUser);
     app.get("/api/user/:userId", findUserById);
@@ -54,7 +54,7 @@ module.exports = function (app, userModel) {
 
     function createUser(req, res) {
         var newUser = req.body;
-        userModel
+        model.user
             .createUser(newUser)
             .then(function (user) {
                 res.json(user);
@@ -78,7 +78,7 @@ module.exports = function (app, userModel) {
 
     function findUserById(req, res) {
         var userId = req.params.userId;
-        userModel
+        model.user
             .findUserById(userId)
             .then(function (user) {
                 console.log(user);
@@ -91,7 +91,7 @@ module.exports = function (app, userModel) {
     function findUserByCredentials(req, res) {
         var username = req.query.username;
         var password = req.query.password;
-        userModel
+        model.user
             .findUserByCredentials(username, password)
             .then(function (user) {
                 res.json(user);
@@ -102,7 +102,7 @@ module.exports = function (app, userModel) {
 
     function findUserByUsername(req, res) {
         var username = req.query.username;
-        userModel
+        model.user
             .findUserByUsername(username)
             .then(function (user) {
                 res.json(user);
@@ -114,7 +114,7 @@ module.exports = function (app, userModel) {
     function updateUser(req, res) {
         var userId = req.params.userId;
         var newUser = req.body;
-        userModel
+        model.user
             .updateUser(userId, newUser)
             .then(function (user) {
                 res.json(user);
@@ -125,7 +125,8 @@ module.exports = function (app, userModel) {
 
     function deleteUser(req, res) {
         var userId = req.params.userId;
-        userModel.deleteUser(userId)
+        model.user
+            .deleteUser(userId)
             .then(function (user) {
                 res.json(user);
             }, function (error) {
@@ -144,7 +145,8 @@ module.exports = function (app, userModel) {
         };
         if (picture) {
             console.log(picture.destination);
-            userModel.updateUser(userId, user)
+            model.user
+                .updateUser(userId, user)
                 .then(function (user) {
                     res.redirect("/#/user/" + userId);
                 }, function (error) {
@@ -158,7 +160,8 @@ module.exports = function (app, userModel) {
         var resume = req.file;
         var resumePath = req.protocol + '://' + req.get('host') + '/uploads/resumes/' + resume.filename;
         if (resume) {
-            userModel.updateUserFile(userId, resumePath, true)
+            model.user
+                .updateUserFile(userId, resumePath, true)
                 .then(function (user) {
                     res.redirect("/#/user/" + userId);
                 }, function (error) {
@@ -172,7 +175,8 @@ module.exports = function (app, userModel) {
         var coverLetter = req.file;
         var coverLetterPath = req.protocol + '://' + req.get('host') + '/uploads/coverletters/' + coverLetter.filename;
         if (coverLetter) {
-            userModel.updateUserFile(userId, coverLetterPath, false)
+            model.user
+                .updateUserFile(userId, coverLetterPath, false)
                 .then(function (user) {
                     res.redirect("/#/user/" + userId);
                 }, function (error) {
