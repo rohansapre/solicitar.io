@@ -67,6 +67,10 @@
         }
 
         //  Schedule Interview
+        // hire = {
+        //     _recruiter: recruiterId,
+        //     position: position
+        // }
 
         function scheduleInterview(userId, hire) {
             return $http.post("/api/schedule/" + userId, hire);

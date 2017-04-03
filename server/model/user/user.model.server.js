@@ -15,6 +15,7 @@ userModel.findUserByCredentials = findUserByCredentials;
 userModel.updateUser = updateUser;
 userModel.deleteUser = deleteUser;
 userModel.updateUserFile = updateUserFile;
+userModel.getInterviewersForCompany = getInterviewersForCompany;
 
 module.exports = userModel;
 
@@ -112,6 +113,17 @@ function deleteUser(userId) {
             d.reject(err);
         else
             d.resolve(user);
+    });
+    return d.promise;
+}
+
+function getInterviewersForCompany(organization) {
+    var d = q.defer();
+    userModel.find({organization: organization, type: 'INTERVIEWER'}, '_id', function (err, interviewers) {
+        if(err)
+            d.reject(err);
+        else
+            d.resolve(interviewers);
     });
     return d.promise;
 }

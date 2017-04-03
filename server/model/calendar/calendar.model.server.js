@@ -11,6 +11,7 @@ var calendarModel = mongoose.model('Calendar', calendarSchema);
 calendarModel.getAvailability = getAvailability;
 calendarModel.setAvailability = setAvailability;
 calendarModel.updateAvailability = updateAvailability;
+calendarModel.getInterviewerAvailability = getInterviewerAvailability;
 
 module.exports = calendarModel;
 
@@ -48,6 +49,17 @@ function updateAvailability(userId, times) {
             d.reject(err);
         else
             d.resolve(calendar);
+    });
+    return d.promise;
+}
+
+function getInterviewerAvailability(interviewers) {
+    var d = q.defer();
+    calendarModel.find({_user: {$in: interviewers}}, function (err, calendar) {
+        if(err)
+            d.reject(err);
+        else
+            d.resolve(err);
     });
     return d.promise;
 }
