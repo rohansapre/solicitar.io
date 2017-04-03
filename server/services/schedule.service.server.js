@@ -9,6 +9,8 @@ module.exports = function (app, model) {
         var userId = req.params.userId;
         var hire = req.body;
 
+        console.log("Getting interviewers");
+
         model.user
             .findUserById(hire._recruiter)
             .then(function (recruiter) {
@@ -39,11 +41,8 @@ module.exports = function (app, model) {
     function scheduleInterview(user, calendar) {
 
         for (var i in calendar) {
-
+            console.log(calendar[i] + "\n");
         }
-
-
-
 
 
         model.schedule

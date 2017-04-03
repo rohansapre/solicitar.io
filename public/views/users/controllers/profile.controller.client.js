@@ -15,6 +15,7 @@
         vm.setHours = setHours;
         vm.addTimeToList= addTimeToList;
         vm.newTimings= newTimings;
+        vm.scheduleInterview = scheduleInterview;
 
         vm.weekend = false;
         var yyyy,dd,cMon,day;
@@ -35,10 +36,13 @@
                 });
 
             initializeCalender();
-
-
             console.log(vm.TimingList);
 
+            console.log("profile getting candidates");
+            UserService.getCandidates(vm.userId)
+                .success(function (candiates) {
+                    console.log(candiates);
+                })
         }
 
         init();
@@ -191,6 +195,10 @@
 
         function interview() {
                 $location.url("/user/" + vm.user._id + "/interview/");
+        }
+
+        function scheduleInterview() {
+            console.log("scheduling interview");
         }
     }
 })();

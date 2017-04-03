@@ -15,7 +15,8 @@
             "getAvailability": getAvailability,
             "setAvailability": setAvailability,
             "updateAvailability": updateAvailability,
-            "scheduleInterview": scheduleInterview
+            "scheduleInterview": scheduleInterview,
+            "getCandidates": getCandidates
         };
         return api;
 
@@ -74,6 +75,10 @@
 
         function scheduleInterview(userId, hire) {
             return $http.post("/api/schedule/" + userId, hire);
+        }
+
+        function getCandidates(recruiterId) {
+            return $http.get("/api/candidate/" + recruiterId);
         }
     }
 })();
