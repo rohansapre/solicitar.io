@@ -23,6 +23,7 @@
         vm.start=[];
         vm.end=[];
         vm.TimingList={};
+        
 
         function init() {
             vm.userId = $routeParams['uid'];
