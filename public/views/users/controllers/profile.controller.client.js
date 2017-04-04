@@ -23,7 +23,7 @@
         vm.start=[];
         vm.end=[];
         vm.TimingList={};
-        
+        vm.timingDisplayList=[];
 
         function init() {
             vm.userId = $routeParams['uid'];
@@ -69,10 +69,26 @@
             console.log(new Date(yyyy+'-'+m+'-'+dy+'T'+fr+':00'));
 
 
+            var startDate = new Date(yyyy+'-'+m+'-'+dy+'T'+fr+':00');
+            var endDate = new Date(yyyy+'-'+m+'-'+dy+'T'+to+':00');
+            var nowDate= new Date();
 
-            vm.start.push(new Date(yyyy+'-'+m+'-'+dy+'T'+fr+':00'));
-            vm.end.push(new Date(yyyy+'-'+m+'-'+dy+'T'+to+':00'));
+            if(nowDate > startDate || nowDate > endDate){
+                //error
+            }
+            else if(startDate >= endDate){
+                //error
+            }
+            else{
+                vm.start.push(startDate);
+                vm.end.push(endDate);
 
+                vm.timingDisplayList.push({
+                    date: startDate.toISOString().slice(0,10),
+                    start: ((startDate.getHours()+4)<10?'0':'') + (4 + startDate.getHours()) +  ' : ' + (startDate.getMinutes()<10?'0':'') + startDate.getMinutes(),
+                    end: ((endDate.getHours()+4)<10?'0':'') + (4 + endDate.getHours()) +  ' : ' + (endDate.getMinutes()<10?'0':'') + endDate.getMinutes()
+                });
+            }
 
         }
 
@@ -97,6 +113,8 @@
             yyyy = today.getFullYear();
             setDays();
             setHours();
+
+            // get existing timings
 
 
         }
