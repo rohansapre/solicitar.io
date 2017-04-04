@@ -2,45 +2,102 @@
  * Created by rohansapre on 3/21/17.
  */
 module.exports = function (app) {
-    var applicant = {
-        username: 'rohan',
+    var applicant1 = {
+        username: 'rohan1',
         password: 'pass',
-        email: 'rohan@yahoo.com',
-        firstName: 'Rohan',
+        email: 'rohan1@yahoo.com',
+        firstName: 'Rohan1',
         lastName: 'Sapre',
-        type: 'APPLICANT'
+        type: 'APPLICANT',
+        organization: 'Northeastern University'
     };
-    var recruiter = {
-        username: 'tushar',
+    var applicant2 = {
+        username: 'rohan2',
         password: 'pass',
-        email: 'tushar@yahoo.com',
-        firstName: 'Tushar',
+        email: 'rohan2@yahoo.com',
+        firstName: 'Rohan2',
+        lastName: 'Sapre',
+        type: 'APPLICANT',
+        organization: 'Arizona State University'
+    };
+    var applicant3 = {
+        username: 'rohan3',
+        password: 'pass',
+        email: 'rohan3@yahoo.com',
+        firstName: 'Rohan3',
+        lastName: 'Sapre',
+        type: 'APPLICANT',
+        organization: 'University of Buffalo'
+    };
+    var recruiter1 = {
+        username: 'tushar1',
+        password: 'pass',
+        email: 'tushar1@yahoo.com',
+        firstName: 'Tushar1',
         lastName: 'Gupta',
-        type: 'RECRUITER'
+        type: 'RECRUITER',
+        organization: 'Tesla'
     };
-    var interviewer = {
-        username: 'amul',
+    var recruiter2 = {
+        username: 'tushar2',
         password: 'pass',
-        email: 'amul@yahoo.com',
-        firstName: 'Amul',
+        email: 'tushar2@yahoo.com',
+        firstName: 'Tushar2',
+        lastName: 'Gupta',
+        type: 'RECRUITER',
+        organization: 'SpaceX'
+    };
+    var interviewer1 = {
+        username: 'amul1',
+        password: 'pass',
+        email: 'amul1@yahoo.com',
+        firstName: 'Amul1',
         lastName: 'Mehta',
-        type: 'INTERVIEWER'
+        type: 'INTERVIEWER',
+        organization: 'Tesla'
+    };
+    var interviewer2 = {
+        username: 'amul2',
+        password: 'pass',
+        email: 'amul2@yahoo.com',
+        firstName: 'Amul2',
+        lastName: 'Mehta',
+        type: 'INTERVIEWER',
+        organization: 'Tesla'
+    };
+    var interviewer3 = {
+        username: 'amul3',
+        password: 'pass',
+        email: 'amul3@yahoo.com',
+        firstName: 'Amul3',
+        lastName: 'Mehta',
+        type: 'INTERVIEWER',
+        organization: 'SpaceX'
     };
 
     var userModel = require('./model/user/user.model.server');
-    userModel.createUser(applicant);
-    userModel.createUser(recruiter);
-    userModel.createUser(interviewer);
+    userModel.createUser(applicant1);
+    userModel.createUser(applicant2);
+    userModel.createUser(applicant3);
+    userModel.createUser(recruiter1);
+    userModel.createUser(recruiter2);
+    userModel.createUser(interviewer1);
+    userModel.createUser(interviewer2);
+    userModel.createUser(interviewer3);
     var calendarModel = require('./model/calendar/calendar.model.server');
     var scheduleModel = require('./model/schedule/schedule.model.server');
+    var candidateModel = require('./model/candidate/candidate.model.server');
     var model = {
         user: userModel,
         calendar: calendarModel,
-        schedule: scheduleModel
+        schedule: scheduleModel,
+        candidate: candidateModel
     };
+
     require('./services/user.service.server.js')(app, model);
     require("./services/playground.service.server")(app);
     require('./services/recruiter.service.server')(app);
     require('./services/calendar.service.server')(app, model);
     require('./services/schedule.service.server')(app, model);
+    require('./services/candidate.service.server')(app, model);
 };

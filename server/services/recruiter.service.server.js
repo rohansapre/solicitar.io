@@ -1,7 +1,7 @@
 /**
  * Created by rohansapre on 3/25/17.
  */
-module.exports = function (app) {
+module.exports = function (app, model) {
     app.post("/api/recruiter", createInviteList);
 
     var https = require('https');

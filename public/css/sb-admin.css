@@ -419,3 +419,11 @@ body .modal {
 .resume-upload {
     /*TODO: Align the browse button to center*/
 }
+
+.nodecor {
+    text-decoration: none;
+}
+
+th, td {
+    padding-left: 15px;
+}

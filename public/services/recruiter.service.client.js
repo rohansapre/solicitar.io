@@ -9,13 +9,19 @@
     function recruiterService($http) {
 
         var api = {
-            "sendInvitations": sendInvitations
+            "sendInvitations": sendInvitations,
+            "getCandidates": getCandidates
         };
         return api;
 
         function sendInvitations(emails) {
             console.log("sending to server");
             return $http.post("/api/recruiter", emails);
+        }
+
+        function getCandidates(userId) {
+            console.log("Inside recruiter.service.client.js");
+            return $http.get("/api/candidate/" + userId);
         }
     }
 })();
