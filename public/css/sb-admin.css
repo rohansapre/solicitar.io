@@ -423,3 +423,7 @@ body .modal {
 .nodecor {
     text-decoration: none;
 }
+
+th, td {
+    padding-left: 15px;
+}

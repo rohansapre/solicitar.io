@@ -78,12 +78,27 @@
             <i class="fa fa-bar-chart"></i> Area Chart Example
         </div>
         <div class="card-block">
-            <ul class="list-group">
-                <li class="list-group-item justify-content-between" ng-repeat="c in model.candidates">
-                    {{c}}
-                </li>
+            <div class="table-responsive">
+                <table class="table-hover" style="">
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email</th>
+                    </tr>
+                    <tr ng-repeat="c in model.candidates">
+                        <td>{{c._applicant.firstName}}</td>
+                        <td>{{c._applicant.lastName}}</td>
+                        <td>{{c._applicant.email}}</td>
+                    </tr>
 
-            </ul>
+                </table>
+            </div>
+            <!--<ul class="list-group">-->
+                <!--<li class="list-group-item justify-content-between" ng-repeat="c in model.candidates">-->
+                    <!--{{c._applicant.firstName}} &#45;&#45; {{c._applicant.lastName}}-->
+                <!--</li>-->
+
+            <!--</ul>-->
         </div>
         <div class="card-footer text-muted">
             <small>2 Days Ago</small>
