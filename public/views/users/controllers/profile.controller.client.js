@@ -16,6 +16,12 @@
         vm.addTimeToList= addTimeToList;
         vm.newTimings= newTimings;
         vm.scheduleInterview = scheduleInterview;
+        vm.addMail = addMail;
+        vm.deleteMail = deleteMail;
+        vm.deleteAllMail = deleteAllMail;
+        vm.getCandidates = getCandidates;
+
+        vm.emails = [];
 
         vm.weekend = false;
         var yyyy,dd,cMon,day;
@@ -36,6 +42,7 @@
                 });
 
             initializeCalender();
+            getCandidates();
             console.log(vm.TimingList);
 
             console.log("profile getting candidates");
@@ -180,10 +187,44 @@
             }
         }
 
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            return re.test(email);
+        }
+
+        function addMail() {
+            // console.log(vm.newmail);
+            // var despace = String(vm.newmail);
+            // console.log(despace);
+            // var despace = vm.newmail.replace(/\s/g,'');
+            var lister = vm.newmail.split(/(?:,| )+/);
+            console.log(lister);
+            for (eachmail in lister) {
+                console.log(lister[eachmail]);
+                if (validateEmail(lister[eachmail])) {
+                    vm.emails.push(lister[eachmail]);
+                    console.log("added");
+                }
+            }
+            vm.newmail = "";
+        }
+
+        function deleteAllMail() {
+            vm.emails = [];
+        }
+
+        function deleteMail(listmail) {
+            var index = vm.emails.indexOf(listmail);
+            if (index > -1) {
+                vm.emails.splice(index, 1);
+            }
+        }
+
         function sendInvitations() {
-            var emails = ['mht.amul@gmail.com', 'chaitanyakaul2001@gmail.com', 'tushar.gupta.cse@gmail.com', 'bharatnvarun@gmail.com', 'malkanimonica@gmail.com'];
+            // var emailer = ['mht.amul@gmail.com', 'chaitanyakaul2001@gmail.com', 'tushar.gupta.cse@gmail.com', 'bharatnvarun@gmail.com', 'malkanimonica@gmail.com'];
             console.log("send invites");
-            RecruiterService.sendInvitations(emails)
+            console.log(vm.emails);
+            RecruiterService.sendInvitations(vm.emails)
                 .success(function (status) {
                     if (status) {
                         console.log("Invitation sent from controller");
@@ -199,6 +240,14 @@
 
         function scheduleInterview() {
             console.log("scheduling interview");
+        }
+
+        function getCandidates() {
+            console.log("inside profile.controller.client.js");
+            RecruiterService.getCandidates(vm.userId)
+                .success(function (info) {
+                    vm.candidates = info;
+                });
         }
     }
 })();

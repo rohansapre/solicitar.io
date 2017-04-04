@@ -10,9 +10,16 @@ module.exports = function (app, model) {
         model.candidate
             .getApplicantsForRecruiter(recruiterId)
             .then(function (candidates) {
+                console.log(candidates._applicant);
                 res.json(candidates);
             }, function (error) {
                 res.sendStatus(500).send(error);
             })
     }
 };
+
+//58e2be25b6dd161f985efea6
+//58e2be25b6dd161f985efea7
+//58e2be25b6dd161f985efea5
+//58dc6c43f41bae69ea4958ef
+//58dc6c43f41bae69ea4958ef
