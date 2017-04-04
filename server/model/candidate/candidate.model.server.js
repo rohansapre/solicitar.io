@@ -14,7 +14,7 @@ function getApplicantsForRecruiter(recruiterId) {
     var d = q.defer();
     candidateModel
         .find({_recruiter: recruiterId})
-        .populate('_applicant')
+        .populate('_applicant', 'email firstName lastName organization status')
         .exec(function (err, applicants) {
             if(err)
                 d.reject(err);
