@@ -20,6 +20,8 @@
         vm.deleteMail = deleteMail;
         vm.deleteAllMail = deleteAllMail;
         vm.getCandidates = getCandidates;
+        vm.deleteTiming= deleteTiming;
+        vm.updateTimings= updateTimings;
 
         vm.emails = [];
 
@@ -30,7 +32,7 @@
         vm.start=[];
         vm.end=[];
         vm.TimingList={};
-        
+        vm.timingDisplayList=[];
 
         function init() {
             vm.userId = $routeParams['uid'];
@@ -80,10 +82,36 @@
             console.log(new Date(yyyy+'-'+m+'-'+dy+'T'+fr+':00'));
 
 
+            var startDate = new Date(yyyy+'-'+m+'-'+dy+'T'+fr+':00');
+            var endDate = new Date(yyyy+'-'+m+'-'+dy+'T'+to+':00');
+            var nowDate= new Date();
 
-            vm.start.push(new Date(yyyy+'-'+m+'-'+dy+'T'+fr+':00'));
-            vm.end.push(new Date(yyyy+'-'+m+'-'+dy+'T'+to+':00'));
+            // check for duplicate timings
 
+            if(nowDate > startDate || nowDate > endDate){
+                //error
+            }
+            else if(startDate >= endDate){
+                //error
+            }
+            else{
+                vm.start.push(startDate);
+                vm.end.push(endDate);
+
+                vm.timingDisplayList.push({
+                    date: startDate.toISOString().slice(0,10),
+                    start: ((startDate.getHours()+4)<10?'0':'') + (4 + startDate.getHours()) +  ' : ' + (startDate.getMinutes()<10?'0':'') + startDate.getMinutes(),
+                    end: ((endDate.getHours()+4)<10?'0':'') + (4 + endDate.getHours()) +  ' : ' + (endDate.getMinutes()<10?'0':'') + endDate.getMinutes()
+                });
+            }
+
+            if(vm.timingDisplayList.length == 1){
+                if(vm.submitButton){
+                    vm.updateButton=false;
+                    vm.submitButton= true;
+                }
+
+            }
 
         }
 
@@ -94,7 +122,12 @@
                 console.log(data);
             });
         }
-
+        
+        function updateTimings() {
+            UserService.setAvailability($routeParams['uid'],{'start':vm.start,'end':vm.end}).success(function (data) {
+                console.log(data);
+            });
+        }
 
         function initializeCalender() {
             var today = new Date();
@@ -109,8 +142,46 @@
             setDays();
             setHours();
 
+            // get existing timings
+            getExistingTimings();
+
 
         }
+
+        function getExistingTimings() {
+            UserService.getAvailability($routeParams['uid']).
+                success(function (result) {
+                console.log("existing");
+                console.log(result);
+                if(result.startTime.length == 0){
+                    // button is create
+                    vm.updateButton=true;
+                    vm.submitButton= false;
+
+                }
+                else{
+                    for(var d in result.startTime){
+                        var st = new Date(result.startTime[d]);
+                        var et = new Date(result.endTime[d]);
+                        console.log("sdfsd");
+                        vm.timingDisplayList.push({
+                            date: st.toISOString().slice(0,10),
+                            start: ((st.getHours()+4)<10?'0':'') + (4 + st.getHours()) +  ' : ' + (et.getMinutes()<10?'0':'') + et.getMinutes(),
+                            end: ((et.getHours()+4)<10?'0':'') + (4 + et.getHours()) +  ' : ' + (et.getMinutes()<10?'0':'') + et.getMinutes()
+                        });
+
+                        console.log(vm.timingDisplayList);
+
+                    }
+                    vm.updateButton=false;
+                    vm.submitButton= true;
+                }
+            }).error(function (err) {
+                console.log(err);
+            })
+        }
+
+
         function getMonthLabel(month, year) {
             var m;
             for(var u in months){
@@ -164,6 +235,19 @@
             }
         }
 
+
+        function deleteTiming(timing) {
+            var index = vm.timingDisplayList.indexOf(timing);
+
+            if (index > -1) {
+               vm.timingDisplayList.splice(index, 1);
+            }
+
+            if (vm.timingDisplayList.length == 0){
+                vm.updateButton=true;
+                vm.submitButton= true;
+            }
+        }
 
         function updateUser(newUser) {
             UserService

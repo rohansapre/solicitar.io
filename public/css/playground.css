@@ -183,9 +183,12 @@ div#results{
 .marginBottom{
     margin-bottom: 10px;
 }
-.centerAlign{
+.centerAlign {
     text-align: center;
     width: 50%;
+}
 
 
+.hiddenClass{
+    display: none;
 }
