@@ -46,12 +46,6 @@
             initializeCalender();
             getCandidates();
             console.log(vm.TimingList);
-
-            console.log("profile getting candidates");
-            UserService.getCandidates(vm.userId)
-                .success(function (candiates) {
-                    console.log(candiates);
-                })
         }
 
         init();
@@ -322,8 +316,13 @@
                 $location.url("/user/" + vm.user._id + "/interview/");
         }
 
-        function scheduleInterview() {
-            console.log("scheduling interview");
+        function scheduleInterview(user) {
+            console.log("scheduling interview " + user._applicant._id);
+            var hire = {
+                _recruiter: vm.userId,
+                position: user.position
+            };
+            RecruiterService.scheduleInterview(user._applicant._id, hire);
         }
 
         function getCandidates() {

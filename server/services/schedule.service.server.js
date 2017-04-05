@@ -23,6 +23,7 @@ module.exports = function (app, model) {
                                 model.user
                                     .findUserById(userId)
                                     .then(function (user) {
+                                        console.log(userId, calendar);
                                         scheduleInterview(user, calendar);
                                     }, function (error) {
                                         res.sendStatus(500).send(error);
