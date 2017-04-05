@@ -22,6 +22,16 @@
         //vm.getCandidates = getCandidates;
         vm.deleteTiming= deleteTiming;
         vm.updateTimings= updateTimings;
+        vm.createPosition = createPosition;
+        vm.getPositions = getPositions;
+
+        // Interviewer Start
+        vm.initializeInterviewerUpcomingInterviews= initializeInterviewerUpcomingInterviews;
+        vm.initializeViewCandidates= initializeViewCandidates;
+        vm.initializeScheduleInterview = initializeScheduleInterview;
+
+        vm.interview=null;
+        // Interviewer End
 
         //Recruiter start
         vm.addPost = addPost;
@@ -44,6 +54,56 @@
 
 
 
+        // Interviewer
+        vm.interviewerUpcomingInterviews = [{
+            position: "Software Developer Internship - Summer 2018",
+            recruiterName: "Tushar Randikabaccha",
+            location: "Narak",
+            positionId: "12223we54"
+        }, {
+                position: "Software Developer Co-op - Fall 2018",
+                recruiterName: "Tushar Randikabaccha",
+                location: "Narak",
+                positionId: "12223we54"
+        }, {
+                position: "Software Developer  - Full Time",
+                recruiterName: "Tushar Randikabaccha",
+                location: "Narak",
+                positionId: "12223we54"
+        }, {
+                position: "Web Developer Internship - Summer 2018",
+                recruiterName: "Tushar Randikabaccha",
+                location: "Narak",
+                positionId: "12223we54"
+        }];
+        vm.interviewerPastInterviews=[{
+            position: "Software Developer Internship - Summer 2018",
+            recruiterName: "Tushar Randikabaccha",
+            location: "Narak",
+            positionId: "12223we54"
+        }, {
+            position: "Software Developer Internship - Summer 2018",
+            recruiterName: "Tushar Randikabaccha",
+            location: "Narak",
+            positionId: "12223we54"
+        }, {
+            position: "Software Developer Internship - Summer 2018",
+            recruiterName: "Tushar Randikabaccha",
+            location: "Narak",
+            positionId: "12223we54"
+        }, {
+            position: "Software Developer Internship - Summer 2018",
+            recruiterName: "Tushar Randikabaccha",
+            location: "Narak",
+            positionId: "12223we54"
+        }];
+
+
+        // Inerviewer End
+
+
+
+
         function init() {
             vm.userId = $routeParams['uid'];
             var promise = UserService.findUserById(vm.userId);
@@ -57,11 +117,7 @@
             // getCandidates();
             console.log(vm.TimingList);
 
-            console.log("profile getting candidates");
-            // UserService.getCandidates(vm.userId)
-            //     .success(function (candidates) {
-            //         console.log(candidates);
-            //     })
+            getPositions();
         }
 
         init();
@@ -311,7 +367,7 @@
         }
 
         function sendInvitations() {
-            // var emailer = ['mht.amul@gmail.com', 'chaitanyakaul2001@gmail.com', 'tushar.gupta.cse@gmail.com', 'bharatnvarun@gmail.com', 'malkanimonica@gmail.com'];
+            // var emailer = ['mht.amul@gmail.com', 'rohansapre@yahoo.com', 'tushar.gupta.cse@gmail.com'];
             console.log("send invites");
             console.log(vm.emails);
             RecruiterService.sendInvitations(vm.emails)
@@ -345,6 +401,50 @@
         //         });
         // }
 
+
+        // Interviewer :
+
+
+        function initializeInterviewerUpcomingInterviews(){
+                //get upcoming interviews from intercview services
+        }
+        
+        
+        function initializeViewCandidates() {
+            console.log("sgsgsgs");
+            console.log(vm.tab);
+            vm.interviewApplicants =[{
+                name: 'Amul Mehta',
+            },{
+              name: 'Tushar Gupta'
+            },{
+                name: 'Rohan Sapre'
+            },{
+                name: 'Vaibhav Shukla'
+            }];
+        }
+        
+        function initializeScheduleInterview() {
+            result= {
+                startTime: [new Date(), new Date(), new Date(), new Date(), new Date()],
+                endTime: [new Date(),new Date(), new Date(), new Date(), new Date()]
+            };
+            vm.applicantTiming=[];
+            for(var d in result.startTime){
+                var st = new Date(result.startTime[d]);
+                var et = new Date(result.endTime[d]);
+                console.log("sdfsd");
+                vm.applicantTiming.push({
+                    date: st.toISOString().slice(0,10),
+                    start: ((st.getHours()+4)<10?'0':'') + (4 + st.getHours()) +  ' : ' + (et.getMinutes()<10?'0':'') + et.getMinutes(),
+                    end: ((et.getHours()+4)<10?'0':'') + (4 + et.getHours()) +  ' : ' + (et.getMinutes()<10?'0':'') + et.getMinutes()
+                });
+
+            }
+        }
+
+        // Interviewer ENDS
+
         // Recruiter Starts
         function addPost() {
             console.log('in profile controller addPost');
@@ -367,9 +467,29 @@
 
         function addCandidate() {
             console.log('in profile controller addCandidate');
-            
         }
 
         // Recruiter Ends
+
+        function getPositions() {
+            RecruiterService.getPositions(vm.userId)
+                .success(function (positions) {
+                    vm.positions = positions;
+                })
+                .error(function (error) {
+                    console.log(error);
+                })
+        }
+
+        function createPosition(position) {
+            var newPosition = {
+                name: position.name,
+                location: position.location
+            };
+            RecruiterService.createPosition(vm.userId, newPosition)
+                .success(function (position) {
+                    console.log("position: " + position);
+                })
+        }
     }
 })();

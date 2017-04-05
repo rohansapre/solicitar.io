@@ -11,7 +11,9 @@
         var api = {
             "sendInvitations": sendInvitations,
             "getCandidates": getCandidates,
-            "scheduleInterview": scheduleInterview
+            "scheduleInterview": scheduleInterview,
+            "createPosition": createPosition,
+            "getPositions": getPositions
         };
         return api;
 
@@ -23,6 +25,14 @@
         function getCandidates(userId) {
             console.log("Inside recruiter.service.client.js");
             return $http.get("/api/candidate/" + userId);
+        }
+
+        function createPosition(recruiterId, position) {
+            return $http.post("/api/position/" + recruiterId, position);
+        }
+
+        function getPositions(recruiterId) {
+            return $http.get("/api/position/" + recruiterId);
         }
 
         //  Schedule Interview

@@ -1,0 +1,23 @@
+<div class="container-fluid">
+
+    <ol class="breadcrumb my-3">
+        <li class="breadcrumb-item"><a href="">Homepage</a></li>
+        <li class="breadcrumb-item"><a href ng-click="model.tab='interviewerUpcoming'">{{model.user.firstName}}'s
+            Upcoming Interviews</a></li>
+        <li class="breadcrumb-item"><a href ng-click="model.tab='interviewerViewCandidates'">View Candidates</a></li>
+        <li class="breadcrumb-item active">Schedule Interview</li>
+    </ol>
+
+    <div class="card-deck" style="display: flex;">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">Schedule Interview with {{model.applicant.name}}</h4>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" ng-repeat="timing in model.applicantTiming">
+                    {{timing.date}} : {{timing.start}} --> {{timing.end}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

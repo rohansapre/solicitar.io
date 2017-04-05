@@ -1,0 +1,44 @@
+<div class="container-fluid">
+
+    <ol class="breadcrumb my-3">
+        <li class="breadcrumb-item"><a href="">Homepage</a></li>
+        <li class="breadcrumb-item"><a href ng-click="model.tab='interviewerUpcoming'">{{model.user.firstName}}'s
+            Upcoming Interviews</a></li>
+        <li class="breadcrumb-item active">View Candidates</li>
+    </ol>
+
+    <div class="card-deck" style="display: flex;">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">{{model.interview.position}}</h4>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" ng-repeat="applicant in model.interviewApplicants">
+                    <span class="float-left">{{applicant.name}}</span>
+                    <div class="container-fluid pull-right">
+
+
+                        <div class="float-right card-footer">
+                            <a href ng-click="model.applicant=applicant; model.tab='interviewerScheduleInterview'"
+                               class=" clearfix small z-1">
+                                <span class="float-right"><i class="fa fa-angle-right"></i></span>
+                                <span class="float-right">Schedule Interview </span>
+
+                            </a>
+                        </div>
+
+                        <div class="float-right card-footer">
+
+                            <a href ng-click="" class=" clearfix small z-1">
+                                <span class="float-right"
+                                      href
+                                      ng-click="">View Profile</span></a>
+
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
