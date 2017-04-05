@@ -22,6 +22,8 @@
         vm.getCandidates = getCandidates;
         vm.deleteTiming= deleteTiming;
         vm.updateTimings= updateTimings;
+        vm.createPosition = createPosition;
+        vm.getPositions = getPositions;
 
         // Interviewer Start
         vm.initializeInterviewerUpcomingInterviews= initializeInterviewerUpcomingInterviews;
@@ -114,12 +116,7 @@
             initializeCalender();
             // getCandidates();
             console.log(vm.TimingList);
-
-            console.log("profile getting candidates");
-            UserService.getCandidates(vm.userId)
-                .success(function (candidates) {
-                    console.log(candidates);
-                })
+            getPositions();
         }
 
         init();
@@ -369,7 +366,7 @@
         }
 
         function sendInvitations() {
-            // var emailer = ['mht.amul@gmail.com', 'chaitanyakaul2001@gmail.com', 'tushar.gupta.cse@gmail.com', 'bharatnvarun@gmail.com', 'malkanimonica@gmail.com'];
+            // var emailer = ['mht.amul@gmail.com', 'rohansapre@yahoo.com', 'tushar.gupta.cse@gmail.com'];
             console.log("send invites");
             console.log(vm.emails);
             RecruiterService.sendInvitations(vm.emails)
@@ -469,10 +466,29 @@
 
         function addCandidate() {
             console.log('in profile controller addCandidate');
-            
         }
 
         // Recruiter Ends
 
+        function getPositions() {
+            RecruiterService.getPositions(vm.userId)
+                .success(function (positions) {
+                    vm.positions = positions;
+                })
+                .error(function (error) {
+                    console.log(error);
+                })
+        }
+
+        function createPosition(position) {
+            var newPosition = {
+                name: position.name,
+                location: position.location
+            };
+            RecruiterService.createPosition(vm.userId, newPosition)
+                .success(function (position) {
+                    console.log("position: " + position);
+                })
+        }
     }
 })();

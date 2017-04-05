@@ -2,25 +2,16 @@
  * Created by rohansapre on 3/25/17.
  */
 module.exports = function (app, model) {
-    app.post("/api/recruiter", filterEmailsForInvites);
+    app.post("/api/recruiter", createInviteList);
 
     var https = require('https');
     var user = process.env.MAILCHIMP_API_KEY;
     var host = 'us15.api.mailchimp.com';
 
-    function filterEmailsForInvites(req, res) {
-        var emails = req.body;
-        model.user
-            .findUsersByEmails(emails)
-            .then(function (users) {
-                i
-            })
-    }
-
     function createInviteList(req, res) {
         var emails = req.body;
         var data = {
-            'name': 'Goldman Sachs',
+            'name': 'Google',
             'contact': {
                 'company': 'solicitar.io',
                 'address1': '1171 Boylston Street',
@@ -61,14 +52,14 @@ module.exports = function (app, model) {
             response.on('end', function() {
                 var parsed = JSON.parse(body);
                 console.log("InviteList Created, adding Recipients");
-                addRecipients(parsed, emails);
+                addRecipients(parsed, emails, res);
             });
         });
         request.write(stringData);
         request.end();
     }
 
-    function addRecipients(list, emails) {
+    function addRecipients(list, emails, res) {
         var members = [];
         for (var i in emails) {
             var member = {
@@ -105,14 +96,17 @@ module.exports = function (app, model) {
             response.on('end', function() {
                 var parsed = JSON.parse(body);
                 console.log("Errors: " + parsed.errors);
-                createCampaign(list);
+                if (parsed.errors.length === 0)
+                    createCampaign(list, res);
+                else
+                    console.log(parsed.errors);
             });
         });
         request.write(stringData);
         request.end();
     }
 
-    function createCampaign(list) {
+    function createCampaign(list, res) {
         var campaign_id = process.env.MAILCHIMP_CAMPAIGN_ID;
 
         var path = '/3.0/campaigns/' + campaign_id + '/actions/replicate';
@@ -133,13 +127,13 @@ module.exports = function (app, model) {
             response.on('end', function() {
                 var parsed = JSON.parse(body);
                 console.log("Campaign created, adding invite list");
-                addInviteList(parsed, list);
+                addInviteList(parsed, list, res);
             });
         });
         request.end();
     }
 
-    function addInviteList(campaign, list) {
+    function addInviteList(campaign, list, res) {
 
         var recipients = {
             list_id: list.id
@@ -176,14 +170,14 @@ module.exports = function (app, model) {
             response.on('end', function() {
                 var parsed = JSON.parse(body);
                 console.log("InviteList added, final sending");
-                sendInvitations(parsed);
+                sendInvitations(parsed, res);
             });
         });
         request.write(stringData);
         request.end();
     }
 
-    function sendInvitations(campaign) {
+    function sendInvitations(campaign, res) {
 
         var path = '/3.0/campaigns/' + campaign.id + '/actions/send';
         var options = {
@@ -194,7 +188,15 @@ module.exports = function (app, model) {
         };
 
         var request = https.request(options, function (response) {
+            var body = '';
             console.log(response.statusCode);
+            console.log(JSON.stringify(response.headers));
+            response.on('data', function (d) {
+                body += d;
+            });
+            response.on('end', function() {
+                res.send(body);
+            });
         });
         request.end();
     }
