@@ -18,10 +18,8 @@ function getApplicantsForRecruiter(recruiterId) {
         .exec(function (err, applicants) {
             if(err)
                 d.reject(err);
-            else {
-                console.log(applicants);
+            else
                 d.resolve(applicants);
-            }
         });
     return d.promise;
 }

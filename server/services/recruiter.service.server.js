@@ -2,11 +2,20 @@
  * Created by rohansapre on 3/25/17.
  */
 module.exports = function (app, model) {
-    app.post("/api/recruiter", createInviteList);
+    app.post("/api/recruiter", filterEmailsForInvites);
 
     var https = require('https');
     var user = process.env.MAILCHIMP_API_KEY;
     var host = 'us15.api.mailchimp.com';
+
+    function filterEmailsForInvites(req, res) {
+        var emails = req.body;
+        model.user
+            .findUsersByEmails(emails)
+            .then(function (users) {
+                i
+            })
+    }
 
     function createInviteList(req, res) {
         var emails = req.body;

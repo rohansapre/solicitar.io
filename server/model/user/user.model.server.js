@@ -16,6 +16,7 @@ userModel.updateUser = updateUser;
 userModel.deleteUser = deleteUser;
 userModel.updateUserFile = updateUserFile;
 userModel.getInterviewersForCompany = getInterviewersForCompany;
+userModel.findUsersByEmails = findUsersByEmails;
 
 module.exports = userModel;
 
@@ -124,6 +125,17 @@ function getInterviewersForCompany(organization) {
             d.reject(err);
         else
             d.resolve(interviewers);
+    });
+    return d.promise;
+}
+
+function findUsersByEmails(emails) {
+    var d = q.defer();
+    userModel.find({email: {$in: emails}}, function (err, users) {
+        if(err)
+            d.reject(err);
+        else
+            d.resolve(users);
     });
     return d.promise;
 }

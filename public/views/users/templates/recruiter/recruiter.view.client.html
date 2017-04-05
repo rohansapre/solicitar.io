@@ -6,16 +6,19 @@
     <div class="collapse navbar-collapse" id="navbarExample">
         <ul class="sidebar-nav navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href ng-click="tab='dash'"><i class="fa fa-fw fa-dashboard"></i> {{model.user.firstName}}'s Dashboard</a>
+                <a class="nav-link" href ng-click="model.tab='recruiterdash'"><i class="fa fa-fw fa-dashboard"></i> {{model.user.firstName}}'s Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href ng-click="tab='profile'"><i class="fa fa-fw fa-area-chart"></i> My Profile</a>
+                <a class="nav-link" href ng-click="model.tab='recruiterprofile'"><i class="fa fa-fw fa-area-chart"></i> My Profile</a>
             </li>
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href ng-click="tab='candidates'"><i class="fa fa-fw fa-area-chart"></i> View Applicants</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href ng-click="tab='interviewers'"><i class="fa fa-fw fa-cogs"></i> Interviewers</a>-->
+            <!--</li>-->
             <li class="nav-item">
-                <a class="nav-link" href ng-click="tab='candidates'"><i class="fa fa-fw fa-area-chart"></i> All Applicants</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href ng-click="tab='interviewers'"><i class="fa fa-fw fa-cogs"></i> Interviewers</a>
+                <a class="nav-link" href ng-click="model.tab='recruiterpostings'"><i class="fa fa-fw fa-cogs"></i> Job Postings</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"><i class="fa fa-fw fa-table"></i> Tasks</a>
@@ -78,18 +81,21 @@
     </div>
 </nav>
 
-<div ng-switch on="tab">
-    <div ng-switch-when="dash">
+<div ng-switch on="model.tab">
+    <div ng-switch-when="recruiterdash">
         <ng-include src="'views/users/templates/recruiter/dashboard.recruiter.view.client.html'"></ng-include>
     </div>
-    <div ng-switch-when="profile">
+    <div ng-switch-when="recruiterprofile">
         <ng-include src="'views/users/templates/recruiter/editprofile.view.client.html'"></ng-include>
     </div>
-    <div ng-switch-when="candidates">
-        <ng-include src="'views/users/templates/recruiter/candidates.view.client.html'"></ng-include>
+    <div ng-switch-when="recruiterpostings">
+        <ng-include src="'views/users/templates/recruiter/postings.view.client.html'"></ng-include>
     </div>
-    <div ng-switch-when="interviewers">
+    <div ng-switch-when="recruiterinterviewers">
         <ng-include src="'views/users/templates/recruiter/interviewers.view.client.html'"></ng-include>
+    </div>
+    <div ng-switch-when="recruiterviewcandidates">
+        <ng-include src="'views/users/templates/recruiter/viewcandidates.view.client.html'"></ng-include>
     </div>
     <div ng-switch-default>
         <ng-include src="'views/users/templates/recruiter/dashboard.recruiter.view.client.html'"></ng-include>
