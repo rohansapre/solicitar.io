@@ -308,7 +308,7 @@
         }
 
         function sendInvitations() {
-            // var emailer = ['mht.amul@gmail.com', 'chaitanyakaul2001@gmail.com', 'tushar.gupta.cse@gmail.com', 'bharatnvarun@gmail.com', 'malkanimonica@gmail.com'];
+            // var emailer = ['mht.amul@gmail.com', 'rohansapre@yahoo.com', 'tushar.gupta.cse@gmail.com'];
             console.log("send invites");
             console.log(vm.emails);
             RecruiterService.sendInvitations(vm.emails)
