@@ -57,43 +57,43 @@
         // Interviewer
         vm.interviewerUpcomingInterviews = [{
             position: "Software Developer Internship - Summer 2018",
-            recruiterName: "Tushar Randikabaccha",
+            recruiterName: "Tushar Gupta",
             location: "Narak",
             positionId: "12223we54"
         }, {
                 position: "Software Developer Co-op - Fall 2018",
-                recruiterName: "Tushar Randikabaccha",
+                recruiterName: "Tushar Gupta",
                 location: "Narak",
                 positionId: "12223we54"
         }, {
                 position: "Software Developer  - Full Time",
-                recruiterName: "Tushar Randikabaccha",
+                recruiterName: "Tushar Gupta",
                 location: "Narak",
                 positionId: "12223we54"
         }, {
                 position: "Web Developer Internship - Summer 2018",
-                recruiterName: "Tushar Randikabaccha",
+                recruiterName: "Tushar Gupta",
                 location: "Narak",
                 positionId: "12223we54"
         }];
         vm.interviewerPastInterviews=[{
             position: "Software Developer Internship - Summer 2018",
-            recruiterName: "Tushar Randikabaccha",
+            recruiterName: "Tushar Gupta",
             location: "Narak",
             positionId: "12223we54"
         }, {
             position: "Software Developer Internship - Summer 2018",
-            recruiterName: "Tushar Randikabaccha",
+            recruiterName: "Tushar Gupta",
             location: "Narak",
             positionId: "12223we54"
         }, {
             position: "Software Developer Internship - Summer 2018",
-            recruiterName: "Tushar Randikabaccha",
+            recruiterName: "Tushar Gupta",
             location: "Narak",
             positionId: "12223we54"
         }, {
             position: "Software Developer Internship - Summer 2018",
-            recruiterName: "Tushar Randikabaccha",
+            recruiterName: "Tushar Gupta",
             location: "Narak",
             positionId: "12223we54"
         }];
@@ -490,5 +490,6 @@
                     console.log("position: " + position);
                 })
         }
+
     }
 })();
