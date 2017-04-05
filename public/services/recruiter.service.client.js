@@ -10,7 +10,8 @@
 
         var api = {
             "sendInvitations": sendInvitations,
-            "getCandidates": getCandidates
+            "getCandidates": getCandidates,
+            "scheduleInterview": scheduleInterview
         };
         return api;
 
@@ -22,6 +23,16 @@
         function getCandidates(userId) {
             console.log("Inside recruiter.service.client.js");
             return $http.get("/api/candidate/" + userId);
+        }
+
+        //  Schedule Interview
+        // hire = {
+        //     _recruiter: recruiterId,
+        //     position: position
+        // }
+
+        function scheduleInterview(userId, hire) {
+            return $http.post("/api/schedule/" + userId, hire);
         }
     }
 })();

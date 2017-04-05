@@ -14,9 +14,7 @@
             "findUserByUsername": findUserByUsername,
             "getAvailability": getAvailability,
             "setAvailability": setAvailability,
-            "updateAvailability": updateAvailability,
-            "scheduleInterview": scheduleInterview,
-            "getCandidates": getCandidates
+            "updateAvailability": updateAvailability
         };
         return api;
 
@@ -65,20 +63,6 @@
 
         function updateAvailability(userId, times) {
             return $http.put("/api/calendar/" + userId, times);
-        }
-
-        //  Schedule Interview
-        // hire = {
-        //     _recruiter: recruiterId,
-        //     position: position
-        // }
-
-        function scheduleInterview(userId, hire) {
-            return $http.post("/api/schedule/" + userId, hire);
-        }
-
-        function getCandidates(recruiterId) {
-            return $http.get("/api/candidate/" + recruiterId);
         }
     }
 })();
