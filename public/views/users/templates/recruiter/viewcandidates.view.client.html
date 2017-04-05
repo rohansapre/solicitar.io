@@ -81,21 +81,14 @@
             </div>
             <div class="card-block">
                 <div class="row">
-                    <div class="col-lg-6">
-                        <div class="input-group">
-                            <input type="text" class="form-control" aria-label="Text input with checkbox">
-                        </div>
+                    <div class="col-md-6" style="margin-bottom: 10px;">
+                        <input type="text" class="form-control" ng-model="user.firstName" placeholder="First Name">
                     </div>
-                    <div class="col-lg-6">
-                        <div class="input-group">
-      <span class="input-group-addon">
-        <input type="radio" aria-label="Radio button for following text input">
-      </span>
-                            <input type="text" class="form-control" aria-label="Text input with radio button">
-                        </div>
+                    <div class="col-md-6" style="margin-bottom: 10px;">
+                        <input type="text" class="form-control" ng-model="user.lastName" placeholder="Last Name">
                     </div>
                 </div>
-                <input type="text" class="form-control" ng-model="model.newmail">
+                <input type="text" class="form-control" ng-model="model.newmail" placeholder="Email">
                 <button class="btn btn-sm form-control btn-outline-success marginTop" ng-click="model.addMail()">Add Person</button>
             </div>
             <div class="card-block">
