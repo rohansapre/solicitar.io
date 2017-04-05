@@ -47,7 +47,7 @@
                     </td>
 
                     <td>
-                        <button class="btn-block btn-success" ng-click="model.addTimeToList()"> Select Time</button>
+                        <button class="btn btn-block btn-success" ng-click="model.addTimeToList()"> Select Time </button>
                     </td>
                 </tr>
                 </tbody>
@@ -59,25 +59,27 @@
                 <div class="col-xs-9">
                     <h2> Your Available Timings: </h2>
                 </div>
-                <div class="col-xs-3 pull-right">
-                    <button class="pull-right btn btn-block btn-success" ng-click="model.newTimings()">Create</button>
+                <div class="col-xs-3 pull-right" id="updateButton" ng-hide="model.updateButton">
+                    <button class="pull-right btn btn-block btn-success" ng-click="model.updateTimings()">Update
+                    </button>
                 </div>
+                <div class="col-xs-3 pull-right marginRight" id="submitButton" ng-hide="model.submitButton">
+                    <button class="pull-right btn btn-block btn-success" ng-click="model.newTimings()">Submit</button>
                 </div>
+
             </div>
         </div>
-
-        <ul class="list-group">
-
-            <li class="list-group-item justify-content-between" ng-repeat="timing in model.timingDisplayList">
-                {{timing.date}} : {{timing.start}} --> {{timing.end}}
-                <span class="badge badge-default badge-pill" ng-click="model.deleteTiming()">Delete</span>
-            </li>
-
-
-        </ul>
-
-
     </div>
-</div>
-</div>
+
+    <ul class="list-group">
+
+        <li class="list-group-item justify-content-between" ng-repeat="timing in model.timingDisplayList" id="timingList">
+            {{timing.date}} : {{timing.start}} --> {{timing.end}}
+            <span class="badge badge-default badge-pill" ng-click="model.deleteTiming(timing)">Delete</span>
+        </li>
+
+
+    </ul>
+
+
 </div>
