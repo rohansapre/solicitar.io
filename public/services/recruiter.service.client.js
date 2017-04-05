@@ -13,7 +13,8 @@
             "getCandidates": getCandidates,
             "scheduleInterview": scheduleInterview,
             "createPosition": createPosition,
-            "getPositions": getPositions
+            "getPositions": getPositions,
+            "deletePosition": deletePosition
         };
         return api;
 
@@ -33,6 +34,10 @@
 
         function getPositions(recruiterId) {
             return $http.get("/api/position/" + recruiterId);
+        }
+
+        function deletePosition(positionId) {
+            return $http.delete("/api/position/" + positionId);
         }
 
         //  Schedule Interview

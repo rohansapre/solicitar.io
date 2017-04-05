@@ -24,6 +24,7 @@
         vm.updateTimings= updateTimings;
         vm.createPosition = createPosition;
         vm.getPositions = getPositions;
+        vm.deletePosition = deletePosition;
 
         // Interviewer Start
         vm.initializeInterviewerUpcomingInterviews= initializeInterviewerUpcomingInterviews;
@@ -489,6 +490,13 @@
             RecruiterService.createPosition(vm.userId, newPosition)
                 .success(function (position) {
                     console.log("position: " + position);
+                })
+        }
+
+        function deletePosition(positionId) {
+            RecruiterService.deletePosition(positionId)
+                .success(function (position) {
+                    console.log(position);
                 })
         }
 
