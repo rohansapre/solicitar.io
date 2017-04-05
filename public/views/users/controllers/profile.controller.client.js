@@ -23,16 +23,26 @@
         vm.deleteTiming= deleteTiming;
         vm.updateTimings= updateTimings;
 
+        //Recruiter start
+        vm.addPost = addPost;
+        vm.deletePost = deletePost;
+        vm.posts = [];
+        vm.jobarray = [];
+        //recruiter ends
+
         vm.emails = [];
 
         vm.weekend = false;
         var yyyy,dd,cMon,day;
 
         var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
         vm.start=[];
         vm.end=[];
         vm.TimingList={};
         vm.timingDisplayList=[];
+
+
 
         function init() {
             vm.userId = $routeParams['uid'];
@@ -44,13 +54,13 @@
                 });
 
             initializeCalender();
-            getCandidates();
+            // getCandidates();
             console.log(vm.TimingList);
 
             console.log("profile getting candidates");
             UserService.getCandidates(vm.userId)
-                .success(function (candiates) {
-                    console.log(candiates);
+                .success(function (candidates) {
+                    console.log(candidates);
                 })
         }
 
@@ -277,10 +287,6 @@
         }
 
         function addMail() {
-            // console.log(vm.newmail);
-            // var despace = String(vm.newmail);
-            // console.log(despace);
-            // var despace = vm.newmail.replace(/\s/g,'');
             var lister = vm.newmail.split(/(?:,| )+/);
             console.log(lister);
             for (eachmail in lister) {
@@ -333,5 +339,32 @@
                     vm.candidates = info;
                 });
         }
+
+        // Recruiter Starts
+        function addPost() {
+            console.log('in profile controller addPost');
+            console.log(vm.newpost.title);
+            vm.posts.push([vm.newpost.title, vm.newpost.location]);
+            console.log(vm.posts);
+            vm.newpost.title = "";
+            vm.newpost.location = "";
+        }
+
+        function deletePost(post) {
+            console.log('in profile controller deletePost');
+            console.log(post);
+            var index = vm.posts.indexOf(post);
+            console.log(index);
+            if (index > -1) {
+                vm.posts.splice(index, 1);
+            }
+        }
+
+        function addCandidate() {
+            console.log('in profile controller addCandidate');
+            
+        }
+
+        // Recruiter Ends
     }
 })();

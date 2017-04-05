@@ -1,0 +1,159 @@
+<div class="container-fluid">
+
+    <ol class="breadcrumb my-3">
+        <li class="breadcrumb-item"><a href="">Homepage</a></li>
+        <li class="breadcrumb-item active">Postings</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card card-inverse card-primary o-hidden h-100">
+                <div class="card-block">
+                    <div class="card-block-icon">
+                        <i class="fa fa-fw fa-comments"></i>
+                    </div>
+                    <div class="mr-5">
+                        26 New Messages!
+                    </div>
+                </div>
+                <a href="#" class="card-footer clearfix small z-1">
+                    <span class="float-left">View Details</span>
+                    <span class="float-right"><i class="fa fa-angle-right"></i></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card card-inverse card-success o-hidden h-100">
+                <div class="card-block">
+                    <div class="card-block-icon">
+                        <i class="fa fa-fw fa-list"></i>
+                    </div>
+                    <div class="mr-5">
+                        11 New Tasks!
+                    </div>
+                </div>
+                <a href="#" class="card-footer clearfix small z-1">
+                    <span class="float-left">View Details</span>
+                    <span class="float-right"><i class="fa fa-angle-right"></i></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card card-inverse card-warning o-hidden h-100">
+                <div class="card-block">
+                    <div class="card-block-icon">
+                        <i class="fa fa-fw fa-shopping-cart"></i>
+                    </div>
+                    <div class="mr-5">
+                        123 New Orders!
+                    </div>
+                </div>
+                <a href="#" class="card-footer clearfix small z-1">
+                    <span class="float-left">View Details</span>
+                    <span class="float-right"><i class="fa fa-angle-right"></i></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card card-inverse card-danger o-hidden h-100">
+                <div class="card-block">
+                    <div class="card-block-icon">
+                        <i class="fa fa-fw fa-support"></i>
+                    </div>
+                    <div class="mr-5">
+                        13 New Tickets!
+                    </div>
+                </div>
+                <a href="#" class="card-footer clearfix small z-1">
+                    <span class="float-left">View Details</span>
+                    <span class="float-right"><i class="fa fa-angle-right"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+
+        <div class="card-header">
+            <i class="fa fa-bar-chart"></i> Add New Opening
+        </div>
+
+        <div class="card-block">
+            <input type="text" class="form-control" ng-model="model.newpost.title" placeholder="Enter Job Title Here">
+            <input type="text" class="form-control marginTop" ng-model="model.newpost.location" placeholder="Enter Location">
+            <button class="btn form-control btn-outline-success marginTop" ng-click="model.addPost()">Add Opening</button>
+
+        </div>
+    </div>
+
+    <!-- Area Chart Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-bar-chart"></i> All Openings
+        </div>
+        <div class="card-block">
+            <table class="table">
+                <tr>
+                    <th>
+                        Position
+                    </th>
+                    <th>
+                        Location
+                    </th>
+                    <th>
+                        Options
+                    </th>
+                    <th>
+                        More Options
+                    </th>
+                </tr>
+                <tr ng-repeat="c in model.posts">
+                    <td>
+                        {{c[0]}}
+                    </td>
+                    <td>
+                        {{c[1]}}
+                    </td>
+                    <td>
+                        <a href ng-click="model.currentjob = c; model.tab='recruiterviewcandidates';">View Candidates</a>
+                    </td>
+                    <td>
+                        <span class="badge badge-default badge-pill" ng-click="model.deletePost(c)">Delete</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="card-footer text-muted">
+            <small>2 Days Ago</small>
+        </div>
+    </div>
+
+    <!-- Card Columns -->
+    <!--<div class="card-columns">-->
+        <!--<div class="card">-->
+            <!--<img class="card-img-top img-fluid w-100" src="http://placehold.it/350x150" alt="Card image cap">-->
+            <!--<div class="card-block">-->
+                <!--<h4 class="card-title">Prospective Candidates</h4>-->
+                <!--<input type="text" class="form-control" ng-model="model.newmail">-->
+                <!--<button class="btn btn-sm form-control btn-outline-success" ng-click="model.addMail()">Add Person</button>-->
+
+            <!--</div>-->
+            <!--<div class="card-block">-->
+                <!--<ul class="list-group">-->
+
+                    <!--<li class="list-group-item justify-content-between" ng-repeat="listmail in model.emails">-->
+                        <!--{{listmail}}-->
+                        <!--<span class="badge badge-default badge-pill" ng-click="model.deleteMail(listmail)">Delete</span>-->
+                    <!--</li>-->
+
+
+                <!--</ul>-->
+                <!--<button class="btn btn-sm form-control btn-outline-danger" ng-click="model.deleteAllMail()">Delete All Emails</button>-->
+            <!--</div>-->
+            <!--<div class="card-footer">-->
+                <!--<small class="text-muted">Last updated 3 mins ago</small>-->
+                <!--<a href ng-click="model.sendInvitations()" class="btn btn-primary">Send Invitations</a>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>
