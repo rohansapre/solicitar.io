@@ -7,7 +7,7 @@
         var vm = this;
 
         // event handlers
-        vm.interview = interview;
+        vm.startInterview = startInterview;
         vm.updateUser = updateUser;
         vm.deleteUser = deleteUsers;
         vm.sendInvitations = sendInvitations;
@@ -381,7 +381,7 @@
                 });
         }
 
-        function interview() {
+        function startInterview() {
                 $location.url("/user/" + vm.user._id + "/interview/");
         }
 
