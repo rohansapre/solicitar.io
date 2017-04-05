@@ -11,11 +11,14 @@
             <li class="nav-item">
                 <a class="nav-link" href ng-click="tab='profile'"><i class="fa fa-fw fa-area-chart"></i> My Profile</a>
             </li>
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href ng-click="tab='candidates'"><i class="fa fa-fw fa-area-chart"></i> View Applicants</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href ng-click="tab='interviewers'"><i class="fa fa-fw fa-cogs"></i> Interviewers</a>-->
+            <!--</li>-->
             <li class="nav-item">
-                <a class="nav-link" href ng-click="tab='candidates'"><i class="fa fa-fw fa-area-chart"></i> All Applicants</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href ng-click="tab='interviewers'"><i class="fa fa-fw fa-cogs"></i> Interviewers</a>
+                <a class="nav-link" href ng-click="tab='postings'"><i class="fa fa-fw fa-cogs"></i> Job Postings</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"><i class="fa fa-fw fa-table"></i> Tasks</a>
@@ -85,7 +88,7 @@
     <div ng-switch-when="profile">
         <ng-include src="'views/users/templates/recruiter/editprofile.view.client.html'"></ng-include>
     </div>
-    <div ng-switch-when="candidates">
+    <div ng-switch-when="postings">
         <ng-include src="'views/users/templates/recruiter/candidates.view.client.html'"></ng-include>
     </div>
     <div ng-switch-when="interviewers">

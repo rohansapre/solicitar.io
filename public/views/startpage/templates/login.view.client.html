@@ -13,7 +13,7 @@
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle mr-lg-5" data-toggle="dropdown">Login<span class="caret"></span></a>
-                <div class="dropdown-menu" aria-labelledby="messagesDropdown">
+                <div class="dropdown-menu">
                     <div class="dropdown-item social-buttons">
                         <div class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</div>
                         <div class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</div>
@@ -36,7 +36,7 @@
                             <div class="help-block text-right"><a href="">Forgot password?</a></div>
                         </div>
                         <div class="form-group container-fluid">
-                            <button type="submit" class="btn btn-primary btn-block" ng-click="model.login(user)">Sign
+                            <button type="submit" class="btn btn-primary btn-block" data-toggle="dropdown" ng-click="model.login(user)">Sign
                                 In
                             </button>
                         </div>
