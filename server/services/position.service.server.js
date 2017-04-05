@@ -4,6 +4,7 @@
 module.exports = function (app, model) {
     app.post("/api/position/:userId", createPosition);
     app.get("/api/position/:userId", getPositions);
+    app.delete("/api/position/:positionId", deletePosition);
 
     function createPosition(req, res) {
         var recruiterId = req.params.userId;
@@ -23,7 +24,18 @@ module.exports = function (app, model) {
         model.position
             .getPositions(recruiterId)
             .then(function (positions) {
-                req.json(positions);
+                res.json(positions);
+            }, function (error) {
+                res.sendStatus(500).send(error);
+            })
+    }
+
+    function deletePosition(req, res) {
+        var positionId = req.params.positionId;
+        model.position
+            .deletePosition(positionId)
+            .then(function (position) {
+                res.json(position)
             }, function (error) {
                 res.sendStatus(500).send(error);
             })
