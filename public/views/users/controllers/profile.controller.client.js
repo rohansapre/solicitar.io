@@ -19,7 +19,7 @@
         vm.addMail = addMail;
         vm.deleteMail = deleteMail;
         vm.deleteAllMail = deleteAllMail;
-        vm.getCandidates = getCandidates;
+        //vm.getCandidates = getCandidates;
         vm.deleteTiming= deleteTiming;
         vm.updateTimings= updateTimings;
 
@@ -58,10 +58,10 @@
             console.log(vm.TimingList);
 
             console.log("profile getting candidates");
-            UserService.getCandidates(vm.userId)
-                .success(function (candidates) {
-                    console.log(candidates);
-                })
+            // UserService.getCandidates(vm.userId)
+            //     .success(function (candidates) {
+            //         console.log(candidates);
+            //     })
         }
 
         init();
@@ -337,13 +337,13 @@
             RecruiterService.scheduleInterview(user._applicant._id, hire);
         }
 
-        function getCandidates() {
-            console.log("inside profile.controller.client.js");
-            RecruiterService.getCandidates(vm.userId)
-                .success(function (info) {
-                    vm.candidates = info;
-                });
-        }
+        // function getCandidates() {
+        //     console.log("inside profile.controller.client.js");
+        //     RecruiterService.getCandidates(vm.userId)
+        //         .success(function (info) {
+        //             vm.candidates = info;
+        //         });
+        // }
 
         // Recruiter Starts
         function addPost() {
