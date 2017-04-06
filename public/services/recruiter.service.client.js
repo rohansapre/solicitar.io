@@ -18,14 +18,14 @@
         };
         return api;
 
-        function sendInvitations(emails) {
+        function sendInvitations(positionId, applicants) {
             console.log("sending to server");
-            return $http.post("/api/recruiter", emails);
+            return $http.post("/api/recruiter/" + positionId, applicants);
         }
 
-        function getCandidates(userId) {
+        function getCandidates(positionId) {
             console.log("Inside recruiter.service.client.js");
-            return $http.get("/api/candidate/" + userId);
+            return $http.get("/api/candidate/" + positionId);
         }
 
         function createPosition(recruiterId, position) {
