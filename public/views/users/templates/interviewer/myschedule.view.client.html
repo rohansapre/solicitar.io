@@ -1,0 +1,37 @@
+<div class="container-fluid">
+
+    <ol class="breadcrumb my-3">
+        <li class="breadcrumb-item"><a href="">Homepage</a></li>
+        <li class="breadcrumb-item active"><a href="">My Schedule</a></li>
+    </ol>
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Candidate Name</th>
+                    <th>Position</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="candidate in vm.pastCandidates">
+                    <td data-label="Candidate Name: ">
+                        {{candidate.name}}
+                    </td>
+                    <td data-label="Position: ">
+                        {{candidate.position}}
+                    </td>
+                    <td data-label="Date: ">
+                        {{candidate.date}}
+                    </td>
+                    <td data-label="Status: ">
+                        <span class="badge badge-default badge-pill" ng-click="model.deleteTiming(timing)">{{candidate.result}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

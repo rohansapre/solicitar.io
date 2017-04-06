@@ -19,9 +19,9 @@
             <li class="nav-item">
                 <a class="nav-link" href ng-click="model.tab='interviewerPast'"><i class="fa fa-fw fa-cogs"></i> Past Interviews</a>
             </li>
-            <!--<li class="nav-item">-->
-                <!--<a class="nav-link" href ng-click="model.tab='interviewerNew'"><i class="fa fa-fw fa-cogs"></i> Schedule Interview </a>-->
-            <!--</li>-->
+            <li class="nav-item">
+                <a class="nav-link" href ng-click="model.tab='interviewerSchedule'"><i class="fa fa-fw fa-cogs"></i>My Schedule</a>
+            </li>
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
@@ -131,6 +131,10 @@
     <div ng-switch-when="interviewerPastInterviews">
         <ng-include src="'views/users/templates/interviewer/past.interviews.view.client.html'"
                     onload="model.initializeInterviewerPastInterviews()"></ng-include>
+    </div>
+    <div ng-switch-when="interviewerSchedule">
+        <ng-include src="'views/users/templates/interviewer/myschedule.view.client.html'"
+                    onload="model.initializeInterviewerSchedule()"></ng-include>
     </div>
 
     <div ng-switch-default>
