@@ -335,22 +335,22 @@
             }
         }
 
-        function validateEmail(email) {
-            var re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-            return re.test(email);
-        }
+        // function validateEmail(email) {
+        //     var re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        //     return re.test(email);
+        // }
 
         function addMail() {
-            var lister = vm.newmail.split(/(?:,| )+/);
-            console.log(lister);
-            for (eachmail in lister) {
-                console.log(lister[eachmail]);
-                if (validateEmail(lister[eachmail])) {
-                    vm.emails.push(lister[eachmail]);
-                    console.log("added");
-                }
-            }
-            vm.newmail = "";
+            var recruiterCreateUser = {
+                email: vm.newUser.email,
+                firstName: vm.newUser.firstName,
+                lastName: vm.newUser.lastName
+            };
+            vm.emails.push(recruiterCreateUser);
+            console.log("added");
+            vm.newUser.firstName = "";
+            vm.newUser.lastName = "";
+            vm.newUser.email = "";
         }
 
         function deleteAllMail() {
@@ -388,7 +388,7 @@
                 }
             ];
             // console.log(vm.emails);
-            RecruiterService.sendInvitations(positionId, applicants)
+            RecruiterService.sendInvitations(positionId, emails)
                 .success(function (status) {
                     if (status) {
                         console.log("Invitation sent from controller");

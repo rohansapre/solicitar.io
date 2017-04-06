@@ -82,13 +82,13 @@
             <div class="card-block">
                 <div class="row">
                     <div class="col-md-6" style="margin-bottom: 10px;">
-                        <input type="text" class="form-control" ng-model="user.firstName" placeholder="First Name">
+                        <input type="text" class="form-control" ng-model="model.newUser.firstName" placeholder="First Name">
                     </div>
                     <div class="col-md-6" style="margin-bottom: 10px;">
-                        <input type="text" class="form-control" ng-model="user.lastName" placeholder="Last Name">
+                        <input type="text" class="form-control" ng-model="model.newUser.lastName" placeholder="Last Name">
                     </div>
                 </div>
-                <input type="text" class="form-control" ng-model="model.newmail" placeholder="Email">
+                <input type="text" class="form-control" ng-model="model.newUser.email" placeholder="Email">
                 <button class="btn btn-sm form-control btn-outline-success marginTop" ng-click="model.addMail()">Add Person</button>
             </div>
             <div class="card-block">
