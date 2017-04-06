@@ -4,6 +4,7 @@
 
 module.exports = function (app, model) {
     app.post("/api/schedule/:userId", getInterviewers);
+    app.get("/api/schedule/:interviewerId", getPositions);
 
     function getInterviewers(req, res) {
         var userId = req.params.userId;
@@ -53,5 +54,16 @@ module.exports = function (app, model) {
             }, function (error) {
                 res.sendStatus(500).send(error);
             })
+    }
+
+    function getPositions(req, res) {
+        var interviewerId = req.params.interviewerId;
+        model.schedule
+            .getPositions(interviewerId)
+            .then(function (positions) {
+                res.json(positions);
+            }, function (error) {
+                res.sendStatus(500).send(error);
+            });
     }
 };

@@ -3,7 +3,7 @@
         .module("ProjectMaker")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($routeParams, $location, UserService, RecruiterService) {
+    function ProfileController($routeParams, $location, UserService, RecruiterService, InterviewService) {
         var vm = this;
 
         // event handlers
@@ -429,6 +429,10 @@
 
         function initializeInterviewerUpcomingInterviews(){
                 //get upcoming interviews from intercview services
+            InterviewService.getUpcomingInterviewPositions(vm.userId)
+                .success(function (positions) {
+                    console.log(positions);
+                });
         }
         
         
