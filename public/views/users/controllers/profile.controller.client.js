@@ -19,7 +19,7 @@
         vm.addMail = addMail;
         vm.deleteMail = deleteMail;
         vm.deleteAllMail = deleteAllMail;
-        //vm.getCandidates = getCandidates;
+        vm.getCandidates = getCandidates;
         vm.deleteTiming= deleteTiming;
         vm.updateTimings= updateTimings;
         vm.createPosition = createPosition;
@@ -103,9 +103,6 @@
 
 
         // Inerviewer End
-
-
-
 
         function init() {
             vm.userId = $routeParams['uid'];
@@ -372,8 +369,28 @@
         function sendInvitations() {
             // var emailer = ['mht.amul@gmail.com', 'rohansapre@yahoo.com', 'tushar.gupta.cse@gmail.com'];
             console.log("send invites");
-            console.log(vm.emails);
-            RecruiterService.sendInvitations(vm.emails)
+
+            // Send array of applicants as mentioned below
+
+            var applicants = [
+                {
+                    email: "rohansapre@yahoo.com",
+                    firstName: "Rohan",
+                    lastName: "Sapre"
+                },
+                {
+                    email: "tushar.gupta.cse@gmail.com",
+                    firstName: "Tushar",
+                    lastName: "Gupta"
+                },
+                {
+                    email: "mht.amul@gmail.com",
+                    firstName: "Amul",
+                    lastName: "Mehta"
+                }
+            ];
+            // console.log(vm.emails);
+            RecruiterService.sendInvitations(positionId, applicants)
                 .success(function (status) {
                     if (status) {
                         console.log("Invitation sent from controller");
@@ -506,6 +523,7 @@
             console.log(vm.posts);
             vm.newpost.title = "";
             vm.newpost.location = "";
+            RecruiterService.create
         }
 
         function deletePost(post) {
@@ -525,31 +543,53 @@
 
         // Recruiter Ends
 
+        // Positions
+
         function getPositions() {
             RecruiterService.getPositions(vm.userId)
                 .success(function (positions) {
                     vm.positions = positions;
+                    vm.posLength = positions.length;
+                    console.log('in getPositions');
+                    console.log(vm.positions);
                 })
                 .error(function (error) {
                     console.log(error);
                 })
         }
 
-        function createPosition(position) {
+        function createPosition() {
+            console.log(vm.newOpenPosition);
             var newPosition = {
-                name: position.name,
-                location: position.location
+                name: vm.newOpenPosition.name,
+                location: vm.newOpenPosition.location
             };
+            vm.newOpenPosition.name = "";
+            vm.newOpenPosition.location = "";
+            console.log(newPosition);
             RecruiterService.createPosition(vm.userId, newPosition)
                 .success(function (position) {
-                    console.log("position: " + position);
-                })
+                    console.log("position: ");
+                    console.log(position);
+                    getPositions();
+                });
+
         }
 
         function deletePosition(positionId) {
+            console.log("deleting from profile");
             RecruiterService.deletePosition(positionId)
                 .success(function (position) {
-                    console.log(position);
+                    getPositions();
+                })
+        }
+
+        // Candidates
+
+        function getCandidates(positionId) {
+            RecruiterService.getCandidates(positionId)
+                .success(function (candidates) {
+                    console.log(candidates);
                 })
         }
 

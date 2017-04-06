@@ -10,6 +10,8 @@ positionModel.createPosition = createPosition;
 positionModel.getPositions = getPositions;
 positionModel.deletePosition = deletePosition;
 
+module.exports = positionModel;
+
 function createPosition(position) {
     var d = q.defer();
     positionModel.create(position, function (err, position) {
@@ -24,6 +26,7 @@ function createPosition(position) {
 function getPositions(recruiterId) {
     var d = q.defer();
     positionModel.find({_recruiter: recruiterId}, function (err, positions) {
+        console.log(err);
         if(err)
             d.reject(err);
         else
@@ -33,14 +36,13 @@ function getPositions(recruiterId) {
 }
 
 function deletePosition(positionId) {
+    console.log("delete from db");
     var d = q.defer();
-    positionModel.removeById(positionId, function (err, position) {
+    positionModel.findByIdAndRemove(positionId, function (err, position) {
         if(err)
             d.reject(err);
         else
             d.resolve(position);
-    })
+    });
     return d.promise;
 }
-
-module.exports = positionModel;
