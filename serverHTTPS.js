@@ -4,7 +4,7 @@
 require('dotenv').load();
 var express = require('express');
 var https = require('https');
-var http = require('http');
+var http  = require('http');
 var fs = require('fs');
 var app = express();
 
@@ -54,7 +54,7 @@ https.createServer(options, app).listen(8443);
 http.createServer(function (req, res) {
     site= req.headers['host'];
     site = site.split(':')[0];
-    site=site+':8443'
+    site=site+':8443';
     res.writeHead(301, { "Location": "https://" + site + req.url });
     res.end();
 }).listen(9000);
