@@ -30,6 +30,10 @@
         vm.initializeInterviewerUpcomingInterviews= initializeInterviewerUpcomingInterviews;
         vm.initializeViewCandidates= initializeViewCandidates;
         vm.initializeScheduleInterview = initializeScheduleInterview;
+        vm.interviewerScheduleInterview= interviewerScheduleInterview;
+        vm.interviewerGetCandidateProfile= interviewerGetCandidateProfile;
+        vm.initializeInterviewerPastInterviews= initializeInterviewerPastInterviews;
+        vm.initializeInterviewerViewCandidateProfile= initializeInterviewerViewCandidateProfile;
 
         vm.interview=null;
         // Interviewer End
@@ -432,7 +436,7 @@
             console.log("sgsgsgs");
             console.log(vm.tab);
             vm.interviewApplicants =[{
-                name: 'Amul Mehta',
+                name: 'Amul Mehta'
             },{
               name: 'Tushar Gupta'
             },{
@@ -454,12 +458,72 @@
                 console.log("sdfsd");
                 vm.applicantTiming.push({
                     date: st.toISOString().slice(0,10),
-                    start: ((st.getHours()+4)<10?'0':'') + (4 + st.getHours()) +  ' : ' + (et.getMinutes()<10?'0':'') + et.getMinutes(),
-                    end: ((et.getHours()+4)<10?'0':'') + (4 + et.getHours()) +  ' : ' + (et.getMinutes()<10?'0':'') + et.getMinutes()
+                    start: ((st.getHours())<10?'0':'') + (st.getHours()) +  ' : ' + (et.getMinutes()<10?'0':'') + et.getMinutes(),
+                    end: ((et.getHours())<10?'0':'') + ( et.getHours()) +  ' : ' + (et.getMinutes()<10?'0':'') + et.getMinutes()
                 });
 
             }
+            var dateArray=[];
+            for(var r in result.startTime){
+                var st = new Date(result.startTime[r]);
+                var date = st.toISOString().slice(0,10);
+                if(!(dateArray.indexOf(date) > -1)){
+                    console.log(date);
+                    console.log(dateArray);
+                    dateArray.push(date);
+                }
+
+            }
+            vm.scheduleDate= dateArray[0];
+            vm.scheduleDates=dateArray;
+
         }
+         function interviewerScheduleInterview() {
+            var from = vm.scheduleFrom.split(':');
+            var to = vm.scheduleTo.split(':');
+            var dateArr= vm.scheduleDate.split('-');
+            from = new Date(dateArr[0],parseInt(dateArr[1])-1,dateArr[2],from[0],from[1]);
+            to = new Date(dateArr[0],parseInt(dateArr[1])-1,dateArr[2],to[0],to[1]);
+             var success=false;
+             for(var d in result.startTime) {
+                 var st = result.startTime[d];
+                 var et = result.endTime[d];
+                 et.setSeconds(0);
+                 st.setSeconds(0);
+                 console.log(from.setSeconds(10));
+                 console.log(st);
+
+                 console.log((from <= st));
+                 console.log((to <= et));
+                 if((from >= st) && (to <= et)){
+                     success=true;
+                     break;
+                 }
+
+             }
+
+             if (success)
+                 console.log("Yo");
+             else
+                 console.log("no");
+
+
+
+         }
+         
+         function interviewerGetCandidateProfile() {
+             
+         }
+
+
+        function initializeInterviewerPastInterviews(){
+
+        }
+
+        function initializeInterviewerViewCandidateProfile() {
+
+        }
+
 
         // Interviewer ENDS
 
@@ -485,6 +549,7 @@
         }
 
         function addCandidate() {
+
             console.log('in profile controller addCandidate');
         }
 
@@ -524,9 +589,10 @@
         }
 
         function deletePosition(positionId) {
+            console.log("deleting from profile");
             RecruiterService.deletePosition(positionId)
                 .success(function (position) {
-                    console.log(position);
+                    getPositions();
                 })
         }
 
@@ -538,6 +604,7 @@
                     console.log(candidates);
                 })
         }
+
 
     }
 })();

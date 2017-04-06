@@ -55,15 +55,15 @@ module.exports = function (app, model) {
     function addDefaultUsernamePassword(applicants) {
         for (var a in applicants) {
             applicants[a].username = applicants[a].email;
-            applicants[a].password = getRandomizedPassword();
+            applicants[a].password = getRandomizedString(32);
         }
         return applicants;
     }
 
-    function getRandomizedPassword() {
+    function getRandomizedString(size) {
         var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         var result = '';
-        for (var i = 32; i > 0; --i)
+        for (var i = size; i > 0; --i)
             result += chars[Math.round(Math.random() * (chars.length - 1))];
         return result;
     }
@@ -82,7 +82,7 @@ module.exports = function (app, model) {
 
     function createInviteList(emails, res) {
         var data = {
-            'name': 'Google',
+            'name': 'Invite' + getRandomizedString(5),
             'contact': {
                 'company': 'solicitar.io',
                 'address1': '1171 Boylston Street',

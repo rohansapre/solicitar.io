@@ -8,7 +8,9 @@
         <li class="breadcrumb-item active">Schedule Interview</li>
     </ol>
 
-    <div class="card-deck" style="display: flex;">
+    <!-- Error -->
+
+    <div class="card-deck">
         <div class="card">
             <div class="card-block">
                 <h4 class="card-title">Schedule Interview with {{model.applicant.name}}</h4>
@@ -31,18 +33,27 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>
-                               LOL
+                            <td data-label="Date: ">
+                                <div class="form-group" >
+                                    <select id="toOptions" class="form-control" ng-model="model.scheduleDate"
+                                            ng-options="c for c in model.scheduleDates"></select>
+                                </div>
                             </td>
-                            <td>
-                                LOL
+
+                            <td data-label="Start Time: ">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="from" placeholder="HH:MM" ng-model="model.scheduleFrom">
+                                </div>
                             </td>
-                            <td>
-                               LOL
+
+                            <td data-label="End Time: ">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="to" placeholder="HH:MM" ng-model="model.scheduleTo">
+                                </div>
                             </td>
 
                             <td>
-                                <button class="btn btn-block btn-success" ng-click="model.addTimeToList()"> Schedule Interview </button>
+                                <button class="btn btn-block btn-success" ng-click="model.interviewerScheduleInterview()"> Schedule Interview </button>
                             </td>
                         </tr>
                         </tbody>
