@@ -38,7 +38,7 @@
                     <label><b>Username:</b></label>
                     <!--<p>{{model.user.username}}</p>-->
                     <input class="form-control nonedit" type="text" ng-model="model.user.username"
-                           placeholder="Username" readonly disabled/>
+                           placeholder="Username" readonly/>
 
                     <label for="email"><b>Email:</b></label>
                     <input id="email" class="form-control" type="email" ng-model="model.user.email"
@@ -62,7 +62,7 @@
             <!--<small class="text-muted">Last updated 3 mins ago</small>-->
             <!--</div>-->
         </div>
-        <div class="card fullHeight hidden-md-down" id="forthewidth">
+        <div class="card fullHeight hidden-md-down" >
             <h3 class="card-header">
                 <small>Resume</small>
                 <button onclick="document.forms['resumeForm'].submit()" class="btn btn-primary pull-right">Upload</button>
@@ -82,7 +82,7 @@
                 </form>
             </div>
         </div>
-        <div class="card fullHeight hidden-md-down" id="forthewidth">
+        <div class="card fullHeight hidden-md-down">
             <!--<form action="/api/upload/cover-letter" method="post" enctype="multipart/form-data">-->
             <h3 class="card-header">
                 <small>Cover Letter</small>

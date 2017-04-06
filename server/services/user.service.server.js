@@ -163,7 +163,7 @@ module.exports = function (app, model) {
             model.user
                 .updateUserFile(userId, resumePath, true)
                 .then(function (user) {
-                    res.sendStatus(200);
+                    res.redirect("/#/user/" + userId);
                 }, function (error) {
                     res.sendStatus(500).send(error);
                 });
@@ -178,7 +178,7 @@ module.exports = function (app, model) {
             model.user
                 .updateUserFile(userId, coverLetterPath, false)
                 .then(function (user) {
-                    res.sendStatus(200);
+                    res.redirect("/#/user/" + userId);
                 }, function (error) {
                     res.sendStatus(500).send(error);
                 });

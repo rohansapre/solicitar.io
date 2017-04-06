@@ -128,6 +128,11 @@
                     onload="model.initializeInterviewerViewCandidateProfile()"></ng-include>
     </div>
 
+    <div ng-switch-when="interviewerPastInterviews">
+        <ng-include src="'views/users/templates/interviewer/past.interviews.view.client.html'"
+                    onload="model.initializeInterviewerPastInterviews()"></ng-include>
+    </div>
+
     <div ng-switch-default>
         <ng-include src="'views/users/templates/interviewer/dashboard.interviewer.view.client.html'"></ng-include>
     </div>

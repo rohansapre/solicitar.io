@@ -32,6 +32,8 @@
         vm.initializeScheduleInterview = initializeScheduleInterview;
         vm.interviewerScheduleInterview= interviewerScheduleInterview;
         vm.interviewerGetCandidateProfile= interviewerGetCandidateProfile;
+        vm.initializeInterviewerPastInterviews= initializeInterviewerPastInterviews;
+        vm.initializeInterviewerViewCandidateProfile= initializeInterviewerViewCandidateProfile;
 
         vm.interview=null;
         // Interviewer End
@@ -509,10 +511,20 @@
 
          }
          
-         
          function interviewerGetCandidateProfile() {
              
          }
+
+
+        function initializeInterviewerPastInterviews(){
+
+        }
+
+        function initializeInterviewerViewCandidateProfile() {
+
+        }
+
+
         // Interviewer ENDS
 
         // Recruiter Starts
@@ -592,6 +604,7 @@
                     console.log(candidates);
                 })
         }
+
 
     }
 })();
