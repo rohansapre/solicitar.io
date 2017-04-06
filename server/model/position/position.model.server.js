@@ -23,6 +23,7 @@ function createPosition(position) {
 function getPositions(recruiterId) {
     var d = q.defer();
     positionModel.find({_recruiter: recruiterId}, function (err, positions) {
+        console.log(err);
         if(err)
             d.reject(err);
         else

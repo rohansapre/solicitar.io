@@ -469,12 +469,13 @@
             console.log('in profile controller addCandidate');
         }
 
-        // Recruiter Ends
-
         function getPositions() {
             RecruiterService.getPositions(vm.userId)
                 .success(function (positions) {
                     vm.positions = positions;
+                    vm.posLength = positions.length;
+                    console.log('in getPositions');
+                    console.log(vm.positions);
                 })
                 .error(function (error) {
                     console.log(error);
@@ -482,15 +483,29 @@
         }
 
         function createPosition(position) {
+            console.log(position);
             var newPosition = {
                 name: position.name,
                 location: position.location
             };
+            console.log(newPosition);
             RecruiterService.createPosition(vm.userId, newPosition)
                 .success(function (position) {
-                    console.log("position: " + position);
-                })
+                    console.log("position: ");
+                    console.log(position);
+                    getPositions();
+                });
+
         }
+
+        function deletePosition(position) {
+            RecruiterService.deletePosition(vm.userId)
+                .success(function () {
+                    getPositions();
+                });
+        }
+
+        //Recruiter ends
 
     }
 })();

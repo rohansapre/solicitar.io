@@ -23,7 +23,7 @@ module.exports = function (app, model) {
         model.position
             .getPositions(recruiterId)
             .then(function (positions) {
-                req.json(positions);
+                res.json(positions);
             }, function (error) {
                 res.sendStatus(500).send(error);
             })
