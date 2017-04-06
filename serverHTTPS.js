@@ -4,6 +4,7 @@
 require('dotenv').load();
 var express = require('express');
 var https = require('https');
+var http = require('http');
 var fs = require('fs');
 var app = express();
 
@@ -43,8 +44,17 @@ var server = require('./server/app.js');
 server(app);
 
 //app.listen(9000);
+//
+// // Create an HTTP service.
+// app.listen(9000);
+// // Create an HTTPS service identical to the HTTP service.
+// https.createServer(options, app).listen(8443);
 
-// Create an HTTP service.
-app.listen(9000);
-// Create an HTTPS service identical to the HTTP service.
 https.createServer(options, app).listen(8443);
+http.createServer(function (req, res) {
+    site= req.headers['host'];
+    site = site.split(':')[0];
+    site=site+':8443'
+    res.writeHead(301, { "Location": "https://" + site + req.url });
+    res.end();
+}).listen(9000);

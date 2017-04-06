@@ -7,7 +7,7 @@
         var vm = this;
 
         // event handlers
-        vm.interview = interview;
+        vm.startInterview = startInterview;
         vm.updateUser = updateUser;
         vm.deleteUser = deleteUsers;
         vm.sendInvitations = sendInvitations;
@@ -24,6 +24,7 @@
         vm.updateTimings= updateTimings;
         vm.createPosition = createPosition;
         vm.getPositions = getPositions;
+        vm.deletePosition = deletePosition;
 
         // Interviewer Start
         vm.initializeInterviewerUpcomingInterviews= initializeInterviewerUpcomingInterviews;
@@ -380,7 +381,7 @@
                 });
         }
 
-        function interview() {
+        function startInterview() {
                 $location.url("/user/" + vm.user._id + "/interview/");
         }
 
@@ -498,14 +499,12 @@
 
         }
 
-        function deletePosition(position) {
-            RecruiterService.deletePosition(vm.userId)
-                .success(function () {
-                    getPositions();
-                });
+        function deletePosition(positionId) {
+            RecruiterService.deletePosition(positionId)
+                .success(function (position) {
+                    console.log(position);
+                })
         }
-
-        //Recruiter ends
 
     }
 })();

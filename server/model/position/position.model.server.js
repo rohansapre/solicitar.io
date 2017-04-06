@@ -8,6 +8,7 @@ var positionModel = mongoose.model('Position', positionSchema);
 
 positionModel.createPosition = createPosition;
 positionModel.getPositions = getPositions;
+positionModel.deletePosition = deletePosition;
 
 function createPosition(position) {
     var d = q.defer();
@@ -29,6 +30,17 @@ function getPositions(recruiterId) {
         else
             d.resolve(positions);
     });
+    return d.promise;
+}
+
+function deletePosition(positionId) {
+    var d = q.defer();
+    positionModel.removeById(positionId, function (err, position) {
+        if(err)
+            d.reject(err);
+        else
+            d.resolve(position);
+    })
     return d.promise;
 }
 
