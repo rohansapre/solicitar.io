@@ -524,9 +524,10 @@
         }
 
         function deletePosition(positionId) {
+            console.log("deleting from profile");
             RecruiterService.deletePosition(positionId)
                 .success(function (position) {
-                    console.log(position);
+                    getPositions();
                 })
         }
 
