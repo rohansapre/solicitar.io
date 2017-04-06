@@ -19,13 +19,13 @@
 
             <div class="card-block" style="padding-left: 0px; padding-right: 0px;">
                 <!--<label class="card-title" style="margin-bottom: 2px;">Job Title</label>-->
-                <input type="text" class="form-control" placeholder="Job Title" ng-model="position.name" style="background-color: transparent; color: white; margin-bottom: 10px;">
+                <input type="text" class="form-control" placeholder="Job Title" ng-model="model.newOpenPosition.name" style="background-color: transparent; color: white; margin-bottom: 10px;">
                 <!--<label class="card-title" style="margin-bottom: 2px;">Location</label>-->
-                <input type="text" class="form-control marginTop" placeholder="Location" ng-model="position.location" style="background-color: transparent; color: white; margin-bottom: 10px;">
+                <input type="text" class="form-control marginTop" placeholder="Location" ng-model="model.newOpenPosition.location" style="background-color: transparent; color: white; margin-bottom: 10px;">
             </div>
 
             <div class="card-footer">
-                <button class="btn form-control btn-outline-info" ng-click="model.createPosition(position)">Add Opening</button>
+                <button class="btn form-control btn-outline-info" ng-click="model.createPosition()">Add Opening</button>
             </div>
         </div>
         <div class="col-xl-3 col-sm-6 mb-3 card-deck" style="padding-left: 0px;" ng-repeat="c in model.positions">
@@ -41,7 +41,7 @@
                 </div>
                 <div class="card-footer">
                     <a href ng-model="model.currentJob" ng-click="model.tab='recruiterviewcandidate'">View Candidates</a>
-                    <button class="btn btn-outline-danger btn-sm pull-right">Delete</button>
+                    <button class="btn btn-outline-danger btn-sm pull-right" ng-click="model.deletePosition(c._id)">Delete</button>
                 </div>
             </div>
         </div>

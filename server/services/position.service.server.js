@@ -32,6 +32,7 @@ module.exports = function (app, model) {
 
     function deletePosition(req, res) {
         var positionId = req.params.positionId;
+        console.log("server delete");
         model.position
             .deletePosition(positionId)
             .then(function (position) {

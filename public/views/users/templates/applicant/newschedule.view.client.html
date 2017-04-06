@@ -4,82 +4,83 @@
         <li class="breadcrumb-item"><a href="">Homepage</a></li>
         <li class="breadcrumb-item active">Schedule Interview</li>
     </ol>
-    <div class="card">
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Month</th>
-                    <th>Date</th>
-                    <th>Start Time</th>
-                    <th>EndTime</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <select id="monthOptions" class="form-control" ng-change="model.setDays()"
-                                    ng-model="model.month"
-                                    ng-options="c for c in model.months"></select>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <select id="dayOptions" class="form-control" ng-model="model.day"
-                                    ng-change="model.setHours()"
-                                    ng-options="c for c in model.days"></select>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <select id="fromOptions" class="form-control" ng-model="model.from"
-                                    ng-disabled='model.weekend'
-                                    ng-options="c for c in model.hours"></select>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <select id="toOptions" class="form-control" ng-model="model.to" ng-disabled='model.weekend'
-                                    ng-options="c for c in model.hours"></select>
-                        </div>
-                    </td>
-
-                    <td>
-                        <button class="btn btn-block btn-success" ng-click="model.addTimeToList()"> Select Time </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+    <div class="card mb-3">
+        <div class="card-header">
+            Add Availability
         </div>
+        <div class="card-block">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Date</th>
+                        <th>Start Time</th>
+                        <th>EndTime</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <select id="monthOptions" class="form-control" ng-change="model.setDays()"
+                                        ng-model="model.month"
+                                        ng-options="c for c in model.months"></select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <select id="dayOptions" class="form-control" ng-model="model.day"
+                                        ng-change="model.setHours()"
+                                        ng-options="c for c in model.days"></select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <select id="fromOptions" class="form-control" ng-model="model.from"
+                                        ng-disabled='model.weekend'
+                                        ng-options="c for c in model.hours"></select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <select id="toOptions" class="form-control" ng-model="model.to" ng-disabled='model.weekend'
+                                        ng-options="c for c in model.hours"></select>
+                            </div>
+                        </td>
 
-        <div class="form-control" rows="2" readonly>
-            <div class="row">
-                <div class="col-xs-9">
-                    <h2> Your Available Timings: </h2>
-                </div>
-                <div class="col-xs-3 pull-right" id="updateButton" ng-hide="model.updateButton">
-                    <button class="pull-right btn btn-block btn-success" ng-click="model.updateTimings()">Update
-                    </button>
-                </div>
-                <div class="col-xs-3 pull-right marginRight" id="submitButton" ng-hide="model.submitButton">
-                    <button class="pull-right btn btn-block btn-success" ng-click="model.newTimings()">Submit</button>
-                </div>
-
+                        <td>
+                            <button class="btn btn-block btn-success" ng-click="model.addTimeToList()"> Select Time </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
-    <ul class="list-group">
+    <div class="card mb-3">
+        <div class=" card-header form-control" rows="2" readonly>
+            Selected Timings
+            <div class="col-xs-3 pull-right" id="updateButton" ng-hide="model.updateButton">
+                <button class="pull-right btn btn-block btn-success" ng-click="model.updateTimings()">Update
+                </button>
+            </div>
+            <div class="col-xs-3 pull-right marginRight" id="submitButton" ng-hide="model.submitButton">
+                <button class="pull-right btn btn-block btn-success" ng-click="model.newTimings()">Submit</button>
+            </div>
+        </div>
 
-        <li class="list-group-item justify-content-between" ng-repeat="timing in model.timingDisplayList" id="timingList">
-            {{timing.date}} : {{timing.start}} --> {{timing.end}}
-            <span class="badge badge-default badge-pill" ng-click="model.deleteTiming(timing)">Delete</span>
-        </li>
+        <div class="card-block">
 
-
-    </ul>
-
+            <ul class="list-group">
+                <li class="list-group-item justify-content-between" ng-repeat="timing in model.timingDisplayList" id="timingList">
+                    {{timing.date}} : {{timing.start}} --> {{timing.end}}
+                    <span class="badge badge-default badge-pill" ng-click="model.deleteTiming(timing)">Delete</span>
+                </li>
+            </ul>
+        </div>
+    </div>
 
 </div>

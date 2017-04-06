@@ -483,12 +483,14 @@
                 })
         }
 
-        function createPosition(position) {
-            console.log(position);
+        function createPosition() {
+            console.log(vm.newOpenPosition);
             var newPosition = {
-                name: position.name,
-                location: position.location
+                name: vm.newOpenPosition.name,
+                location: vm.newOpenPosition.location
             };
+            vm.newOpenPosition.name = "";
+            vm.newOpenPosition.location = "";
             console.log(newPosition);
             RecruiterService.createPosition(vm.userId, newPosition)
                 .success(function (position) {

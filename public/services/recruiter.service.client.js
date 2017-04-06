@@ -37,6 +37,7 @@
         }
 
         function deletePosition(positionId) {
+            console.log("sending from client position delete");
             return $http.delete("/api/position/" + positionId);
         }
 
