@@ -35,7 +35,7 @@ function getPositions(recruiterId) {
 
 function deletePosition(positionId) {
     var d = q.defer();
-    positionModel.removeById(positionId, function (err, position) {
+    positionModel.findByIdAndRemove(positionId, function (err, position) {
         if(err)
             d.reject(err);
         else

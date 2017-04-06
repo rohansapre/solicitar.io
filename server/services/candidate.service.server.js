@@ -2,15 +2,16 @@
  * Created by rohansapre on 4/3/17.
  */
 module.exports = function (app, model) {
-    app.get("/api/candidate/:userId", getCandidates);
+    app.get("/api/candidate/:positionId", getCandidates);
 
     function getCandidates(req, res) {
-        var recruiterId = req.params.userId;
+        var positionId = req.params.positionId;
         console.log("server getting candidates");
         model.candidate
-            .getApplicantsForRecruiter(recruiterId)
+            .getApplicants(positionId)
             .then(function (candidates) {
-                console.log(candidates._applicant);
+                console.log("In Server");
+                console.log(candidates);
                 res.json(candidates);
             }, function (error) {
                 res.sendStatus(500).send(error);
