@@ -9,6 +9,9 @@ module.exports = function (app, model) {
     app.get("/api/schedule/upcoming/:interviewerId/position/:positionId", getCandidatesForUpcomingPositions);
     app.get("/api/schedule/past/:interviewerId/position/:positionId", getCandidatesForPastPositions);
     app.put("/api/schedule/:interviewId", updateInterviewTime);
+    app.get("/api/schedule/applicant/upcoming/:userId", getUpcomingInterviewsForApplicant);
+    app.get("/api/schedule/applicant/past/:userId", getPastInterviewsForApplicant);
+    app.get("/api/schedule/:interviewerId", getInterviewerSchedule);
 
     function createInterview(req, res) {
         var hire = req.body;
@@ -81,6 +84,45 @@ module.exports = function (app, model) {
             .updateInterviewTime(interviewId, time)
             .then(function (interview) {
                 res.json(interview);
+            }, function (error) {
+                res.sendStatus(500).send(error);
+            })
+    }
+
+    function getUpcomingInterviewsForApplicant(req, res) {
+        var userId = req.params.userId;
+        model.schedule
+            .getUpcomingInterviewsForApplicant(userId)
+            .then(function (interviews) {
+                console.log(interviews);
+                res.json(interviews);
+            }, function (error) {
+                console.log("error");
+                console.log(error);
+                res.sendStatus(500).send(error);
+            })
+    }
+
+    function getPastInterviewsForApplicant(req, res) {
+        var userId = req.params.userId;
+        model.schedule
+            .getPastInterviewsForApplicant(userId)
+            .then(function (interviews) {
+                console.log(interviews);
+                res.json(interviews);
+            }, function (error) {
+                console.log("error");
+                console.log(error);
+                res.sendStatus(500).send(error);
+            })
+    }
+
+    function getInterviewerSchedule(req, res) {
+        var interviewerId = req.params.interviewerId;
+        model.schedule
+            .getInterviewerSchedule(interviewerId)
+            .then(function (interviews) {
+                res.json(interviews);
             }, function (error) {
                 res.sendStatus(500).send(error);
             })

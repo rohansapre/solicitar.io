@@ -14,7 +14,8 @@
             "getCandidatesForUpcomingPositions": getCandidatesForUpcomingPositions,
             "getCandiatesForPastPositions": getCandidatesForPastPositions,
             "updateInterviewTime": updateInterviewTime,
-            "assignInterviewer": assignInterviewer
+            "assignInterviewer": assignInterviewer,
+            "getInterviewerSchedule": getInterviewerSchedule
         };
         return api;
         
@@ -46,6 +47,10 @@
 
         function assignInterviewer(users) {
             return $http.post("/api/schedule", users);
+        }
+
+        function getInterviewerSchedule(interviewerId) {
+            return $http.get("/api/schedule/" + interviewerId);
         }
     }
 

@@ -30,9 +30,12 @@
                     })
                     .error(function (error) {
                         console.log(error);
-                        if (error.statusText.indexOf('duplicate')) {
+                        if (error.statusText.indexOf('duplicate') > -1) {
                             var duplicate = JSON.parse(error.statusText);
                             vm.error = "That " + duplicate.field + " is already taken";
+                        } else if (error.statusText.indexOf("can't register") > -1) {
+                            var problem = JSON.parse(error);
+                            vm.error = problem.message;
                         }
                     });
             } else

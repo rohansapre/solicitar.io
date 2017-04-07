@@ -718,7 +718,38 @@
                     console.log(error);
                 })
         }
+        
+        function getUpcomingInterviewForApplicant(userId) {
+            UserService.getUpcomingInterviews(userId)
+                .success(function (interviews) {
+                    console.log(interviews);
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                })
+        }
 
+        function getPastInterviewForApplicant(userId) {
+            UserService.getPastInterviews(userId)
+                .success(function (interviews) {
+                    console.log(interviews);
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                })
+        }
 
+        function getInterviewerSchedule() {
+            InterviewService.getInterviewerSchedule(vm.userId)
+                .success(function (schedule) {
+                    console.log(schedule);
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                });
+        }
     }
 })();
