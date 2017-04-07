@@ -5,7 +5,8 @@ var mongoose = require('mongoose');
 var positionSchema = mongoose.Schema({
     _recruiter: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     name: String,
-    location: String
+    location: String,
+    dateCreated: { type: Date, default: Date.now() }
 }, {collection: 'position'});
 
 module.exports = positionSchema;

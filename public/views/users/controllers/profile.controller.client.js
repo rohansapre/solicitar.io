@@ -3,7 +3,7 @@
         .module("ProjectMaker")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($routeParams, $location, UserService, RecruiterService) {
+    function ProfileController($routeParams, $location, UserService, RecruiterService, InterviewService) {
         var vm = this;
 
         // event handlers
@@ -15,7 +15,7 @@
         vm.setHours = setHours;
         vm.addTimeToList= addTimeToList;
         vm.newTimings= newTimings;
-        vm.scheduleInterview = scheduleInterview;
+        vm.updateInterviewTime = updateInterviewTime;
         vm.addMail = addMail;
         vm.deleteMail = deleteMail;
         vm.deleteAllMail = deleteAllMail;
@@ -46,6 +46,7 @@
         //Recruiter start
         vm.addPost = addPost;
         vm.deletePost = deletePost;
+        vm.initializeRecruiterViewcandidates = initializeRecruiterViewcandidates;
         vm.posts = [];
         vm.jobarray = [];
         //recruiter ends
@@ -125,6 +126,7 @@
             console.log(vm.TimingList);
 
             getPositions();
+            // initializeInterviewerUpcomingInterviews();
         }
 
         init();
@@ -344,22 +346,22 @@
             }
         }
 
-        function validateEmail(email) {
-            var re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-            return re.test(email);
-        }
+        // function validateEmail(email) {
+        //     var re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        //     return re.test(email);
+        // }
 
         function addMail() {
-            var lister = vm.newmail.split(/(?:,| )+/);
-            console.log(lister);
-            for (eachmail in lister) {
-                console.log(lister[eachmail]);
-                if (validateEmail(lister[eachmail])) {
-                    vm.emails.push(lister[eachmail]);
-                    console.log("added");
-                }
-            }
-            vm.newmail = "";
+            var recruiterCreateUser = {
+                email: vm.newUser.email,
+                firstName: vm.newUser.firstName,
+                lastName: vm.newUser.lastName
+            };
+            vm.emails.push(recruiterCreateUser);
+            console.log("added");
+            vm.newUser.firstName = "";
+            vm.newUser.lastName = "";
+            vm.newUser.email = "";
         }
 
         function deleteAllMail() {
@@ -376,34 +378,19 @@
         function sendInvitations() {
             // var emailer = ['mht.amul@gmail.com', 'rohansapre@yahoo.com', 'tushar.gupta.cse@gmail.com'];
             console.log("send invites");
-
-            // Send array of applicants as mentioned below
-
-            var applicants = [
-                {
-                    email: "rohansapre@yahoo.com",
-                    firstName: "Rohan",
-                    lastName: "Sapre"
-                },
-                {
-                    email: "tushar.gupta.cse@gmail.com",
-                    firstName: "Tushar",
-                    lastName: "Gupta"
-                },
-                {
-                    email: "mht.amul@gmail.com",
-                    firstName: "Amul",
-                    lastName: "Mehta"
-                }
-            ];
             // console.log(vm.emails);
-            RecruiterService.sendInvitations(positionId, applicants)
+            RecruiterService.sendInvitations(vm.positionId, vm.emails)
                 .success(function (status) {
                     if (status) {
                         console.log("Invitation sent from controller");
                         console.log(status);
+                        getCandidates(vm.positionId);
                     } else
                         console.log("Cannot send invitation from controller");
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
                 });
         }
 
@@ -411,13 +398,12 @@
                 $location.url("/user/" + vm.user._id + "/interview/");
         }
 
-        function scheduleInterview(user) {
-            console.log("scheduling interview " + user._applicant._id);
-            var hire = {
-                _recruiter: vm.userId,
-                position: user.position
+        function updateInterviewTime(interviewId, startDate, endDate) {
+            var time = {
+                start: startDate,
+                end: endDate
             };
-            RecruiterService.scheduleInterview(user._applicant._id, hire);
+            InterviewService.updateInterviewTime(interviewId, time);
         }
 
         // function getCandidates() {
@@ -434,10 +420,20 @@
 
         function initializeInterviewerUpcomingInterviews(){
                 //get upcoming interviews from intercview services
+            InterviewService.getUpcomingInterviewPositions(vm.userId)
+                .success(function (positions) {
+                    console.log("positions: ");
+                    console.log(positions);
+                    // vm.interviewerUpcomingInterviews = positions;
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                });
         }
         
         
-        function initializeViewCandidates() {
+        function initializeViewCandidates(positionId) {
             console.log("sgsgsgs");
             console.log(vm.tab);
             vm.interviewApplicants =[{
@@ -449,6 +445,12 @@
             },{
                 name: 'Vaibhav Shukla'
             }];
+
+            InterviewService.getCandidatesForUpcomingPositions(vm.userId, positionId)
+                .success(function (candidates) {
+                    console.log("got candidates");
+                    console.log(candidates);
+                })
         }
         
         function initializeScheduleInterview() {
@@ -546,9 +548,18 @@
              
          }
 
-
-
-
+        function initializeInterviewerPastInterviews(){
+            InterviewService.getPastInterviewPositions(vm.userId)
+                .success(function (positions) {
+                    console.log("positions: ");
+                    console.log(positions);
+                    // vm.interviewerUpcomingInterviews = positions;
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                });
+        }
 
 
         // Interviewer ENDS
@@ -624,10 +635,32 @@
 
         // Candidates
 
+        function initializeRecruiterViewcandidates() {
+            getCandidates(vm.positionId);
+        }
+
         function getCandidates(positionId) {
             RecruiterService.getCandidates(positionId)
                 .success(function (candidates) {
+                    console.log("candidates are:");
                     console.log(candidates);
+                    vm.candidatesByJob = candidates;
+                })
+        }
+        
+        function assignInterviewer(userId, interviewerId, positionId) {
+            var users = {
+                _applicant: userId,
+                _interviewer: interviewerId,
+                _position: positionId
+            };
+            InterviewService.assignInterviewer(users)
+                .success(function (interview) {
+                    console.log(interview)
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
                 })
         }
 

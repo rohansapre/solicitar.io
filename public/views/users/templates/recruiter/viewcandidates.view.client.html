@@ -3,7 +3,7 @@
     <ol class="breadcrumb my-3">
         <li class="breadcrumb-item"><a href="">Homepage</a></li>
         <li class="breadcrumb-item">Job Postings</li>
-        <li class="breadcrumb-item active">Candidates for {{model.currentjob[0]}} Opening</li>
+        <li class="breadcrumb-item active">Candidates for {{model.currentjob}} Opening</li>
     </ol>
 
     <div class="row">
@@ -82,19 +82,19 @@
             <div class="card-block">
                 <div class="row">
                     <div class="col-md-6" style="margin-bottom: 10px;">
-                        <input type="text" class="form-control" ng-model="user.firstName" placeholder="First Name">
+                        <input type="text" class="form-control" ng-model="model.newUser.firstName" placeholder="First Name">
                     </div>
                     <div class="col-md-6" style="margin-bottom: 10px;">
-                        <input type="text" class="form-control" ng-model="user.lastName" placeholder="Last Name">
+                        <input type="text" class="form-control" ng-model="model.newUser.lastName" placeholder="Last Name">
                     </div>
                 </div>
-                <input type="text" class="form-control" ng-model="model.newmail" placeholder="Email">
+                <input type="text" class="form-control" ng-model="model.newUser.email" placeholder="Email">
                 <button class="btn btn-sm form-control btn-outline-success marginTop" ng-click="model.addMail()">Add Person</button>
             </div>
             <div class="card-block">
                 <ul class="list-group">
                     <li class="list-group-item justify-content-between" ng-repeat="listmail in model.emails">
-                        {{listmail}}
+                        {{listmail.email}}
                         <span class="badge badge-default badge-pill" ng-click="model.deleteMail(listmail)">Delete</span>
                     </li>
                 </ul>
@@ -111,8 +111,8 @@
             </div>
             <div class="card-block">
                 <ul class="list-group">
-                    <li class="list-group-item justify-content-between" ng-repeat="candidate in model.jobarray">
-                        {{candidate[0]}} {{candidate[1]}}
+                    <li class="list-group-item justify-content-between" ng-repeat="candidate in model.candidatesByJob">
+                        {{candidate._applicant.firstName}} {{candidate._applicant.lastName}} {{candidate._applicant.status}}
                         <span class="badge badge-default badge-pill" ng-click="model.deleteMail(listmail)">Delete</span>
                     </li>
                 </ul>

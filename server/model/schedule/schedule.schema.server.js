@@ -1,14 +1,14 @@
 /**
  * Created by rohansapre on 3/24/17.
- */
+*/
 var mongoose = require('mongoose');
-var positions = ['Software Developer', 'Software Engineer', 'Frontend Engineer', 'Backend Engineer', 'Android Developer', 'iOS Developer'];
 var scheduleSchema = mongoose.Schema({
     _applicant: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    _interview: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    _recruiter: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    position: {type: String, enum: positions},
-    date: {type: Date}
+    _interviewer: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    _position: {type: mongoose.Schema.Types.ObjectId, ref: 'Position'},
+    start: {type: Date},
+    end: {type: Date},
+    dateCreated: { type: Date, default: Date.now() }
 }, {collection: 'schedule'});
 
 module.exports = scheduleSchema;

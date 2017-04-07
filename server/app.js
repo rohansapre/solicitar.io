@@ -98,7 +98,7 @@ module.exports = function (app) {
 
     require('./services/user.service.server.js')(app, model);
     require("./services/playground.service.server")(app);
-    require('./services/recruiter.service.server')(app);
+    require('./services/recruiter.service.server')(app, model);
     require('./services/calendar.service.server')(app, model);
     require('./services/schedule.service.server')(app, model);
     require('./services/candidate.service.server')(app, model);
