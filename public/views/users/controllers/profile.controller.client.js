@@ -34,6 +34,11 @@
         vm.interviewerGetCandidateProfile= interviewerGetCandidateProfile;
         vm.initializeInterviewerPastInterviews= initializeInterviewerPastInterviews;
         vm.initializeInterviewerViewCandidateProfile= initializeInterviewerViewCandidateProfile;
+        vm.initializeInterviewerDashboard= initializeInterviewerDashboard;
+        vm.initializeInterviewerProfile= initializeInterviewerProfile;
+        vm.initializeInterviewerPast= initializeInterviewerPast;
+        vm.initializeInterviewerSchedule= initializeInterviewerSchedule;
+
 
         vm.interview=null;
         // Interviewer End
@@ -478,6 +483,30 @@
             vm.scheduleDates=dateArray;
 
         }
+
+        function initializeInterviewerDashboard(){
+
+        }
+
+        function initializeInterviewerProfile() {
+
+        }
+
+        function initializeInterviewerPast(){
+
+        }
+
+        function initializeInterviewerSchedule() {
+
+        }
+        function initializeInterviewerPastInterviews(){
+
+        }
+
+        function initializeInterviewerViewCandidateProfile() {
+
+        }
+
          function interviewerScheduleInterview() {
             var from = vm.scheduleFrom.split(':');
             var to = vm.scheduleTo.split(':');
@@ -510,19 +539,16 @@
 
 
          }
+
+
          
          function interviewerGetCandidateProfile() {
              
          }
 
 
-        function initializeInterviewerPastInterviews(){
 
-        }
 
-        function initializeInterviewerViewCandidateProfile() {
-
-        }
 
 
         // Interviewer ENDS
