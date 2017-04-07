@@ -2,11 +2,22 @@
  * Created by rohansapre on 3/22/17.
  */
 module.exports = function (app, model) {
+
+    var passport = require('passport');
+    var LocalStrategy = require('passport-local').Strategy;
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
     app.post("/api/user", createUser);
     app.get("/api/user", findUser);
     app.get("/api/user/:userId", findUserById);
     app.put("/api/user/:userId", updateUser);
     app.delete("/api/user/:userId", deleteUser);
+    app.post("/api/user/login", passport.authenticate('local'), login);
+    app.post("/api/logout", logout);
+    app.post("/api/register", register);
+    app.get("/api/loggedin", loggedin);
 
     // Image Upload Settings
 
@@ -98,7 +109,6 @@ module.exports = function (app, model) {
         model.user
             .findUserById(userId)
             .then(function (user) {
-                console.log(user);
                 res.json(user);
             }, function (error) {
                 res.sendStatus(500).send(error);
@@ -200,5 +210,84 @@ module.exports = function (app, model) {
                     res.sendStatus(500).send(error);
                 });
         }
+    }
+
+    function localStrategy(username, password, done) {
+        model.user
+            .findUserByCredentials(username, password)
+            .then(function (user) {
+                if(user.username == username && user.password == password)
+                    return done(null, user);
+                else
+                    return done(null, false);
+            }, function (err) {
+                if(err)
+                    return done(err);
+            });
+    }
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        model.user
+            .findUserById(user._id)
+            .then(function (user) {
+                done(null, user);
+            }, function (err) {
+                done(err, null);
+            })
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
+    }
+
+    function logout(req, res) {
+        req.logout();
+        res.send(200);
+    }
+
+    function register(req, res) {
+        var newUser = req.body;
+        model.user
+            .findUserByUsername(newUser.email)
+            .then(function (user) {
+                if(user) {
+                    newUser.status = 'JOINED';
+                    model.user
+                        .updateUser(user._id, newUser)
+                        .then(function (tempUser) {
+                            if(tempUser) {
+                                req.login(tempUser, function (err) {
+                                    if(err)
+                                        res.status(400).send(err);
+                                    else
+                                        res.json(tempUser);
+                                })
+                            }
+                        }, function (error) {
+                            if(error.duplicate) {
+                                res.statusMessage = JSON.stringify(error);
+                                res.status(500).end();
+                            } else
+                                res.sendStatus(500).send(error);
+                        })
+                } else {
+                    var error = {
+                        "message": "You have not been invited yet, you can't register without an invitation"
+                    };
+                    res.statusMessage = JSON.stringify(error);
+                    res.status(500).end();
+                }
+            }, function (error) {
+                res.sendStatus(500).send(error);
+            });
+    }
+
+    function loggedin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
     }
 };

@@ -3,6 +3,21 @@
         .module("ProjectMaker")
         .config(configuration);
 
+    var checkLoggedin = function ($q, $timeout, $http, $location, $rootScope) {
+        var deffered = $q.defer();
+        $http.get('api/loggedin').success(function (user) {
+            $rootScope.errorMessage = null;
+            if (user !== '0') {
+                $rootScope.currentUser = user;
+                deffered.resolve();
+            } else {
+                deffered.reject();
+                $location.url('/');
+            }
+        });
+        return deffered.promise;
+    };
+
     function configuration($routeProvider, $locationProvider, $httpProvider) {
 
         // /$httpProvider.defaults.headers.post['Content-Type'] = 'application/json';
@@ -29,7 +44,8 @@
             .when("/user/:uid", {
                 templateUrl: "views/users/common.view.client.html",
                 controller: "ProfileController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: { loggedin: checkLoggedin }
             })
             .when("/playground", {
                 templateUrl: "playground/playground.html",

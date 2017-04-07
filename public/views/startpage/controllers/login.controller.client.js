@@ -44,12 +44,10 @@
 
         function login(user) {
             if (user !== null) {
-
-                var promise = UserService
-                    .findUserByCredentials(user.username, user.password);
-
-                promise.success(function(user) {
+                UserService.login(user)
+                    .success(function(user) {
                     if (user) {
+                        $rootScope.currentUser = user;
                         if(user.type === 'RECRUITER') {
                             $location.url("/user/" + user._id);
                         } else
@@ -59,11 +57,8 @@
                         vm.error = "User not found!";
                     }
                 });
-            }
-
-            else {
+            } else
                 vm.error = "Please enter details!"
-            }
         }
     }
 })();

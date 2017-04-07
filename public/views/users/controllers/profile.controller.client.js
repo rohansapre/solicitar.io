@@ -3,7 +3,7 @@
         .module("ProjectMaker")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($routeParams, $location, UserService, RecruiterService, InterviewService) {
+    function ProfileController($routeParams, $location, $rootScope, UserService, RecruiterService, InterviewService) {
         var vm = this;
 
         // event handlers
@@ -25,6 +25,7 @@
         vm.createPosition = createPosition;
         vm.getPositions = getPositions;
         vm.deletePosition = deletePosition;
+        vm.logout = logout;
 
         // Interviewer Start
         vm.initializeInterviewerUpcomingInterviews = initializeInterviewerUpcomingInterviews;
@@ -155,10 +156,12 @@
             console.log(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00');
             console.log(new Date(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00'));
 
-
             var startDate = new Date(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00');
             var endDate = new Date(yyyy + '-' + m + '-' + dy + 'T' + to + ':00');
             var nowDate = new Date();
+            var startDate = new Date(yyyy+'-'+m+'-'+dy+'T'+fr+':00');
+            var endDate = new Date(yyyy+'-'+m+'-'+dy+'T'+to+':00');
+            var nowDate= new Date();
 
             // check for duplicate timings
 
@@ -810,6 +813,14 @@
                     console.log("error");
                     console.log(error);
                 });
+        }
+        
+        function logout() {
+            UserService.logout()
+                .then(function (response) {
+                    $rootScope.currentUser = null;
+                    $location.url("/");
+                })
         }
     }
 })();
