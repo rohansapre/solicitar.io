@@ -12,6 +12,8 @@ scheduleModel.getCandidatesForUpcomingPositions = getCandidatesForUpcomingPositi
 scheduleModel.getCandidatesForPastPositions = getCandidatesForPastPositions;
 scheduleModel.updateInterviewTime = updateInterviewTime;
 scheduleModel.createInterview = createInterview;
+scheduleModel.getUpcomingInterviewsForApplicant = getUpcomingInterviewsForApplicant;
+scheduleModel.getPastInterviewsForApplicant = getPastInterviewsForApplicant;
 
 module.exports = scheduleModel;
 
@@ -90,5 +92,31 @@ function createInterview(hire) {
         else
             d.resolve(interview);
     });
+    return d.promise;
+}
+
+function getUpcomingInterviewsForApplicant(userId) {
+    var d = q.defer();
+    scheduleModel.find({_applicant: userId, start: {$gte: new Date()}})
+        .populate('_position')
+        .exec(function (err, interviews) {
+            if(err)
+                d.reject(err);
+            else
+                d.resolve(interviews);
+        });
+    return d.promise;
+}
+
+function getPastInterviewsForApplicant(userId) {
+    var d = q.defer();
+    scheduleModel.find({_applicant: userId, end: {$lt: new Date()}})
+        .populate('_position')
+        .exec(function (err, interviews) {
+            if(err)
+                d.reject(err);
+            else
+                d.resolve(interviews);
+        });
     return d.promise;
 }

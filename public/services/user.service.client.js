@@ -14,7 +14,9 @@
             "findUserByUsername": findUserByUsername,
             "getAvailability": getAvailability,
             "setAvailability": setAvailability,
-            "updateAvailability": updateAvailability
+            "updateAvailability": updateAvailability,
+            "getUpcomingInterviews": getUpcomingInterviews,
+            "getPastInterviews": getPastInterviews
         };
         return api;
 
@@ -63,6 +65,14 @@
 
         function updateAvailability(userId, times) {
             return $http.put("/api/calendar/" + userId, times);
+        }
+
+        function getUpcomingInterviews(userId) {
+            return $http.get("/api/schedule/applicant/upcoming" + userId);
+        }
+
+        function getPastInterviews(userId) {
+            return $http.get("/api/schedule/applicant/past/" + userId);
         }
     }
 })();
