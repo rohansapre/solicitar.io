@@ -6,6 +6,7 @@
     </ol>
     <!-- Card Columns -->
     <!--<div class="card-deck">-->
+    <div class="container">
         <div class="card">
             <form action="/api/upload/image" method="post" enctype="multipart/form-data">
                 <h3 class="card-header">
@@ -36,8 +37,8 @@
 
                         <label><b>Username:</b></label>
                         <!--<p>{{model.user.username}}</p>-->
-                        <input class="form-control nonedit" type="text" ng-model="model.user.username"
-                               placeholder="Username" readonly disabled/>
+                        <input class="form-control" type="text" ng-model="model.user.username"
+                               placeholder="Username" disabled/>
 
                         <label for="email"><b>Email:</b></label>
                         <input id="email" class="form-control" type="email" ng-model="model.user.email"
@@ -57,118 +58,16 @@
                     </p>
                 </div>
             </form>
-            <!--<div class="card-footer">-->
-            <!--<small class="text-muted">Last updated 3 mins ago</small>-->
-            <!--</div>-->
-        <!--</div>-->
 
-        <!--<div class="card hidden-lg-up" id="forthewidth">-->
-            <!--<h3 class="card-header "><small>Resume</small>-->
-                <!--<div class="btn-group pull-right marginRight" role="group" aria-label="...">-->
-                    <!--<button class="btn btn-primary">View</button>-->
-                <!--</div>-->
-                <!--<div class="btn-group pull-right marginRight " role="group" aria-label="ll">-->
-                    <!--<button class="btn btn-primary">Upload</button>-->
-                <!--</div>-->
-            <!--</h3>-->
-        <!--</div>-->
-        <!--<div class="card hidden-lg-up" id="forthewidth">-->
-            <!--<h3 class="card-header "><small>Cover Letter</small>-->
-                <!--<div class="btn-group pull-right marginRight" role="group" aria-label="...">-->
-                    <!--<button class="btn btn-primary">View</button>-->
-                <!--</div>-->
-                <!--<div class="btn-group pull-right marginRight " role="group" aria-label="ll">-->
-                    <!--<button class="btn btn-primary">Upload</button>-->
-                <!--</div>-->
-            <!--</h3>-->
-        <!--</div>-->
+        </div>
     </div>
-    <!--<div><iframe src="https://research.google.com/pubs/archive/44678.pdf"-->
-    <!--width="800px" height="600px" ></iframe></div>-->
 
 </div>
 
-<!--&lt;!&ndash; jQuery Version 3.1.1 &ndash;&gt;-->
-<!--<script src="lib/jquery/jquery.js"></script>-->
-
-<!--&lt;!&ndash; Tether &ndash;&gt;-->
-<!--<script src="lib/tether/tether.min.js"></script>-->
-
-<!--&lt;!&ndash; Bootstrap Core JavaScript &ndash;&gt;-->
-<!--<script src="lib/bootstrap/js/bootstrap.min.js"></script>-->
-
-<!--&lt;!&ndash; Chart.js &ndash;&gt;-->
-<!--<script src="lib/chart.js/Chart.min.js"></script>-->
-
-<!--&lt;!&ndash; SB Admin JavaScript &ndash;&gt;-->
-<!--<script src="js/sb-admin.min.js"></script>-->
-
 <script>
-    //    function editMethod() {
-    //        var x = document.getElementById('profcard');
-    //        if (x.style.display === 'none') {
-    //            x.style.display = 'block';
-    //        } else {
-    //            x.style.display = 'none';
-    //        }
-    //        var x = document.getElementById('editcard');
-    //        if (x.style.display === 'none') {
-    //            x.style.display = 'block';
-    //        } else {
-    //            x.style.display = 'none';
-    //        }
-    //    }
-
     function getwidth() {
-//        var iFrameID = document.getElementById('resumeframe');
-//        if (iFrameID) {
-//            // here you can make the height, I delete it first, then I make it again
-//            iFrameID.width = "";
-//            var temp = document.getElementById('forthewidth').clientWidth;
-//            iFrameID.width = temp + "px";
-////            iFrameID.height = temp + "px";
-//
-//            console.log(temp);
         var h = window.innerHeight;
         console.log(h);
         return h;
     }
 </script>
-
-<!--<div class="container">-->
-<!--<div ng-show= "model.error" class="alert alert-danger" role="alert">-->
-<!--{{model.error}}-->
-<!--</div>-->
-
-<!--<div ng-show= "model.message" class="alert alert-success" role="alert">-->
-<!--{{model.message}}-->
-<!--</div>-->
-
-<!--<form>-->
-
-<!--<label>Username</label>-->
-<!--<input class="form-control" type="text" ng-model="model.user.username" placeholder="Username"/>-->
-
-<!--<label for="email">Email</label>-->
-<!--<input id="email" class="form-control" type="email" ng-model="model.user.email" placeholder="Email" />-->
-
-<!--<label for="first">First Name</label>-->
-<!--<input id="first" class="form-control" type="text" ng-model="model.user.firstName" placeholder="First Name"/>-->
-
-<!--<label for="last">Last Name</label>-->
-<!--<input id="last" class="form-control" type="text" ng-model="model.user.lastName" placeholder="Last Name"/>-->
-
-<!--<a class="btn btn-primary btn-block" href="#/user/{{model.userId}}/website">-->
-<!--Websites-->
-<!--</a>-->
-<!--<a class="btn btn-success btn-block" ng-click="model.updateUser(model.user)">-->
-<!--Update Profile-->
-<!--</a>-->
-<!--<a class="btn btn-warning btn-block" ng-click="model.deleteUser()">-->
-<!--Deregister-->
-<!--</a>-->
-<!--<a class="btn btn-danger btn-block" href="#/login">-->
-<!--Logout-->
-<!--</a>-->
-<!--</form>-->
-<!--</div>-->

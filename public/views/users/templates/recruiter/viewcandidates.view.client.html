@@ -6,89 +6,24 @@
         <li class="breadcrumb-item active">Candidates for {{model.currentjob}} Opening</li>
     </ol>
 
-    <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card card-inverse card-primary o-hidden h-100">
-                <div class="card-block">
-                    <div class="card-block-icon">
-                        <i class="fa fa-fw fa-comments"></i>
-                    </div>
-                    <div class="mr-5">
-                        26 New Messages!
-                    </div>
-                </div>
-                <a href="#" class="card-footer clearfix small z-1">
-                    <span class="float-left">View Details</span>
-                    <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                </a>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card card-inverse card-success o-hidden h-100">
-                <div class="card-block">
-                    <div class="card-block-icon">
-                        <i class="fa fa-fw fa-list"></i>
-                    </div>
-                    <div class="mr-5">
-                        11 New Tasks!
-                    </div>
-                </div>
-                <a href="#" class="card-footer clearfix small z-1">
-                    <span class="float-left">View Details</span>
-                    <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                </a>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card card-inverse card-warning o-hidden h-100">
-                <div class="card-block">
-                    <div class="card-block-icon">
-                        <i class="fa fa-fw fa-shopping-cart"></i>
-                    </div>
-                    <div class="mr-5">
-                        123 New Orders!
-                    </div>
-                </div>
-                <a href="#" class="card-footer clearfix small z-1">
-                    <span class="float-left">View Details</span>
-                    <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                </a>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card card-inverse card-danger o-hidden h-100">
-                <div class="card-block">
-                    <div class="card-block-icon">
-                        <i class="fa fa-fw fa-support"></i>
-                    </div>
-                    <div class="mr-5">
-                        13 New Tickets!
-                    </div>
-                </div>
-                <a href="#" class="card-footer clearfix small z-1">
-                    <span class="float-left">View Details</span>
-                    <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                </a>
-            </div>
-        </div>
-    </div>
-
     <!-- Area Chart Example -->
-    <div class="card-deck">
-        <div class="card">
+        <div class="card col-sm-12 marginBottom">
             <div class="card-header">
                 <i class="fa fa-bar-chart"></i> Invite Candidates
             </div>
             <div class="card-block">
                 <div class="row">
-                    <div class="col-md-6" style="margin-bottom: 10px;">
+                    <div class="col-md-4" style="margin-bottom: 10px;">
                         <input type="text" class="form-control" ng-model="model.newUser.firstName" placeholder="First Name">
                     </div>
-                    <div class="col-md-6" style="margin-bottom: 10px;">
+                    <div class="col-md-4" style="margin-bottom: 10px;">
                         <input type="text" class="form-control" ng-model="model.newUser.lastName" placeholder="Last Name">
                     </div>
+                    <div class="col-md-4" style="margin-bottom: 10px;">
+                        <input type="text" class="form-control" ng-model="model.newUser.email" placeholder="Email">
+                    </div>
                 </div>
-                <input type="text" class="form-control" ng-model="model.newUser.email" placeholder="Email">
+
                 <button class="btn btn-sm form-control btn-outline-success marginTop" ng-click="model.addMail()">Add Person</button>
             </div>
             <div class="card-block">
@@ -105,7 +40,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card col-sm-12">
             <div class="card-header">
                 <i class="fa fa-bar-chart"></i> List of Candidates
             </div>

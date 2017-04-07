@@ -380,6 +380,7 @@
                         console.log("Invitation sent from controller");
                         console.log(status);
                         getCandidates(vm.positionId);
+
                     } else
                         console.log("Cannot send invitation from controller");
                 })
@@ -387,6 +388,7 @@
                     console.log("error");
                     console.log(error);
                 });
+            vm.emails = [];
         }
 
         function startInterview() {
