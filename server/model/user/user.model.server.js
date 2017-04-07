@@ -80,10 +80,20 @@ function findUserByCredentials(username, password) {
 function updateUser(userId, user) {
     var d = q.defer();
     userModel.findByIdAndUpdate(userId, user, function (err, user) {
-        if(err)
-            d.reject(err);
-        else
+        if(err) {
+            var msg = err['errmsg'];
+            if (msg.indexOf('duplicate key error') > -1) {
+                var duplicate = {
+                    'duplicate': true,
+                    'field': msg.substring(msg.indexOf('index: ')+7).split('_')[0]
+                };
+                d.reject(duplicate);
+            } else
+                d.reject(err);
+        }
+        else {
             d.resolve(user);
+        }
     });
     return d.promise;
 }

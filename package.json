@@ -6,6 +6,7 @@
   "dependencies": {
     "body-parser": "^1.15.1",
     "cookie-parser": "^1.4.3",
+    "dotenv": "^1.2.0",
     "ejs": "^2.5.3",
     "express": "^4.13.4",
     "express-session": "^1.14.2",
@@ -16,7 +17,6 @@
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
     "q": "^1.4.1",
-    "dotenv": "^1.2.0",
     "twilio": "^2.9.2"
   },
   "devDependencies": {
