@@ -441,7 +441,7 @@
                 name: 'Vaibhav Shukla'
             }];
 
-            InterviewService.getCandidatesForPosition(vm.userId, positionId)
+            InterviewService.getCandidatesForUpcomingPositions(vm.userId, positionId)
                 .success(function (candidates) {
                     console.log("got candidates");
                     console.log(candidates);
@@ -619,6 +619,22 @@
                     console.log("candidates are:");
                     console.log(candidates);
                     vm.candidatesByJob = candidates;
+                })
+        }
+        
+        function assignInterviewer(userId, interviewerId, positionId) {
+            var users = {
+                _applicant: userId,
+                _interviewer: interviewerId,
+                _position: positionId
+            };
+            InterviewService.assignInterviewer(users)
+                .success(function (interview) {
+                    console.log(interview)
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
                 })
         }
 

@@ -8,8 +8,10 @@ var scheduleModel = mongoose.model('Schedule', scheduleSchema);
 
 scheduleModel.getUpcomingPositions = getUpcomingPositions;
 scheduleModel.getPastPositions = getPastPositions;
-scheduleModel.getCandidatesForPosition = getCandidatesForPosition;
+scheduleModel.getCandidatesForUpcomingPositions = getCandidatesForUpcomingPositions;
+scheduleModel.getCandidatesForPastPositions = getCandidatesForPastPositions;
 scheduleModel.updateInterviewTime = updateInterviewTime;
+scheduleModel.createInterview = createInterview;
 
 module.exports = scheduleModel;
 
@@ -43,9 +45,22 @@ function getPastPositions(interviewerId) {
     return d.promise;
 }
 
-function getCandidatesForPosition(interviewerId, positionId) {
+function getCandidatesForUpcomingPositions(interviewerId, positionId) {
     var d = q.defer();
     scheduleModel.find({_interviewer: interviewerId, _position: positionId, start: {$gte: new Date()}}, '_applicant')
+        .populate('_applicant')
+        .exec(function (err, candidates) {
+            if(err)
+                d.reject(err);
+            else
+                d.resolve(candidates);
+        });
+    return d.promise;
+}
+
+function getCandidatesForPastPositions(interviewerId, positionId) {
+    var d = q.defer();
+    scheduleModel.find({_interviewer: interviewerId, _position: positionId, end: {$lt: new Date()}}, '_applicant')
         .populate('_applicant')
         .exec(function (err, candidates) {
             if(err)
@@ -59,6 +74,17 @@ function getCandidatesForPosition(interviewerId, positionId) {
 function updateInterviewTime(interviewId, time) {
     var d = q.defer();
     scheduleModel.findByIdAndUpdate(interviewId, {$set: {start: time.start, end: time.end}}, function (err, interview) {
+        if(err)
+            d.reject(err);
+        else
+            d.resolve(interview);
+    });
+    return d.promise;
+}
+
+function createInterview(hire) {
+    var d = q.defer();
+    scheduleModel.create(hire, function (err, interview) {
         if(err)
             d.reject(err);
         else

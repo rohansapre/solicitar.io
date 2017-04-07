@@ -11,8 +11,10 @@
         var api = {
             "getUpcomingInterviewPositions": getUpcomingInterviewPositions,
             "getPastInterviewPositions": getPastInterviewPositions,
-            "getCandidatesForPosition": getCandidatesForPosition,
-            "updateInterviewTime": updateInterviewTime
+            "getCandidatesForUpcomingPositions": getCandidatesForUpcomingPositions,
+            "getCandiatesForPastPositions": getCandidatesForPastPositions,
+            "updateInterviewTime": updateInterviewTime,
+            "assignInterviewer": assignInterviewer
         };
         return api;
         
@@ -24,8 +26,12 @@
             return $http.get("/api/schedule/past/" + interviewerId);
         }
 
-        function getCandidatesForPosition(interviewerId, positionId) {
-            return $http.get("/api/schedule/" + interviewerId + "/position/" + positionId);
+        function getCandidatesForUpcomingPositions(interviewerId, positionId) {
+            return $http.get("/api/schedule/upcoming/" + interviewerId + "/position/" + positionId);
+        }
+
+        function getCandidatesForPastPositions(interviewerId, positionId) {
+            return $http.get("/api/schedule/past/" + interviewerId + "/position/" + positionId);
         }
 
         //  Schedule Interview
@@ -36,6 +42,10 @@
 
         function updateInterviewTime(interviewId, time) {
             return $http.put("/api/schedule/" + interviewId, time);
+        }
+
+        function assignInterviewer(users) {
+            return $http.post("/api/schedule", users);
         }
     }
 

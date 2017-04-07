@@ -3,16 +3,15 @@
  */
 
 module.exports = function (app, model) {
-    // app.post("/api/schedule/:interviewerId", createInterview);
+    app.post("/api/schedule", createInterview);
     app.get("/api/schedule/upcoming/:interviewerId", getUpcomingPositions);
     app.get("/api/schedule/past/:interviewerId", getPastPositions);
-    app.get("/api/schedule/:interviewerId/position/:positionId", getCandidatesForPosition)
-    app.put("/api/schedule/:interviewId", updateInterviewTime)
+    app.get("/api/schedule/upcoming/:interviewerId/position/:positionId", getCandidatesForUpcomingPositions);
+    app.get("/api/schedule/past/:interviewerId/position/:positionId", getCandidatesForPastPositions);
+    app.put("/api/schedule/:interviewId", updateInterviewTime);
 
     function createInterview(req, res) {
-        var interviewerId = req.params.interviewerId;
         var hire = req.body;
-        hire._interviewer = interviewerId;
         model.schedule
             .createInterview(hire)
             .then(function (interview) {
@@ -48,11 +47,24 @@ module.exports = function (app, model) {
             });
     }
 
-    function getCandidatesForPosition(req, res) {
+    function getCandidatesForUpcomingPositions(req, res) {
         var interviewerId = req.params.interviewerId;
         var positionId = req.params.positionId;
         model.schedule
-            .getCandidatesForPosition(interviewerId, positionId)
+            .getCandidatesForUpcomingPositions(interviewerId, positionId)
+            .then(function (candidates) {
+                console.log(candidates);
+                res.json(candidates);
+            }, function (error) {
+                res.sendStatus(500).send(error);
+            })
+    }
+
+    function getCandidatesForPastPositions(req, res) {
+        var interviewerId = req.params.interviewerId;
+        var positionId = req.params.positionId;
+        model.schedule
+            .getCandidatesForPastPositions(interviewerId, positionId)
             .then(function (candidates) {
                 console.log(candidates);
                 res.json(candidates);
