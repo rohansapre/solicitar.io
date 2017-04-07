@@ -685,5 +685,16 @@
                     console.log(error);
                 })
         }
+
+        function getInterviewerSchedule() {
+            InterviewService.getInterviewerSchedule(vm.userId)
+                .success(function (schedule) {
+                    console.log(schedule);
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                });
+        }
     }
 })();

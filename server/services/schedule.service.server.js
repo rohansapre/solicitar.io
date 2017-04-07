@@ -11,6 +11,7 @@ module.exports = function (app, model) {
     app.put("/api/schedule/:interviewId", updateInterviewTime);
     app.get("/api/schedule/applicant/upcoming/:userId", getUpcomingInterviewsForApplicant);
     app.get("/api/schedule/applicant/past/:userId", getPastInterviewsForApplicant);
+    app.get("/api/schedule/:interviewerId", getInterviewerSchedule);
 
     function createInterview(req, res) {
         var hire = req.body;
@@ -111,6 +112,17 @@ module.exports = function (app, model) {
             }, function (error) {
                 console.log("error");
                 console.log(error);
+                res.sendStatus(500).send(error);
+            })
+    }
+
+    function getInterviewerSchedule(req, res) {
+        var interviewerId = req.params.interviewerId;
+        model.schedule
+            .getInterviewerSchedule(interviewerId)
+            .then(function (interviews) {
+                res.json(interviews);
+            }, function (error) {
                 res.sendStatus(500).send(error);
             })
     }
