@@ -4,7 +4,10 @@
         <li class="breadcrumb-item"><a href ng-click="model.tab='dashboard'">Homepage</a></li>
         <li class="breadcrumb-item active">My Schedule</li>
     </ol>
-    <div class="card">
+    <div ng-show="model.emptySchedule" class="alert alert-danger" role="alert">
+        No Interviews found!
+    </div>
+    <div class="card" ng-hide="model.emptySchedule">
         <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -12,22 +15,23 @@
                     <th>Candidate Name</th>
                     <th>Position</th>
                     <th>Date</th>
-                    <th>Status</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="candidate in vm.pastCandidates">
+                <tr ng-repeat="interview in vm.mySchedule">
                     <td data-label="Candidate Name: ">
-                        {{candidate.name}}
+                        {{interview._applicant.firstName}} . {{interview._applicant.lastName}}
                     </td>
                     <td data-label="Position: ">
-                        {{candidate.position}}
+                        {{candidate._position.name}}
                     </td>
                     <td data-label="Date: ">
-                        {{candidate.date}}
+                        {{candidate.start}}
                     </td>
+                    <!--CHANGE HERE TO START INTERVIEW-->
                     <td data-label="Status: ">
-                        <span class="badge badge-default badge-pill" ng-click="model.deleteTiming(timing)">{{candidate.result}}</span>
+                        <span class="badge badge-default badge-pill" ng-click="model.startInterview(interview)" ng-disabled="model.toStartInterview(interview)">Start Interview</span>
                     </td>
                 </tr>
                 </tbody>

@@ -7,7 +7,10 @@
         <li class="breadcrumb-item active">View Candidates</li>
     </ol>
 
-    <div class="card-deck">
+    <div ng-show="model.emptyUpcomingCandidates" class="alert alert-danger" role="alert">
+        No Candidates found!
+    </div>
+    <div class="card-deck" ng-hide="model.emptyUpcomingCandidates">
         <div class="card">
             <div class="card-block">
                 <h4 class="card-title">{{model.interview.position}}</h4>

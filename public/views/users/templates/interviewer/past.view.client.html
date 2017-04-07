@@ -4,8 +4,10 @@
         <li class="breadcrumb-item"><a href="">Homepage</a></li>
         <li class="breadcrumb-item active">{{model.user.firstName}}'s Past Interviews</li>
     </ol>
-
-    <div class="card-deck">
+    <div ng-show="model.emptyPastInterviews" class="alert alert-danger" role="alert">
+        No Interviews found!
+    </div>
+    <div class="card-deck" ng-hide="model.emptyPastInterviews">
         <div class="col-xl-3 col-sm-6 mb-3" ng-repeat="interview in model.interviewerPastInterviews">
             <div class="card">
                 <div class="card-block">

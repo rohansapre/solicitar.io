@@ -5,7 +5,10 @@
         <li class="breadcrumb-item"><a href="">Past Interviews</a></li>
         <li class="breadcrumb-item active">View Candidates</li>
     </ol>
-    <div class="card">
+    <div ng-show="model.emptyPastCandidates" class="alert alert-danger" role="alert">
+        No Candidates found!
+    </div>
+    <div class="card" ng-hide="model.emptyPastCandidates">
         <div class="table-responsive">
             <table class="table">
                 <thead>

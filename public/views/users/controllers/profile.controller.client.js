@@ -37,6 +37,7 @@
         vm.initializeInterviewerProfile = initializeInterviewerProfile;
         vm.initializeInterviewerPast = initializeInterviewerPast;
         vm.initializeInterviewerSchedule = initializeInterviewerSchedule;
+        vm.toStartInterview = toStartInterview;
 
 
         vm.interview = null;
@@ -470,8 +471,19 @@
                 .error(function (error) {
                     console.log(error);
                 });
+        }
 
+        function toStartInterview(interview) {
+            var interviewDate = interview.start;
+            var currDate = new Date.now();
 
+            var diff = interviewDate - currDate;
+            var hh = Math.floor(diff / 1000 / 60 / 60);
+
+            if (hh < 1) {
+                return false;
+            }
+            return true;
         }
 
 
@@ -479,7 +491,7 @@
 
         // Dashboard
         function initializeInterviewerDashboard() {
-
+            // Get latest interview
         }
 
         //-----------------------------------------------------------------
@@ -502,6 +514,12 @@
                     console.log("positions: ");
                     console.log(positions);
                     vm.interviewerUpcomingInterviews = positions;
+                    if(positions.length == 0){
+                        vm.emptyUpcomingInterviews=true;
+                    }
+                    else{
+                        vm.emptyUpcomingInterviews=false;
+                    }
                 })
                 .error(function (error) {
                     console.log("error");
@@ -518,6 +536,13 @@
                     console.log("got candidates");
                     console.log(candidates);
                     vm.interviewApplicants = candidates;
+                    if(candidates.length == 0){
+                        vm.emptyUpcomingCandidates=true;
+                    }
+                    else{
+                        vm.emptyUpcomingCandidates=false;
+                    }
+
                 })
         }
 
@@ -586,6 +611,12 @@
                     console.log("positions: ");
                     console.log(positions);
                     vm.interviewerPastInterviews = positions;
+                    if(positions.length == 0){
+                        vm.emptyPastInterviews=true;
+                    }
+                    else{
+                        vm.emptyPastInterviews=false;
+                    }
                 })
                 .error(function (error) {
                     console.log("error");
@@ -600,6 +631,11 @@
                     console.log("candidates: ");
                     console.log(candidates);
                     vm.pastCandidates = candidates;
+                    if (candidates.length == 0)
+                        vm.emptyPastCandidates = true;
+                    else
+                        vm.emptyPastCandidates=false;
+
                 })
                 .error(function (error) {
                     console.log("error");
@@ -612,7 +648,20 @@
 
         // My Schedule
         function initializeInterviewerSchedule() {
+            InterviewService.getInterviewerSchedule(vm.userId)
+                .success(function (schedule) {
+                    console.log("My Schedule");
+                    console.log(schedule);
+                    vm.mySchedule = schedule;
+                    if (schedule.length == 0)
+                        vm.emptySchedule = true;
+                    else
+                        vm.emptySchedule=false;
 
+                })
+                .error(function (error) {
+                    console.log(error);
+                })
         }
 
 
@@ -720,7 +769,7 @@
                     console.log(error);
                 })
         }
-        
+
         function getUpcomingInterviewForApplicant(userId) {
             UserService.getUpcomingInterviews(userId)
                 .success(function (interviews) {
