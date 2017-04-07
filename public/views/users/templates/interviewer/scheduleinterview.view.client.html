@@ -10,6 +10,13 @@
 
     <!-- Error -->
 
+    <div ng-show="model.scheduleError" class="alert alert-danger" role="alert">
+        {{model.scheduleError}}
+    </div>
+
+    <div ng-show="model.scheduleMessage" class="alert alert-success" role="alert">
+        {{model.scheduleMessage}}
+    </div>
     <div class="card-deck">
         <div class="card">
             <div class="card-block">
@@ -53,7 +60,7 @@
                             </td>
 
                             <td>
-                                <button class="btn btn-block btn-success" ng-click="model.interviewerScheduleInterview()"> Schedule Interview </button>
+                                <button class="btn btn-block btn-success" ng-click="model.scheduleInterviewOnClick()"> Schedule Interview </button>
                             </td>
                         </tr>
                         </tbody>

@@ -5,7 +5,7 @@
         <li class="breadcrumb-item"><a href ng-click="model.tab='interviewerUpcoming'">{{model.user.firstName}}'s
             Upcoming Interviews</a></li>
         <li class="breadcrumb-item"><a href ng-click="model.tab='interviewerUpcoming'">View Candidates</a></li>
-        <li class="breadcrumb-item active">{{model.user.firstName}}'s Profile</li>
+        <li class="breadcrumb-item active">{{model.applicant.firstName}}'s Profile</li>
     </ol>
     <!-- Card Columns -->
     <div class="card-deck">
@@ -14,7 +14,7 @@
                 <small>Profile</small>
             </h3>
             <div class="card-block" id="imgoverlay">
-                <img class="card-img-top img-fluid w-100" src="{{model.user.picture}}" alt="Card image cap">
+                <img class="card-img-top img-fluid w-100" src="{{model.applicant.picture}}" alt="Card image cap">
             </div>
             <div ng-show="model.error" class="alert alert-danger" role="alert">
                 {{model.error}}
@@ -25,49 +25,46 @@
             </div>
 
             <div class="card-block" id="profcard">
-                <h4 class="card-title">{{model.name}}</h4>
+                <h4 class="card-title">{{model.applicantName}}</h4>
                 <p class="card-text">
 
                     <label><b>Username:</b></label>
                     <!--<p>{{model.user.username}}</p>-->
-                    <input class="form-control nonedit" type="text" ng-model="model.user.username"
-                           placeholder="Username" readonly/>
-
                     <label for="email"><b>Email:</b></label>
-                    <input id="email" class="form-control" type="email" ng-model="model.user.email"
+                    <input id="email" class="form-control" type="email" ng-model="model.applicant.email"
                            placeholder="Email" readonly/>
 
                     <label for="first"><b>First Name:</b></label>
-                    <input id="first" class="form-control" type="text" ng-model="model.user.firstName"
+                    <input id="first" class="form-control" type="text" ng-model="model.applicant.firstName"
                            placeholder="First Name" readonly/>
 
                     <label for="last"><b>Last Name:</b></label>
-                    <input id="last" class="form-control" type="text" ng-model="model.user.lastName"
+                    <input id="last" class="form-control" type="text" ng-model="model.applicant.lastName"
                            placeholder="Last Name" readonly/>
                     <label></label>
                 </p>
             </div>
         </div>
-        <div class="card fullHeight hidden-md-down" id="forthewidth">
+        <div class="card fullHeight hidden-md-down">
             <h3 class="card-header">
                 <small>Resume</small>
             </h3>
             <div class="card-block content-body">
-                <embed id="resumeframe" class="resume" src="{{model.user.resume}}"
+                <embed id="resumeframe" class="resume" src="{{model.applicant.resume}}"
                        width="100%">
             </div>
         </div>
-        <div class="card fullHeight hidden-md-down" id="forthewidth">
+        <div class="card fullHeight hidden-md-down">
             <h3 class="card-header">
                 <small>Cover Letter</small>
             </h3>
             <div class="card-block content-body">
-                <embed id="cover-letter-frame" class="cover-letter" src="{{model.user.coverLetter}}"
+                <embed id="cover-letter-frame" class="cover-letter" src="{{model.applicant.coverLetter}}"
                        width="100%">
             </div>
         </div>
 
-        <div class="card hidden-lg-up" id="forthewidth">
+        <div class="card hidden-lg-up">
             <h3 class="card-header ">
                 <small>Resume</small>
                 <div class="btn-group pull-right marginRight" role="group" aria-label="...">
@@ -75,8 +72,8 @@
                 </div>
             </h3>
         </div>
-        <div class="card hidden-lg-up" id="forthewidth">
-            <h3 class="card-header ">
+        <div class="card hidden-lg-up">
+            <h3 class="card-header">
                 <small>Cover Letter</small>
                 <div class="btn-group pull-right marginRight" role="group" aria-label="...">
                     <button class="btn btn-primary">View</button>

@@ -12,19 +12,21 @@
                     Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href ng-click="model.tab='interviewerProfile'"><i
-                        class="fa fa-fw fa-area-chart"></i> Profile</a>
+                <a class="nav-link" href ng-click="model.tab='interviewerProfile'">
+                    <i class="fa fa-fw fa-user-circle-o"></i> Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href ng-click="model.tab='interviewerUpcoming'"><i class="fa fa-fw fa-cogs"></i>
+                <a class="nav-link" href ng-click="model.tab='interviewerUpcoming'"><i class="fa fa-fw fa-forward"></i>
                     Upcoming Interviews</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href ng-click="model.tab='interviewerPast'"><i class="fa fa-fw fa-cogs"></i> Past
+                <a class="nav-link" href ng-click="model.tab='interviewerPast'"><i class="fa fa-fw fa-backward"></i>
+                    Past
                     Interviews</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href ng-click="model.tab='interviewerSchedule'"><i class="fa fa-fw fa-cogs"></i> My
+                <a class="nav-link" href ng-click="model.tab='interviewerSchedule'"><i class="fa fa-fw fa-calendar"></i>
+                    My
                     Schedule</a>
             </li>
         </ul>
@@ -128,17 +130,17 @@
     </div>
     <div ng-switch-when="interviewerScheduleInterview">
         <ng-include src="'views/users/templates/interviewer/scheduleinterview.view.client.html'"
-                    onload="model.initializeScheduleInterview()"></ng-include>
+                    onload="model.interviewerScheduleInterview()"></ng-include>
     </div>
 
     <div ng-switch-when="interviewerViewCandidateProfile">
         <ng-include src="'views/users/templates/interviewer/interviewerViewCandidateProfile.view.client.html'"
-                    onload="model.initializeInterviewerViewCandidateProfile()"></ng-include>
+                    onload="model.interviewerGetCandidateProfile()"></ng-include>
     </div>
 
     <div ng-switch-when="interviewerPastInterviews">
         <ng-include src="'views/users/templates/interviewer/past.interviews.view.client.html'"
-                    onload="model.initializeInterviewerPastInterviews()"></ng-include>
+                    onload="model.initializeInterviewerPastInterviewsCandidates()"></ng-include>
     </div>
     <div ng-switch-when="interviewerSchedule">
         <ng-include src="'views/users/templates/interviewer/myschedule.view.client.html'"

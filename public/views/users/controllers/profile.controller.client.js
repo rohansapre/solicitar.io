@@ -13,34 +13,33 @@
         vm.sendInvitations = sendInvitations;
         vm.setDays = setDays;
         vm.setHours = setHours;
-        vm.addTimeToList= addTimeToList;
-        vm.newTimings= newTimings;
+        vm.addTimeToList = addTimeToList;
+        vm.newTimings = newTimings;
         vm.updateInterviewTime = updateInterviewTime;
         vm.addMail = addMail;
         vm.deleteMail = deleteMail;
         vm.deleteAllMail = deleteAllMail;
         vm.getCandidates = getCandidates;
-        vm.deleteTiming= deleteTiming;
-        vm.updateTimings= updateTimings;
+        vm.deleteTiming = deleteTiming;
+        vm.updateTimings = updateTimings;
         vm.createPosition = createPosition;
         vm.getPositions = getPositions;
         vm.deletePosition = deletePosition;
 
         // Interviewer Start
-        vm.initializeInterviewerUpcomingInterviews= initializeInterviewerUpcomingInterviews;
-        vm.initializeViewCandidates= initializeViewCandidates;
-        vm.initializeScheduleInterview = initializeScheduleInterview;
-        vm.interviewerScheduleInterview= interviewerScheduleInterview;
-        vm.interviewerGetCandidateProfile= interviewerGetCandidateProfile;
-        vm.initializeInterviewerPastInterviews= initializeInterviewerPastInterviews;
-        vm.initializeInterviewerViewCandidateProfile= initializeInterviewerViewCandidateProfile;
-        vm.initializeInterviewerDashboard= initializeInterviewerDashboard;
-        vm.initializeInterviewerProfile= initializeInterviewerProfile;
-        vm.initializeInterviewerPast= initializeInterviewerPast;
-        vm.initializeInterviewerSchedule= initializeInterviewerSchedule;
+        vm.initializeInterviewerUpcomingInterviews = initializeInterviewerUpcomingInterviews;
+        vm.initializeViewCandidates = initializeViewCandidates;
+        vm.scheduleInterviewOnClick = scheduleInterviewOnClick;
+        vm.interviewerScheduleInterview = interviewerScheduleInterview;
+        vm.interviewerGetCandidateProfile = interviewerGetCandidateProfile;
+        vm.initializeInterviewerPastInterviewsCandidates = initializeInterviewerPastInterviewsCandidates;
+        vm.initializeInterviewerDashboard = initializeInterviewerDashboard;
+        vm.initializeInterviewerProfile = initializeInterviewerProfile;
+        vm.initializeInterviewerPast = initializeInterviewerPast;
+        vm.initializeInterviewerSchedule = initializeInterviewerSchedule;
 
 
-        vm.interview=null;
+        vm.interview = null;
         // Interviewer End
 
         //Recruiter start
@@ -54,60 +53,59 @@
         vm.emails = [];
 
         vm.weekend = false;
-        var yyyy,dd,cMon,day;
+        var yyyy, dd, cMon, day;
 
-        var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-        vm.start=[];
-        vm.end=[];
-        vm.TimingList={};
-        vm.timingDisplayList=[];
-
+        vm.start = [];
+        vm.end = [];
+        vm.TimingList = {};
+        vm.timingDisplayList = [];
 
 
         // Interviewer
-        vm.interviewerUpcomingInterviews = [{
-            position: "Software Developer Internship - Summer 2018",
-            recruiterName: "Tushar Gupta",
-            location: "Narak",
-            positionId: "12223we54"
-        }, {
-                position: "Software Developer Co-op - Fall 2018",
-                recruiterName: "Tushar Gupta",
-                location: "Narak",
-                positionId: "12223we54"
-        }, {
-                position: "Software Developer  - Full Time",
-                recruiterName: "Tushar Gupta",
-                location: "Narak",
-                positionId: "12223we54"
-        }, {
-                position: "Web Developer Internship - Summer 2018",
-                recruiterName: "Tushar Gupta",
-                location: "Narak",
-                positionId: "12223we54"
-        }];
-        vm.interviewerPastInterviews=[{
-            position: "Software Developer Internship - Summer 2018",
-            recruiterName: "Tushar Gupta",
-            location: "Narak",
-            positionId: "12223we54"
-        }, {
-            position: "Software Developer Internship - Summer 2018",
-            recruiterName: "Tushar Gupta",
-            location: "Narak",
-            positionId: "12223we54"
-        }, {
-            position: "Software Developer Internship - Summer 2018",
-            recruiterName: "Tushar Gupta",
-            location: "Narak",
-            positionId: "12223we54"
-        }, {
-            position: "Software Developer Internship - Summer 2018",
-            recruiterName: "Tushar Gupta",
-            location: "Narak",
-            positionId: "12223we54"
-        }];
+        // vm.interviewerUpcomingInterviews = [{
+        //     position: "Software Developer Internship - Summer 2018",
+        //     recruiterName: "Tushar Gupta",
+        //     location: "Narak",
+        //     positionId: "12223we54"
+        // }, {
+        //     position: "Software Developer Co-op - Fall 2018",
+        //     recruiterName: "Tushar Gupta",
+        //     location: "Narak",
+        //     positionId: "12223we54"
+        // }, {
+        //     position: "Software Developer  - Full Time",
+        //     recruiterName: "Tushar Gupta",
+        //     location: "Narak",
+        //     positionId: "12223we54"
+        // }, {
+        //     position: "Web Developer Internship - Summer 2018",
+        //     recruiterName: "Tushar Gupta",
+        //     location: "Narak",
+        //     positionId: "12223we54"
+        // }];
+        // vm.interviewerPastInterviews = [{
+        //     position: "Software Developer Internship - Summer 2018",
+        //     recruiterName: "Tushar Gupta",
+        //     location: "Narak",
+        //     positionId: "12223we54"
+        // }, {
+        //     position: "Software Developer Internship - Summer 2018",
+        //     recruiterName: "Tushar Gupta",
+        //     location: "Narak",
+        //     positionId: "12223we54"
+        // }, {
+        //     position: "Software Developer Internship - Summer 2018",
+        //     recruiterName: "Tushar Gupta",
+        //     location: "Narak",
+        //     positionId: "12223we54"
+        // }, {
+        //     position: "Software Developer Internship - Summer 2018",
+        //     recruiterName: "Tushar Gupta",
+        //     location: "Narak",
+        //     positionId: "12223we54"
+        // }];
 
 
         // Inerviewer End
@@ -121,11 +119,11 @@
                     vm.name = user.firstName + " " + user.lastName;
                 });
 
-            initializeCalender();
-            // getCandidates();
-            console.log(vm.TimingList);
-
-            getPositions();
+            // initializeCalender();
+            // // getCandidates();
+            // console.log(vm.TimingList);
+            //
+            // getPositions();
             // initializeInterviewerUpcomingInterviews();
         }
 
@@ -134,56 +132,56 @@
 
         function addTimeToList() {
             var m;
-            for(var u in months){
-                if(months[u] == vm.month){
-                    m=u;
+            for (var u in months) {
+                if (months[u] == vm.month) {
+                    m = u;
                 }
             }
-            m=parseInt(m)+1;
-            if(m<10){
-                m='0'+m;
+            m = parseInt(m) + 1;
+            if (m < 10) {
+                m = '0' + m;
             }
             var dy;
-            dy=vm.day;
+            dy = vm.day;
 
-            if(parseInt(vm.day) < 10){
-                dy='0'+vm.day;
+            if (parseInt(vm.day) < 10) {
+                dy = '0' + vm.day;
             }
 
 
-            var fr= vm.from.split(" ")[0];
-            var to= vm.to.split(" ")[0];
-            console.log(yyyy+'-'+m+'-'+dy+'T'+fr+':00');
-            console.log(new Date(yyyy+'-'+m+'-'+dy+'T'+fr+':00'));
+            var fr = vm.from.split(" ")[0];
+            var to = vm.to.split(" ")[0];
+            console.log(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00');
+            console.log(new Date(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00'));
 
 
-            var startDate = new Date(yyyy+'-'+m+'-'+dy+'T'+fr+':00');
-            var endDate = new Date(yyyy+'-'+m+'-'+dy+'T'+to+':00');
-            var nowDate= new Date();
+            var startDate = new Date(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00');
+            var endDate = new Date(yyyy + '-' + m + '-' + dy + 'T' + to + ':00');
+            var nowDate = new Date();
 
             // check for duplicate timings
 
-            if(nowDate > startDate || nowDate > endDate){
+            if (nowDate > startDate || nowDate > endDate) {
                 //error
             }
-            else if(startDate >= endDate){
+            else if (startDate >= endDate) {
                 //error
             }
-            else{
+            else {
                 vm.start.push(startDate);
                 vm.end.push(endDate);
 
                 vm.timingDisplayList.push({
-                    date: startDate.toISOString().slice(0,10),
-                    start: ((startDate.getHours()+4)<10?'0':'') + (4 + startDate.getHours()) +  ' : ' + (startDate.getMinutes()<10?'0':'') + startDate.getMinutes(),
-                    end: ((endDate.getHours()+4)<10?'0':'') + (4 + endDate.getHours()) +  ' : ' + (endDate.getMinutes()<10?'0':'') + endDate.getMinutes()
+                    date: startDate.toISOString().slice(0, 10),
+                    start: ((startDate.getHours() + 4) < 10 ? '0' : '') + (4 + startDate.getHours()) + ' : ' + (startDate.getMinutes() < 10 ? '0' : '') + startDate.getMinutes(),
+                    end: ((endDate.getHours() + 4) < 10 ? '0' : '') + (4 + endDate.getHours()) + ' : ' + (endDate.getMinutes() < 10 ? '0' : '') + endDate.getMinutes()
                 });
             }
 
-            if(vm.timingDisplayList.length == 1){
-                if(vm.submitButton){
-                    vm.updateButton=false;
-                    vm.submitButton= true;
+            if (vm.timingDisplayList.length == 1) {
+                if (vm.submitButton) {
+                    vm.updateButton = false;
+                    vm.submitButton = true;
                 }
 
             }
@@ -191,15 +189,20 @@
         }
 
 
-
         function newTimings() {
-            UserService.setAvailability($routeParams['uid'],{'start':vm.start,'end':vm.end}).success(function (data) {
+            UserService.setAvailability($routeParams['uid'], {
+                'start': vm.start,
+                'end': vm.end
+            }).success(function (data) {
                 console.log(data);
             });
         }
-        
+
         function updateTimings() {
-            UserService.setAvailability($routeParams['uid'],{'start':vm.start,'end':vm.end}).success(function (data) {
+            UserService.setAvailability($routeParams['uid'], {
+                'start': vm.start,
+                'end': vm.end
+            }).success(function (data) {
                 console.log(data);
             });
         }
@@ -210,9 +213,9 @@
             var mm = today.getMonth(); //January is 0!
             var nm = (today.getMonth() + 1) % 12;
             day = today.getDay();
-            vm.months=[months[mm],months[nm]];
-            vm.month=months[mm];
-            cMon=months[mm];
+            vm.months = [months[mm], months[nm]];
+            vm.month = months[mm];
+            cMon = months[mm];
             yyyy = today.getFullYear();
             setDays();
             setHours();
@@ -224,32 +227,31 @@
         }
 
         function getExistingTimings() {
-            UserService.getAvailability($routeParams['uid']).
-                success(function (result) {
+            UserService.getAvailability($routeParams['uid']).success(function (result) {
                 console.log("existing");
                 console.log(result);
-                if(result.startTime.length == 0){
+                if (result.startTime.length == 0) {
                     // button is create
-                    vm.updateButton=true;
-                    vm.submitButton= false;
+                    vm.updateButton = true;
+                    vm.submitButton = false;
 
                 }
-                else{
-                    for(var d in result.startTime){
+                else {
+                    for (var d in result.startTime) {
                         var st = new Date(result.startTime[d]);
                         var et = new Date(result.endTime[d]);
                         console.log("sdfsd");
                         vm.timingDisplayList.push({
-                            date: st.toISOString().slice(0,10),
-                            start: ((st.getHours()+4)<10?'0':'') + (4 + st.getHours()) +  ' : ' + (et.getMinutes()<10?'0':'') + et.getMinutes(),
-                            end: ((et.getHours()+4)<10?'0':'') + (4 + et.getHours()) +  ' : ' + (et.getMinutes()<10?'0':'') + et.getMinutes()
+                            date: st.toISOString().slice(0, 10),
+                            start: ((st.getHours() + 4) < 10 ? '0' : '') + (4 + st.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes(),
+                            end: ((et.getHours() + 4) < 10 ? '0' : '') + (4 + et.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes()
                         });
 
                         console.log(vm.timingDisplayList);
 
                     }
-                    vm.updateButton=false;
-                    vm.submitButton= true;
+                    vm.updateButton = false;
+                    vm.submitButton = true;
                 }
             }).error(function (err) {
                 console.log(err);
@@ -259,17 +261,17 @@
 
         function getMonthLabel(month, year) {
             var m;
-            for(var u in months){
-                if(months[u] == month){
-                    m=u;
+            for (var u in months) {
+                if (months[u] == month) {
+                    m = u;
                 }
             }
-            m=parseInt(m)+1;
+            m = parseInt(m) + 1;
             return new Date(year, m, 0).getDate();
         }
 
 
-        function setDays(){
+        function setDays() {
 
             vm.days = Array.apply(null, Array(getMonthLabel(vm.month, yyyy))).map(function (_, i) {
                 return i + 1;
@@ -279,10 +281,10 @@
             console.log(cMon);
             console.log(vm.month === cMon);
 
-            if(vm.month === cMon)
-                vm.day=dd;
+            if (vm.month === cMon)
+                vm.day = dd;
             else
-                vm.day=1;
+                vm.day = 1;
 
             console.log("ng-change works");
             setHours();
@@ -290,23 +292,23 @@
 
         function setHours() {
             var m;
-            for(var u in months){
-                if(months[u] == vm.month){
-                    m=u;
+            for (var u in months) {
+                if (months[u] == vm.month) {
+                    m = u;
                 }
             }
-            m=parseInt(m)+1;
-            strDate = new Date(m+'/'+vm.day+'/'+yyyy);
+            m = parseInt(m) + 1;
+            strDate = new Date(m + '/' + vm.day + '/' + yyyy);
             var d = strDate.getDay();
-            if(d == 0 || d == 6){
-               vm.weekend=true;
+            if (d == 0 || d == 6) {
+                vm.weekend = true;
             }
-            else{
-                var hours = ['08:00 hrs','08:30 hrs','09:00 hrs','09:30 hrs','10:00 hrs','10:30 hrs','11:00 hrs','11:30 hrs','12:00 hrs','12:30 hrs','13:00 hrs','13:30 hrs','14:00 hrs','14:30 hrs','15:00 hrs','15:30 hrs','16:00 hrs','16:30 hrs','17:00 hrs','17:30 hrs','18:00 hrs']
+            else {
+                var hours = ['08:00 hrs', '08:30 hrs', '09:00 hrs', '09:30 hrs', '10:00 hrs', '10:30 hrs', '11:00 hrs', '11:30 hrs', '12:00 hrs', '12:30 hrs', '13:00 hrs', '13:30 hrs', '14:00 hrs', '14:30 hrs', '15:00 hrs', '15:30 hrs', '16:00 hrs', '16:30 hrs', '17:00 hrs', '17:30 hrs', '18:00 hrs']
                 vm.hours = hours;
-                vm.from=hours[0];
-                vm.to=hours[1];
-                vm.weekend=false
+                vm.from = hours[0];
+                vm.to = hours[1];
+                vm.weekend = false
             }
         }
 
@@ -315,12 +317,12 @@
             var index = vm.timingDisplayList.indexOf(timing);
 
             if (index > -1) {
-               vm.timingDisplayList.splice(index, 1);
+                vm.timingDisplayList.splice(index, 1);
             }
 
-            if (vm.timingDisplayList.length == 0){
-                vm.updateButton=true;
-                vm.submitButton= true;
+            if (vm.timingDisplayList.length == 0) {
+                vm.updateButton = true;
+                vm.submitButton = true;
             }
         }
 
@@ -395,16 +397,9 @@
         }
 
         function startInterview() {
-                $location.url("/user/" + vm.user._id + "/interview/");
+            $location.url("/user/" + vm.user._id + "/interview/");
         }
 
-        function updateInterviewTime(interviewId, startDate, endDate) {
-            var time = {
-                start: startDate,
-                end: endDate
-            };
-            InterviewService.updateInterviewTime(interviewId, time);
-        }
 
         // function getCandidates() {
         //     console.log("inside profile.controller.client.js");
@@ -415,151 +410,211 @@
         // }
 
 
+        //------------------------------------------------------------------
         // Interviewer :
 
-
-        function initializeInterviewerUpcomingInterviews(){
-                //get upcoming interviews from intercview services
-            InterviewService.getUpcomingInterviewPositions(vm.userId)
-                .success(function (positions) {
-                    console.log("positions: ");
-                    console.log(positions);
-                    // vm.interviewerUpcomingInterviews = positions;
+        // Helper Functions
+        function updateInterviewTime(interviewId, startDate, endDate) {
+            var time = {
+                start: startDate,
+                end: endDate
+            };
+            InterviewService.updateInterviewTime(interviewId, time)
+                .success(function (s) {
+                    vm.scheduleMessage = 'Interview is Scheduled Successfully!';
                 })
                 .error(function (error) {
-                    console.log("error");
                     console.log(error);
                 });
         }
-        
-        
-        function initializeViewCandidates(positionId) {
-            console.log("sgsgsgs");
-            console.log(vm.tab);
-            vm.interviewApplicants =[{
-                name: 'Amul Mehta'
-            },{
-              name: 'Tushar Gupta'
-            },{
-                name: 'Rohan Sapre'
-            },{
-                name: 'Vaibhav Shukla'
-            }];
 
-            InterviewService.getCandidatesForUpcomingPositions(vm.userId, positionId)
-                .success(function (candidates) {
-                    console.log("got candidates");
-                    console.log(candidates);
+
+        function populateCandidateTimeSlots() {
+
+            UserService.getAvailability(vm.applicantId)
+
+                .success(function (result) {
+                    // result = {
+                    //     startTime: [new Date(), new Date(), new Date(), new Date(), new Date()],
+                    //     endTime: [new Date(), new Date(), new Date(), new Date(), new Date()]
+                    // };
+                    vm.applicantTiming = [];
+                    for (var d in result.startTime) {
+                        var st = new Date(result.startTime[d]);
+                        var et = new Date(result.endTime[d]);
+                        console.log("sdfsd");
+                        vm.applicantTiming.push({
+                            date: st.toISOString().slice(0, 10),
+                            start: ((st.getHours()) < 10 ? '0' : '') + (st.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes(),
+                            end: ((et.getHours()) < 10 ? '0' : '') + ( et.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes()
+                        });
+
+                    }
+                    var dateArray = [];
+                    for (var r in result.startTime) {
+                        var st = new Date(result.startTime[r]);
+                        var date = st.toISOString().slice(0, 10);
+                        if (!(dateArray.indexOf(date) > -1)) {
+                            console.log(date);
+                            console.log(dateArray);
+                            dateArray.push(date);
+                        }
+
+                    }
+                    vm.scheduleDate = dateArray[0];
+                    vm.scheduleDates = dateArray;
                 })
-        }
-        
-        function initializeScheduleInterview() {
-            result= {
-                startTime: [new Date(), new Date(), new Date(), new Date(), new Date()],
-                endTime: [new Date(),new Date(), new Date(), new Date(), new Date()]
-            };
-            vm.applicantTiming=[];
-            for(var d in result.startTime){
-                var st = new Date(result.startTime[d]);
-                var et = new Date(result.endTime[d]);
-                console.log("sdfsd");
-                vm.applicantTiming.push({
-                    date: st.toISOString().slice(0,10),
-                    start: ((st.getHours())<10?'0':'') + (st.getHours()) +  ' : ' + (et.getMinutes()<10?'0':'') + et.getMinutes(),
-                    end: ((et.getHours())<10?'0':'') + ( et.getHours()) +  ' : ' + (et.getMinutes()<10?'0':'') + et.getMinutes()
+
+                .error(function (error) {
+                    console.log(error);
                 });
 
-            }
-            var dateArray=[];
-            for(var r in result.startTime){
-                var st = new Date(result.startTime[r]);
-                var date = st.toISOString().slice(0,10);
-                if(!(dateArray.indexOf(date) > -1)){
-                    console.log(date);
-                    console.log(dateArray);
-                    dateArray.push(date);
-                }
-
-            }
-            vm.scheduleDate= dateArray[0];
-            vm.scheduleDates=dateArray;
 
         }
 
-        function initializeInterviewerDashboard(){
+
+        //-----------------------------------------------------------------
+
+        // Dashboard
+        function initializeInterviewerDashboard() {
 
         }
 
+        //-----------------------------------------------------------------
+
+
+        // Profile
         function initializeInterviewerProfile() {
 
         }
 
-        function initializeInterviewerPast(){
-
-        }
-
-        function initializeInterviewerSchedule() {
-
-        }
-        function initializeInterviewerPastInterviews(){
-
-        }
-
-        function initializeInterviewerViewCandidateProfile() {
-
-        }
-
-         function interviewerScheduleInterview() {
-            var from = vm.scheduleFrom.split(':');
-            var to = vm.scheduleTo.split(':');
-            var dateArr= vm.scheduleDate.split('-');
-            from = new Date(dateArr[0],parseInt(dateArr[1])-1,dateArr[2],from[0],from[1]);
-            to = new Date(dateArr[0],parseInt(dateArr[1])-1,dateArr[2],to[0],to[1]);
-             var success=false;
-             for(var d in result.startTime) {
-                 var st = result.startTime[d];
-                 var et = result.endTime[d];
-                 et.setSeconds(0);
-                 st.setSeconds(0);
-                 console.log(from.setSeconds(10));
-                 console.log(st);
-
-                 console.log((from <= st));
-                 console.log((to <= et));
-                 if((from >= st) && (to <= et)){
-                     success=true;
-                     break;
-                 }
-
-             }
-
-             if (success)
-                 console.log("Yo");
-             else
-                 console.log("no");
+        //-----------------------------------------------------------------
 
 
+        //Upcoming Interview Page
+        function initializeInterviewerUpcomingInterviews() {
 
-         }
-
-
-         
-         function interviewerGetCandidateProfile() {
-             
-         }
-
-        function initializeInterviewerPastInterviews(){
-            InterviewService.getPastInterviewPositions(vm.userId)
+            //get upcoming interviews from interview services
+            InterviewService.getUpcomingInterviewPositions(vm.userId)
                 .success(function (positions) {
                     console.log("positions: ");
                     console.log(positions);
-                    // vm.interviewerUpcomingInterviews = positions;
+                    vm.interviewerUpcomingInterviews = positions;
                 })
                 .error(function (error) {
                     console.log("error");
                     console.log(error);
                 });
         }
+
+        // Upcoming Interview -> View Candidates
+        function initializeViewCandidates(positionId) {
+            console.log("sgsgsgs");
+            console.log(vm.tab);
+            InterviewService.getCandidatesForUpcomingPositions(vm.userId, positionId)
+                .success(function (candidates) {
+                    console.log("got candidates");
+                    console.log(candidates);
+                    vm.interviewApplicants = candidates;
+                })
+        }
+
+
+        // Upcoming Interview -> View Candidates -> View Candidate Profile
+        function interviewerGetCandidateProfile() {
+            var promise = UserService.findUserById(vm.applicantId);
+            promise.success(
+                function (applicant) {
+                    vm.applicant = applicant;
+                    vm.applicantName = applicant.firstName + " " + applicant.lastName;
+                });
+        }
+
+
+        // Upcoming Interview -> View Candidates -> Schedule Interview
+        function interviewerScheduleInterview() {
+            populateCandidateTimeSlots();
+        }
+
+        function scheduleInterviewOnClick() {
+
+
+            var from = vm.scheduleFrom.split(':');
+            var to = vm.scheduleTo.split(':');
+            var dateArr = vm.scheduleDate.split('-');
+            from = new Date(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], from[0], from[1]);
+            to = new Date(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], to[0], to[1]);
+            var success = false;
+            for (var d in result.startTime) {
+                var st = result.startTime[d];
+                var et = result.endTime[d];
+                et.setSeconds(0);
+                st.setSeconds(0);
+                console.log(from.setSeconds(10));
+                console.log(st);
+
+                console.log((from <= st));
+                console.log((to <= et));
+                if ((from >= st) && (to <= et)) {
+                    success = true;
+                    break;
+                }
+
+            }
+
+            if (success) {
+                console.log("Yo");
+                updateInterviewTime(vm.interviewInstance._id, from, to);
+            }
+
+            else {
+                console.log("ERROR");
+                vm.scheduleError = 'Invalid Date/Time. Please try again';
+            }
+
+        }
+
+        //-----------------------------------------------------------------
+
+
+        // Past Interviews
+        function initializeInterviewerPast() {
+            InterviewService.getPastInterviewPositions(vm.userId)
+                .success(function (positions) {
+                    console.log("positions: ");
+                    console.log(positions);
+                    vm.interviewerPastInterviews = positions;
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                });
+        }
+
+        // Past Interviews -> View Candidates
+        function initializeInterviewerPastInterviewsCandidates() {
+            InterviewService.getCandidatesForPastPositions(vm.pastInterview._id, vm.userId)
+                .success(function (candidates) {
+                    console.log("candidates: ");
+                    console.log(candidates);
+                    vm.pastCandidates = candidates;
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                });
+        }
+
+        //-----------------------------------------------------------------
+
+
+        // My Schedule
+        function initializeInterviewerSchedule() {
+
+        }
+
+
+        //-----------------------------------------------------------------
 
 
         // Interviewer ENDS
@@ -647,7 +702,7 @@
                     vm.candidatesByJob = candidates;
                 })
         }
-        
+
         function assignInterviewer(userId, interviewerId, positionId) {
             var users = {
                 _applicant: userId,

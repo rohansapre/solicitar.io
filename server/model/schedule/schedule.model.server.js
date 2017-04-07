@@ -17,6 +17,7 @@ module.exports = scheduleModel;
 
 function getUpcomingPositions(interviewerId) {
     var d = q.defer();
+    console.log("positions in db");
     scheduleModel.find({_interviewer: interviewerId, start: {$gte: new Date()}})
         .distinct('_position')
         .populate('_position')
@@ -24,8 +25,11 @@ function getUpcomingPositions(interviewerId) {
         .exec(function (err, positions) {
             if(err)
                 d.reject(err);
-            else
+            else {
+                console.log("positions resolved");
+                console.log(positions);
                 d.resolve(positions);
+            }
         });
     return d.promise;
 }

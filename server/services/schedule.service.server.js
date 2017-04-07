@@ -23,6 +23,7 @@ module.exports = function (app, model) {
 
     function getUpcomingPositions(req, res) {
         var interviewerId = req.params.interviewerId;
+        console.log("reached upcoming positions");
         model.schedule
             .getUpcomingPositions(interviewerId)
             .then(function (positions) {
