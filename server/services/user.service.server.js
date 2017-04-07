@@ -55,16 +55,33 @@ module.exports = function (app, model) {
     function createUser(req, res) {
         var newUser = req.body;
         model.user
-            .createUser(newUser)
+            .findUserByUsername(newUser.email)
             .then(function (user) {
-                res.json(user);
-            }, function (error) {
-                if(error.duplicate) {
+                if(user) {
+                    newUser.status = 'JOINED';
+                    model.user
+                        .updateUser(user._id, newUser)
+                        .then(function (tempUser) {
+                            res.json(tempUser);
+                        }, function (error) {
+                            if(error.duplicate) {
+                                res.statusMessage = JSON.stringify(error);
+                                res.status(500).end();
+                            } else
+                                res.sendStatus(500).send(error);
+                        })
+                } else {
+                    var error = {
+                        "message": "You have not been invited yet, you can't register without an invitation"
+                    };
                     res.statusMessage = JSON.stringify(error);
                     res.status(500).end();
-                } else
-                    res.sendStatus(500).send(error);
-            })
+                }
+            }, function (error) {
+                console.log("error");
+                console.log(error);
+                res.sendStatus(500).send(error);
+            });
     }
 
     function findUser(req, res) {
