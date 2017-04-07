@@ -56,6 +56,7 @@ module.exports = function (app, model) {
         for (var a in applicants) {
             applicants[a].username = applicants[a].email;
             applicants[a].password = getRandomizedString(32);
+            applicants[a].status = 'INVITED';
         }
         return applicants;
     }

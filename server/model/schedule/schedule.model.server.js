@@ -6,19 +6,19 @@ var q = require('q');
 var scheduleSchema = require('./schedule.schema.server');
 var scheduleModel = mongoose.model('Schedule', scheduleSchema);
 
-scheduleModel.scheduleInterview = scheduleInterview;
-scheduleModel.getPositions = getPositions;
+scheduleModel.getUpcomingPositions = getUpcomingPositions;
+scheduleModel.getPastPositions = getPastPositions;
+scheduleModel.getCandidatesForPosition = getCandidatesForPosition;
+scheduleModel.updateInterviewTime = updateInterviewTime;
 
-function scheduleInterview(userId, hire) {
+module.exports = scheduleModel;
 
-}
-
-function getPositions(interviewerId) {
+function getUpcomingPositions(interviewerId) {
     var d = q.defer();
-    scheduleModel
-        .find({_interviewer: interviewerId, date: {$gte: new Date()}})
+    scheduleModel.find({_interviewer: interviewerId, start: {$gte: new Date()}})
         .distinct('_position')
         .populate('_position')
+        .populate('_recruiter', 'firstName lastName')
         .exec(function (err, positions) {
             if(err)
                 d.reject(err);
@@ -28,4 +28,41 @@ function getPositions(interviewerId) {
     return d.promise;
 }
 
-module.exports = scheduleModel;
+function getPastPositions(interviewerId) {
+    var d = q.defer();
+    scheduleModel.find({_interviewer: interviewerId, end: {$lt: new Date()}})
+        .distinct('_position')
+        .populate('_position')
+        .populate('_recruiter', 'firstName lastName')
+        .exec(function (err, positions) {
+            if(err)
+                d.reject(err);
+            else
+                d.resolve(positions);
+        });
+    return d.promise;
+}
+
+function getCandidatesForPosition(interviewerId, positionId) {
+    var d = q.defer();
+    scheduleModel.find({_interviewer: interviewerId, _position: positionId, start: {$gte: new Date()}}, '_applicant')
+        .populate('_applicant')
+        .exec(function (err, candidates) {
+            if(err)
+                d.reject(err);
+            else
+                d.resolve(candidates);
+        });
+    return d.promise;
+}
+
+function updateInterviewTime(interviewId, time) {
+    var d = q.defer();
+    scheduleModel.findByIdAndUpdate(interviewId, {$set: {start: time.start, end: time.end}}, function (err, interview) {
+        if(err)
+            d.reject(err);
+        else
+            d.resolve(interview);
+    });
+    return d.promise;
+}

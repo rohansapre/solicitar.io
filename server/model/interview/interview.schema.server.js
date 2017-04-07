@@ -7,7 +7,8 @@ var interviewSchema = mongoose.Schema({
     _firebase: {type: mongoose.Schema.Types.ObjectId, ref: 'Firebase'},
     twilioRoom: String,
     studentFeedback: String,
-    recruiterFeedback: String
+    recruiterFeedback: String,
+    dateCreated: { type: Date, default: Date.now() }
 }, {collection: 'interview'});
 
 module.exports = interviewSchema;

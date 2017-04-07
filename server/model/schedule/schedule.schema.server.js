@@ -5,9 +5,10 @@ var mongoose = require('mongoose');
 var scheduleSchema = mongoose.Schema({
     _applicant: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     _interviewer: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    _recruiter: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     _position: {type: mongoose.Schema.Types.ObjectId, ref: 'Position'},
-    date: {type: Date}
+    start: {type: Date},
+    end: {type: Date},
+    dateCreated: { type: Date, default: Date.now() }
 }, {collection: 'schedule'});
 
 module.exports = scheduleSchema;

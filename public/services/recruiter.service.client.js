@@ -11,7 +11,6 @@
         var api = {
             "sendInvitations": sendInvitations,
             "getCandidates": getCandidates,
-            "scheduleInterview": scheduleInterview,
             "createPosition": createPosition,
             "getPositions": getPositions,
             "deletePosition": deletePosition
@@ -38,16 +37,6 @@
 
         function deletePosition(positionId) {
             return $http.delete("/api/position/" + positionId);
-        }
-
-        //  Schedule Interview
-        // hire = {
-        //     _recruiter: recruiterId,
-        //     position: position
-        // }
-
-        function scheduleInterview(userId, hire) {
-            return $http.post("/api/schedule/" + userId, hire);
         }
     }
 })();

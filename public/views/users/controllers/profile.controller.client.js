@@ -15,7 +15,7 @@
         vm.setHours = setHours;
         vm.addTimeToList= addTimeToList;
         vm.newTimings= newTimings;
-        vm.scheduleInterview = scheduleInterview;
+        vm.updateInterviewTime = updateInterviewTime;
         vm.addMail = addMail;
         vm.deleteMail = deleteMail;
         vm.deleteAllMail = deleteAllMail;
@@ -120,6 +120,7 @@
             console.log(vm.TimingList);
 
             getPositions();
+            // initializeInterviewerUpcomingInterviews();
         }
 
         init();
@@ -406,13 +407,12 @@
                 $location.url("/user/" + vm.user._id + "/interview/");
         }
 
-        function scheduleInterview(user) {
-            console.log("scheduling interview " + user._applicant._id);
-            var hire = {
-                _recruiter: vm.userId,
-                position: user.position
+        function updateInterviewTime(interviewId, startDate, endDate) {
+            var time = {
+                start: startDate,
+                end: endDate
             };
-            RecruiterService.scheduleInterview(user._applicant._id, hire);
+            InterviewService.updateInterviewTime(interviewId, time);
         }
 
         // function getCandidates() {
@@ -431,12 +431,18 @@
                 //get upcoming interviews from intercview services
             InterviewService.getUpcomingInterviewPositions(vm.userId)
                 .success(function (positions) {
+                    console.log("positions: ");
                     console.log(positions);
+                    // vm.interviewerUpcomingInterviews = positions;
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
                 });
         }
         
         
-        function initializeViewCandidates() {
+        function initializeViewCandidates(positionId) {
             console.log("sgsgsgs");
             console.log(vm.tab);
             vm.interviewApplicants =[{
@@ -448,6 +454,12 @@
             },{
                 name: 'Vaibhav Shukla'
             }];
+
+            InterviewService.getCandidatesForPosition(vm.userId, positionId)
+                .success(function (candidates) {
+                    console.log("got candidates");
+                    console.log(candidates);
+                })
         }
         
         function initializeScheduleInterview() {
@@ -521,7 +533,16 @@
 
 
         function initializeInterviewerPastInterviews(){
-
+            InterviewService.getPastInterviewPositions(vm.userId)
+                .success(function (positions) {
+                    console.log("positions: ");
+                    console.log(positions);
+                    // vm.interviewerUpcomingInterviews = positions;
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                });
         }
 
         function initializeInterviewerViewCandidateProfile() {
