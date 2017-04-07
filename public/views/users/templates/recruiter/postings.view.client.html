@@ -40,7 +40,7 @@
                     </ul>
                 </div>
                 <div class="card-footer">
-                    <a href ng-model="model.currentJob" ng-click="model.tab='recruiterviewcandidate'">View Candidates</a>
+                    <a href ng-click=" model.positionId=c._id; model.tab='recruiterviewcandidate'">View Candidates</a>
                     <button ng-click="model.deletePosition(c._id)" class="btn btn-outline-danger btn-sm pull-right">Delete</button>
                 </div>
             </div>

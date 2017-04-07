@@ -41,6 +41,7 @@
         //Recruiter start
         vm.addPost = addPost;
         vm.deletePost = deletePost;
+        vm.initializeRecruiterViewcandidates = initializeRecruiterViewcandidates;
         vm.posts = [];
         vm.jobarray = [];
         //recruiter ends
@@ -371,34 +372,19 @@
         function sendInvitations() {
             // var emailer = ['mht.amul@gmail.com', 'rohansapre@yahoo.com', 'tushar.gupta.cse@gmail.com'];
             console.log("send invites");
-
-            // Send array of applicants as mentioned below
-
-            var applicants = [
-                {
-                    email: "rohansapre@yahoo.com",
-                    firstName: "Rohan",
-                    lastName: "Sapre"
-                },
-                {
-                    email: "tushar.gupta.cse@gmail.com",
-                    firstName: "Tushar",
-                    lastName: "Gupta"
-                },
-                {
-                    email: "mht.amul@gmail.com",
-                    firstName: "Amul",
-                    lastName: "Mehta"
-                }
-            ];
             // console.log(vm.emails);
-            RecruiterService.sendInvitations(positionId, emails)
+            RecruiterService.sendInvitations(vm.positionId, vm.emails)
                 .success(function (status) {
                     if (status) {
                         console.log("Invitation sent from controller");
                         console.log(status);
+                        getCandidates(vm.positionId);
                     } else
                         console.log("Cannot send invitation from controller");
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
                 });
         }
 
@@ -598,10 +584,16 @@
 
         // Candidates
 
+        function initializeRecruiterViewcandidates() {
+            getCandidates(vm.positionId);
+        }
+
         function getCandidates(positionId) {
             RecruiterService.getCandidates(positionId)
                 .success(function (candidates) {
+                    console.log("candidates are:");
                     console.log(candidates);
+                    vm.candidatesByJob = candidates;
                 })
         }
 

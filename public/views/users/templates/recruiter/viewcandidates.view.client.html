@@ -3,7 +3,7 @@
     <ol class="breadcrumb my-3">
         <li class="breadcrumb-item"><a href="">Homepage</a></li>
         <li class="breadcrumb-item">Job Postings</li>
-        <li class="breadcrumb-item active">Candidates for {{model.currentjob[0]}} Opening</li>
+        <li class="breadcrumb-item active">Candidates for {{model.currentjob}} Opening</li>
     </ol>
 
     <div class="row">
@@ -94,7 +94,7 @@
             <div class="card-block">
                 <ul class="list-group">
                     <li class="list-group-item justify-content-between" ng-repeat="listmail in model.emails">
-                        {{listmail}}
+                        {{listmail.email}}
                         <span class="badge badge-default badge-pill" ng-click="model.deleteMail(listmail)">Delete</span>
                     </li>
                 </ul>
@@ -111,8 +111,8 @@
             </div>
             <div class="card-block">
                 <ul class="list-group">
-                    <li class="list-group-item justify-content-between" ng-repeat="candidate in model.jobarray">
-                        {{candidate[0]}} {{candidate[1]}}
+                    <li class="list-group-item justify-content-between" ng-repeat="candidate in model.candidatesByJob">
+                        {{candidate._applicant.firstName}} {{candidate._applicant.lastName}} {{candidate._applicant.status}}
                         <span class="badge badge-default badge-pill" ng-click="model.deleteMail(listmail)">Delete</span>
                     </li>
                 </ul>

@@ -9,6 +9,7 @@ module.exports = function (app, model) {
     var host = 'us15.api.mailchimp.com';
 
     function filterApplicants(req, res) {
+        console.log("reached recruiter server");
         var positionId = req.params.positionId;
         var applicants = req.body;
         var emails = [];
