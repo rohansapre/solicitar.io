@@ -487,11 +487,18 @@
         }
 
 
+        function changeBackgorund(id) {
+            $('li').removeClass('active');
+            $('#'+id).addClass('active');
+        }
+
+
         //-----------------------------------------------------------------
 
         // Dashboard
         function initializeInterviewerDashboard() {
             // Get latest interview
+            changeBackgorund('interviewerDashboard');
         }
 
         //-----------------------------------------------------------------
@@ -499,7 +506,7 @@
 
         // Profile
         function initializeInterviewerProfile() {
-
+            changeBackgorund('interviewerProfile')
         }
 
         //-----------------------------------------------------------------
@@ -507,7 +514,7 @@
 
         //Upcoming Interview Page
         function initializeInterviewerUpcomingInterviews() {
-
+            changeBackgorund('interviewerUpcoming');
             //get upcoming interviews from interview services
             InterviewService.getUpcomingInterviewPositions(vm.userId)
                 .success(function (positions) {
@@ -606,6 +613,7 @@
 
         // Past Interviews
         function initializeInterviewerPast() {
+            changeBackgorund('interviewerPast');
             InterviewService.getPastInterviewPositions(vm.userId)
                 .success(function (positions) {
                     console.log("positions: ");
@@ -648,6 +656,7 @@
 
         // My Schedule
         function initializeInterviewerSchedule() {
+            changeBackgorund('interviewerSchedule');
             InterviewService.getInterviewerSchedule(vm.userId)
                 .success(function (schedule) {
                     console.log("My Schedule");
