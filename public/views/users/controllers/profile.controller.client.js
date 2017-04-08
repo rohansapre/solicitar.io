@@ -63,6 +63,12 @@
         vm.TimingList = {};
         vm.timingDisplayList = [];
 
+        // Applicant
+
+        vm.applicantDashboard= applicantDashboard;
+        vm.applicantProfile= applicantProfile;
+        vm.applicantUpcoming= applicantUpcoming;
+        vm.applicantPast=applicantPast;
 
         // Interviewer
         // vm.interviewerUpcomingInterviews = [{
@@ -110,6 +116,8 @@
 
 
         // Inerviewer End
+
+
 
         function init() {
             vm.userId = $routeParams['uid'];
@@ -748,6 +756,9 @@
                 })
         }
 
+        //----------------------------------------------------------------
+
+
         // Candidates
 
         function initializeRecruiterViewcandidates() {
@@ -777,7 +788,26 @@
                     console.log("error");
                     console.log(error);
                 })
+        }vm.applicantDashboard= applicantDashboard;
+        vm.applicantProfile= applicantProfile;
+        vm.applicantUpcoming= applicantUpcoming;
+        vm.applicantPast=applicantPast;
+
+        function applicantDashboard() {
+
         }
+        function applicantProfile() {
+
+        }
+
+        function applicantUpcoming() {
+            getUpcomingInterviewForApplicant(vm.userId);
+        }
+
+        function applicantPast() {
+            getPastInterviewForApplicant(vm.userId);
+        }
+
 
         function getUpcomingInterviewForApplicant(userId) {
             UserService.getUpcomingInterviews(userId)
@@ -787,7 +817,7 @@
                 .error(function (error) {
                     console.log("error");
                     console.log(error);
-                })
+                });
         }
 
         function getPastInterviewForApplicant(userId) {

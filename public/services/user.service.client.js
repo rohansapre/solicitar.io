@@ -68,7 +68,7 @@
         }
 
         function getUpcomingInterviews(userId) {
-            return $http.get("/api/schedule/applicant/upcoming" + userId);
+            return $http.get("/api/schedule/applicant/upcoming/" + userId);
         }
 
         function getPastInterviews(userId) {

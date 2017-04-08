@@ -87,16 +87,20 @@
 
 <div ng-switch on="tab">
     <div ng-switch-when="dash">
-        <ng-include src="'views/users/templates/applicant/dashboard.applicant.view.client.html'"></ng-include>
+        <ng-include src="'views/users/templates/applicant/dashboard.applicant.view.client.html'"
+                    onload="model.applicantDashboard()"></ng-include>
     </div>
     <div ng-switch-when="profile">
-        <ng-include src="'views/users/templates/applicant/editprofile.view.client.html'"></ng-include>
+        <ng-include src="'views/users/templates/applicant/editprofile.view.client.html'"
+                    onload="model.applicantProfile()"></ng-include>
     </div>
     <div ng-switch-when="upcoming">
-        <ng-include src="'views/users/templates/applicant/upcoming.view.client.html'"></ng-include>
+        <ng-include src="'views/users/templates/applicant/upcoming.view.client.html'"
+                    onload="model.applicantUpcoming()"></ng-include>
     </div>
     <div ng-switch-when="past">
-        <ng-include src="'views/users/templates/applicant/past.view.client.html'"></ng-include>
+        <ng-include src="'views/users/templates/applicant/past.view.client.html'"
+                    onload="model.applicantPast()"></ng-include>
     </div>
     <div ng-switch-when="new">
         <ng-include src="'views/users/templates/applicant/newschedule.view.client.html'"></ng-include>

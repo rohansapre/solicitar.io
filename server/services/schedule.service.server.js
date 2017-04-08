@@ -127,4 +127,18 @@ module.exports = function (app, model) {
                 res.sendStatus(500).send(error);
             })
     }
+
+    // Firepad Instance Creation
+    // returns a unique key which is used to get firebase db refrence
+    function createFirePadInstance() {
+        var firebase = require('firebase');
+        var firebaseRef = firebase.database().ref();
+        var dbRef= firepadRef.child('solicitarInterview').push();
+        var key= dbRef.key;
+        firebaseRef.child("solicitarInterview").child(key).set({
+            "language":"Python"
+        });
+
+        return key;
+    }
 };
