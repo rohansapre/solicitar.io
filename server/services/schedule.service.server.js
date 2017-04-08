@@ -12,6 +12,8 @@ module.exports = function (app, model) {
     app.get("/api/schedule/applicant/upcoming/:userId", getUpcomingInterviewsForApplicant);
     app.get("/api/schedule/applicant/past/:userId", getPastInterviewsForApplicant);
     app.get("/api/schedule/:interviewerId", getInterviewerSchedule);
+    app.get("/api/schedule/interviewer/next/:interviewerId", getNextInterviewForInterviewer);
+    app.get("/api/schedule/applicant/next/:applicantId", getNextInterviewForApplicant);
 
     function createInterview(req, res) {
         var hire = req.body;
@@ -83,7 +85,13 @@ module.exports = function (app, model) {
         model.schedule
             .updateInterviewTime(interviewId, time)
             .then(function (interview) {
-                res.json(interview);
+                model.user
+                    .updateStatus(interview._applicant, 'WAITING')
+                    .then(function (user) {
+                        res.json(interview);
+                    }, function (error) {
+                        res.sendStatus(500).send(error);
+                    });
             }, function (error) {
                 res.sendStatus(500).send(error);
             })
@@ -127,18 +135,39 @@ module.exports = function (app, model) {
                 res.sendStatus(500).send(error);
             })
     }
-
     // Firepad Instance Creation
     // returns a unique key which is used to get firebase db refrence
     function createFirePadInstance() {
         var firebase = require('firebase');
         var firebaseRef = firebase.database().ref();
-        var dbRef= firepadRef.child('solicitarInterview').push();
-        var key= dbRef.key;
+        var dbRef = firepadRef.child('solicitarInterview').push();
+        var key = dbRef.key;
         firebaseRef.child("solicitarInterview").child(key).set({
-            "language":"Python"
+            "language": "Python"
         });
 
         return key;
+    }
+
+    function getNextInterviewForInterviewer(req, res) {
+        var interviewerId = req.params.interviewerId;
+        model.schedule
+            .getNextInterviewForInterviewer(interviewerId)
+            .then(function (interview) {
+                res.json(interview);
+            }, function (error) {
+                res.sendStatus(500).send(error);
+            })
+    }
+
+    function getNextInterviewForApplicant(req, res) {
+        var applicantId = req.params.applicantId;
+        model.schedule
+            .getNextInterviewForApplicant(applicantId)
+            .then(function (interview) {
+                res.json(interview);
+            }, function (error) {
+                res.sendStatus(500).send(error);
+            })
     }
 };

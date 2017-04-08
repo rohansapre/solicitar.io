@@ -320,7 +320,7 @@ div#OR {
 body .modal {
     /* new custom width */
     /* must be half of the width, minus scrollbar on the left (30px) */
-    margin-top: 20vh;
+    margin-top: 15vh;
 }
 
 .white {

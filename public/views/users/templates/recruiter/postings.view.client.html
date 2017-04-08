@@ -1,37 +1,42 @@
 <div class="container-fluid">
 
     <div class="container-fluid">
-    <ol class="breadcrumb my-3">
-        <li class="breadcrumb-item"><a href="">Homepage</a></li>
-        <li class="breadcrumb-item active">Postings</li>
-    </ol>
+        <ol class="breadcrumb my-3">
+            <li class="breadcrumb-item"><a href="">Homepage</a></li>
+            <li class="breadcrumb-item active">Postings</li>
+        </ol>
     </div>
 
-        <!-- Area Chart Example -->
+    <!-- Area Chart Example -->
 
-
-    <div class="card-deck" style="padding-left: 15px;">
-        <div class="card card-inverse col-sm-6 col-xl-3 mb-3" style="background-color: #333; border-color: #333;">
-
-            <div class="card-header">
-                <i class="fa fa-bar-chart"></i> Add New Opening
-            </div>
-
-            <div class="card-block" style="padding-left: 0px; padding-right: 0px;">
-                <!--<label class="card-title" style="margin-bottom: 2px;">Job Title</label>-->
-                <input type="text" class="form-control" placeholder="Job Title" ng-model="model.newOpenPosition.name" style="background-color: transparent; color: white; margin-bottom: 10px;">
-                <!--<label class="card-title" style="margin-bottom: 2px;">Location</label>-->
-                <input type="text" class="form-control marginTop" placeholder="Location" ng-model="model.newOpenPosition.location" style="background-color: transparent; color: white; margin-bottom: 10px;">
-            </div>
-
-            <div class="card-footer">
-                <button class="btn form-control btn-outline-info" ng-click="model.createPosition()">Add Opening</button>
+    <div class="card-deck">
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card card-inverse" style="background-color: #333; border-color: #333;">
+                <div class="card-header">
+                    Add New Opening
+                </div>
+                <div class="card-block">
+                    <input type="text" class="form-control" placeholder="Job Title"
+                           ng-model="model.newOpenPosition.name"
+                           style="background-color: transparent; color: white; margin-bottom: 10px;">
+                    <input type="text" class="form-control marginTop" placeholder="Location"
+                           ng-model="model.newOpenPosition.location"
+                           style="background-color: transparent; color: white; margin-bottom: 10px;">
+                </div>
+                <div class="card-footer clearfix small z-1">
+                    <button class="btn btn-sm form-control btn-outline-info" ng-click="model.createPosition()">Add
+                        Opening
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="col-xl-3 col-sm-6 mb-3 card-deck" style="padding-left: 0px;" ng-repeat="c in model.positions">
-            <div class="card">
+        <div class="col-xl-3 col-sm-6 mb-3" ng-repeat="c in model.positions | orderBy:'$index':true">
+            <div class="card o-hidden">
                 <div class="card-header">
-                    Company Name
+                    <div>
+                        {{model.user.organization}}
+                        <button ng-click="model.deletePosition(c._id)" class="btn btn-outline-danger btn-sm pull-right">Delete</button>
+                    </div>
                 </div>
                 <div class="card-block">
                     <ul class="list-group list-group-flush">
@@ -39,11 +44,84 @@
                         <li class="list-group-item">{{c.location}}</li>
                     </ul>
                 </div>
-                <div class="card-footer">
-                    <a href ng-click=" model.positionId=c._id; model.tab='recruiterviewcandidate'">View Candidates</a>
-                    <button ng-click="model.deletePosition(c._id)" class="btn btn-outline-danger btn-sm pull-right">Delete</button>
-                </div>
+                <a href class="card-footer small clearfix z-1"
+                   ng-click=" model.positionId=c._id; model.currentjob=c.name; model.tab='recruiterviewcandidate'">
+                    <span class="float-left">View Candidates</span>
+                    <span class="float-right"><i class="fa fa-angle-right"></i></span>
+                </a>
             </div>
         </div>
+        <!--<div class="col-xl-3 col-sm-6 mb-3">-->
+        <!--<div class="card card-inverse card-warning o-hidden h-100">-->
+        <!--<div class="card-block">-->
+        <!--<div class="card-block-icon">-->
+        <!--<i class="fa fa-fw fa-shopping-cart"></i>-->
+        <!--</div>-->
+        <!--<div class="mr-5">-->
+        <!--123 New Orders!-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<a href="#" class="card-footer clearfix small z-1">-->
+        <!--<span class="float-left">View Details</span>-->
+        <!--<span class="float-right"><i class="fa fa-angle-right"></i></span>-->
+        <!--</a>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-xl-3 col-sm-6 mb-3">-->
+        <!--<div class="card card-inverse card-danger o-hidden h-100">-->
+        <!--<div class="card-block">-->
+        <!--<div class="card-block-icon">-->
+        <!--<i class="fa fa-fw fa-support"></i>-->
+        <!--</div>-->
+        <!--<div class="mr-5">-->
+        <!--13 New Tickets!-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<a href="#" class="card-footer clearfix small z-1">-->
+        <!--<span class="float-left">View Details</span>-->
+        <!--<span class="float-right"><i class="fa fa-angle-right"></i></span>-->
+        <!--</a>-->
+        <!--</div>-->
+        <!--</div>-->
     </div>
+
+    <!--<div class="card-deck" style="padding-left: 15px;">-->
+    <!--<div style="padding-right: 15px;">-->
+    <!--<div class="card card-inverse col-sm-6 col-xl-3 mb-3" style="background-color: #333; border-color: #333;">-->
+
+    <!--<div class="card-header">-->
+    <!--<i class="fa fa-bar-chart"></i> Add New Opening-->
+    <!--</div>-->
+
+    <!--<div class="card-block" style="padding-left: 0px; padding-right: 0px;">-->
+    <!--&lt;!&ndash;<label class="card-title" style="margin-bottom: 2px;">Job Title</label>&ndash;&gt;-->
+    <!--<input type="text" class="form-control" placeholder="Job Title" ng-model="model.newOpenPosition.name" style="background-color: transparent; color: white; margin-bottom: 10px;">-->
+    <!--&lt;!&ndash;<label class="card-title" style="margin-bottom: 2px;">Location</label>&ndash;&gt;-->
+    <!--<input type="text" class="form-control marginTop" placeholder="Location" ng-model="model.newOpenPosition.location" style="background-color: transparent; color: white; margin-bottom: 10px;">-->
+    <!--</div>-->
+
+    <!--<div class="card-footer">-->
+    <!--<button class="btn form-control btn-outline-info" ng-click="model.createPosition()">Add Opening</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-xl-3 col-sm-6 mb-3 card-deck" style="padding-left: 0px;" ng-repeat="c in model.positions | orderBy:'$index':true">-->
+    <!--<div class="card">-->
+    <!--<div class="card-header">-->
+    <!--{{model.user.organization}}-->
+    <!--</div>-->
+    <!--<div class="card-block">-->
+    <!--<ul class="list-group list-group-flush">-->
+    <!--<li class="list-group-item">{{c.name}}</li>-->
+    <!--<li class="list-group-item">{{c.location}}</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--<div class="card-footer">-->
+        <!--<a href ng-click=" model.positionId=c._id; model.currentjob=c.name; model.tab='recruiterviewcandidate'">View-->
+            <!--Candidates</a>-->
+        <!--<button ng-click="model.deletePosition(c._id)" class="btn btn-outline-danger btn-sm pull-right">Delete</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
 </div>

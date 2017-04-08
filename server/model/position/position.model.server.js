@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose');
 var q = require('q');
+mongoose.Promise = q.Promise;
 var positionSchema = require('./position.schema.server');
 var positionModel = mongoose.model('Position', positionSchema);
 
@@ -13,36 +14,13 @@ positionModel.deletePosition = deletePosition;
 module.exports = positionModel;
 
 function createPosition(position) {
-    var d = q.defer();
-    positionModel.create(position, function (err, position) {
-        if(err)
-            d.reject(err);
-        else
-            d.resolve(position);
-    });
-    return d.promise;
+    return positionModel.create(position);
 }
 
 function getPositions(recruiterId) {
-    var d = q.defer();
-    positionModel.find({_recruiter: recruiterId}, function (err, positions) {
-        console.log(err);
-        if(err)
-            d.reject(err);
-        else
-            d.resolve(positions);
-    });
-    return d.promise;
+    return positionModel.find({_recruiter: recruiterId});
 }
 
 function deletePosition(positionId) {
-    console.log("delete from db");
-    var d = q.defer();
-    positionModel.findByIdAndRemove(positionId, function (err, position) {
-        if(err)
-            d.reject(err);
-        else
-            d.resolve(position);
-    });
-    return d.promise;
+    return positionModel.findByIdAndRemove(positionId);
 }

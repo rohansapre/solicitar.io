@@ -3,7 +3,7 @@
         .module("ProjectMaker")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($routeParams, $location, UserService, RecruiterService, InterviewService) {
+    function ProfileController($routeParams, $location, $rootScope, UserService, RecruiterService, InterviewService) {
         var vm = this;
 
         // event handlers
@@ -25,6 +25,7 @@
         vm.createPosition = createPosition;
         vm.getPositions = getPositions;
         vm.deletePosition = deletePosition;
+        vm.logout = logout;
 
         // Interviewer Start
         vm.initializeInterviewerUpcomingInterviews = initializeInterviewerUpcomingInterviews;
@@ -44,11 +45,40 @@
         // Interviewer End
 
         //Recruiter start
-        vm.addPost = addPost;
-        vm.deletePost = deletePost;
         vm.initializeRecruiterViewcandidates = initializeRecruiterViewcandidates;
+        vm.initializeRecruiterPositions = initializeRecruiterPositions;
+        vm.addInterviewer = addInterviewer;
+        vm.getInterviewers = getInterviewers;
         vm.posts = [];
         vm.jobarray = [];
+        vm.interviewerarray = [{
+            username: 'first',
+            password: 'jhb',
+            email: 'first@first.com',
+            firstName: 'First',
+            lastName: 'Interviewer',
+            type: 'INTERVIEWER',
+            organisation: 'Google Inc.',
+            status: 'INVITED'
+        }, {
+            username: 'second',
+            password: 'sdw',
+            email: 'second@second.com',
+            firstName: 'Second',
+            lastName: 'Interviewer',
+            type: 'INTERVIEWER',
+            organisation: 'Google Inc.',
+            status: 'INVITED'
+        },  {
+            username: 'third',
+            password: 'wer',
+            email: 'third@third.com',
+            firstName: 'Third',
+            lastName: 'Interviewer',
+            type: 'INTERVIEWER',
+            organisation: 'Google Inc.',
+            status: 'INVITED'
+        }];
         //recruiter ends
 
         vm.emails = [];
@@ -70,51 +100,6 @@
         vm.applicantUpcoming= applicantUpcoming;
         vm.applicantPast=applicantPast;
 
-        // Interviewer
-        // vm.interviewerUpcomingInterviews = [{
-        //     position: "Software Developer Internship - Summer 2018",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }, {
-        //     position: "Software Developer Co-op - Fall 2018",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }, {
-        //     position: "Software Developer  - Full Time",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }, {
-        //     position: "Web Developer Internship - Summer 2018",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }];
-        // vm.interviewerPastInterviews = [{
-        //     position: "Software Developer Internship - Summer 2018",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }, {
-        //     position: "Software Developer Internship - Summer 2018",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }, {
-        //     position: "Software Developer Internship - Summer 2018",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }, {
-        //     position: "Software Developer Internship - Summer 2018",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }];
-
-
         // Inerviewer End
 
 
@@ -124,16 +109,10 @@
             var promise = UserService.findUserById(vm.userId);
             promise.success(
                 function (user) {
+                    console.log(user.organization);
                     vm.user = user;
                     vm.name = user.firstName + " " + user.lastName;
                 });
-
-            // initializeCalender();
-            // // getCandidates();
-            // console.log(vm.TimingList);
-            //
-            // getPositions();
-            // initializeInterviewerUpcomingInterviews();
         }
 
         init();
@@ -163,10 +142,12 @@
             console.log(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00');
             console.log(new Date(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00'));
 
-
             var startDate = new Date(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00');
             var endDate = new Date(yyyy + '-' + m + '-' + dy + 'T' + to + ':00');
             var nowDate = new Date();
+            var startDate = new Date(yyyy+'-'+m+'-'+dy+'T'+fr+':00');
+            var endDate = new Date(yyyy+'-'+m+'-'+dy+'T'+to+':00');
+            var nowDate= new Date();
 
             // check for duplicate timings
 
@@ -509,6 +490,17 @@
             changeBackgorund('interviewerDashboard');
         }
 
+        function getNextInterviewForInterviewer() {
+            InterviewService.getNextInterviewForInterviewer(vm.userId)
+                .success(function (interview) {
+                    console.log(interview);
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                })
+        }
+
         //-----------------------------------------------------------------
 
 
@@ -708,9 +700,51 @@
             }
         }
 
-        function addCandidate() {
+        function addInterviewer(user) {
+            console.log('in profile controller addInterviewer');
+            if (user.password == user.passverify) {
+                var userInterviewer = {
+                    username: user.username,
+                    password: user.password,
+                    email: user.email,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    type: 'INTERVIEWER',
+                    organisation: vm.user.organisation,
+                    status: 'INVITED'
+                };
+                vm.interviewerarray.push(userInterviewer);
+                console.log(vm.interviewerarray);
+                RecruiterService.createInterviewer(vm.userId, userInterviewer)
+                    .success(function (interviewer) {
+                        console.log(interviewer);
+                    }, function (error) {
+                        console.log("error");
+                        console.log(error);
+                    })
+            }
+        }
 
-            console.log('in profile controller addCandidate');
+        function getInterviewers() {
+            RecruiterService.getInterviewers(vm.userId)
+                .success(function (interviewers) {
+                    console.log(interviewers);
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                })
+        }
+
+        function deleteInterviewer(interviewerId) {
+            RecruiterService.deleteInterviewer(interviewerId)
+                .success(function (interviewer) {
+                    console.log(interviewer);
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                })
         }
 
         // Recruiter Ends
@@ -763,6 +797,10 @@
 
         function initializeRecruiterViewcandidates() {
             getCandidates(vm.positionId);
+        }
+
+        function initializeRecruiterPositions() {
+            getPositions();
         }
 
         function getCandidates(positionId) {
@@ -840,6 +878,24 @@
                     console.log("error");
                     console.log(error);
                 });
+        }
+
+        function getNextInterviewForApplicant() {
+            InterviewService.getNextInterviewForApplicant(vm.userId)
+                .success(function (interview) {
+                    console.log(interview);
+                }, function (error) {
+                    console.log("error");
+                    console.log(error);
+                })
+        }
+        
+        function logout() {
+            UserService.logout()
+                .then(function (response) {
+                    $rootScope.currentUser = null;
+                    $location.url("/");
+                })
         }
     }
 })();
