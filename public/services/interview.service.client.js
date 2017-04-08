@@ -16,7 +16,8 @@
             "updateInterviewTime": updateInterviewTime,
             "assignInterviewer": assignInterviewer,
             "getInterviewerSchedule": getInterviewerSchedule,
-            "getNextInterview": getNextInterview
+            "getNextInterviewForInterviewer": getNextInterviewForInterviewer,
+            "getNextInterviewForApplicant": getNextInterviewForApplicant
         };
         return api;
         
@@ -54,8 +55,12 @@
             return $http.get("/api/schedule/" + interviewerId);
         }
 
-        function getNextInterview(interviewerId) {
-            return $http.get("/api/schedule/next/" + interviewerId);
+        function getNextInterviewForInterviewer(interviewerId) {
+            return $http.get("/api/schedule/interviewer/next/" + interviewerId);
+        }
+        
+        function getNextInterviewForApplicant(applicantId) {
+            return $http.get("/api/schedule/applicant/next" + applicantId);
         }
     }
 

@@ -483,7 +483,7 @@
         }
 
         function getNextInterviewForInterviewer() {
-            InterviewService.getNextInterview(vm.userId)
+            InterviewService.getNextInterviewForInterviewer(vm.userId)
                 .success(function (interview) {
                     console.log(interview);
                 })
@@ -848,6 +848,16 @@
                     console.log("error");
                     console.log(error);
                 });
+        }
+
+        function getNextInterviewForApplicant() {
+            InterviewService.getNextInterviewForApplicant(vm.userId)
+                .success(function (interview) {
+                    console.log(interview);
+                }, function (error) {
+                    console.log("error");
+                    console.log(error);
+                })
         }
         
         function logout() {
