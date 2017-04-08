@@ -18,6 +18,8 @@ userModel.updateUserFile = updateUserFile;
 userModel.getInterviewersForCompany = getInterviewersForCompany;
 userModel.findUsersByEmails = findUsersByEmails;
 userModel.insertUsers = insertUsers;
+userModel.findUserByFacebookId = findUserByFacebookId;
+userModel.updateStatus = updateStatus;
 
 module.exports = userModel;
 
@@ -158,6 +160,28 @@ function insertUsers(users) {
             d.reject(err);
         else
             d.resolve(users);
+    });
+    return d.promise;
+}
+
+function findUserByFacebookId(facebookId) {
+    var d = q.defer();
+    userModel.findOne({'facebook.id': facebookId}, function (err, user) {
+        if(err)
+            d.reject(err);
+        else
+            d.resolve(user);
+    });
+    return d.promise;
+}
+
+function updateStatus(userId, status) {
+    var d = q.defer();
+    userModel.update({_id: userId}, {$set: {status: status}}, function (err, user) {
+        if(err)
+            d.reject(err);
+        else
+            d.resolve(user);
     });
     return d.promise;
 }

@@ -3,11 +3,20 @@
  */
 module.exports = function (app, model) {
 
+    var facebookConfig = {
+        clientID        : process.env.FACEBOOK_CLIENT_ID,
+        clientSecret    : process.env.FACEBOOK_CLIENT_SECRET,
+        callbackURL     : process.env.FACEBOOK_CALLBACK_URL
+    };
+
     var passport = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
+
+    var FacebookStrategy = require('passport-facebook').Strategy;
+    passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
     app.post("/api/user", createUser);
     app.get("/api/user", findUser);
@@ -18,6 +27,13 @@ module.exports = function (app, model) {
     app.post("/api/logout", logout);
     app.post("/api/register", register);
     app.get("/api/loggedin", loggedin);
+    app.get("/auth/facebook", passport.authenticate('facebook', { scope : 'email' }));
+    app.get("/auth/facebook/callback", passport.authenticate('facebook', {
+        failureRedirect: '/#/'
+    }), function (req, res) {
+        var url = '/#/user/' + req.user._id.toString();
+        res.redirect(url);
+    });
 
     // Image Upload Settings
 
@@ -289,5 +305,49 @@ module.exports = function (app, model) {
 
     function loggedin(req, res) {
         res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function facebookStrategy(token, refreshToken, profile, done) {
+        console.log("reached facebook callback");
+        model.user
+            .findUserByFacebookId(profile.id)
+            .then(function (user) {
+                if(user)
+                    return done(null, user);
+                else {
+                    var name = profile.displayName.split(" ");
+                    var fbUser = {
+                        firstName: name[0],
+                        lastName: name[1],
+                        facebook: {
+                            id: profile.id,
+                            token: token
+                        },
+                        email: profile.emails[0].value
+                    };
+                    model.user
+                        .findUserByUsername(fbUser.email)
+                        .then(function (user) {
+                            if(user) {
+                                fbUser.status = 'JOINED';
+                                model.user
+                                    .updateUser(user._id, fbUser)
+                                    .then(function (tempUser) {
+                                        if(tempUser) {
+                                            return done(null, user);
+                                        }
+                                    });
+                            } else {
+                                var error = {
+                                    "message": "You have not been invited yet, you can't register without an invitation"
+                                };
+                                return done(error);
+                            }
+                        }, function (error) {
+                            if(error)
+                                return done(error);
+                        });
+                }
+            })
     }
 };

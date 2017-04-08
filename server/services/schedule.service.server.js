@@ -83,7 +83,13 @@ module.exports = function (app, model) {
         model.schedule
             .updateInterviewTime(interviewId, time)
             .then(function (interview) {
-                res.json(interview);
+                model.user
+                    .updateStatus(interview._applicant, 'WAITING')
+                    .then(function (user) {
+                        res.json(interview);
+                    }, function (error) {
+                        res.sendStatus(500).send(error);
+                    });
             }, function (error) {
                 res.sendStatus(500).send(error);
             })

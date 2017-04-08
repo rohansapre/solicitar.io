@@ -5,8 +5,8 @@ var mongoose = require('mongoose');
 var users = ['APPLICANT', 'INTERVIEWER', 'RECRUITER'];
 var statuses = ['NONE', 'INVITED', 'JOINED', 'READY', 'WAITING', 'DONE'];
 var userSchema = mongoose.Schema({
-    username: { type: String, required: true, index: { unique: true } },
-    password: { type: String, required: true },
+    username: { type: String, index: { unique: true } },
+    password: String,
     email: { type: String, unique: true },
     firstName: String,
     lastName: String,
@@ -16,6 +16,7 @@ var userSchema = mongoose.Schema({
     picture: String,
     resume: String,
     coverLetter: String,
+    facebook: { id: String, token: String },
     dateCreated: { type: Date, default: Date.now() }
 }, {collection: 'user'});
 
