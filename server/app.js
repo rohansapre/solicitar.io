@@ -88,12 +88,14 @@ module.exports = function (app) {
     var scheduleModel = require('./model/schedule/schedule.model.server');
     var candidateModel = require('./model/candidate/candidate.model.server');
     var positionModel = require('./model/position/position.model.server');
+    var companyModel = require('./model/company/company.model.server');
     var model = {
         user: userModel,
         calendar: calendarModel,
         schedule: scheduleModel,
         candidate: candidateModel,
-        position: positionModel
+        position: positionModel,
+        company: companyModel
     };
 
     require('./services/user.service.server.js')(app, model);
@@ -103,4 +105,5 @@ module.exports = function (app) {
     require('./services/schedule.service.server')(app, model);
     require('./services/candidate.service.server')(app, model);
     require('./services/position.service.server')(app, model);
+    require('./services/company.service.server')(app, model);
 };

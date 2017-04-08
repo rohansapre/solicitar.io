@@ -48,7 +48,7 @@
         vm.initializeRecruiterViewcandidates = initializeRecruiterViewcandidates;
         vm.initializeRecruiterPositions = initializeRecruiterPositions;
         vm.addInterviewer = addInterviewer;
-        vm.getInterviewer = getInterviewer;
+        vm.getInterviewers = getInterviewers;
         vm.posts = [];
         vm.jobarray = [];
         vm.interviewerarray = [{
@@ -696,12 +696,36 @@
                 };
                 vm.interviewerarray.push(userInterviewer);
                 console.log(vm.interviewerarray);
+                RecruiterService.createInterviewer(vm.userId, userInterviewer)
+                    .success(function (interviewer) {
+                        console.log(interviewer);
+                    }, function (error) {
+                        console.log("error");
+                        console.log(error);
+                    })
             }
-
         }
 
-        function getInterviewer() {
+        function getInterviewers() {
+            RecruiterService.getInterviewers(vm.userId)
+                .success(function (interviewers) {
+                    console.log(interviewers);
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                })
+        }
 
+        function deleteInterviewer(interviewerId) {
+            RecruiterService.deleteInterviewer(interviewerId)
+                .success(function (interviewer) {
+                    console.log(interviewer);
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                })
         }
 
         // Recruiter Ends

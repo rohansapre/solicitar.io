@@ -6,7 +6,8 @@ module.exports = function (app, model) {
     var facebookConfig = {
         clientID        : process.env.FACEBOOK_CLIENT_ID,
         clientSecret    : process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL     : process.env.FACEBOOK_CALLBACK_URL
+        callbackURL     : process.env.FACEBOOK_CALLBACK_URL,
+        profileFields   : ['id', 'displayName', 'photos', 'email']
     };
 
     var passport = require('passport');
@@ -31,8 +32,13 @@ module.exports = function (app, model) {
     app.get("/auth/facebook/callback", passport.authenticate('facebook', {
         failureRedirect: '/#/'
     }), function (req, res) {
-        var url = '/#/user/' + req.user._id.toString();
-        res.redirect(url);
+        if(req.user.message) {
+            res.redirect('/#/');
+        } else {
+            var url = '/#/user/' + req.user._id.toString();
+            res.redirect(url);
+        }
+
     });
 
     // Image Upload Settings
@@ -312,9 +318,14 @@ module.exports = function (app, model) {
         model.user
             .findUserByFacebookId(profile.id)
             .then(function (user) {
-                if(user)
+                console.log("find FB id");
+                console.log(user);
+                if(user) {
+                    console.log("reached user");
                     return done(null, user);
+                }
                 else {
+                    console.log("reached else");
                     var name = profile.displayName.split(" ");
                     var fbUser = {
                         firstName: name[0],
@@ -325,27 +336,33 @@ module.exports = function (app, model) {
                         },
                         email: profile.emails[0].value
                     };
+                    console.log(fbUser);
                     model.user
                         .findUserByUsername(fbUser.email)
-                        .then(function (user) {
-                            if(user) {
+                        .then(function (foundUser) {
+                            console.log("user by username");
+                            console.log(foundUser);
+                            if(foundUser) {
                                 fbUser.status = 'JOINED';
                                 model.user
-                                    .updateUser(user._id, fbUser)
+                                    .updateUser(foundUser._id, fbUser)
                                     .then(function (tempUser) {
+                                        console.log("updated user");
                                         if(tempUser) {
-                                            return done(null, user);
+                                            return done(null, foundUser);
                                         }
                                     });
                             } else {
                                 var error = {
                                     "message": "You have not been invited yet, you can't register without an invitation"
                                 };
-                                return done(error);
+                                console.log("username error");
+                                console.log(error);
+                                return done(null, error);
                             }
                         }, function (error) {
                             if(error)
-                                return done(error);
+                                return done(null, error);
                         });
                 }
             })
