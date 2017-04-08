@@ -48,7 +48,7 @@
         var cppOptions = "text/x-c++src";
         var javaInitializationCode = "/* package whatever; // don't place package name! */\nimport java.io.*;\nimport java.util.Scanner;\npublic class program {\n public static void main(String[] args) {\n \tSystem.out.println(\"Hello Java\");\n \tScanner sc = new Scanner(System.in);\n \tString a = sc.nextLine();\n}";
         var pythonInitializationCode = "print \"Hello World\"";
-        var cppInitializationCode="\#include \<iostream\>\nusing namespace std;\nint main() {\ncout<<\"Hello\";\nreturn 0;\n}"
+        var cppInitializationCode = "\#include \<iostream\>\nusing namespace std;\nint main() {\ncout<<\"Hello\";\nreturn 0;\n}"
         // ------------------------------
 
         // Twilio
@@ -131,7 +131,7 @@
         }
 
 
-        function setupTwilio(){
+        function setupTwilio() {
             //TODO: setup camera and microphone, try to connect to the room
 
             // When we are about to transition away from this page, disconnect
@@ -372,7 +372,7 @@
             // console.log("ffdfdf");
             // console.log(playgroundService.compile());
             var data = {};
-            vm.result=false;
+            vm.result = false;
             data['sourceCode'] = firepadReference.getText().toString();
             data['language'] = languageId;
             data['input'] = vm.input;
@@ -412,7 +412,7 @@
                     }
                 );
 
-            if(redo)
+            if (redo)
                 compile();
         }
 

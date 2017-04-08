@@ -43,9 +43,8 @@
         // Interviewer End
 
         //Recruiter start
-        vm.addPost = addPost;
-        vm.deletePost = deletePost;
         vm.initializeRecruiterViewcandidates = initializeRecruiterViewcandidates;
+        vm.initializeRecruiterPositions = initializeRecruiterPositions;
         vm.posts = [];
         vm.jobarray = [];
         //recruiter ends
@@ -63,51 +62,6 @@
         vm.timingDisplayList = [];
 
 
-        // Interviewer
-        // vm.interviewerUpcomingInterviews = [{
-        //     position: "Software Developer Internship - Summer 2018",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }, {
-        //     position: "Software Developer Co-op - Fall 2018",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }, {
-        //     position: "Software Developer  - Full Time",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }, {
-        //     position: "Web Developer Internship - Summer 2018",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }];
-        // vm.interviewerPastInterviews = [{
-        //     position: "Software Developer Internship - Summer 2018",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }, {
-        //     position: "Software Developer Internship - Summer 2018",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }, {
-        //     position: "Software Developer Internship - Summer 2018",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }, {
-        //     position: "Software Developer Internship - Summer 2018",
-        //     recruiterName: "Tushar Gupta",
-        //     location: "Narak",
-        //     positionId: "12223we54"
-        // }];
-
-
         // Inerviewer End
 
         function init() {
@@ -115,16 +69,10 @@
             var promise = UserService.findUserById(vm.userId);
             promise.success(
                 function (user) {
+                    console.log(user.organization);
                     vm.user = user;
                     vm.name = user.firstName + " " + user.lastName;
                 });
-
-            // initializeCalender();
-            // // getCandidates();
-            // console.log(vm.TimingList);
-            //
-            // getPositions();
-            // initializeInterviewerUpcomingInterviews();
         }
 
         init();
@@ -694,6 +642,10 @@
 
         function initializeRecruiterViewcandidates() {
             getCandidates(vm.positionId);
+        }
+
+        function initializeRecruiterPositions() {
+            getPositions();
         }
 
         function getCandidates(positionId) {

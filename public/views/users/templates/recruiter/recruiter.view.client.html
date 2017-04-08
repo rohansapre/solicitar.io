@@ -26,6 +26,10 @@
                     Postings</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href ng-click="model.tab='recruiterAddInterviewer'"><i class="fa fa-fw fa-area-chart"></i>
+                    Add Interviewer</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link"><i class="fa fa-fw fa-table"></i> Tasks</a>
             </li>
         </ul>
@@ -107,7 +111,8 @@
         <ng-include src="'views/users/templates/recruiter/editprofile.view.client.html'"></ng-include>
     </div>
     <div ng-switch-when="recruiterpostings">
-        <ng-include src="'views/users/templates/recruiter/postings.view.client.html'"></ng-include>
+        <ng-include src="'views/users/templates/recruiter/postings.view.client.html'"
+                    onload="model.initializeRecruiterPositions()"></ng-include>
     </div>
     <div ng-switch-when="recruiterinterviewers">
         <ng-include src="'views/users/templates/recruiter/interviewers.view.client.html'"></ng-include>
@@ -115,7 +120,9 @@
     <div ng-switch-when="recruiterviewcandidate">
         <ng-include src="'views/users/templates/recruiter/viewcandidates.view.client.html'"
                     onload="model.initializeRecruiterViewcandidates()"></ng-include>
-
+    </div>
+    <div ng-switch-when="recruiterAddInterviewer">
+        <ng-include src="'views/users/templates/recruiter/addinterviewer.view.client.html'"></ng-include>
     </div>
     <div ng-switch-default>
         <ng-include src="'views/users/templates/recruiter/dashboard.recruiter.view.client.html'"></ng-include>
