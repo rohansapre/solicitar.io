@@ -482,6 +482,17 @@
             changeBackgorund('interviewerDashboard');
         }
 
+        function getNextInterviewForInterviewer() {
+            InterviewService.getNextInterview(vm.userId)
+                .success(function (interview) {
+                    console.log(interview);
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                })
+        }
+
         //-----------------------------------------------------------------
 
 

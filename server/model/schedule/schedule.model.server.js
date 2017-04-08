@@ -15,6 +15,7 @@ scheduleModel.createInterview = createInterview;
 scheduleModel.getUpcomingInterviewsForApplicant = getUpcomingInterviewsForApplicant;
 scheduleModel.getPastInterviewsForApplicant = getPastInterviewsForApplicant;
 scheduleModel.getInterviewerSchedule = getInterviewerSchedule;
+scheduleModel.getNextInterviewForInterviewer = getNextInterviewForInterviewer;
 
 module.exports = scheduleModel;
 
@@ -137,6 +138,22 @@ function getInterviewerSchedule(interviewerId) {
                 d.reject(err);
             else
                 d.resolve(interviews);
+        });
+    return d.promise;
+}
+
+function getNextInterviewForInterviewer(interviewerId) {
+    var d = q.defer();
+    scheduleModel.find({_interviewer: interviewerId, start: {$gte: new Date()}})
+        .populate('_applicant', 'firstName lastName')
+        .populate('_position')
+        .sort('start')
+        .limit(1)
+        .exec(function (err, interview) {
+            if(err)
+                d.reject(err);
+            else
+                d.resolve(interview);
         });
     return d.promise;
 }
