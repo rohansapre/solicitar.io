@@ -47,8 +47,38 @@
         //Recruiter start
         vm.initializeRecruiterViewcandidates = initializeRecruiterViewcandidates;
         vm.initializeRecruiterPositions = initializeRecruiterPositions;
+        vm.addInterviewer = addInterviewer;
+        vm.getInterviewer = getInterviewer;
         vm.posts = [];
         vm.jobarray = [];
+        vm.interviewerarray = [{
+            username: 'first',
+            password: 'jhb',
+            email: 'first@first.com',
+            firstName: 'First',
+            lastName: 'Interviewer',
+            type: 'INTERVIEWER',
+            organisation: 'Google Inc.',
+            status: 'INVITED'
+        }, {
+            username: 'second',
+            password: 'sdw',
+            email: 'second@second.com',
+            firstName: 'Second',
+            lastName: 'Interviewer',
+            type: 'INTERVIEWER',
+            organisation: 'Google Inc.',
+            status: 'INVITED'
+        },  {
+            username: 'third',
+            password: 'wer',
+            email: 'third@third.com',
+            firstName: 'Third',
+            lastName: 'Interviewer',
+            type: 'INTERVIEWER',
+            organisation: 'Google Inc.',
+            status: 'INVITED'
+        }];
         //recruiter ends
 
         vm.emails = [];
@@ -651,9 +681,27 @@
             }
         }
 
-        function addCandidate() {
+        function addInterviewer(user) {
+            console.log('in profile controller addInterviewer');
+            if (user.password == user.passverify) {
+                var userInterviewer = {
+                    username: user.username,
+                    password: user.password,
+                    email: user.email,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    type: 'INTERVIEWER',
+                    organisation: vm.user.organisation,
+                    status: 'INVITED'
+                };
+                vm.interviewerarray.push(userInterviewer);
+                console.log(vm.interviewerarray);
+            }
 
-            console.log('in profile controller addCandidate');
+        }
+
+        function getInterviewer() {
+
         }
 
         // Recruiter Ends

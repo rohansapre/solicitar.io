@@ -84,33 +84,4 @@
             <small>2 Days Ago</small>
         </div>
     </div>
-
-    <!-- Card Columns -->
-    <div class="card-columns">
-        <div class="card">
-            <img class="card-img-top img-fluid w-100" src="http://placehold.it/350x150" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Prospective Candidates</h4>
-                <input type="text" class="form-control" ng-model="model.newmail">
-                <button class="btn btn-sm form-control btn-outline-success" ng-click="model.addMail()">Add Person</button>
-
-            </div>
-            <div class="card-block">
-                <ul class="list-group">
-
-                    <li class="list-group-item justify-content-between" ng-repeat="listmail in model.emails">
-                        {{listmail}}
-                        <span class="badge badge-default badge-pill" ng-click="model.deleteMail(listmail)">Delete</span>
-                    </li>
-
-
-                </ul>
-                <button class="btn btn-sm form-control btn-outline-danger" ng-click="model.deleteAllMail()">Delete All Emails</button>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-                <a href ng-click="model.sendInvitations()" class="btn btn-primary">Send Invitations</a>
-            </div>
-        </div>
-    </div>
 </div>

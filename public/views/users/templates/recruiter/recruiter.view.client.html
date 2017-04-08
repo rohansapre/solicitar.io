@@ -26,7 +26,7 @@
                     Postings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href ng-click="model.tab='recruiterAddInterviewer'"><i class="fa fa-fw fa-area-chart"></i>
+                <a class="nav-link" href data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-area-chart"></i>
                     Add Interviewer</a>
             </li>
             <li class="nav-item">
@@ -102,6 +102,89 @@
         </ul>
     </div>
 </nav>
+
+<div class="modal fade" id="myModal" data-backdrop="focus" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="container-fluid"> <h4 class="modal-title leftalign" id="myModalLabel">
+                    Register New Interviewer</h4> </div>
+                <button type="button" class="close" id="buttondown" data-dismiss="modal" aria-hidden="true">
+                    ×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12" style="border-right: 1px dotted #C2C2C2;padding-right: 20px;">
+                        <!-- Nav tabs -->
+                        <div class="container">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-target="#Registration" data-toggle="tab">Registration</a></li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="Registration">
+                                <form role="form" class="form-horizontal">
+                                    <div ng-show="model.error" class="alert alert-danger" role="alert">
+                                        {{model.error}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12 control-label">
+                                            Full Name</label>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" ng-model="user.firstName" placeholder="First Name" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" ng-model="user.lastName" placeholder="Last Name" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mobile" class="col-sm-2 control-label">
+                                            Username</label>
+                                        <div class="col-md-12">
+                                            <input type="text" class="form-control" id="mobile" ng-model="user.username" placeholder="Username" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" class="col-sm-2 control-label">
+                                            Email</label>
+                                        <div class="col-md-12">
+                                            <input type="email" class="form-control" ng-model="user.email" id="email" placeholder="Email" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password" class="col-sm-2 control-label">
+                                            Password</label>
+                                        <div class="col-md-12">
+                                            <input type="password" class="form-control" id="password" ng-model="user.password" placeholder="Password" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="passwordagain" class="col-md-12 control-label">
+                                            Retype Password</label>
+                                        <div class="col-md-12">
+                                            <input type="password" class="form-control" id="passwordagain" ng-model="user.passverify" placeholder="Retype Password" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <a class="btn btn-primary col-12" ng-click= "model.addInterviewer(user)">
+                                                <div class="colwhite" data-dismiss="modal" aria-hidden="true">Register</div></a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div ng-switch on="model.tab">
     <div ng-switch-when="recruiterdash">
