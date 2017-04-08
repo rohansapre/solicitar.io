@@ -11,6 +11,8 @@ companyModel.createCompany = createCompany;
 companyModel.getInterviewers = getInterviewers;
 companyModel.deleteInterviewer = deleteInterviewer;
 
+module.exports = companyModel;
+
 function createCompany(company) {
     return companyModel.create(company);
 }
@@ -24,5 +26,3 @@ function getInterviewers(recruiterId) {
 function deleteInterviewer(interviewerId) {
     return companyModel.remove({_interviewer: interviewerId});
 }
-
-module.exports = companyModel;

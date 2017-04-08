@@ -238,7 +238,7 @@ module.exports = function (app, model) {
         model.user
             .findUserByCredentials(username, password)
             .then(function (user) {
-                if(user.username == username && user.password == password)
+                if(user.username === username && user.password === password)
                     return done(null, user);
                 else
                     return done(null, false);
