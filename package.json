@@ -9,7 +9,7 @@
     "dotenv": "^1.2.0",
     "ejs": "^2.5.3",
     "express": "^4.13.4",
-    "express-session": "^1.14.2",
+    "express-session": "^1.15.2",
     "mongojs": "^2.4.0",
     "mongoose": "^4.9.1",
     "multer": "^1.2.0",

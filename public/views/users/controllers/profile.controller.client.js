@@ -3,7 +3,7 @@
         .module("ProjectMaker")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($routeParams, $location, UserService, RecruiterService, InterviewService) {
+    function ProfileController($routeParams, $location, $rootScope, UserService, RecruiterService, InterviewService) {
         var vm = this;
 
         // event handlers
@@ -25,6 +25,7 @@
         vm.createPosition = createPosition;
         vm.getPositions = getPositions;
         vm.deletePosition = deletePosition;
+        vm.logout = logout;
 
         // Interviewer Start
         vm.initializeInterviewerUpcomingInterviews = initializeInterviewerUpcomingInterviews;
@@ -37,6 +38,7 @@
         vm.initializeInterviewerProfile = initializeInterviewerProfile;
         vm.initializeInterviewerPast = initializeInterviewerPast;
         vm.initializeInterviewerSchedule = initializeInterviewerSchedule;
+        vm.toStartInterview = toStartInterview;
 
 
         vm.interview = null;
@@ -102,10 +104,12 @@
             console.log(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00');
             console.log(new Date(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00'));
 
-
             var startDate = new Date(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00');
             var endDate = new Date(yyyy + '-' + m + '-' + dy + 'T' + to + ':00');
             var nowDate = new Date();
+            var startDate = new Date(yyyy+'-'+m+'-'+dy+'T'+fr+':00');
+            var endDate = new Date(yyyy+'-'+m+'-'+dy+'T'+to+':00');
+            var nowDate= new Date();
 
             // check for duplicate timings
 
@@ -418,8 +422,25 @@
                 .error(function (error) {
                     console.log(error);
                 });
+        }
+
+        function toStartInterview(interview) {
+            var interviewDate = interview.start;
+            var currDate = new Date.now();
+
+            var diff = interviewDate - currDate;
+            var hh = Math.floor(diff / 1000 / 60 / 60);
+
+            if (hh < 1) {
+                return false;
+            }
+            return true;
+        }
 
 
+        function changeBackgorund(id) {
+            $('li').removeClass('active');
+            $('#'+id).addClass('active');
         }
 
 
@@ -427,7 +448,8 @@
 
         // Dashboard
         function initializeInterviewerDashboard() {
-
+            // Get latest interview
+            changeBackgorund('interviewerDashboard');
         }
 
         //-----------------------------------------------------------------
@@ -435,7 +457,7 @@
 
         // Profile
         function initializeInterviewerProfile() {
-
+            changeBackgorund('interviewerProfile')
         }
 
         //-----------------------------------------------------------------
@@ -443,13 +465,19 @@
 
         //Upcoming Interview Page
         function initializeInterviewerUpcomingInterviews() {
-
+            changeBackgorund('interviewerUpcoming');
             //get upcoming interviews from interview services
             InterviewService.getUpcomingInterviewPositions(vm.userId)
                 .success(function (positions) {
                     console.log("positions: ");
                     console.log(positions);
                     vm.interviewerUpcomingInterviews = positions;
+                    if(positions.length == 0){
+                        vm.emptyUpcomingInterviews=true;
+                    }
+                    else{
+                        vm.emptyUpcomingInterviews=false;
+                    }
                 })
                 .error(function (error) {
                     console.log("error");
@@ -466,6 +494,13 @@
                     console.log("got candidates");
                     console.log(candidates);
                     vm.interviewApplicants = candidates;
+                    if(candidates.length == 0){
+                        vm.emptyUpcomingCandidates=true;
+                    }
+                    else{
+                        vm.emptyUpcomingCandidates=false;
+                    }
+
                 })
         }
 
@@ -529,11 +564,18 @@
 
         // Past Interviews
         function initializeInterviewerPast() {
+            changeBackgorund('interviewerPast');
             InterviewService.getPastInterviewPositions(vm.userId)
                 .success(function (positions) {
                     console.log("positions: ");
                     console.log(positions);
                     vm.interviewerPastInterviews = positions;
+                    if(positions.length == 0){
+                        vm.emptyPastInterviews=true;
+                    }
+                    else{
+                        vm.emptyPastInterviews=false;
+                    }
                 })
                 .error(function (error) {
                     console.log("error");
@@ -548,6 +590,11 @@
                     console.log("candidates: ");
                     console.log(candidates);
                     vm.pastCandidates = candidates;
+                    if (candidates.length == 0)
+                        vm.emptyPastCandidates = true;
+                    else
+                        vm.emptyPastCandidates=false;
+
                 })
                 .error(function (error) {
                     console.log("error");
@@ -560,7 +607,21 @@
 
         // My Schedule
         function initializeInterviewerSchedule() {
+            changeBackgorund('interviewerSchedule');
+            InterviewService.getInterviewerSchedule(vm.userId)
+                .success(function (schedule) {
+                    console.log("My Schedule");
+                    console.log(schedule);
+                    vm.mySchedule = schedule;
+                    if (schedule.length == 0)
+                        vm.emptySchedule = true;
+                    else
+                        vm.emptySchedule=false;
 
+                })
+                .error(function (error) {
+                    console.log(error);
+                })
         }
 
 
@@ -672,7 +733,7 @@
                     console.log(error);
                 })
         }
-        
+
         function getUpcomingInterviewForApplicant(userId) {
             UserService.getUpcomingInterviews(userId)
                 .success(function (interviews) {
@@ -704,6 +765,14 @@
                     console.log("error");
                     console.log(error);
                 });
+        }
+        
+        function logout() {
+            UserService.logout()
+                .then(function (response) {
+                    $rootScope.currentUser = null;
+                    $location.url("/");
+                })
         }
     }
 })();
