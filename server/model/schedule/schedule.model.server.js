@@ -18,6 +18,7 @@ scheduleModel.getPastInterviewsForApplicant = getPastInterviewsForApplicant;
 scheduleModel.getInterviewerSchedule = getInterviewerSchedule;
 scheduleModel.getNextInterviewForInterviewer = getNextInterviewForInterviewer;
 scheduleModel.getNextInterviewForApplicant = getNextInterviewForApplicant;
+scheduleModel.endInterview = endInterview;
 
 module.exports = scheduleModel;
 
@@ -93,4 +94,8 @@ function getNextInterviewForApplicant(applicantId) {
         .sort('start')
         .limit(1)
         .exec();
+}
+
+function endInterview(interviewId) {
+    return scheduleModel.update({_id: interviewId}, {$set: {end: new Date()}});
 }
