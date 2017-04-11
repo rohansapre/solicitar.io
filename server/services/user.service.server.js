@@ -10,6 +10,8 @@ module.exports = function (app, model) {
         profileFields   : ['id', 'displayName', 'photos', 'email']
     };
 
+    var bcrypt = require('bcrypt-nodejs');
+
     var passport = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
     passport.use(new LocalStrategy(localStrategy));
@@ -20,7 +22,7 @@ module.exports = function (app, model) {
     passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
     app.post("/api/user", createUser);
-    app.get("/api/user", findUser);
+    app.get("/api/user", findUserByUsername);
     app.get("/api/user/:userId", findUserById);
     app.put("/api/user/:userId", updateUser);
     app.delete("/api/user/:userId", deleteUser);
@@ -92,6 +94,7 @@ module.exports = function (app, model) {
             .then(function (user) {
                 if(user) {
                     newUser.status = 'JOINED';
+                    newUser.password = bcrypt.hashSync(newUser.password);
                     model.user
                         .updateUser(user._id, newUser)
                         .then(function (tempUser) {
@@ -117,31 +120,10 @@ module.exports = function (app, model) {
             });
     }
 
-    function findUser(req, res) {
-        var username = req.query.username;
-        var password = req.query.password;
-        if(username && password)
-            findUserByCredentials(req, res);
-        else
-            findUserByUsername(req, res);
-    }
-
     function findUserById(req, res) {
         var userId = req.params.userId;
         model.user
             .findUserById(userId)
-            .then(function (user) {
-                res.json(user);
-            }, function (error) {
-                res.sendStatus(500).send(error);
-            })
-    }
-
-    function findUserByCredentials(req, res) {
-        var username = req.query.username;
-        var password = req.query.password;
-        model.user
-            .findUserByCredentials(username, password)
             .then(function (user) {
                 res.json(user);
             }, function (error) {
@@ -236,9 +218,9 @@ module.exports = function (app, model) {
 
     function localStrategy(username, password, done) {
         model.user
-            .findUserByCredentials(username, password)
+            .findUserByUsername(username)
             .then(function (user) {
-                if(user.username === username && user.password === password)
+                if(user && bcrypt.compareSync(password, user.password))
                     return done(null, user);
                 else
                     return done(null, false);
@@ -269,7 +251,7 @@ module.exports = function (app, model) {
 
     function logout(req, res) {
         req.logout();
-        res.send(200);
+        res.sendStatus(200);
     }
 
     function register(req, res) {
@@ -279,6 +261,7 @@ module.exports = function (app, model) {
             .then(function (user) {
                 if(user) {
                     newUser.status = 'JOINED';
+                    newUser.password = bcrypt.hashSync(newUser.password);
                     model.user
                         .updateUser(user._id, newUser)
                         .then(function (tempUser) {

@@ -2,9 +2,11 @@
  * Created by rohansapre on 3/21/17.
  */
 module.exports = function (app) {
+    var bcrypt = require('bcrypt-nodejs');
+    var password = bcrypt.hashSync('pass');
     var applicant1 = {
         username: 'rohan1',
-        password: 'pass',
+        password: password,
         email: 'rohan1@yahoo.com',
         firstName: 'Rohan1',
         lastName: 'Sapre',
@@ -13,7 +15,7 @@ module.exports = function (app) {
     };
     var applicant2 = {
         username: 'rohan2',
-        password: 'pass',
+        password: password,
         email: 'rohan2@yahoo.com',
         firstName: 'Rohan2',
         lastName: 'Sapre',
@@ -22,7 +24,7 @@ module.exports = function (app) {
     };
     var applicant3 = {
         username: 'rohan3',
-        password: 'pass',
+        password: password,
         email: 'rohan3@yahoo.com',
         firstName: 'Rohan3',
         lastName: 'Sapre',
@@ -31,7 +33,7 @@ module.exports = function (app) {
     };
     var recruiter1 = {
         username: 'tushar1',
-        password: 'pass',
+        password: password,
         email: 'tushar1@yahoo.com',
         firstName: 'Tushar1',
         lastName: 'Gupta',
@@ -40,7 +42,7 @@ module.exports = function (app) {
     };
     var recruiter2 = {
         username: 'tushar2',
-        password: 'pass',
+        password: password,
         email: 'tushar2@yahoo.com',
         firstName: 'Tushar2',
         lastName: 'Gupta',
@@ -49,7 +51,7 @@ module.exports = function (app) {
     };
     var interviewer1 = {
         username: 'amul1',
-        password: 'pass',
+        password: password,
         email: 'amul1@yahoo.com',
         firstName: 'Amul1',
         lastName: 'Mehta',
@@ -58,7 +60,7 @@ module.exports = function (app) {
     };
     var interviewer2 = {
         username: 'amul2',
-        password: 'pass',
+        password: password,
         email: 'amul2@yahoo.com',
         firstName: 'Amul2',
         lastName: 'Mehta',
@@ -67,7 +69,7 @@ module.exports = function (app) {
     };
     var interviewer3 = {
         username: 'amul3',
-        password: 'pass',
+        password: password,
         email: 'amul3@yahoo.com',
         firstName: 'Amul3',
         lastName: 'Mehta',

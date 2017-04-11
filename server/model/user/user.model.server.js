@@ -12,7 +12,6 @@ var userModel = mongoose.model('User', userSchema);
 userModel.createUser = createUser;
 userModel.findUserById = findUserById;
 userModel.findUserByUsername = findUserByUsername;
-userModel.findUserByCredentials = findUserByCredentials;
 userModel.updateUser = updateUser;
 userModel.deleteUser = deleteUser;
 userModel.updateUserFile = updateUserFile;
@@ -28,7 +27,6 @@ function createUser(user) {
     var d = q.defer();
     user.status = 'JOINED';
     userModel.create(user, function (err, user) {
-        console.log(user);
         if(err) {
             var msg = err['errmsg'];
             if (msg.indexOf('duplicate key error') > -1) {
@@ -53,10 +51,6 @@ function findUserById(userId) {
 
 function findUserByUsername(username) {
     return userModel.findOne({username: username});
-}
-
-function findUserByCredentials(username, password) {
-    return userModel.findOne({username: username, password: password});
 }
 
 function updateUser(userId, user) {

@@ -5,6 +5,7 @@
 
     var checkLoggedin = function ($q, $timeout, $http, $location, $rootScope) {
         var deffered = $q.defer();
+        console.log("reached auth");
         $http.get('api/loggedin').success(function (user) {
             $rootScope.errorMessage = null;
             if (user !== '0') {
