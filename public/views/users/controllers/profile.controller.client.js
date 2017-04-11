@@ -49,36 +49,10 @@
         vm.initializeRecruiterPositions = initializeRecruiterPositions;
         vm.addInterviewer = addInterviewer;
         vm.getInterviewers = getInterviewers;
+        vm.assignInterviewer= assignInterviewer;
         vm.posts = [];
         vm.jobarray = [];
-        vm.interviewerarray = [{
-            username: 'first',
-            password: 'jhb',
-            email: 'first@first.com',
-            firstName: 'First',
-            lastName: 'Interviewer',
-            type: 'INTERVIEWER',
-            organisation: 'Google Inc.',
-            status: 'INVITED'
-        }, {
-            username: 'second',
-            password: 'sdw',
-            email: 'second@second.com',
-            firstName: 'Second',
-            lastName: 'Interviewer',
-            type: 'INTERVIEWER',
-            organisation: 'Google Inc.',
-            status: 'INVITED'
-        }, {
-            username: 'third',
-            password: 'wer',
-            email: 'third@third.com',
-            firstName: 'Third',
-            lastName: 'Interviewer',
-            type: 'INTERVIEWER',
-            organisation: 'Google Inc.',
-            status: 'INVITED'
-        }];
+        vm.interviewerarray = [];
         //recruiter ends
 
         vm.emails = [];
@@ -713,8 +687,6 @@
                     organisation: vm.user.organisation,
                     status: 'INVITED'
                 };
-                vm.interviewerarray.push(userInterviewer);
-                console.log(vm.interviewerarray);
                 RecruiterService.createInterviewer(vm.userId, userInterviewer)
                     .success(function (interviewer) {
                         console.log(interviewer);
@@ -729,6 +701,11 @@
             RecruiterService.getInterviewers(vm.userId)
                 .success(function (interviewers) {
                     console.log(interviewers);
+                    vm.rawInterviewer= interviewers;
+                    vm.interviewerarray=[];
+                    for (var interviewer in interviewers){
+                        vm.interviewerarray.push(interviewers[interviewer]['_interviewer']['firstName'] + '  ' + interviewers[interviewer]['_interviewer']['lastName']);
+                    }
                 })
                 .error(function (error) {
                     console.log("error");
@@ -797,6 +774,7 @@
 
         function initializeRecruiterViewcandidates() {
             getCandidates(vm.positionId);
+            getInterviewers();
         }
 
         function initializeRecruiterPositions() {
@@ -812,12 +790,16 @@
                 })
         }
 
-        function assignInterviewer(userId, interviewerId, positionId) {
+        function assignInterviewer(candidate,index) {
+            // console.log("dfsdfsdfsf");
+            // console.log(vm.rawInterviewer[index]);
+            // console.log(index);
             var users = {
-                _applicant: userId,
-                _interviewer: interviewerId,
-                _position: positionId
+                _applicant:candidate._id,
+                _interviewer: vm.rawInterviewer[index]['_id'],
+                _position: candidate._position
             };
+            console.log(users);
             InterviewService.assignInterviewer(users)
                 .success(function (interview) {
                     console.log(interview)
@@ -828,6 +810,9 @@
                 })
         }
 
+        // CANDIDATE ENDS
+
+        // APPLICANT STARTS
 
         function applicantDashboard() {
             changeBackgorund("applicantDashboard");
