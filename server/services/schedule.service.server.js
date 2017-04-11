@@ -3,7 +3,7 @@
  */
 
 module.exports = function (app, model) {
-    app.post("/api/schedule", createInterview);
+    app.post("/api/schedule", createOrUpdateInterview);
     app.get("/api/schedule/upcoming/:interviewerId", getUpcomingPositions);
     app.get("/api/schedule/past/:interviewerId", getPastPositions);
     app.get("/api/schedule/upcoming/:interviewerId/position/:positionId", getCandidatesForUpcomingPositions);
@@ -14,17 +14,28 @@ module.exports = function (app, model) {
     app.get("/api/schedule/:interviewerId", getInterviewerSchedule);
     app.get("/api/schedule/interviewer/next/:interviewerId", getNextInterviewForInterviewer);
     app.get("/api/schedule/applicant/next/:applicantId", getNextInterviewForApplicant);
-    app.get("/api/schedule/end/:interviewId", endInterview);
+    app.put("/api/schedule/end/:interviewId", endInterview);
 
-    function createInterview(req, res) {
+    function createOrUpdateInterview(req, res) {
         var hire = req.body;
-        model.schedule
-            .createInterview(hire)
-            .then(function (interview) {
-                res.json(interview)
-            }, function (error) {
-                res.sendStatus(500).send(error);
-            })
+        if (hire.interviewId === null) {
+            model.schedule
+                .createInterview(hire)
+                .then(function (interview) {
+                    res.json(interview)
+                }, function (error) {
+                    res.sendStatus(500).send(error);
+                })
+        } else {
+            model.schedule
+                .updateInterview(hire)
+                .then(function (interview) {
+                    res.json(interview);
+                }, function (error) {
+                    res.sendStatus(500).send(error);
+                })
+        }
+
     }
 
     function getUpcomingPositions(req, res) {

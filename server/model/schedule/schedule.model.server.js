@@ -19,6 +19,7 @@ scheduleModel.getInterviewerSchedule = getInterviewerSchedule;
 scheduleModel.getNextInterviewForInterviewer = getNextInterviewForInterviewer;
 scheduleModel.getNextInterviewForApplicant = getNextInterviewForApplicant;
 scheduleModel.endInterview = endInterview;
+scheduleModel.updateInterview = updateInterview;
 
 module.exports = scheduleModel;
 
@@ -98,4 +99,8 @@ function getNextInterviewForApplicant(applicantId) {
 
 function endInterview(interviewId) {
     return scheduleModel.update({_id: interviewId}, {$set: {end: new Date()}});
+}
+
+function updateInterview(hire) {
+    return scheduleModel.update({_id: hire.interviewId}, {$set: {_interviewer: hire._interviewer}});
 }

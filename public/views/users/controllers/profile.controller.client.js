@@ -794,6 +794,7 @@
             // console.log(vm.rawInterviewer[index]);
             // console.log(index);
             var users = {
+                interviewId: candidate.interviewId,
                 _applicant:candidate._id,
                 _interviewer: vm.rawInterviewer[index]['_id'],
                 _position: candidate._position
