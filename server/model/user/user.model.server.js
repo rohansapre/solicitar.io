@@ -83,7 +83,16 @@ function updateUserFile(userId, path, isResume) {
 }
 
 function deleteUser(userId) {
-    return userModel.findByIdAndRemove(userId);
+    var d = q.defer();
+    userModel.findByIdAndRemove(userId, function (err, user) {
+        if(err)
+            d.reject(err);
+        else {
+            user.remove();
+            d.resolve(user);
+        }
+    });
+    return d.promise;
 }
 
 function getInterviewersForCompany(organization) {

@@ -20,4 +20,20 @@ var userSchema = mongoose.Schema({
     dateCreated: { type: Date, default: Date.now() }
 }, {collection: 'user'});
 
+userSchema.post('remove', function () {
+    var user = this;
+    var calendarModel = require('../calendar/calendar.model.server');
+    var candidateModel = require('../candidate/candidate.model.server');
+    var scheduleModel = require('../schedule/schedule.model.server');
+    var interviewModel = require('../interview/interview.model.server');
+    calendarModel.remove({_user: user._id});
+    candidateModel.remove({_applicant: user._id});
+    scheduleModel.find({_applicant: user._id}, '_id', function (err, schedules) {
+        if(err === null) {
+            interviewModel.remove({_schedule: {$in: schedules}});
+            scheduleModel.remove({_id: {$in: schedules}});
+        }
+    });
+});
+
 module.exports = userSchema;
