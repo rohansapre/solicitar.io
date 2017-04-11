@@ -20,6 +20,7 @@ scheduleModel.getNextInterviewForInterviewer = getNextInterviewForInterviewer;
 scheduleModel.getNextInterviewForApplicant = getNextInterviewForApplicant;
 scheduleModel.endInterview = endInterview;
 scheduleModel.updateInterview = updateInterview;
+scheduleModel.getInterviewsForRecruiter = getInterviewsForRecruiter;
 
 module.exports = scheduleModel;
 
@@ -103,4 +104,10 @@ function endInterview(interviewId) {
 
 function updateInterview(hire) {
     return scheduleModel.update({_id: hire.interviewId}, {$set: {_interviewer: hire._interviewer}});
+}
+
+function getInterviewsForRecruiter(recruiterId, applicants) {
+    return scheduleModel
+        .find({_recruiter: recruiterId, _applicant: {$in: applicants}})
+        .populate('_applicant', 'email firstName lastName status');
 }

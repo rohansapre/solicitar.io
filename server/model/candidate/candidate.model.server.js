@@ -16,6 +16,7 @@ function getApplicants(positionId) {
     return candidateModel
         .find({_position: positionId})
         .populate('_applicant', 'email firstName lastName status')
+        .populate('_position', '_recruiter')
         .exec();
 }
 

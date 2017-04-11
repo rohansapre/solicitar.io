@@ -12,7 +12,21 @@ module.exports = function (app, model) {
             .then(function (candidates) {
                 console.log("In Server");
                 console.log(candidates);
-                res.json(candidates);
+                if (candidates.length > 0) {
+                    var recruiterId = candidates[0]._position._recruiter;
+                    var applicants = [];
+                    for (var c in candidates) {
+                        applicants.push(candidates[c]._applicant._id);
+                    }
+                    model.schedule
+                        .getInterviewsForRecruiter(recruiterId, applicants)
+                        .then(function (interviews) {
+                            res.json(interviews);
+                        }, function (error) {
+                            res.sendStatus(500).send(error);
+                        })
+                }
+                // res.json(candidates);
             }, function (error) {
                 res.sendStatus(500).send(error);
             })
