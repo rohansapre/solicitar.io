@@ -488,12 +488,14 @@
         function initializeInterviewerDashboard() {
             // Get latest interview
             changeBackgorund('interviewerDashboard');
+            getNextInterviewForInterviewer();
         }
 
         function getNextInterviewForInterviewer() {
             InterviewService.getNextInterviewForInterviewer(vm.userId)
                 .success(function (interview) {
                     console.log(interview);
+                    vm.nextInterviewForInterviewer=interview;
                 })
                 .error(function (error) {
                     console.log("error");
@@ -506,7 +508,7 @@
 
         // Profile
         function initializeInterviewerProfile() {
-            changeBackgorund('interviewerProfile')
+            changeBackgorund('interviewerProfile');
         }
 
         //-----------------------------------------------------------------
