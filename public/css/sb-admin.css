@@ -428,18 +428,5 @@ th, td {
     padding-left: 15px;
 }
 
-/*input::-webkit-input-placeholder {*/
-    /*color: white !important;*/
-/*}*/
+div#texter { width: 0px; height: 2em; white-space: nowrap; overflow: hidden;  }
 
-/*input:-moz-placeholder { !* Firefox 18- *!*/
-    /*color: white !important;*/
-/*}*/
-
-/*input::-moz-placeholder {  !* Firefox 19+ *!*/
-    /*color: white !important;*/
-/*}*/
-
-/*input:-ms-input-placeholder {*/
-    /*color: white !important;*/
-/*}*/
