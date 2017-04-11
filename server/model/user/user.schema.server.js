@@ -17,6 +17,7 @@ var userSchema = mongoose.Schema({
     resume: String,
     coverLetter: String,
     facebook: { id: String, token: String },
+    google: { id: String, token: String },
     dateCreated: { type: Date, default: Date.now() }
 }, {collection: 'user'});
 
