@@ -60,7 +60,7 @@
         }
         
         function getNextInterviewForApplicant(applicantId) {
-            return $http.get("/api/schedule/applicant/next" + applicantId);
+            return $http.get("/api/schedule/applicant/next/" + applicantId);
         }
     }
 
