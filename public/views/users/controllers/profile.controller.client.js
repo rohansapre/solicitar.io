@@ -69,7 +69,7 @@
             type: 'INTERVIEWER',
             organisation: 'Google Inc.',
             status: 'INVITED'
-        },  {
+        }, {
             username: 'third',
             password: 'wer',
             email: 'third@third.com',
@@ -95,13 +95,12 @@
 
         // Applicant
 
-        vm.applicantDashboard= applicantDashboard;
-        vm.applicantProfile= applicantProfile;
-        vm.applicantUpcoming= applicantUpcoming;
-        vm.applicantPast=applicantPast;
-
+        vm.applicantDashboard = applicantDashboard;
+        vm.applicantProfile = applicantProfile;
+        vm.applicantUpcoming = applicantUpcoming;
+        vm.applicantPast = applicantPast;
+        vm.applicantSchedule = applicantSchedule;
         // Inerviewer End
-
 
 
         function init() {
@@ -145,16 +144,15 @@
             var startDate = new Date(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00');
             var endDate = new Date(yyyy + '-' + m + '-' + dy + 'T' + to + ':00');
             var nowDate = new Date();
-            var startDate = new Date(yyyy+'-'+m+'-'+dy+'T'+fr+':00');
-            var endDate = new Date(yyyy+'-'+m+'-'+dy+'T'+to+':00');
-            var nowDate= new Date();
 
             // check for duplicate timings
 
             if (nowDate > startDate || nowDate > endDate) {
+                vm.applicantError= "Invalid Time, please try again";
                 //error
             }
             else if (startDate >= endDate) {
+                vm.applicantError= "Invalid Time, please try again";
                 //error
             }
             else {
@@ -221,7 +219,9 @@
                 console.log("existing");
                 console.log(result);
                 if (result.startTime.length == 0) {
-                    // button is create
+                    // button is created
+
+                    // ng-hide variables
                     vm.updateButton = true;
                     vm.submitButton = false;
 
@@ -478,7 +478,7 @@
 
         function changeBackgorund(id) {
             $('li').removeClass('active');
-            $('#'+id).addClass('active');
+            $('#' + id).addClass('active');
         }
 
 
@@ -521,11 +521,11 @@
                     console.log("positions: ");
                     console.log(positions);
                     vm.interviewerUpcomingInterviews = positions;
-                    if(positions.length == 0){
-                        vm.emptyUpcomingInterviews=true;
+                    if (positions.length == 0) {
+                        vm.emptyUpcomingInterviews = true;
                     }
-                    else{
-                        vm.emptyUpcomingInterviews=false;
+                    else {
+                        vm.emptyUpcomingInterviews = false;
                     }
                 })
                 .error(function (error) {
@@ -543,11 +543,11 @@
                     console.log("got candidates");
                     console.log(candidates);
                     vm.interviewApplicants = candidates;
-                    if(candidates.length == 0){
-                        vm.emptyUpcomingCandidates=true;
+                    if (candidates.length == 0) {
+                        vm.emptyUpcomingCandidates = true;
                     }
-                    else{
-                        vm.emptyUpcomingCandidates=false;
+                    else {
+                        vm.emptyUpcomingCandidates = false;
                     }
 
                 })
@@ -619,11 +619,11 @@
                     console.log("positions: ");
                     console.log(positions);
                     vm.interviewerPastInterviews = positions;
-                    if(positions.length == 0){
-                        vm.emptyPastInterviews=true;
+                    if (positions.length == 0) {
+                        vm.emptyPastInterviews = true;
                     }
-                    else{
-                        vm.emptyPastInterviews=false;
+                    else {
+                        vm.emptyPastInterviews = false;
                     }
                 })
                 .error(function (error) {
@@ -642,7 +642,7 @@
                     if (candidates.length == 0)
                         vm.emptyPastCandidates = true;
                     else
-                        vm.emptyPastCandidates=false;
+                        vm.emptyPastCandidates = false;
 
                 })
                 .error(function (error) {
@@ -665,7 +665,7 @@
                     if (schedule.length == 0)
                         vm.emptySchedule = true;
                     else
-                        vm.emptySchedule=false;
+                        vm.emptySchedule = false;
 
                 })
                 .error(function (error) {
@@ -826,31 +826,46 @@
                     console.log("error");
                     console.log(error);
                 })
-        }vm.applicantDashboard= applicantDashboard;
-        vm.applicantProfile= applicantProfile;
-        vm.applicantUpcoming= applicantUpcoming;
-        vm.applicantPast=applicantPast;
+        }
+
 
         function applicantDashboard() {
-
+            changeBackgorund("applicantDashboard");
+            getNextInterviewForApplicant();
         }
-        function applicantProfile() {
 
+        function applicantProfile() {
+            changeBackgorund("applicantProfile");
         }
 
         function applicantUpcoming() {
+            changeBackgorund("applicantUpcomingInterviews");
             getUpcomingInterviewForApplicant(vm.userId);
         }
 
         function applicantPast() {
+            changeBackgorund("applicantPastInterviews");
             getPastInterviewForApplicant(vm.userId);
         }
+
+        function applicantSchedule() {
+            changeBackgorund("applicantUpcomingInterviews");
+            initializeCalender();
+
+           }
 
 
         function getUpcomingInterviewForApplicant(userId) {
             UserService.getUpcomingInterviews(userId)
                 .success(function (interviews) {
                     console.log(interviews);
+                    if (interviews.length == 0) {
+                        vm.emptyUpcomingInterviews = true;
+                    }
+                    else {
+                        vm.emptyUpcomingInterviews = false;
+                        vm.applicantUpcomingInterviews = interviews;
+                    }
                 })
                 .error(function (error) {
                     console.log("error");
@@ -861,7 +876,13 @@
         function getPastInterviewForApplicant(userId) {
             UserService.getPastInterviews(userId)
                 .success(function (interviews) {
-                    console.log(interviews);
+                    if (interviews.length == 0) {
+                        vm.emptyPastInterviews = true;
+                    }
+                    else {
+                        vm.emptyPastInterviews = false;
+                        vm.applicantPreviousInterviews = interviews;
+                    }
                 })
                 .error(function (error) {
                     console.log("error");
@@ -869,27 +890,28 @@
                 })
         }
 
-        function getInterviewerSchedule() {
-            InterviewService.getInterviewerSchedule(vm.userId)
-                .success(function (schedule) {
-                    console.log(schedule);
-                })
-                .error(function (error) {
-                    console.log("error");
-                    console.log(error);
-                });
-        }
+        // function getInterviewerSchedule() {
+        //     InterviewService.getInterviewerSchedule(vm.userId)
+        //         .success(function (schedule) {
+        //             console.log(schedule);
+        //         })
+        //         .error(function (error) {
+        //             console.log("error");
+        //             console.log(error);
+        //         });
+        // }
 
         function getNextInterviewForApplicant() {
             InterviewService.getNextInterviewForApplicant(vm.userId)
                 .success(function (interview) {
                     console.log(interview);
+                    vm.applicantNextInterview=interview;
                 }, function (error) {
                     console.log("error");
                     console.log(error);
                 })
         }
-        
+
         function logout() {
             UserService.logout()
                 .then(function (response) {

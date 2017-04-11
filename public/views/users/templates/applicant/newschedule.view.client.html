@@ -1,9 +1,16 @@
 <div class="container-fluid" onpageshow="getwidth()">
 
     <ol class="breadcrumb my-3">
-        <li class="breadcrumb-item"><a href="">Homepage</a></li>
+        <li class="breadcrumb-item"><a href ng-click="model.tab='dash'">Homepage</a></li>
+        <li class="breadcrumb-item"><a href ng-click="model.tab='upcoming'">{{model.user.firstName}}'s Upcoming Interview</a></li>
         <li class="breadcrumb-item active">Schedule Interview</li>
     </ol>
+
+    <div ng-show="model.applicantError" class="alert alert-danger" role="alert">
+        {{model.applicantError}}
+    </div>
+
+
     <div class="card mb-3">
         <div class="card-header">
             Add Availability

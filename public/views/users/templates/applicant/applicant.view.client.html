@@ -5,24 +5,24 @@
     <a class="navbar-brand" href="">solicitar.io</a>
     <div class="collapse navbar-collapse" id="navbarExample">
         <ul class="sidebar-nav navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href ng-click="tab='dash'"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+            <li class="nav-item active" id="applicantDashboard">
+                <a class="nav-link" href ng-click="model.tab='dash'"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href ng-click="tab='profile'"><i class="fa fa-fw fa-area-chart"></i> Profile</a>
+            <li class="nav-item" id="applicantProfile">
+                <a class="nav-link" href ng-click="model.tab='profile'"><i class="fa fa-fw fa-user-circle-o"></i> Profile</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href ng-click="tab='upcoming'"><i class="fa fa-fw fa-cogs"></i> Upcoming Interviews</a>
+            <li class="nav-item" id="applicantUpcomingInterviews">
+                <a class="nav-link" href ng-click="model.tab='upcoming'"><i class="fa fa-fw fa-forward"></i> Upcoming Interviews</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href ng-click="tab='past'"><i class="fa fa-fw fa-cogs"></i> Past Interviews</a>
+            <li class="nav-item" id="applicantPastInterviews">
+                <a class="nav-link" href ng-click="model.tab='past'"><i class="fa fa-fw fa-backward"></i> Past Interviews</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href ng-click="tab='new'"><i class="fa fa-fw fa-cogs"></i> Schedule Interview</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"><i class="fa fa-fw fa-table"></i> Tasks</a>
-            </li>
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href ng-click="model.tab='new'"><i class="fa fa-fw fa-cogs"></i> Schedule Interview</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link"><i class="fa fa-fw fa-table"></i> Tasks</a>-->
+            <!--</li>-->
         </ul>`
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
@@ -85,7 +85,7 @@
 
 <!--<ng-include src="views/users/templates/users/dashboard.users.view.client.html"></ng-include>-->
 
-<div ng-switch on="tab">
+<div ng-switch on="model.tab">
     <div ng-switch-when="dash">
         <ng-include src="'views/users/templates/applicant/dashboard.applicant.view.client.html'"
                     onload="model.applicantDashboard()"></ng-include>
@@ -102,8 +102,9 @@
         <ng-include src="'views/users/templates/applicant/past.view.client.html'"
                     onload="model.applicantPast()"></ng-include>
     </div>
-    <div ng-switch-when="new">
-        <ng-include src="'views/users/templates/applicant/newschedule.view.client.html'"></ng-include>
+    <div ng-switch-when="applicantScheduleInterview">
+        <ng-include src="'views/users/templates/applicant/newschedule.view.client.html'"
+            onload="model.applicantSchedule()"></ng-include>
     </div>
     <div ng-switch-default>
         <ng-include src="'views/users/templates/applicant/dashboard.applicant.view.client.html'"></ng-include>
