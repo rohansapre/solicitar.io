@@ -15,14 +15,16 @@
                 <a class="nav-link dropdown-toggle mr-lg-5" data-toggle="dropdown">Login<span class="caret"></span></a>
                 <div class="dropdown-menu">
                     <div class="dropdown-item social-buttons">
-                        <div class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</div>
-                        <div class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</div>
+                        <a href="/auth/facebook">
+                            <div class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</div>
+                        </a>
+                        <div class="btn btn-gg"><i class="fa fa-google-plus-official"></i> Google +</div>
                     </div>
                     <div class="dropdown-divider"></div>
                     <div class="container-fluid">
-                    <div ng-show="model.error" class="alert alert-danger" role="alert">
-                        {{model.error}}
-                    </div>
+                        <div ng-show="model.error" class="alert alert-danger" role="alert">
+                            {{model.error}}
+                        </div>
                     </div>
                     <form class="form" role="form" id="login-nav">
                         <div class="form-group container-fluid">
@@ -32,11 +34,13 @@
                         </div>
                         <div class="form-group container-fluid">
                             <label for="passwords" class="sr-only">Password</label>
-                            <input type="password" class="form-control" id="passwords" placeholder="Password" ng-model="user.password" required>
+                            <input type="password" class="form-control" id="passwords" placeholder="Password"
+                                   ng-model="user.password" required>
                             <div class="help-block text-right"><a href="">Forgot password?</a></div>
                         </div>
                         <div class="form-group container-fluid">
-                            <button type="submit" class="btn btn-primary btn-block" data-toggle="dropdown" ng-click="model.login(user)">Sign
+                            <button type="submit" class="btn btn-primary btn-block" data-toggle="dropdown"
+                                    ng-click="model.login(user)">Sign
                                 In
                             </button>
                         </div>
@@ -51,66 +55,71 @@
             </li>
 
             <!--<li class="nav-item">-->
-                <!--<a class="btn btn-primary" href="#/register"><i class="fa fa-fw fa-sign-out"></i> Sign-->
-                    <!--Up-->
-                <!--</a>-->
+            <!--<a class="btn btn-primary" href="#/register"><i class="fa fa-fw fa-sign-out"></i> Sign-->
+            <!--Up-->
+            <!--</a>-->
             <!--</li>-->
             <li class="nav-item">
-            <button class="btn btn-primary" id="buttonup" data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-sign-out"></i>
-                Sign Up</button>
+                <button class="btn btn-primary" id="buttonup" data-toggle="modal" data-target="#myModal"><i
+                        class="fa fa-fw fa-sign-out"></i>
+                    Sign Up
+                </button>
             </li>
         </ul>
     </div>
 </nav>
 
-<div class="modal fade" id="myModal" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" data-backdrop="false" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="container-fluid"> <h4 class="modal-title leftalign" id="myModalLabel">
-                    Welcome to solicitar.io !</h4> </div>
+                <div class="container-fluid"><h4 class="modal-title leftalign" id="myModalLabel">
+                    Welcome to solicitar.io !</h4></div>
                 <button type="button" class="close" id="buttondown" data-dismiss="modal" aria-hidden="true">
-                    ×</button>
+                    ×
+                </button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12" style="border-right: 1px dotted #C2C2C2;padding-right: 20px;">
                         <!-- Nav tabs -->
                         <div class="container">
-                        <ul class="nav nav-tabs">
-                            <!--<li><button class="btn btn-primary" data-toggle="modal" data-target="#Registration"><i class="fa fa-fw fa-sign-out"></i>-->
+                            <ul class="nav nav-tabs">
+                                <!--<li><button class="btn btn-primary" data-toggle="modal" data-target="#Registration"><i class="fa fa-fw fa-sign-out"></i>-->
                                 <!--Sign Up</button></li>-->
-                            <li class="active"><a data-target="#Registration" data-toggle="tab">Registration</a></li>
-                        </ul>
+                                <li class="active"><a data-target="#Registration" data-toggle="tab">Registration</a>
+                                </li>
+                            </ul>
                         </div>
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <!--<div class="tab-pane" id="Login">-->
-                                <!--<form role="form" class="form-horizontal">-->
-                                    <!--<div class="form-group">-->
-                                        <!--<label for="email" class="col-sm-2 control-label">-->
-                                            <!--Email</label>-->
-                                        <!--<div class="col-md-12">-->
-                                            <!--<input type="email" class="form-control" id="email1" placeholder="Email" />-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="form-group">-->
-                                        <!--<label for="exampleInputPassword1" class="col-sm-2 control-label">-->
-                                            <!--Password</label>-->
-                                        <!--<div class="col-md-12">-->
-                                            <!--<input type="email" class="form-control" id="exampleInputPassword1" placeholder="Email" />-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="row">-->
-                                        <!--<div class="col-sm-2">-->
-                                        <!--</div>-->
-                                        <!--<div class="col-md-12">-->
-                                            <!--<button type="submit" class="btn btn-primary btn-sm">-->
-                                                <!--Submit</button>-->
-                                            <!--<a href="javascript:;">Forgot your password?</a>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</form>-->
+                            <!--<form role="form" class="form-horizontal">-->
+                            <!--<div class="form-group">-->
+                            <!--<label for="email" class="col-sm-2 control-label">-->
+                            <!--Email</label>-->
+                            <!--<div class="col-md-12">-->
+                            <!--<input type="email" class="form-control" id="email1" placeholder="Email" />-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="form-group">-->
+                            <!--<label for="exampleInputPassword1" class="col-sm-2 control-label">-->
+                            <!--Password</label>-->
+                            <!--<div class="col-md-12">-->
+                            <!--<input type="email" class="form-control" id="exampleInputPassword1" placeholder="Email" />-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="row">-->
+                            <!--<div class="col-sm-2">-->
+                            <!--</div>-->
+                            <!--<div class="col-md-12">-->
+                            <!--<button type="submit" class="btn btn-primary btn-sm">-->
+                            <!--Submit</button>-->
+                            <!--<a href="javascript:;">Forgot your password?</a>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</form>-->
                             <!--</div>-->
                             <div class="tab-pane active" id="Registration">
                                 <form role="form" class="form-horizontal">
@@ -123,10 +132,12 @@
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" ng-model="user.firstName" placeholder="First Name" />
+                                                    <input type="text" class="form-control" ng-model="user.firstName"
+                                                           placeholder="First Name"/>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" ng-model="user.lastName" placeholder="Last Name" />
+                                                    <input type="text" class="form-control" ng-model="user.lastName"
+                                                           placeholder="Last Name"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -135,63 +146,69 @@
                                         <label for="mobile" class="col-sm-2 control-label">
                                             Username</label>
                                         <div class="col-md-12">
-                                            <input type="text" class="form-control" id="mobile" ng-model="user.username" placeholder="Username" />
+                                            <input type="text" class="form-control" id="mobile" ng-model="user.username"
+                                                   placeholder="Username"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="email" class="col-sm-2 control-label">
                                             Email</label>
                                         <div class="col-md-12">
-                                            <input type="email" class="form-control" ng-model="user.email" id="email" placeholder="Email" />
+                                            <input type="email" class="form-control" ng-model="user.email" id="email"
+                                                   placeholder="Email"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="password" class="col-sm-2 control-label">
                                             Password</label>
                                         <div class="col-md-12">
-                                            <input type="password" class="form-control" id="password" ng-model="user.password" placeholder="Password" />
+                                            <input type="password" class="form-control" id="password"
+                                                   ng-model="user.password" placeholder="Password"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="passwordagain" class="col-md-12 control-label">
                                             Retype Password</label>
                                         <div class="col-md-12">
-                                            <input type="password" class="form-control" id="passwordagain" ng-model="user.passverify" placeholder="Retype Password" />
+                                            <input type="password" class="form-control" id="passwordagain"
+                                                   ng-model="user.passverify" placeholder="Retype Password"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-12">
-                                            <a class="btn btn-primary col-12" ng-click= "model.create(user)">
-                                                <div class="colwhite" data-dismiss="modal" aria-hidden="true">Register</div></a>
+                                            <a class="btn btn-primary col-12" ng-click="model.create(user)">
+                                                <div class="colwhite" data-dismiss="modal" aria-hidden="true">Register
+                                                </div>
+                                            </a>
                                         </div>
                                     </div>
                                     <!--<div class="row container">-->
-                                        <!--<div class="col-md-12">-->
-                                        <!--</div>-->
-                                        <!--<div class="col-md-12">-->
-                                            <!--<a class="btn btn-primary" ng-click= "model.create(startpage)">-->
-                                                <!--<div class="colwhite">Register </div></a>-->
-                                        <!--</div>-->
+                                    <!--<div class="col-md-12">-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-12">-->
+                                    <!--<a class="btn btn-primary" ng-click= "model.create(startpage)">-->
+                                    <!--<div class="colwhite">Register </div></a>-->
+                                    <!--</div>-->
                                     <!--</div>-->
                                 </form>
                             </div>
                         </div>
                         <!--<div id="OR" class="hidden-xs">-->
-                            <!--OR</div>-->
+                        <!--OR</div>-->
                     </div>
                     <!--<div class="col-md-4">-->
-                        <!--<div class="row text-center sign-with">-->
-                            <!--<div class="col-md-12">-->
-                                <!--<h3>-->
-                                    <!--Sign in with</h3>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-12">-->
-                                <!--<div class="btn-group btn-group-justified">-->
-                                    <!--<a href="#" class="btn btn-primary">Facebook</a> <a href="#" class="btn btn-danger">-->
-                                    <!--Google</a>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                    <!--<div class="row text-center sign-with">-->
+                    <!--<div class="col-md-12">-->
+                    <!--<h3>-->
+                    <!--Sign in with</h3>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-12">-->
+                    <!--<div class="btn-group btn-group-justified">-->
+                    <!--<a href="#" class="btn btn-primary">Facebook</a> <a href="#" class="btn btn-danger">-->
+                    <!--Google</a>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
                     <!--</div>-->
                 </div>
             </div>
@@ -220,6 +237,7 @@
 <!--</a>-->
 <!--</div>-->
 <ul class="white">
+
 <div id="newpost">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:700|Roboto:900" rel="stylesheet">
     solicitar.io
@@ -232,7 +250,7 @@
     <a href="#/admin">Like our work? Shoot us a message!</a><br>
 
 
-</div>
+    </div>
 </ul>
 
 

@@ -6,8 +6,8 @@
         .module("ProjectMaker")
         .controller("interviewController", interviewController);
 
-    function interviewController($routeParams, $location ,playgroundService ) {
-    //     $('body').removeClass('dashboardMargin');
+    function interviewController($routeParams, $location, playgroundService) {
+        //     $('body').removeClass('dashboardMargin');
         var vm = this;
 
         vm.createNewPad = createNewPad;
@@ -37,6 +37,7 @@
         vm.language = 'Python';
         var ownId;
         var editor;
+        vm.key = '-Kh9odJIjnUeoAQue4Al';
 
         // ---- code Mirror options -------
         var pythonOptions = {
@@ -49,7 +50,7 @@
         var cppOptions = "text/x-c++src";
         var javaInitializationCode = "/* package whatever; // don't place package name! */\nimport java.io.*;\nimport java.util.Scanner;\npublic class program {\n public static void main(String[] args) {\n \tSystem.out.println(\"Hello Java\");\n \tScanner sc = new Scanner(System.in);\n \tString a = sc.nextLine();\n}";
         var pythonInitializationCode = "print \"Hello World\"";
-        var cppInitializationCode="\#include \<iostream\>\nusing namespace std;\nint main() {\ncout<<\"Hello\";\nreturn 0;\n}"
+        var cppInitializationCode = "\#include \<iostream\>\nusing namespace std;\nint main() {\ncout<<\"Hello\";\nreturn 0;\n}"
         // ------------------------------
 
         // Twilio
@@ -62,33 +63,14 @@
 
         function init() {
             $("body").removeClass("dashboardMargin");
-            var padId = $routeParams['pgid'];
-            if (padId == null) {
-
-                vm.visible = true;
-                createNewPad();
-            }
-            else {
-                vm.visible = false;
-                initializePad();
-            }
-
-            // playgroundService.getLanguages().success(function (data) {
-            //     console.log("dfsdf");
-            //    console.log(data);
-            //
-            // });
-
             vm.ownId = ownId;
+
+            initializePad();
+
             initializeTwilio();
 
 
             //setupTwilio();
-
-
-            // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-            // initializeWebRTC();
-
         }
 
         init();
@@ -132,7 +114,7 @@
         }
 
 
-        function setupTwilio(){
+        function setupTwilio() {
             //TODO: setup camera and microphone, try to connect to the room
 
             // When we are about to transition away from this page, disconnect
@@ -332,13 +314,13 @@
             return null;
         }
 
-        function createNewPad() {
-
-            var ref = firebase.database().ref();
-            ref = ref.push(); // generate unique location.
-            //window.location = window.location + '#' + ref.key; // add it as a hash to the URL.
-            $location.url("/user/"+$routeParams['uid']+"/interview/"+ ref.key);
-        }
+        // function createNewPad() {
+        //
+        //     //var ref = firebase.database().ref();
+        //     //ref = ref.child('codepadList').push(); // generate unique location.
+        //     //window.location = window.location + '#' + ref.key; // add it as a hash to the URL.
+        //     $location.url("/user/" + $routeParams['uid'] + "/interview/" + 'dfssd');
+        // }
 
         function initializePad() {
             var myTextarea = document.getElementById("myCode");
@@ -351,23 +333,37 @@
             });
 
             editor.setOption("theme", "base16-dark");
-            // Get Firebase Database reference.
-            var firepadRef = firebase.database().ref();
 
-            var firepad = Firepad.fromCodeMirror(firepadRef, editor, {
+
+            // Get Firebase Database reference.
+            // var firepadRef = firebase.database().ref();
+            // var key= firepadRef.child('codepadList').push();
+            // var actualKey = key.key
+            // var java = "Java"
+            // firepadRef.child("codepadList").child(actualKey).set({
+            //     "Language":"Java"
+            // });
+            var firebaseReference = firebase.database().ref().child('solicitarInterview').child(vm.key);
+
+
+            var firepad = Firepad.fromCodeMirror(firebaseReference, editor, {
                 defaultText: pythonInitializationCode
             });
             firepadReference = firepad;
-            var padId = $routeParams['pgid'];
-            console.log("sadas");
-            firepadRef = firepadRef.child(padId);
-
 
             if (typeof console !== 'undefined') {
-                console.log('Firebase data: ', firepadRef.toString());
+                console.log('Firebase data: ', firebaseReference.toString());
             }
 
             $('.powered-by-firepad').remove();
+
+            var starCountRef = firebase.database().ref().child('solicitarInterview').child(vm.key).child('language');
+            starCountRef.on('value', function (snapshot) {
+                console.log(vm.language + snapshot.val());
+                if (snapshot.val() != vm.language)
+                    changeLanguageWithoutUpdate(snapshot.val());
+                console.log(vm.language);
+            });
 
         }
 
@@ -375,7 +371,7 @@
             // console.log("ffdfdf");
             // console.log(playgroundService.compile());
             var data = {};
-            vm.result="Compiling code...";
+            vm.result = "Compiling code...";
             data['sourceCode'] = firepadReference.getText().toString();
             data['language'] = languageId;
             data['input'] = vm.input;
@@ -415,14 +411,18 @@
                     }
                 );
 
-            if(redo)
+            if (redo)
                 compile();
         }
 
-        function changeLanguage(c) {
+        function changeLanguageWithoutUpdate(c) {
             console.log("language");
-            console.log(vm.language);
-
+            console.log(vm.language + c);
+            console.log("change is constant");
+            // firebase.database().ref().child('solicitarInterview').child(vm.key)
+            //     .set({
+            //         'language':c
+            //     });
             switch (c) {
                 case 'Python': {
                     editor.setOption('mode', pythonOptions);
@@ -455,51 +455,53 @@
 
         }
 
+        function changeLanguage(c) {
+            console.log("language");
+            console.log(vm.language);
+
+            if (vm.language != c) {
+                var updates = {};
+                console.log("change is constant");
+                updates['/solicitarInterview/' + vm.key + '/language'] = c;
+                firebase.database().ref().update(updates);
+                // firebase.database().ref().child('solicitarInterview').child(vm.key)
+                //     .set({
+                //         'language':c
+                //     });
+                switch (c) {
+                    case 'Python': {
+                        editor.setOption('mode', pythonOptions);
+                        editor.setOption('indentUnit', 4);
+                        editor.setOption('tabMode', "shift");
+                        languageId = 4;
+                        firepadReference.setText(pythonInitializationCode);
+                        vm.language = "Python";
+                        break;
+                    }
+                    case 'Java': {
+                        editor.setOption('mode', javaOptions);
+                        languageId = 10;
+                        vm.language = "Java";
+                        firepadReference.setText(javaInitializationCode);
+                        break;
+                    }
+                    case 'C++': {
+                        editor.setOption('mode', cppOptions);
+                        languageId = 1;
+                        vm.language = "C++";
+                        firepadReference.setText(cppInitializationCode);
+                        break;
+                    }
+
+                }
+
+                console.log(editor.getOption('mode'));
+
+            }
+        }
+
 
         // ----- END Firepad -----------
 
-        // function login() {
-        //     name = vm.name;
-        //     peer_id = vm.peerId;
-        //     if(peer_id){
-        //         conn = peer.connect(peer_id, {metadata: {
-        //             'username': name
-        //         }});
-        //         conn.on('data', handleMessage);
-        //     }
-        //
-        //     vm.chatHide = false;
-        //     vm.connectHide = true;
-        // }
-        //
-        //  function sendMessage(){
-        //      var text = $('#message').val();
-        //      var data = {'from': name, 'text': text};
-        //
-        //      conn.send(data);
-        //      handleMessage(data);
-        //      $('#message').val('');
-        //  }
-        //
-        //  function call() {
-        //      console.log('now calling: ' + peer_id);
-        //      console.log(peer);
-        //      var call = peer.call(peer_id, window.localStream);
-        //      call.on('stream', function(stream){
-        //          window.peer_stream = stream;
-        //          onReceiveStream(stream, 'peer-camera');
-        //      });
-        //
-        //  }
-        //
-        //
-        //
-        //  function onReceiveCall(call) {
-        //      call.answer(window.localStream);
-        //      call.on('stream', function (stream) {
-        //          window.peer_stream = stream;
-        //          onReceiveStream(stream, 'peer-camera');
-        //      });
-        //  }
     }
-    })();
+})();

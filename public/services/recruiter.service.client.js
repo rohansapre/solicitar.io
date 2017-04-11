@@ -13,7 +13,10 @@
             "getCandidates": getCandidates,
             "createPosition": createPosition,
             "getPositions": getPositions,
-            "deletePosition": deletePosition
+            "deletePosition": deletePosition,
+            "createInterviewer": createInterviewer,
+            "getInterviewers": getInterviewers,
+            "deleteInterviewer": deleteInterviewer
         };
         return api;
 
@@ -37,6 +40,18 @@
 
         function deletePosition(positionId) {
             return $http.delete("/api/position/" + positionId);
+        }
+
+        function createInterviewer(recruiterId, user) {
+            return $http.post("/api/company/" + recruiterId, user);
+        }
+
+        function getInterviewers(recruiterId) {
+            return $http.get("/api/company/" + recruiterId);
+        }
+
+        function deleteInterviewer(interviewerId) {
+            return $http.delete("/api/company/" + interviewerId);
         }
     }
 })();

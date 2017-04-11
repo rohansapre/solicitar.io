@@ -4,9 +4,6 @@
         <div class="pull-right hidden-lg-up">
             <button class="btn btn-outline-danger">End Interview</button>
         </div>
-        <!--<div class="navbar-text">-->
-        <!--This is in col-4-->
-        <!--</div>-->
     </div>
     <div class="hidden-md-down col-sm-9">
         <div class="pull-right">
@@ -16,7 +13,8 @@
             <button class="btn btn-outline-success marginRight" ng-click="model.compile()">Compile Code</button>
         </div>
         <div class="dropdown pull-right">
-            <button class="btn btn-outline-info dropdown-toggle marginRight" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-outline-info dropdown-toggle marginRight" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{model.language}}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -35,13 +33,9 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12 col-lg-3">
-
-            <!--<div id="remote-media"></div>-->
-
-
-
             <div id="controls">
-                <div class="card card-inverse marginTop h-100" style="background-color: #292b2c; border-color: #292b2c;">
+                <div class="card card-inverse marginTop h-100"
+                     style="background-color: #292b2c; border-color: #292b2c;">
                     <div class="card-header">
                         Video
                     </div>
@@ -55,7 +49,9 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                            <button id="button-preview" class="btn btn-outline-info" ng-click="model.cameraPreview()">Preview My Camera</button>
+                        <button id="button-preview" class="btn btn-outline-info" ng-click="model.cameraPreview()">
+                            Preview My Camera
+                        </button>
                     </div>
                 </div>
 
@@ -76,96 +72,52 @@
             <div class="row">
                 <div class="col-lg-8">
                     <!--<div class="form-group">-->
-                        <!--<label for="languageOptions">Size</label>-->
-                        <!--<select id="languageOptions" class="form-control" ng-model="model.language"-->
-                                <!--ng-options="c for c in model.languages"></select>-->
-                        <!--<button class="btn-block" ng-click="model.changeLanguage()">Change Language</button>-->
+                    <!--<label for="languageOptions">Size</label>-->
+                    <!--<select id="languageOptions" class="form-control" ng-model="model.language"-->
+                    <!--ng-options="c for c in model.languages"></select>-->
+                    <!--<button class="btn-block" ng-click="model.changeLanguage()">Change Language</button>-->
                     <!--</div>-->
                     <!--<a class="btn btn-success btn-block" ng-click="model.createNewPad()" ng-show="model.visible">Create-->
-                        <!--New-->
-                        <!--Pad</a>-->
-                <div class="card card-inverse" style="background-color: #292b2c; border-color: #292b2c; margin-top: 10px; padding: 0.25rem;">
-                    <div class="card-header">
-                        Code
+                    <!--New-->
+                    <!--Pad</a>-->
+                    <div class="card card-inverse"
+                         style="background-color: #292b2c; border-color: #292b2c; margin-top: 10px; padding: 0.25rem;">
+                        <div class="card-header">
+                            Code
+                        </div>
+                        <div class="card-block" style="padding: 0.25rem;">
+                            <div id="myCode"></div>
+                        </div>
                     </div>
-                    <div class="card-block" style="padding: 0.25rem;">
-                        <div id="myCode"></div>
-                    </div>
-                </div>
                 </div>
 
                 <div class="col-lg-4">
-                    <div class="card card-inverse w-100" style="background-color: #292b2c; border-color: #292b2c; margin-top: 10px; padding: 0.25rem;">
+                    <div class="card card-inverse w-100"
+                         style="background-color: #292b2c; border-color: #292b2c; margin-top: 10px; padding: 0.25rem;">
                         <div class="card-header">
                             Command Line Inputs
                         </div>
                         <div class="card-block" style="padding: 0.25rem;">
-                    <!--<div class="form-group" style="margin-left: 10px; margin-top: 10px;">-->
-                            <textarea class="form-control" rows="5" ng-model="model.input" id="input" style="background-color: black; color: white; font-family: 'Courier New', Courier, monospace;"></textarea>
+                            <!--<div class="form-group" style="margin-left: 10px; margin-top: 10px;">-->
+                            <textarea class="form-control" rows="5" ng-model="model.input" id="input"
+                                      style="background-color: black; color: white; font-family: 'Courier New', Courier, monospace;"></textarea>
                         </div>
                     </div>
-                    <div class="card card-inverse w-100" style="background-color: #292b2c; border-color: #292b2c; margin-top: 10px; padding: 0.25rem;">
+                    <div class="card card-inverse w-100"
+                         style="background-color: #292b2c; border-color: #292b2c; margin-top: 10px; padding: 0.25rem;">
                         <div class="card-header">
                             Console Output
                         </div>
                         <div class="card-block" style="padding: 0.25rem;">
                             <!--<div class="form-group" style="margin-left: 10px; margin-top: 10px;">-->
                             <textarea ng-model="model.result" class="form-control" rows="20"
-                                      id="output" readonly style="background-color: black; color: white; font-family: 'Courier New', Courier, monospace;">
+                                      id="output" readonly
+                                      style="background-color: black; color: white; font-family: 'Courier New', Courier, monospace;">
                             </textarea>
                         </div>
                     </div>
-                </div>
-                    <!--<div class="form-group" style="margin-left: 10px; margin-right: 10px;">-->
-                        <!--<label for="output">Output:</label>-->
-
-                        <!--<textarea ng-show="model.result" ng-model="model.result" class="form-control" rows="5" id="output" style="background-color: black; color: white;" readonly></textarea>-->
-
-                    <!--</div>-->
-
-                    <!--<div ng-show="model.compiling" class="alert alert-info" id="compiling">-->
-                        <!--Compiling....-->
-                    <!--</div>-->
-                </div>
-
-
-
-
-                    <!--<a class="btn btn-success btn-block marginBottom" ng-click="model.getResults()">Get Results</a>-->
-                    <!--<div class="card" ng-show="model.result">-->
-                    <!--<div class="card-block">-->
-                    <!--&lt;!&ndash;<div ng-show="model.result" id="results">&ndash;&gt;-->
-                    <!--{{model.result}}-->
-                    <!--</div>-->
-                    <!--</div>-->
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-<!--<div class="container-fluid">-->
-<!--<div class="row">-->
-<!--<div class="col-xs-4">-->
-<!--<div class="row">-->
-<!--<div class="col-xs-12 container-fluid">-->
-<!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;    leftcvzj;jsdzbd zfdkjgbfg k;jfd gnbfdg;kjdfn-->
-<!--</div>-->
-<!--</div>-->
-
-<!--</div>-->
-
-
-<!--<div class="col-xs-8">-->
-<!--<div class="row">-->
-<!--<div class="col-xs-12 container-fluid">-->
-<!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;right        kj;zxcbvv fgs;jdsfgsdf;kjgd;kj-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-
-

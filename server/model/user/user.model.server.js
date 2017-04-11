@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose');
 var q = require('q');
+mongoose.Promise = q.Promise;
 var userSchema = require('./user.schema.server');
 var userModel = mongoose.model('User', userSchema);
 
@@ -18,6 +19,8 @@ userModel.updateUserFile = updateUserFile;
 userModel.getInterviewersForCompany = getInterviewersForCompany;
 userModel.findUsersByEmails = findUsersByEmails;
 userModel.insertUsers = insertUsers;
+userModel.findUserByFacebookId = findUserByFacebookId;
+userModel.updateStatus = updateStatus;
 
 module.exports = userModel;
 
@@ -45,36 +48,15 @@ function createUser(user) {
 }
 
 function findUserById(userId) {
-    var d = q.defer();
-    userModel.findById(userId, function (err, user) {
-        if(err)
-            d.reject(err);
-        else
-            d.resolve(user);
-    });
-    return d.promise;
+    return userModel.findById(userId);
 }
 
 function findUserByUsername(username) {
-    var d = q.defer();
-    userModel.findOne({username: username}, function (err, user) {
-        if(err)
-            d.reject(err);
-        else
-            d.resolve(user);
-    });
-    return d.promise;
+    return userModel.findOne({username: username});
 }
 
 function findUserByCredentials(username, password) {
-    var d = q.defer();
-    userModel.findOne({username: username, password: password}, function (err, user) {
-        if(err)
-            d.reject(err);
-        else
-            d.resolve(user);
-    });
-    return d.promise;
+    return userModel.findOne({username: username, password: password});
 }
 
 function updateUser(userId, user) {
@@ -99,65 +81,33 @@ function updateUser(userId, user) {
 }
 
 function updateUserFile(userId, path, isResume) {
-    var d = q.defer();
     if(isResume) {
-        userModel.findByIdAndUpdate(userId, {$set: {resume: path}}, function (err, user) {
-        if(err)
-            d.reject(err);
-        else
-            d.resolve(user);
-        });
+        return userModel.findByIdAndUpdate(userId, {$set: {resume: path}});
     } else {
-        userModel.findByIdAndUpdate(userId, {$set: {coverLetter: path}}, function (err, user) {
-            if(err)
-                d.reject(err);
-            else
-                d.resolve(user);
-        });
+        return userModel.findByIdAndUpdate(userId, {$set: {coverLetter: path}});
     }
-    return d.promise;
 }
 
 function deleteUser(userId) {
-    var d = q.defer();
-    userModel.findByIdAndRemove(userId, function (err, user) {
-        if(err)
-            d.reject(err);
-        else
-            d.resolve(user);
-    });
-    return d.promise;
+    return userModel.findByIdAndRemove(userId);
 }
 
 function getInterviewersForCompany(organization) {
-    var d = q.defer();
-    userModel.find({organization: organization, type: 'INTERVIEWER'}, '_id', function (err, interviewers) {
-        if(err)
-            d.reject(err);
-        else
-            d.resolve(interviewers);
-    });
-    return d.promise;
+    return userModel.find({organization: organization, type: 'INTERVIEWER'}, '_id');
 }
 
 function findUsersByEmails(emails) {
-    var d = q.defer();
-    userModel.find({email: {$in: emails}}, '_id email', function (err, users) {
-        if(err)
-            d.reject(err);
-        else
-            d.resolve(users);
-    });
-    return d.promise;
+    return userModel.find({email: {$in: emails}}, '_id email');
 }
 
 function insertUsers(users) {
-    var d = q.defer();
-    userModel.insertMany(users, function (err, users) {
-        if(err)
-            d.reject(err);
-        else
-            d.resolve(users);
-    });
-    return d.promise;
+    return userModel.insertMany(users);
+}
+
+function findUserByFacebookId(facebookId) {
+    return userModel.findOne({'facebook.id': facebookId});
+}
+
+function updateStatus(userId, status) {
+    return userModel.update({_id: userId}, {$set: {status: status}});
 }

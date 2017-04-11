@@ -24,6 +24,15 @@ module.exports = function (app, model) {
         model.calendar
             .setAvailability(userId, times)
             .then(function (calendar) {
+                if(calendar) {
+                    model.user
+                        .updateStatus(userId, 'READY')
+                        .then(function (user) {
+                            res.json(calendar);
+                        }, function (error) {
+                            res.sendStatus(500).send(error);
+                        })
+                }
                 res.json(calendar);
             }, function (error) {
                 res.sendStatus(500).send(error);
