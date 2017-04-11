@@ -52,6 +52,11 @@
                 controller: "playgroundController",
                 controllerAs: "model"
             })
+            .when("/admin", {
+                templateUrl: "views/startpage/templates/admin.html",
+                controller: "ProfileController",
+                controllerAs: "model"
+            })
             .when("/playground/:pgid", {
                 templateUrl: "playground/playground.html",
                 controller: "playgroundController",
