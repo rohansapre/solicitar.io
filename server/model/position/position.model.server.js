@@ -22,5 +22,14 @@ function getPositions(recruiterId) {
 }
 
 function deletePosition(positionId) {
-    return positionModel.findByIdAndRemove(positionId);
+    var d = q.defer();
+    positionModel.findByIdAndRemove(positionId, function (err, position) {
+        if(err)
+            d.reject(err);
+        else {
+            position.remove();
+            d.resolve(position);
+        }
+    });
+    return d.promise;
 }

@@ -10,6 +10,7 @@ var companyModel = mongoose.model('Company', companySchema);
 companyModel.createCompany = createCompany;
 companyModel.getInterviewers = getInterviewers;
 companyModel.deleteInterviewer = deleteInterviewer;
+companyModel.deleteCompany = deleteCompany;
 
 module.exports = companyModel;
 
@@ -25,4 +26,17 @@ function getInterviewers(recruiterId) {
 
 function deleteInterviewer(interviewerId) {
     return companyModel.remove({_interviewer: interviewerId});
+}
+
+function deleteCompany(companyId) {
+    var d = q.defer();
+    companyModel.findByIdAndRemove(companyId, function (err, company) {
+        if(err)
+            d.reject(err);
+        else {
+            company.remove();
+            d.resolve(company);
+        }
+    });
+    return d.promise;
 }

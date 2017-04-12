@@ -9,6 +9,7 @@ var candidateModel = mongoose.model('Candidate', candidateSchema);
 
 candidateModel.getApplicants = getApplicants;
 candidateModel.insertApplicants = insertApplicants;
+candidateModel.deleteCandidate = deleteCandidate;
 
 module.exports = candidateModel;
 
@@ -29,4 +30,17 @@ function insertApplicants(positionId, users) {
         })
     }
     return candidateModel.insertMany(candidates);
+}
+
+function deleteCandidate(candidateId) {
+    var d = q.defer();
+    candidateModel.findByIdAndRemove(candidateId, function (err, candidate) {
+        if(err)
+            d.reject(err);
+        else {
+            candidate.remove();
+            d.resolve(candidate);
+        }
+    });
+    return d.promise;
 }
