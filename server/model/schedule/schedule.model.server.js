@@ -109,5 +109,7 @@ function updateInterview(hire) {
 function getInterviewsForRecruiter(recruiterId, applicants) {
     return scheduleModel
         .find({_recruiter: recruiterId, _applicant: {$in: applicants}})
-        .populate('_applicant', 'email firstName lastName status');
+        .populate('_applicant', 'email firstName lastName status')
+        .populate('_interviewer', 'firstName lastName')
+        .exec();
 }

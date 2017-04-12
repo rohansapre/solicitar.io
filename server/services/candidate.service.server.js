@@ -21,12 +21,26 @@ module.exports = function (app, model) {
                     model.schedule
                         .getInterviewsForRecruiter(recruiterId, applicants)
                         .then(function (interviews) {
-                            res.json(interviews);
+                            var answer = [];
+                            for (var c in candidates) {
+                                var match = false;
+                                for (var i in interviews) {
+                                    if (candidates[c]._applicant._id === interviews[i]._applicant._id) {
+                                        var temp = candidates[c];
+                                        temp._interview = interviews[i]._interviewer;
+                                        answer.push(temp);
+                                        match = true;
+                                        break;
+                                    }
+                                }
+                                if (!match)
+                                    answer.push(candidates[c]);
+                            }
+                            res.json(answer);
                         }, function (error) {
                             res.sendStatus(500).send(error);
                         })
                 }
-                // res.json(candidates);
             }, function (error) {
                 res.sendStatus(500).send(error);
             })

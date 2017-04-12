@@ -790,11 +790,8 @@
         }
 
         function assignInterviewer(candidate,index) {
-            // console.log("dfsdfsdfsf");
-            // console.log(vm.rawInterviewer[index]);
-            // console.log(index);
             var users = {
-                interviewId: candidate.interviewId,
+                interviewId: candidate._interview._id,
                 _applicant:candidate._id,
                 _interviewer: vm.rawInterviewer[index]['_id'],
                 _position: candidate._position

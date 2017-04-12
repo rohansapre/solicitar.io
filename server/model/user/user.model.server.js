@@ -21,6 +21,7 @@ userModel.insertUsers = insertUsers;
 userModel.findUserByFacebookId = findUserByFacebookId;
 userModel.updateStatus = updateStatus;
 userModel.findUserByGoogleId = findUserByGoogleId;
+userModel.findUserByType = findUserByType;
 
 module.exports = userModel;
 
@@ -118,4 +119,8 @@ function updateStatus(userId, status) {
 
 function findUserByGoogleId(googleId) {
     return userModel.findOne({'google.id': googleId});
+}
+
+function findUserByType(type) {
+    return userModel.find({type: type});
 }
