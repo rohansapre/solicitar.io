@@ -110,3 +110,14 @@
         <ng-include src="'views/users/templates/applicant/dashboard.applicant.view.client.html'"></ng-include>
     </div>
 </div>
+
+
+<script>
+    $(document).on('click','.navbar-collapse',function(e) {
+//        console.log(e);
+        if( $(e.target).is('a.nav-link') ) {
+            $(this).collapse('hide');
+            if (window.console) console.log('foo');
+        }
+    });
+</script>
