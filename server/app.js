@@ -91,13 +91,15 @@ module.exports = function (app) {
     var candidateModel = require('./model/candidate/candidate.model.server');
     var positionModel = require('./model/position/position.model.server');
     var companyModel = require('./model/company/company.model.server');
+    var firepadModel = require('./model/firepad/firepad.model.server');
     var model = {
         user: userModel,
         calendar: calendarModel,
         schedule: scheduleModel,
         candidate: candidateModel,
         position: positionModel,
-        company: companyModel
+        company: companyModel,
+        firepad: firepadModel
     };
 
     require('./services/user.service.server.js')(app, model);

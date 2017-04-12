@@ -792,7 +792,7 @@
 
         function assignInterviewer(candidate,index) {
             var users = {
-                interviewId: candidate._interview._id,
+                scheduleId: candidate._schedule,
                 _applicant:candidate._id,
                 _interviewer: vm.rawInterviewer[index]['_id'],
                 _position: candidate._position

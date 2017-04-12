@@ -8,29 +8,36 @@ module.exports = function (app, model) {
     app.get("/api/schedule/past/:interviewerId", getPastPositions);
     app.get("/api/schedule/upcoming/:interviewerId/position/:positionId", getCandidatesForUpcomingPositions);
     app.get("/api/schedule/past/:interviewerId/position/:positionId", getCandidatesForPastPositions);
-    app.put("/api/schedule/:interviewId", updateInterviewTime);
+    app.put("/api/schedule/:scheduleId", updateInterviewTime);
     app.get("/api/schedule/applicant/upcoming/:userId", getUpcomingInterviewsForApplicant);
     app.get("/api/schedule/applicant/past/:userId", getPastInterviewsForApplicant);
     app.get("/api/schedule/:interviewerId", getInterviewerSchedule);
     app.get("/api/schedule/interviewer/next/:interviewerId", getNextInterviewForInterviewer);
     app.get("/api/schedule/applicant/next/:applicantId", getNextInterviewForApplicant);
-    app.put("/api/schedule/end/:interviewId", endInterview);
+    app.put("/api/schedule/end/:scheduleId", endInterview);
 
     function createOrUpdateInterview(req, res) {
         var hire = req.body;
-        if (hire.interviewId === null) {
+        if (hire.scheduleId === null) {
             model.schedule
                 .createInterview(hire)
-                .then(function (interview) {
-                    res.json(interview)
+                .then(function (schedule) {
+                    var firepad = createFirePadInstance();
+                    model.firepad
+                        .createFirepad(firepad)
+                        .then(function (firepad) {
+                            res.json(schedule);
+                        }, function (error) {
+                            res.sendStatus(500).send(error);
+                        });
                 }, function (error) {
                     res.sendStatus(500).send(error);
                 })
         } else {
             model.schedule
                 .updateInterview(hire)
-                .then(function (interview) {
-                    res.json(interview);
+                .then(function (schedule) {
+                    res.json(schedule);
                 }, function (error) {
                     res.sendStatus(500).send(error);
                 })
@@ -92,7 +99,7 @@ module.exports = function (app, model) {
     }
 
     function updateInterviewTime(req, res) {
-        var interviewId = req.params.interviewId;
+        var interviewId = req.params.scheduleId;
         var time = req.params.time;
         model.schedule
             .updateInterviewTime(interviewId, time)
@@ -157,7 +164,6 @@ module.exports = function (app, model) {
         firebaseRef.child("solicitarInterview").child(key).set({
             "language": "Python"
         });
-
         return key;
     }
 
@@ -184,7 +190,7 @@ module.exports = function (app, model) {
     }
 
     function endInterview(req, res) {
-        var interviewId = req.params.interviewId;
+        var interviewId = req.params.scheduleId;
         model.schedule
             .endInterview(interviewId)
             .then(function (interview) {

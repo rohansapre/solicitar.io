@@ -50,17 +50,19 @@
                 }
                 UserService.login(user)
                     .success(function(user) {
-                    if (user) {
-                        $rootScope.currentUser = user;
-                        if(user.type === 'RECRUITER') {
-                            $location.url("/user/" + user._id);
-                        } else
-                            $location.url("/user/" + user._id);
-                    }
-                    else {
-                        vm.error = "User not found!";
-                    }
-                });
+                        if (user) {
+                            console.log(user);
+                            $rootScope.currentUser = user;
+                            if (user.type === 'RECRUITER') {
+                                $location.url("/user/" + user._id);
+                            } else
+                                $location.url("/user/" + user._id);
+                        }
+                    })
+                    .error(function (error) {
+                        if (error === 'Unauthorized')
+                            vm.error = "User not found";
+                    });
             } else
                 vm.error = "Please enter details!"
         }
