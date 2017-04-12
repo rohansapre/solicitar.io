@@ -10,6 +10,13 @@ module.exports = function (app, model) {
         profileFields   : ['id', 'displayName', 'photos', 'email']
     };
 
+    var googleConfig = {
+        clientID        : process.env.GOOGLE_CLIENT_ID,
+        clientSecret    : process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL     : process.env.GOOGLE_CALLBACK_URL
+    };
+
+    var bcrypt = require('bcrypt-nodejs');
     var passport = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
     passport.use(new LocalStrategy(localStrategy));
@@ -19,8 +26,11 @@ module.exports = function (app, model) {
     var FacebookStrategy = require('passport-facebook').Strategy;
     passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
+    var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+    passport.use(new GoogleStrategy(googleConfig, googleStrategy));
+
     app.post("/api/user", createUser);
-    app.get("/api/user", findUser);
+    app.get("/api/user", findUserByUsername);
     app.get("/api/user/:userId", findUserById);
     app.put("/api/user/:userId", updateUser);
     app.delete("/api/user/:userId", deleteUser);
@@ -28,18 +38,25 @@ module.exports = function (app, model) {
     app.post("/api/logout", logout);
     app.post("/api/register", register);
     app.get("/api/loggedin", loggedin);
+
     app.get("/auth/facebook", passport.authenticate('facebook', { scope : 'email' }));
     app.get("/auth/facebook/callback", passport.authenticate('facebook', {
         failureRedirect: '/#/'
-    }), function (req, res) {
+    }), FacebookGoogleCallback);
+
+    app.get("/auth/google", passport.authenticate('google', { scope : ['profile', 'email'] }));
+    app.get("/auth/google/callback", passport.authenticate('google', {
+        failureRedirect: '/#/'
+    }), FacebookGoogleCallback);
+
+    function FacebookGoogleCallback(req, res) {
         if(req.user.message) {
             res.redirect('/#/');
         } else {
             var url = '/#/user/' + req.user._id.toString();
             res.redirect(url);
         }
-
-    });
+    }
 
     // Image Upload Settings
 
@@ -92,6 +109,7 @@ module.exports = function (app, model) {
             .then(function (user) {
                 if(user) {
                     newUser.status = 'JOINED';
+                    newUser.password = bcrypt.hashSync(newUser.password);
                     model.user
                         .updateUser(user._id, newUser)
                         .then(function (tempUser) {
@@ -117,31 +135,10 @@ module.exports = function (app, model) {
             });
     }
 
-    function findUser(req, res) {
-        var username = req.query.username;
-        var password = req.query.password;
-        if(username && password)
-            findUserByCredentials(req, res);
-        else
-            findUserByUsername(req, res);
-    }
-
     function findUserById(req, res) {
         var userId = req.params.userId;
         model.user
             .findUserById(userId)
-            .then(function (user) {
-                res.json(user);
-            }, function (error) {
-                res.sendStatus(500).send(error);
-            })
-    }
-
-    function findUserByCredentials(req, res) {
-        var username = req.query.username;
-        var password = req.query.password;
-        model.user
-            .findUserByCredentials(username, password)
             .then(function (user) {
                 res.json(user);
             }, function (error) {
@@ -236,9 +233,9 @@ module.exports = function (app, model) {
 
     function localStrategy(username, password, done) {
         model.user
-            .findUserByCredentials(username, password)
+            .findUserByUsername(username)
             .then(function (user) {
-                if(user.username === username && user.password === password)
+                if(user && bcrypt.compareSync(password, user.password))
                     return done(null, user);
                 else
                     return done(null, false);
@@ -269,7 +266,7 @@ module.exports = function (app, model) {
 
     function logout(req, res) {
         req.logout();
-        res.send(200);
+        res.sendStatus(200);
     }
 
     function register(req, res) {
@@ -279,6 +276,7 @@ module.exports = function (app, model) {
             .then(function (user) {
                 if(user) {
                     newUser.status = 'JOINED';
+                    newUser.password = bcrypt.hashSync(newUser.password);
                     model.user
                         .updateUser(user._id, newUser)
                         .then(function (tempUser) {
@@ -346,6 +344,62 @@ module.exports = function (app, model) {
                                 fbUser.status = 'JOINED';
                                 model.user
                                     .updateUser(foundUser._id, fbUser)
+                                    .then(function (tempUser) {
+                                        console.log("updated user");
+                                        if(tempUser) {
+                                            return done(null, foundUser);
+                                        }
+                                    });
+                            } else {
+                                var error = {
+                                    "message": "You have not been invited yet, you can't register without an invitation"
+                                };
+                                console.log("username error");
+                                console.log(error);
+                                return done(null, error);
+                            }
+                        }, function (error) {
+                            if(error)
+                                return done(null, error);
+                        });
+                }
+            })
+    }
+
+    function googleStrategy(token, refreshToken, profile, done) {
+        console.log("reached google callback");
+        model.user
+            .findUserByGoogleId(profile.id)
+            .then(function (user) {
+                console.log("find Google id");
+                console.log(user);
+                if(user) {
+                    console.log("reached user");
+                    return done(null, user);
+                }
+                else {
+                    console.log("reached else");
+                    var email = profile.emails[0].value;
+                    var googleUser = {
+                        username: email.split("@")[0],
+                        firstName: profile.name.givenName,
+                        lastName: profile.name.familyName,
+                        google: {
+                            id: profile.id,
+                            token: token
+                        },
+                        email: email
+                    };
+                    console.log(googleUser);
+                    model.user
+                        .findUserByUsername(googleUser.email)
+                        .then(function (foundUser) {
+                            console.log("user by username");
+                            console.log(foundUser);
+                            if(foundUser) {
+                                googleUser.status = 'JOINED';
+                                model.user
+                                    .updateUser(foundUser._id, googleUser)
                                     .then(function (tempUser) {
                                         console.log("updated user");
                                         if(tempUser) {

@@ -78,18 +78,15 @@
 
 
         function init() {
-            vm.userId = $routeParams['uid'];
-            var promise = UserService.findUserById(vm.userId);
-            promise.success(
-                function (user) {
-                    console.log(user.organization);
-                    vm.user = user;
-                    vm.name = user.firstName + " " + user.lastName;
-                });
+            vm.user = $rootScope.currentUser;
+            vm.userId = vm.user._id;
+            vm.name = vm.user.firstName + " " + vm.user.lastName;
+            console.log(vm.user);
+            console.log(vm.userId);
+            console.log(vm.name);
         }
 
         init();
-
 
         function addTimeToList() {
             var m;
@@ -793,10 +790,8 @@
         }
 
         function assignInterviewer(candidate,index) {
-            // console.log("dfsdfsdfsf");
-            // console.log(vm.rawInterviewer[index]);
-            // console.log(index);
             var users = {
+                interviewId: candidate._interview._id,
                 _applicant:candidate._id,
                 _interviewer: vm.rawInterviewer[index]['_id'],
                 _position: candidate._position

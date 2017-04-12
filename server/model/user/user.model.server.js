@@ -12,7 +12,6 @@ var userModel = mongoose.model('User', userSchema);
 userModel.createUser = createUser;
 userModel.findUserById = findUserById;
 userModel.findUserByUsername = findUserByUsername;
-userModel.findUserByCredentials = findUserByCredentials;
 userModel.updateUser = updateUser;
 userModel.deleteUser = deleteUser;
 userModel.updateUserFile = updateUserFile;
@@ -21,6 +20,8 @@ userModel.findUsersByEmails = findUsersByEmails;
 userModel.insertUsers = insertUsers;
 userModel.findUserByFacebookId = findUserByFacebookId;
 userModel.updateStatus = updateStatus;
+userModel.findUserByGoogleId = findUserByGoogleId;
+userModel.findUserByType = findUserByType;
 
 module.exports = userModel;
 
@@ -28,7 +29,6 @@ function createUser(user) {
     var d = q.defer();
     user.status = 'JOINED';
     userModel.create(user, function (err, user) {
-        console.log(user);
         if(err) {
             var msg = err['errmsg'];
             if (msg.indexOf('duplicate key error') > -1) {
@@ -53,10 +53,6 @@ function findUserById(userId) {
 
 function findUserByUsername(username) {
     return userModel.findOne({username: username});
-}
-
-function findUserByCredentials(username, password) {
-    return userModel.findOne({username: username, password: password});
 }
 
 function updateUser(userId, user) {
@@ -89,7 +85,16 @@ function updateUserFile(userId, path, isResume) {
 }
 
 function deleteUser(userId) {
-    return userModel.findByIdAndRemove(userId);
+    var d = q.defer();
+    userModel.findByIdAndRemove(userId, function (err, user) {
+        if(err)
+            d.reject(err);
+        else {
+            user.remove();
+            d.resolve(user);
+        }
+    });
+    return d.promise;
 }
 
 function getInterviewersForCompany(organization) {
@@ -110,4 +115,12 @@ function findUserByFacebookId(facebookId) {
 
 function updateStatus(userId, status) {
     return userModel.update({_id: userId}, {$set: {status: status}});
+}
+
+function findUserByGoogleId(googleId) {
+    return userModel.findOne({'google.id': googleId});
+}
+
+function findUserByType(type) {
+    return userModel.find({type: type});
 }

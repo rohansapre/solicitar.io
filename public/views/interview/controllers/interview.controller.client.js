@@ -20,6 +20,7 @@
         vm.joinRoom = joinRoom;
         vm.leaveRoom = leaveRoom;
 
+        vm.endInterview = endInterview;
 
         vm.languages = ['Python', 'Java', 'C++'];
         var languageId = 4;
@@ -502,6 +503,18 @@
 
 
         // ----- END Firepad -----------
+
+        function endInterview() {
+            // pass the current interview ID
+            InterviewService.endInterview(interviewId)
+                .success(function (interview) {
+                    console.log(interview);
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                })
+        }
 
     }
 })();

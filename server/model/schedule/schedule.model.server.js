@@ -18,6 +18,9 @@ scheduleModel.getPastInterviewsForApplicant = getPastInterviewsForApplicant;
 scheduleModel.getInterviewerSchedule = getInterviewerSchedule;
 scheduleModel.getNextInterviewForInterviewer = getNextInterviewForInterviewer;
 scheduleModel.getNextInterviewForApplicant = getNextInterviewForApplicant;
+scheduleModel.endInterview = endInterview;
+scheduleModel.updateInterview = updateInterview;
+scheduleModel.getInterviewsForRecruiter = getInterviewsForRecruiter;
 
 module.exports = scheduleModel;
 
@@ -92,5 +95,21 @@ function getNextInterviewForApplicant(applicantId) {
         .populate('_position')
         .sort('start')
         .limit(1)
+        .exec();
+}
+
+function endInterview(interviewId) {
+    return scheduleModel.update({_id: interviewId}, {$set: {end: new Date()}});
+}
+
+function updateInterview(hire) {
+    return scheduleModel.update({_id: hire.interviewId}, {$set: {_interviewer: hire._interviewer}});
+}
+
+function getInterviewsForRecruiter(recruiterId, applicants) {
+    return scheduleModel
+        .find({_recruiter: recruiterId, _applicant: {$in: applicants}})
+        .populate('_applicant', 'email firstName lastName status')
+        .populate('_interviewer', 'firstName lastName')
         .exec();
 }
