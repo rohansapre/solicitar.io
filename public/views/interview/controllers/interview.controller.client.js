@@ -49,7 +49,7 @@
         var javaOptions = "text/x-java";
 
         var cppOptions = "text/x-c++src";
-        var javaInitializationCode = "/* package whatever; // don't place package name! */\nimport java.io.*;\nimport java.util.Scanner;\npublic class program {\n public static void main(String[] args) {\n \tSystem.out.println(\"Hello Java\");\n \tScanner sc = new Scanner(System.in);\n \tString a = sc.nextLine();\n}";
+        var javaInitializationCode = "/* package whatever; // don't place package name! */\nimport java.io.*;\nimport java.util.Scanner;\npublic class program {\n public static void main(String[] args) {\n \tSystem.out.println(\"Hello Java\");\n \tScanner sc = new Scanner(System.in);\n \tString a = sc.nextLine();\n\t}\n}";
         var pythonInitializationCode = "print \"Hello World\"";
         var cppInitializationCode = "\#include \<iostream\>\nusing namespace std;\nint main() {\ncout<<\"Hello\";\nreturn 0;\n}"
         // ------------------------------
@@ -369,7 +369,7 @@
         }
 
         function compile() {
-            // console.log("ffdfdf");
+            console.log("ffdfdf");
             // console.log(playgroundService.compile());
             var data = {};
             vm.result = "Compiling code...";
@@ -384,7 +384,7 @@
                     console.log(res);
                     setTimeout(function () {
                         getResults();
-                    }, 3000);
+                    }, 4000);
 
                 })
                 .error(function (err) {
@@ -398,16 +398,28 @@
             var redo = false;
             playgroundService.getSubmissionResult(submissionId)
                 .success(function (result) {
+                    console.log(result);
                     vm.compiling = false;
+                    vm.result = " ";
                     if (result.status < 0 || result.status == 1 || result.status == 3)
                         redo = true;
-                    if (result.result == 15)
+                    else if (result.result == 15)
                         vm.result = result.output;
                     else if (result.result == 13 || result.result == 17 || result.result == 19 || result.result == 20 || result.result == 11 || result.result == 12) {
-                        if(result.stderr != "")
-                            vm.result = result.stderr+"\n"+result.cmpinfo;
-                        else
-                            vm.result= result.cmpinfo;
+                        console.log("dsfdfgdsgaf");
+                        console.log(vm.result);
+                        console.log("dsfdfgdsgaf");
+                        if (result.stderr != "")
+                            vm.result = result.stderr + "\n";
+                        if (result.output != "")
+                            vm.result = result.output + "\n" + vm.result;
+                        if (result.cmpinfo != "")
+                            vm.result = result.cmpinfo + "\n" + vm.result;
+
+                        console.log("dsfdfgdsgaf");
+                        console.log(vm.result);
+                        console.log("dsfdfgdsgaf");
+
                     }
 
                 })
@@ -415,9 +427,9 @@
                         console.log(err);
                     }
                 );
-
+            console.log(redo);
             if (redo)
-                compile();
+                setTimeout(function () {getResults();}, 2000);
         }
 
         function changeLanguageWithoutUpdate(c) {
