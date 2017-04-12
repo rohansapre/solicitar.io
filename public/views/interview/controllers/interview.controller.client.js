@@ -10,7 +10,7 @@
         //     $('body').removeClass('dashboardMargin');
         var vm = this;
 
-        vm.createNewPad = createNewPad;
+        //vm.createNewPad = createNewPad;
         vm.compile = compile;
         vm.getResults = getResults;
         vm.changeLanguage = changeLanguage;
@@ -403,8 +403,12 @@
                         redo = true;
                     if (result.result == 15)
                         vm.result = result.output;
-                    else if (result.result == 13 || result.result == 17 || result.result == 19 || result.result == 20 || result.result == 11 || result.result == 12)
-                        vm.result = result.cmpinfo;
+                    else if (result.result == 13 || result.result == 17 || result.result == 19 || result.result == 20 || result.result == 11 || result.result == 12) {
+                        if(result.stderr != "")
+                            vm.result = result.stderr+"\n"+result.cmpinfo;
+                        else
+                            vm.result= result.cmpinfo;
+                    }
 
                 })
                 .error(function (err) {
@@ -506,6 +510,7 @@
 
         function endInterview() {
             // pass the current interview ID
+            $("body").addClass("dashboardMargin");
             InterviewService.endInterview(interviewId)
                 .success(function (interview) {
                     console.log(interview);
@@ -513,7 +518,9 @@
                 .error(function (error) {
                     console.log("error");
                     console.log(error);
-                })
+                });
+            $location.url('')
+
         }
 
     }
