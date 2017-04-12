@@ -8,4 +8,16 @@ var candidateSchema = mongoose.Schema({
     dateCreated: { type: Date, default: Date.now() }
 }, {collection: 'candidate'});
 
+candidateSchema.post('remove', function () {
+    var candidate = this;
+    var scheduleModel = require('../schedule/schedule.model.server');
+    var interviewModel = require('../interview/interview.model.server');
+    scheduleModel.findOne({_applicant: candidate._applicant, _position: candidate._position}, '_id', function (err, schedule) {
+        if(err === null) {
+            interviewModel.remove({_schedule: schedule._id});
+            schedule.remove();
+        }
+    })
+});
+
 module.exports = candidateSchema;

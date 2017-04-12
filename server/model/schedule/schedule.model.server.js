@@ -21,6 +21,7 @@ scheduleModel.getNextInterviewForApplicant = getNextInterviewForApplicant;
 scheduleModel.endInterview = endInterview;
 scheduleModel.updateInterview = updateInterview;
 scheduleModel.getInterviewsForRecruiter = getInterviewsForRecruiter;
+scheduleModel.deleteSchedule = deleteSchedule;
 
 module.exports = scheduleModel;
 
@@ -112,4 +113,17 @@ function getInterviewsForRecruiter(recruiterId, applicants) {
         .populate('_applicant', 'email firstName lastName status')
         .populate('_interviewer', 'firstName lastName')
         .exec();
+}
+
+function deleteSchedule(scheduleId) {
+    var d = q.defer();
+    scheduleModel.findByIdAndRemove(scheduleId, function (err, schedule) {
+        if(err)
+            d.reject(err);
+        else {
+            schedule.remove();
+            d.resolve(schedule);
+        }
+    });
+    return d.promise;
 }

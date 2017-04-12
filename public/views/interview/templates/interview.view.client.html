@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
 <nav id="mainNav" class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse">
     <div class="col-xs-12 col-lg-3">
         <a class="navbar-brand" href="">solicitar.io</a>
@@ -12,6 +15,13 @@
         <div class="pull-right">
             <button class="btn btn-outline-success marginRight" ng-click="model.compile()">Compile Code</button>
         </div>
+
+        <!--<select-->
+                <!--ng-change="model.changeLanguage(c)"-->
+                <!--ng-model="model.setLanguage"-->
+                <!--ng-options="c for c in model.languages" >-->
+            <!--<option>First</option>-->
+        <!--</select>-->
         <div class="dropdown pull-right">
             <button class="btn btn-outline-info dropdown-toggle marginRight" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -83,7 +93,21 @@
                     <div class="card card-inverse"
                          style="background-color: #292b2c; border-color: #292b2c; margin-top: 10px; padding: 0.25rem;">
                         <div class="card-header">
-                            Code
+                            <div class="row">
+                                <div class="col-xs-4 col-lg-4">
+                                    Code
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-4">
+                                </div>
+                                <div class="col-sm-4 col-md-3 col-lg-3 pull-right">
+                                    <select class="form-control" style="background: transparent; color: white;"
+                                            ng-change="model.changeLanguage(c)"
+                                            ng-model="model.setLanguage"
+                                            ng-options="c for c in model.languages">
+                                        <option>First</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-block" style="padding: 0.25rem;">
                             <div id="myCode"></div>
