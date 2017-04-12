@@ -288,6 +288,7 @@
         }
 
         function updateUser(newUser) {
+            console.log("update user profile");
             UserService
                 .updateUser(vm.userId, newUser)
                 .success(function (user) {
