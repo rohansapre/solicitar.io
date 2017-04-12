@@ -8,20 +8,22 @@
     <!--<div class="card-deck">-->
     <div class="container">
         <div class="card">
-            <form action="/api/upload/image" method="post" enctype="multipart/form-data">
+
                 <h3 class="card-header">
                     <small>Profile</small>
                     <button class="btn btn-primary pull-right" ng-click="model.updateUser(model.user)">Update Profile
                     </button>
                 </h3>
                 <div class="card-block" id="imgoverlay">
-                    <img class="card-img-top img-fluid w-100" src="{{model.user.picture}}" alt="Card image cap">
-                    <input class="image-upload pull-left" type="file" id="picture-upload" name="profile-picture"/>
-                    <input name="userId" value="{{model.user._id}}" style="display: none"/>
-                    <input name="email" value="{{model.user.email}}" style="display: none"/>
-                    <input name="firstName" value="{{model.user.firstName}}" style="display: none"/>
-                    <input name="lastName" value="{{model.user.lastName}}" style="display: none"/>
-                    <button type="submit" class="btn btn-primary pull-right image-upload">Upload</button>
+                    <form action="/api/upload/image" method="post" enctype="multipart/form-data">
+                        <img class="card-img-top img-fluid w-100" src="{{model.user.picture}}" alt="Card image cap">
+                        <input class="image-upload pull-left" type="file" id="picture-upload" name="profile-picture"/>
+                        <input name="userId" value="{{model.user._id}}" style="display: none"/>
+                        <input name="email" value="{{model.user.email}}" style="display: none"/>
+                        <input name="firstName" value="{{model.user.firstName}}" style="display: none"/>
+                        <input name="lastName" value="{{model.user.lastName}}" style="display: none"/>
+                        <button type="submit" class="btn btn-primary pull-right image-upload">Upload</button>
+                    </form>
                 </div>
                 <div ng-show="model.error" class="alert alert-danger" role="alert">
                     {{model.error}}
@@ -57,7 +59,6 @@
                         </button>
                     </p>
                 </div>
-            </form>
 
         </div>
     </div>

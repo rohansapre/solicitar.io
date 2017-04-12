@@ -13,7 +13,7 @@ var userSchema = mongoose.Schema({
     type: { type: String, enum: users, default: users[0] },
     organization: String,
     status: { type: String, enum: statuses, default: statuses[0] },
-    picture: String,
+    picture: {type: String, default: "http://placehold.it/800x200"},
     resume: String,
     coverLetter: String,
     facebook: { id: String, token: String },
