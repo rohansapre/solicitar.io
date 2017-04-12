@@ -7,4 +7,10 @@ mongoose.Promise = q.Promise;
 var interviewSchema = require('./interview.schema.server');
 var interviewModel = mongoose.model('Interview', interviewSchema);
 
+interviewModel.deleteInterview = deleteInterview;
+
 module.exports = interviewModel;
+
+function deleteInterview(interviewId) {
+    return interviewModel.findByIdAndRemove(interviewId);
+}

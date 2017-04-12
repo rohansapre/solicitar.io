@@ -11,4 +11,10 @@ var scheduleSchema = mongoose.Schema({
     dateCreated: { type: Date, default: Date.now() }
 }, {collection: 'schedule'});
 
+scheduleSchema.post('remove', function () {
+    var schedule = this;
+    var interviewModel = require('../interview/interview.model.server');
+    interviewModel.remove({_schedule: schedule._id});
+});
+
 module.exports = scheduleSchema;
