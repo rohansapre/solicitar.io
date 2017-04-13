@@ -16,7 +16,8 @@
             "deletePosition": deletePosition,
             "createInterviewer": createInterviewer,
             "getInterviewers": getInterviewers,
-            "deleteInterviewer": deleteInterviewer
+            "deleteInterviewer": deleteInterviewer,
+            "getScheduledInterviews": getScheduledInterviews
         };
         return api;
 
@@ -26,7 +27,6 @@
         }
 
         function getCandidates(positionId) {
-            console.log("Inside recruiter.service.client.js");
             return $http.get("/api/candidate/" + positionId);
         }
 
@@ -52,6 +52,10 @@
 
         function deleteInterviewer(interviewerId) {
             return $http.delete("/api/company/" + interviewerId);
+        }
+
+        function getScheduledInterviews(positionId) {
+            return $http.get("/api/schedule/interviews/" + positionId);
         }
     }
 })();

@@ -18,7 +18,8 @@
             "getInterviewerSchedule": getInterviewerSchedule,
             "getNextInterviewForInterviewer": getNextInterviewForInterviewer,
             "getNextInterviewForApplicant": getNextInterviewForApplicant,
-            "endInterview": endInterview
+            "endInterview": endInterview,
+            "deleteCandidate": deleteCandidate
         };
         return api;
         
@@ -66,6 +67,10 @@
 
         function endInterview(interviewId) {
             return $http.put("/api/schedule/end/" + interviewId);
+        }
+
+        function deleteCandidate(candidateId) {
+            return $http.delete("/api/candidate/" + candidateId);
         }
     }
 

@@ -3,6 +3,7 @@
  */
 module.exports = function (app, model) {
     app.get("/api/candidate/:positionId", getCandidates);
+    app.delete("/api/candidate/:candidateId", deleteCandidate);
 
     function getCandidates(req, res) {
         var positionId = req.params.positionId;
@@ -11,37 +12,22 @@ module.exports = function (app, model) {
             .getApplicants(positionId)
             .then(function (candidates) {
                 console.log("In Server");
-                console.log(candidates);
-                if (candidates.length > 0) {
-                    var recruiterId = candidates[0]._position._recruiter;
-                    var applicants = [];
-                    for (var c in candidates) {
-                        applicants.push(candidates[c]._applicant._id);
-                    }
-                    model.schedule
-                        .getInterviewsForRecruiter(recruiterId, applicants)
-                        .then(function (interviews) {
-                            var answer = [];
-                            for (var c in candidates) {
-                                var match = false;
-                                for (var i in interviews) {
-                                    if (candidates[c]._applicant._id === interviews[i]._applicant._id) {
-                                        var temp = candidates[c];
-                                        temp._schedule = interviews[i];
-                                        answer.push(temp);
-                                        match = true;
-                                        break;
-                                    }
-                                }
-                                if (!match)
-                                    answer.push(candidates[c]);
-                            }
-                            res.json(answer);
-                        }, function (error) {
-                            res.sendStatus(500).send(error);
-                        })
-                }
+                console.log(candidates.length);
+                res.json(candidates);
             }, function (error) {
+                res.sendStatus(500).send(error);
+            });
+    }
+
+    function deleteCandidate(req, res) {
+        var candidateId = req.params.candidateId;
+        model.candidate
+            .deleteCandidate(candidateId)
+            .then(function (candidate) {
+                console.log(candidate);
+                res.json(candidate);
+            }, function (error) {
+                console.log(error);
                 res.sendStatus(500).send(error);
             })
     }

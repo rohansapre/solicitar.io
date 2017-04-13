@@ -20,12 +20,12 @@
             if (user.password === user.passverify) {
                 user.type = 'APPLICANT';
                 delete user.passverify;
-                UserService.createUser(user)
+                UserService.register(user)
                     .success(function (user) {
+                        console.log(user);
                         if (user) {
                             $location.url("/user/" + user._id);
-                        }
-                        else
+                        } else
                             vm.error = "The user cannot be registered";
                     })
                     .error(function (error) {

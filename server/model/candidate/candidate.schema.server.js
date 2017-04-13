@@ -13,7 +13,7 @@ candidateSchema.post('remove', function () {
     var scheduleModel = require('../schedule/schedule.model.server');
     var interviewModel = require('../interview/interview.model.server');
     scheduleModel.findOne({_applicant: candidate._applicant, _position: candidate._position}, '_id', function (err, schedule) {
-        if(err === null) {
+        if(err === null && schedule !== null) {
             interviewModel.remove({_schedule: schedule._id});
             schedule.remove();
         }

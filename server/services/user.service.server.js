@@ -4,16 +4,16 @@
 module.exports = function (app, model) {
 
     var facebookConfig = {
-        clientID        : process.env.FACEBOOK_CLIENT_ID,
-        clientSecret    : process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL     : process.env.FACEBOOK_CALLBACK_URL,
-        profileFields   : ['id', 'displayName', 'photos', 'email']
+        clientID: process.env.FACEBOOK_CLIENT_ID,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+        callbackURL: process.env.FACEBOOK_CALLBACK_URL,
+        profileFields: ['id', 'displayName', 'photos', 'email']
     };
 
     var googleConfig = {
-        clientID        : process.env.GOOGLE_CLIENT_ID,
-        clientSecret    : process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL     : process.env.GOOGLE_CALLBACK_URL
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: process.env.GOOGLE_CALLBACK_URL
     };
 
     var bcrypt = require('bcrypt-nodejs');
@@ -39,18 +39,18 @@ module.exports = function (app, model) {
     app.post("/api/register", register);
     app.get("/api/loggedin", loggedin);
 
-    app.get("/auth/facebook", passport.authenticate('facebook', { scope : 'email' }));
+    app.get("/auth/facebook", passport.authenticate('facebook', {scope: 'email'}));
     app.get("/auth/facebook/callback", passport.authenticate('facebook', {
         failureRedirect: '/#/'
     }), FacebookGoogleCallback);
 
-    app.get("/auth/google", passport.authenticate('google', { scope : ['profile', 'email'] }));
+    app.get("/auth/google", passport.authenticate('google', {scope: ['profile', 'email']}));
     app.get("/auth/google/callback", passport.authenticate('google', {
         failureRedirect: '/#/'
     }), FacebookGoogleCallback);
 
     function FacebookGoogleCallback(req, res) {
-        if(req.user.message) {
+        if (req.user.message) {
             res.redirect('/#/');
         } else {
             var url = '/#/user/' + req.user._id.toString();
@@ -67,7 +67,7 @@ module.exports = function (app, model) {
         },
         filename: function (req, file, cb) {
             var extArray = file.mimetype.split("/");
-            var extension = extArray[extArray.length-1];
+            var extension = extArray[extArray.length - 1];
             cb(null, 'profile_' + Date.now() + '.' + extension);
         }
     });
@@ -79,7 +79,7 @@ module.exports = function (app, model) {
         },
         filename: function (req, file, cb) {
             var extArray = file.mimetype.split("/");
-            var extension = extArray[extArray.length-1];
+            var extension = extArray[extArray.length - 1];
             cb(null, 'profile_' + Date.now() + '.' + extension);
         }
     });
@@ -91,7 +91,7 @@ module.exports = function (app, model) {
         },
         filename: function (req, file, cb) {
             var extArray = file.mimetype.split("/");
-            var extension = extArray[extArray.length-1];
+            var extension = extArray[extArray.length - 1];
             cb(null, 'profile_' + Date.now() + '.' + extension);
         }
     });
@@ -107,7 +107,7 @@ module.exports = function (app, model) {
         model.user
             .findUserByUsername(newUser.email)
             .then(function (user) {
-                if(user) {
+                if (user) {
                     newUser.status = 'JOINED';
                     newUser.password = bcrypt.hashSync(newUser.password);
                     model.user
@@ -115,7 +115,7 @@ module.exports = function (app, model) {
                         .then(function (tempUser) {
                             res.json(tempUser);
                         }, function (error) {
-                            if(error.duplicate) {
+                            if (error.duplicate) {
                                 res.statusMessage = JSON.stringify(error);
                                 res.status(500).end();
                             } else
@@ -182,6 +182,7 @@ module.exports = function (app, model) {
 
     function uploadImage(req, res) {
         var userId = req.body.userId;
+        if (req.file) {
         var picture = req.file;
         var user = {
             email: req.body.email,
@@ -199,27 +200,34 @@ module.exports = function (app, model) {
                     res.sendStatus(500).send(error);
                 });
         }
+        }
     }
 
     function uploadResume(req, res) {
         var userId = req.body.userId;
-        var resume = req.file;
-        var resumePath = req.protocol + '://' + req.get('host') + '/uploads/resumes/' + resume.filename;
-        if (resume) {
-            model.user
-                .updateUserFile(userId, resumePath, true)
-                .then(function (user) {
-                    res.redirect("/#/user/" + userId);
-                }, function (error) {
-                    res.sendStatus(500).send(error);
-                });
+        if (req.file) {
+            var resume = req.file;
+            var resumePath = req.protocol + '://' + req.get('host') + '/uploads/resumes/' + resume.filename;
+            console.log(resume);
+            if (resume) {
+                model.user
+                    .updateUserFile(userId, resumePath, true)
+                    .then(function (user) {
+                        res.redirect("/#/user/" + userId);
+                    }, function (error) {
+                        res.sendStatus(500).send(error);
+                    });
+            }
         }
     }
 
-    function uploadCoverLetter(req, res) {
-        var userId = req.body.userId;
+
+function uploadCoverLetter(req, res) {
+    var userId = req.body.userId;
+    if (req.file) {
         var coverLetter = req.file;
         var coverLetterPath = req.protocol + '://' + req.get('host') + '/uploads/coverletters/' + coverLetter.filename;
+        console.log(coverLetter);
         if (coverLetter) {
             model.user
                 .updateUserFile(userId, coverLetterPath, false)
@@ -230,17 +238,18 @@ module.exports = function (app, model) {
                 });
         }
     }
+}
 
     function localStrategy(username, password, done) {
         model.user
             .findUserByUsername(username)
             .then(function (user) {
-                if(user && bcrypt.compareSync(password, user.password))
+                if (user && bcrypt.compareSync(password, user.password))
                     return done(null, user);
                 else
                     return done(null, false);
             }, function (err) {
-                if(err)
+                if (err)
                     return done(err);
             });
     }
@@ -274,22 +283,22 @@ module.exports = function (app, model) {
         model.user
             .findUserByUsername(newUser.email)
             .then(function (user) {
-                if(user) {
+                if (user) {
                     newUser.status = 'JOINED';
                     newUser.password = bcrypt.hashSync(newUser.password);
                     model.user
                         .updateUser(user._id, newUser)
                         .then(function (tempUser) {
-                            if(tempUser) {
+                            if (tempUser) {
                                 req.login(tempUser, function (err) {
-                                    if(err)
+                                    if (err)
                                         res.status(400).send(err);
                                     else
                                         res.json(tempUser);
                                 })
                             }
                         }, function (error) {
-                            if(error.duplicate) {
+                            if (error.duplicate) {
                                 res.statusMessage = JSON.stringify(error);
                                 res.status(500).end();
                             } else
@@ -318,7 +327,7 @@ module.exports = function (app, model) {
             .then(function (user) {
                 console.log("find FB id");
                 console.log(user);
-                if(user) {
+                if (user) {
                     console.log("reached user");
                     return done(null, user);
                 }
@@ -340,13 +349,13 @@ module.exports = function (app, model) {
                         .then(function (foundUser) {
                             console.log("user by username");
                             console.log(foundUser);
-                            if(foundUser) {
+                            if (foundUser) {
                                 fbUser.status = 'JOINED';
                                 model.user
                                     .updateUser(foundUser._id, fbUser)
                                     .then(function (tempUser) {
                                         console.log("updated user");
-                                        if(tempUser) {
+                                        if (tempUser) {
                                             return done(null, foundUser);
                                         }
                                     });
@@ -359,7 +368,7 @@ module.exports = function (app, model) {
                                 return done(null, error);
                             }
                         }, function (error) {
-                            if(error)
+                            if (error)
                                 return done(null, error);
                         });
                 }
@@ -373,7 +382,7 @@ module.exports = function (app, model) {
             .then(function (user) {
                 console.log("find Google id");
                 console.log(user);
-                if(user) {
+                if (user) {
                     console.log("reached user");
                     return done(null, user);
                 }
@@ -396,13 +405,13 @@ module.exports = function (app, model) {
                         .then(function (foundUser) {
                             console.log("user by username");
                             console.log(foundUser);
-                            if(foundUser) {
+                            if (foundUser) {
                                 googleUser.status = 'JOINED';
                                 model.user
                                     .updateUser(foundUser._id, googleUser)
                                     .then(function (tempUser) {
                                         console.log("updated user");
-                                        if(tempUser) {
+                                        if (tempUser) {
                                             return done(null, foundUser);
                                         }
                                     });
@@ -415,7 +424,7 @@ module.exports = function (app, model) {
                                 return done(null, error);
                             }
                         }, function (error) {
-                            if(error)
+                            if (error)
                                 return done(null, error);
                         });
                 }
