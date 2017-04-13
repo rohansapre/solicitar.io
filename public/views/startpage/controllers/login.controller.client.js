@@ -57,10 +57,15 @@
                         } else
                             $location.url("/user/" + user._id);
                     }
-                    else {
-                        vm.error = "User not found!";
-                    }
-                });
+
+                })
+                    .error(function(error) {
+                        if (error === 'Unauthorized') {
+                            vm.error = "User not found!";
+                            user.username = "";
+                            user.password = "";
+                        }
+                    });
             } else
                 vm.error = "Please enter details!"
         }
