@@ -104,7 +104,7 @@ function endInterview(interviewId) {
 }
 
 function updateInterview(hire) {
-    return scheduleModel.update({_id: hire.interviewId}, {$set: {_interviewer: hire._interviewer}});
+    return scheduleModel.update({_id: hire.scheduleId}, {$set: {_interviewer: hire._interviewer}});
 }
 
 function getInterviewsForRecruiter(recruiterId, applicants) {

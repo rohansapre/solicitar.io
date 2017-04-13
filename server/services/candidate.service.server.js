@@ -27,7 +27,7 @@ module.exports = function (app, model) {
                                 for (var i in interviews) {
                                     if (candidates[c]._applicant._id === interviews[i]._applicant._id) {
                                         var temp = candidates[c];
-                                        temp._interview = interviews[i]._interviewer;
+                                        temp._schedule = interviews[i];
                                         answer.push(temp);
                                         match = true;
                                         break;
