@@ -18,6 +18,7 @@ function getApplicants(positionId) {
         .find({_position: positionId})
         .populate('_applicant', 'email firstName lastName status')
         .populate('_position', '_recruiter')
+        .sort('-dateCreated')
         .exec();
 }
 

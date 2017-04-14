@@ -19,9 +19,9 @@ scheduleModel.getInterviewerSchedule = getInterviewerSchedule;
 scheduleModel.getNextInterviewForInterviewer = getNextInterviewForInterviewer;
 scheduleModel.getNextInterviewForApplicant = getNextInterviewForApplicant;
 scheduleModel.endInterview = endInterview;
-scheduleModel.updateInterview = updateInterview;
-scheduleModel.getInterviewsForRecruiter = getInterviewsForRecruiter;
+scheduleModel.getInterviewsForPosition = getInterviewsForPosition;
 scheduleModel.deleteSchedule = deleteSchedule;
+scheduleModel.getScheduledInterviews = getScheduledInterviews;
 
 module.exports = scheduleModel;
 
@@ -62,7 +62,7 @@ function createInterview(hire) {
 }
 
 function getUpcomingInterviewsForApplicant(userId) {
-    return scheduleModel.find({_applicant: userId, start: {$gte: new Date()}})
+    return scheduleModel.find({$and: [{_applicant: userId}, {$or: [ {start: {$exists: false}}, {start: {$gte: new Date()}} ]}]})
         .populate('_position')
         .exec();
 }
@@ -103,16 +103,8 @@ function endInterview(interviewId) {
     return scheduleModel.update({_id: interviewId}, {$set: {end: new Date()}});
 }
 
-function updateInterview(hire) {
-    return scheduleModel.update({_id: hire.interviewId}, {$set: {_interviewer: hire._interviewer}});
-}
-
-function getInterviewsForRecruiter(recruiterId, applicants) {
-    return scheduleModel
-        .find({_recruiter: recruiterId, _applicant: {$in: applicants}})
-        .populate('_applicant', 'email firstName lastName status')
-        .populate('_interviewer', 'firstName lastName')
-        .exec();
+function getInterviewsForPosition(positionId, applicants) {
+    return scheduleModel.find({_position: positionId, _applicant: {$in: applicants}});
 }
 
 function deleteSchedule(scheduleId) {
@@ -126,4 +118,9 @@ function deleteSchedule(scheduleId) {
         }
     });
     return d.promise;
+}
+
+function getScheduledInterviews(positionId) {
+    return scheduleModel.find({_position: positionId})
+        .populate('_interviewer', 'firstName lastName');
 }

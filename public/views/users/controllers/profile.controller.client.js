@@ -50,6 +50,7 @@
         vm.addInterviewer = addInterviewer;
         vm.getInterviewers = getInterviewers;
         vm.assignInterviewer= assignInterviewer;
+        vm.deleteCandidate = deleteCandidate;
         vm.posts = [];
         vm.jobarray = [];
         vm.interviewerarray = [];
@@ -304,7 +305,8 @@
         function deleteUsers() {
             var user = UserService.deleteUser(vm.userId);
             if (user != null) {
-                vm.message = "User Successfully Deleted!"
+                vm.message = "User Successfully Deleted!";
+                $location.url("/");
             } else {
                 vm.error = "Unable to delete user!";
             }
@@ -349,9 +351,10 @@
                         console.log("Invitation sent from controller");
                         console.log(status);
                         getCandidates(vm.positionId);
-
-                    } else
+                    } else {
                         console.log("Cannot send invitation from controller");
+                        getCandidates(vm.positionId);
+                    }
                 })
                 .error(function (error) {
                     console.log("error");
@@ -787,14 +790,54 @@
                     console.log("candidates are:");
                     console.log(candidates);
                     vm.candidatesByJob = candidates;
+                    getScheduledInterviews(vm.positionId);
                 })
         }
 
+        function getScheduledInterviews(positionId) {
+            RecruiterService.getScheduledInterviews(positionId)
+                .success(function (interviews) {
+                    var finalData = [];
+                    for (var c in vm.candidatesByJob) {
+                        var match = false;
+                        for (var i in interviews) {
+                            if (vm.candidatesByJob[c]._applicant._id === interviews[i]._applicant) {
+                                var temp = vm.candidatesByJob[c];
+                                temp._interviewer = {
+                                    _id: interviews[i]._interviewer._id,
+                                    firstName: interviews[i]._interviewer.firstName,
+                                    lastName: interviews[i]._interviewer.lastName
+                                };
+                                finalData.push(temp);
+                                match = true;
+                                break;
+                            }
+                        }
+                        if(!match)
+                            finalData.push(vm.candidatesByJob[c]);
+                    }
+                    console.log(vm.finalData);
+                    vm.finalData = finalData;
+                })
+                .error(function (error) {
+                    console.log("error");
+                    console.log(error);
+                })
+        }
+
+        function setInterviewer(candidates) {
+            for (var i in candidates){
+                console.log(candidates[i]);
+            }
+        }
+
         function assignInterviewer(candidate,index) {
+            console.log("assign Interviewer");
+            console.log(index);
+            console.log(vm.rawInterviewer);
             var users = {
-                interviewId: candidate._interview._id,
-                _applicant:candidate._id,
-                _interviewer: vm.rawInterviewer[index]['_id'],
+                _applicant: candidate._applicant._id,
+                _interviewer: vm.rawInterviewer[index]['_interviewer'],
                 _position: candidate._position
             };
             console.log(users);
@@ -804,6 +847,18 @@
                 })
                 .error(function (error) {
                     console.log("error");
+                    console.log(error);
+                })
+        }
+
+        function deleteCandidate(candidateId) {
+            console.log("reached delete");
+            console.log(candidateId);
+            InterviewService.deleteCandidate(candidateId)
+                .success(function (candidate) {
+                    getCandidates(vm.positionId);
+                })
+                .error(function (error) {
                     console.log(error);
                 })
         }
@@ -839,6 +894,7 @@
 
 
         function getUpcomingInterviewForApplicant(userId) {
+            console.log(userId);
             UserService.getUpcomingInterviews(userId)
                 .success(function (interviews) {
                     console.log(interviews);
@@ -848,6 +904,7 @@
                     else {
                         vm.emptyUpcomingInterviews = false;
                         vm.applicantUpcomingInterviews = interviews;
+                        console.log(vm.applicantUpcomingInterviews);
                     }
                 })
                 .error(function (error) {

@@ -20,12 +20,12 @@
             if (user.password === user.passverify) {
                 user.type = 'APPLICANT';
                 delete user.passverify;
-                UserService.createUser(user)
+                UserService.register(user)
                     .success(function (user) {
+                        console.log(user);
                         if (user) {
                             $location.url("/user/" + user._id);
-                        }
-                        else
+                        } else
                             vm.error = "The user cannot be registered";
                     })
                     .error(function (error) {
@@ -57,10 +57,15 @@
                         } else
                             $location.url("/user/" + user._id);
                     }
-                    else {
-                        vm.error = "User not found!";
-                    }
-                });
+
+                })
+                    .error(function(error) {
+                        if (error === 'Unauthorized') {
+                            vm.error = "User not found!";
+                            user.username = "";
+                            user.password = "";
+                        }
+                    });
             } else
                 vm.error = "Please enter details!"
         }

@@ -47,12 +47,12 @@
         <div class="col-xl-8 col-sm-12 mb-3">
             <div class="card-deck">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3"
-                     ng-repeat="candidate in model.candidatesByJob | orderBy:'$index':true">
+                     ng-repeat="candidate in model.finalData">
                     <div class="card o-hidden">
                         <div class="card-header">
                             <div>
                                 {{candidate._applicant.firstName}} {{candidate._applicant.lastName}}
-                                <button ng-click="" class="btn btn-outline-danger btn-sm pull-right">Delete</button>
+                                <button ng-click="model.deleteCandidate(candidate._id)" class="btn btn-outline-danger btn-sm pull-right">Delete</button>
                             </div>
                         </div>
                         <div class="card-block">
