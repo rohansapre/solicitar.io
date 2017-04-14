@@ -59,11 +59,11 @@
                             <label><b>Current Status:</b></label>
                             {{candidate._applicant.status}}
                             <div class="form-group">
-                                <!--<label for="sel1">Select list:</label>-->
                                 <label><b>Select Interviewer:</b></label>
                                 <select class="form-control"
                                         ng-change="model.assignInterviewer(candidate,$index)"
                                         ng-model="model.interviewerDetails[$index]"
+                                        ng-disabled="model.interviewerDropdown[$index]"
                                         ng-options="c for c in model.interviewerarray" >
 
                                 </select>

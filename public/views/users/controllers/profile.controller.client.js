@@ -51,6 +51,10 @@
         vm.getInterviewers = getInterviewers;
         vm.assignInterviewer= assignInterviewer;
         vm.deleteCandidate = deleteCandidate;
+        vm.initializeRecruiterProfile=initializeRecruiterProfile;
+        vm.initializeRecruiterDashboard=initializeRecruiterDashboard;
+
+
         vm.posts = [];
         vm.jobarray = [];
         vm.interviewerarray = [];
@@ -657,6 +661,19 @@
         // Interviewer ENDS
 
         // Recruiter Starts
+
+        //changebackground
+        function initializeRecruiterDashboard() {
+            changeBackgorund('recruiterdash');
+
+        }
+
+        // change background
+        function initializeRecruiterProfile() {
+            changeBackgorund('recruiterprofile');
+
+        }
+
         function addPost() {
             console.log('in profile controller addPost');
             console.log(vm.newpost.title);
@@ -707,7 +724,9 @@
                     vm.rawInterviewer= interviewers;
                     vm.interviewerarray=[];
                     for (var interviewer in interviewers){
-                        vm.interviewerarray.push(interviewers[interviewer]['_interviewer']['firstName'] + '  ' + interviewers[interviewer]['_interviewer']['lastName']);
+                        var interviewerName = interviewers[interviewer]['_interviewer']['firstName'] + '  ' + interviewers[interviewer]['_interviewer']['lastName'];
+                        vm.interviewerarray.push(interviewerName);
+
                     }
                 })
                 .error(function (error) {
@@ -780,24 +799,56 @@
             getInterviewers();
         }
 
+
+        // change background
         function initializeRecruiterPositions() {
+            changeBackgorund('recruiterpostings');
             getPositions();
         }
 
         function getCandidates(positionId) {
+            
             RecruiterService.getCandidates(positionId)
                 .success(function (candidates) {
-                    console.log("candidates are:");
-                    console.log(candidates);
-                    vm.candidatesByJob = candidates;
-                    getScheduledInterviews(vm.positionId);
+                    vm.candidatesByJob=candidates;
+                    getScheduledInterviews(positionId);
                 })
+        }
+
+        function dropdownTodo() {
+            console.log("candidates are:");
+            console.log(vm.finalData);
+            vm.interviewerDropdown=[];
+            vm.interviewerDetails=[];
+
+
+            var candidates=vm.finalData;
+
+
+            for(var c in candidates){
+                console.log("in for loop")
+                console.log(('undefined' === typeof candidates[c]._interviewer));
+                if(('undefined' === typeof candidates[c]._interviewer)){
+                    vm.interviewerDropdown[c]=false;
+                    vm.interviewerDetails[c]="";
+                }
+                else{
+                    vm.interviewerDropdown[c]=true;
+                    vm.interviewerDetails[c]= candidates[c]._interviewer.firstName+ '  ' +candidates[c]._interviewer.lastName;
+                    console.log("dsfsgsdg");
+                    // console.log(candidates[c]._interviewer.firstName);
+                    console.log(vm.interviewerDetails[c]);
+                }
+            }
+
         }
 
         function getScheduledInterviews(positionId) {
             RecruiterService.getScheduledInterviews(positionId)
                 .success(function (interviews) {
                     var finalData = [];
+                    console.log("candidates");
+                    console.log(vm.candidatesByJob);
                     for (var c in vm.candidatesByJob) {
                         var match = false;
                         for (var i in interviews) {
@@ -816,8 +867,9 @@
                         if(!match)
                             finalData.push(vm.candidatesByJob[c]);
                     }
-                    console.log(vm.finalData);
+                    console.log(finalData);
                     vm.finalData = finalData;
+                    dropdownTodo();
                 })
                 .error(function (error) {
                     console.log("error");
@@ -864,6 +916,8 @@
         }
 
         // CANDIDATE ENDS
+
+        //-------------------------------------------------------------------
 
         // APPLICANT STARTS
 
