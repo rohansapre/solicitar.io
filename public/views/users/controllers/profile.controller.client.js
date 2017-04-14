@@ -408,6 +408,8 @@
                 start: startDate,
                 end: endDate
             };
+            console.log("interviewid");
+            console.log(interviewId);
             InterviewService.updateInterviewTime(interviewId, time)
                 .success(function (s) {
                     vm.scheduleMessage = 'Interview is Scheduled Successfully!';
@@ -419,10 +421,12 @@
 
 
         function populateCandidateTimeSlots() {
+            var applicantId = vm.applicantInstance._applicant._id;
 
-            UserService.getAvailability(vm.applicantId)
+            UserService.getAvailability(applicantId)
 
                 .success(function (result) {
+                    vm.result=result;
                     // result = {
                     //     startTime: [new Date(), new Date(), new Date(), new Date(), new Date()],
                     //     endTime: [new Date(), new Date(), new Date(), new Date(), new Date()]
@@ -433,9 +437,9 @@
                         var et = new Date(result.endTime[d]);
                         console.log("sdfsd");
                         vm.applicantTiming.push({
-                            date: st.toISOString().slice(0, 10),
-                            start: ((st.getHours()) < 10 ? '0' : '') + (st.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes(),
-                            end: ((et.getHours()) < 10 ? '0' : '') + ( et.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes()
+                            date: st.toUTCString().slice(0, 11),
+                            start: ((st.getUTCHours()) < 10 ? '0' : '') + (st.getUTCHours()) + ' : ' + (et.getUTCMinutes() < 10 ? '0' : '') + et.getUTCMinutes(),
+                            end: ((et.getUTCHours()) < 10 ? '0' : '') + ( et.getUTCHours()) + ' : ' + (et.getUTCMinutes() < 10 ? '0' : '') + et.getUTCMinutes()
                         });
 
                     }
@@ -461,15 +465,15 @@
 
         function toStartInterview(interview) {
             var interviewDate = interview.start;
-            var currDate = new Date.now();
+            var currDate = new Date();
 
             var diff = interviewDate - currDate;
             var hh = Math.floor(diff / 1000 / 60 / 60);
 
             if (hh < 1) {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
 
 
@@ -534,9 +538,10 @@
         }
 
         // Upcoming Interview -> View Candidates
-        function initializeViewCandidates(positionId) {
+        function initializeViewCandidates() {
+            var positionId=vm.interviewInstance._position._id;
             console.log("sgsgsgs");
-            console.log(vm.tab);
+            console.log(positionId);
             InterviewService.getCandidatesForUpcomingPositions(vm.userId, positionId)
                 .success(function (candidates) {
                     console.log("got candidates");
@@ -573,12 +578,16 @@
             var from = vm.scheduleFrom.split(':');
             var to = vm.scheduleTo.split(':');
             var dateArr = vm.scheduleDate.split('-');
-            from = new Date(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], from[0], from[1]);
-            to = new Date(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], to[0], to[1]);
+            from = new Date(Date.UTC(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], from[0], from[1]));
+            to = new Date(Date.UTC(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], to[0], to[1]));
             var success = false;
+            var result= vm.result;
+            console.log(result);
+            console.log(from);
+            console.log(to);
             for (var d in result.startTime) {
-                var st = result.startTime[d];
-                var et = result.endTime[d];
+                var st = new Date(result.startTime[d]);
+                var et = new Date(result.endTime[d]);
                 et.setSeconds(0);
                 st.setSeconds(0);
                 console.log(from.setSeconds(10));
@@ -595,7 +604,8 @@
 
             if (success) {
                 console.log("Yo");
-                updateInterviewTime(vm.interviewInstance._id, from, to);
+                console.log(vm.applicantInstance);
+                updateInterviewTime(vm.applicantInstance._id, from, to);
             }
 
             else {
@@ -616,7 +626,7 @@
                     console.log("positions: ");
                     console.log(positions);
                     vm.interviewerPastInterviews = positions;
-                    if (positions.length == 0) {
+                    if (positions[0] == null) {
                         vm.emptyPastInterviews = true;
                     }
                     else {

@@ -19,20 +19,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="interview in vm.mySchedule">
+                <tr ng-repeat="interview in model.mySchedule">
                     <td data-label="Candidate Name: ">
-                        {{interview._applicant.firstName}} . {{interview._applicant.lastName}}
+                        {{interview._applicant.firstName}}  {{interview._applicant.lastName}}
                     </td>
                     <td data-label="Position: ">
-                        {{candidate._position.name}}
+                        {{interview._position.name}}
                     </td>
                     <td data-label="Date: ">
-                        {{candidate.start}}
+                        {{interview.start}}
                     </td>
                     <!--CHANGE HERE TO START INTERVIEW-->
                     <td data-label="Status: ">
-                        <span class="badge badge-default badge-pill" ng-click="model.startInterview(interview)"
-                              ng-disabled="model.toStartInterview(interview)">Start Interview</span>
+                        <span class="badge badge-default badge-pill" ng-click="model.toStartInterview(interview) && model.startInterview(interview)"
+                              ng-disabled="">Start Interview</span>
                     </td>
                 </tr>
                 </tbody>

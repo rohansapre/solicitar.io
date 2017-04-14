@@ -11,19 +11,11 @@
         <div class="col-xl-3 col-sm-6 mb-3" ng-repeat="interview in model.interviewerPastInterviews">
             <div class="card">
                 <div class="card-block">
-                    <h4 class="card-title">{{interview.position}}</h4>
+                    <h4 class="card-title">{{interview._position.name}}</h4>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{interview.location}}</li>
+                    <li class="list-group-item">{{interview._position.location}}</li>
                 </ul>
-                <div class="card-block">
-                    <h6 class="card-title">Recruiter: </h6>
-                    <a href="" class="card-link">{{interview.recruiterName}}</a>
-                </div>
-                <a href ng-click="model.pastInterview=interview; model.tab='interviewerPastInterviews'" class="card-footer clearfix small z-1">
-                    <span class="float-left">View Candidates</span>
-                    <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                </a>
             </div>
         </div>
     </div>

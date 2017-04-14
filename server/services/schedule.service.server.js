@@ -43,6 +43,7 @@ module.exports = function (app, model) {
             })
     }
 
+    // MAKE IT BOUG FREE
     function getUpcomingPositions(req, res) {
         var interviewerId = req.params.interviewerId;
         console.log("reached upcoming positions");
@@ -51,7 +52,16 @@ module.exports = function (app, model) {
             .then(function (positions) {
                 console.log("position server");
                 console.log(positions);
-                res.json(positions);
+                model.schedule
+                    .getPositionsByIds(positions)
+                    .then(function (posObjs) {
+                        console.log(posObjs[0]);
+                        var arr=[];
+                        arr.push(posObjs[0]);
+                        res.json(arr);
+                    }, function (error) {
+                        res.sendStatus(500).send(error);
+                    });
             }, function (error) {
                 res.sendStatus(500).send(error);
             });
@@ -64,7 +74,17 @@ module.exports = function (app, model) {
             .then(function (positions) {
                 console.log("position server");
                 console.log(positions);
-                res.json(positions);
+                // res.json(positions);
+                model.schedule
+                    .getPositionsByIds(positions)
+                    .then(function (posObjs) {
+                        console.log(posObjs[0]);
+                        var arr=[];
+                        arr.push(posObjs[0]);
+                        res.json(arr);
+                    }, function (error) {
+                        res.sendStatus(500).send(error);
+                    });
             }, function (error) {
                 res.sendStatus(500).send(error);
             });
@@ -98,10 +118,12 @@ module.exports = function (app, model) {
 
     function updateInterviewTime(req, res) {
         var interviewId = req.params.scheduleId;
-        var time = req.params.time;
+        var time = req.body;
         model.schedule
             .updateInterviewTime(interviewId, time)
             .then(function (interview) {
+                console.log("after update");
+                console.log(interview);
                 model.user
                     .updateStatus(interview._applicant, 'WAITING')
                     .then(function (user) {
@@ -144,9 +166,12 @@ module.exports = function (app, model) {
 
     function getInterviewerSchedule(req, res) {
         var interviewerId = req.params.interviewerId;
+        console.log(interviewerId);
         model.schedule
             .getInterviewerSchedule(interviewerId)
             .then(function (interviews) {
+                console.log("interviews");
+                console.log(interviews);
                 res.json(interviews);
             }, function (error) {
                 res.sendStatus(500).send(error);
