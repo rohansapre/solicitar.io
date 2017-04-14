@@ -40,7 +40,10 @@ function getPastPositions(interviewerId) {
 
 function getCandidatesForUpcomingPositions(interviewerId, positionId) {
     return scheduleModel.find({$and: [{_interviewer: interviewerId}, {_position: positionId}, {$or: [ {start: {$exists: false}}, {start: {$gte: new Date()}} ]}]})
+<<<<<<< HEAD
     // return scheduleModel.find({_interviewer: interviewerId, _position: positionId, start: {$gte: new Date()}}, '_applicant')
+=======
+>>>>>>> ab60f3590c78467d78425715806c71cf0a6721c7
         .populate('_applicant')
         .exec();
 }

@@ -526,8 +526,7 @@
                     vm.interviewerUpcomingInterviews = positions;
                     if (positions.length == 0) {
                         vm.emptyUpcomingInterviews = true;
-                    }
-                    else {
+                    } else {
                         vm.emptyUpcomingInterviews = false;
                     }
                 })
@@ -539,8 +538,12 @@
 
         // Upcoming Interview -> View Candidates
         function initializeViewCandidates() {
-            var positionId=vm.interviewInstance._position._id;
+            // var positionId=vm.interviewInstance._position._id;
             console.log("sgsgsgs");
+            var positionId= vm.interviewInstance;
+            console.log("sgsgsgs");
+            console.log(vm.interviewInstance);
+            console.log(vm.tab);
             console.log(positionId);
             InterviewService.getCandidatesForUpcomingPositions(vm.userId, positionId)
                 .success(function (candidates) {
@@ -915,10 +918,8 @@
         function getRawInterviewer(name) {
             for (var i in vm.rawInterviewer){
                 var nm = vm.rawInterviewer[i]._interviewer.firstName+ '  ' +vm.rawInterviewer[i]._interviewer.lastName;
-                if(nm == name){
-                    // console.log(vm.rawInterviewer[i]._id);
+                if(nm == name)
                     return vm.rawInterviewer[i]._interviewer;
-                }
             }
         }
 

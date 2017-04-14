@@ -26,18 +26,15 @@ module.exports = function (app, model) {
             .then(function (schedule) {
                 console.log("schedule");
                 console.log(schedule);
-                res.json(schedule);
-                // var fp = createFirePadInstance();
-                // console.log(fp);
-                // model.firepad
-                //     .createFirepad(fp)
-                //     .then(function (firepad) {
-                //         console.log("firepad");
-                //         console.log(firepad);
-                //         res.json(schedule);
-                //     }, function (error) {
-                //         res.sendStatus(500).send(error);
-                //     });
+                var firepad = createFirePadInstance();
+                model.firepad
+                    .createFirepad(firepad)
+                    .then(function (firepad) {
+                        console.log(firepad);
+                        res.json(schedule);
+                    }, function (error) {
+                        res.sendStatus(500).send(error);
+                    });
             }, function (error) {
                 res.sendStatus(500).send(error);
             })

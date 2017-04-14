@@ -21,24 +21,22 @@
                     <div class="container-fluid pull-right">
 
                         <div class="float-right card-footer">
-                            <a href ng-click="model.applicantInstance=applicant; model.tab='interviewerScheduleInterview'"
+                            <!--<a href ng-click="model.applicantInstance=applicant; model.tab='interviewerScheduleInterview'"-->
+                            <a href ng-click="model.applicantId=applicant._applicant._id; model.tab='interviewerScheduleInterview'"
                                class=" clearfix small">
                                 <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                                <span class="float-right">Schedule Interview </span>
+                                <span class="float-right"> Schedule Interview </span>
 
                             </a>
                         </div>
 
                         <div class="float-right card-footer">
-
                             <a href ng-click="model.applicantId=applicant._applicant._id; model.tab='interviewerViewCandidateProfile'" class=" clearfix small">
                                 <span class="float-right">View Profile</span></a>
-
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
     </div>
-</div>
 </div>
