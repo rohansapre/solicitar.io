@@ -17,15 +17,15 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" ng-repeat="applicant in model.interviewApplicants">
-                    <span class="float-left">{{applicant.name}}</span>
+                    <span class="float-left">{{applicant._applicant.firstName}} {{applicant._applicant.lastName}}</span>
                     <div class="container-fluid pull-right">
 
 
                         <div class="float-right card-footer">
-                            <a href ng-click="model.applicant=applicant; model.tab='interviewerScheduleInterview'"
+                            <a href ng-click="model.applicantId=applicant._applicant._id; model.tab='interviewerScheduleInterview'"
                                class=" clearfix small">
                                 <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                                <span class="float-right">Schedule Interview </span>
+                                <span class="float-right"> Schedule Interview </span>
 
                             </a>
                         </div>
@@ -35,7 +35,7 @@
                             <a href ng-click="model.tab='interviewerViewCandidateProfile'" class=" clearfix small">
                                 <span class="float-right"
                                       href
-                                      ng-click='model.applicantId=applicant._id; model.tab="interviewerViewCandidateProfile";'>View Profile</span></a>
+                                      ng-click='model.applicantId=applicant._applicant._id; model.tab="interviewerViewCandidateProfile";'>View Profile</span></a>
 
                         </div>
                     </div>

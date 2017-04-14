@@ -2,10 +2,17 @@
  * Created by rohansapre on 4/11/17.
  */
 module.exports = function (app, model) {
+    app.get("/api/admin/users/:type", findUsersByType);
+    app.post("/api/admin/user", createUser);
+    app.delete("/api/admin/user/:userId", deleteUser);
+    app.put("/api/admin/user/:userId", updateUser);
 
+    var bcrypt = require('bcrypt-nodejs');
 
     function createUser(req, res) {
         var user = req.body;
+        user.status = 'JOINED';
+        user.password = bcrypt.hashSync(user.password);
         model.user
             .createUser(user)
             .then(function (user) {
@@ -16,7 +23,7 @@ module.exports = function (app, model) {
     }
 
     function findUsersByType(req, res) {
-        var userType = req.body;
+        var userType = req.params.type;
         model.user
             .findUsersByType(userType)
             .then(function (users) {
