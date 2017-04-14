@@ -124,21 +124,25 @@
             // check for duplicate timings
 
             if (nowDate > startDate || nowDate > endDate) {
+                vm.applicantMessage=null;
                 vm.applicantError= "Invalid Time, please try again";
                 //error
             }
             else if (startDate >= endDate) {
+                vm.applicantMessage=null;
                 vm.applicantError= "Invalid Time, please try again";
                 //error
             }
             else {
+                vm.applicantMessage=null;
+                vm.applicantError=null;
                 vm.start.push(startDate);
                 vm.end.push(endDate);
 
                 vm.timingDisplayList.push({
-                    date: startDate.toISOString().slice(0, 10),
-                    start: ((startDate.getHours() + 4) < 10 ? '0' : '') + (4 + startDate.getHours()) + ' : ' + (startDate.getMinutes() < 10 ? '0' : '') + startDate.getMinutes(),
-                    end: ((endDate.getHours() + 4) < 10 ? '0' : '') + (4 + endDate.getHours()) + ' : ' + (endDate.getMinutes() < 10 ? '0' : '') + endDate.getMinutes()
+                    date: startDate.toUTCString().slice(0, 11),
+                    start: ((startDate.getUTCHours()) < 10 ? '0' : '') + (startDate.getUTCHours()) + ' : ' + (startDate.getUTCMinutes() < 10 ? '0' : '') + startDate.getUTCMinutes(),
+                    end: ((endDate.getUTCHours()) < 10 ? '0' : '') + (endDate.getUTCHours()) + ' : ' + (endDate.getUTCMinutes() < 10 ? '0' : '') + endDate.getUTCMinutes()
                 });
             }
 
@@ -154,20 +158,26 @@
 
 
         function newTimings() {
-            UserService.setAvailability($routeParams['uid'], {
+            UserService.setAvailability(vm.userId, {
                 'start': vm.start,
                 'end': vm.end
             }).success(function (data) {
+                vm.applicantError=null;
+                vm.applicantMessage="Success! Your interviewer will be notified of your availability!";
                 console.log(data);
             });
         }
 
         function updateTimings() {
-            UserService.updateAvailability($routeParams['uid'], {
+            UserService.updateAvailability(vm.userId, {
                 'start': vm.start,
                 'end': vm.end
             }).success(function (data) {
+                vm.applicantError=null;
+                vm.applicantMessage="Success! Your interviewer will be notified of your updated availability!";
+
                 console.log(data);
+
             });
         }
 
@@ -183,7 +193,8 @@
             yyyy = today.getFullYear();
             setDays();
             setHours();
-
+            vm.applicantMessage=null;
+            vm.applicantError=null;
             // get existing timings
             getExistingTimings();
 
@@ -191,10 +202,11 @@
         }
 
         function getExistingTimings() {
-            UserService.getAvailability($routeParams['uid']).success(function (result) {
+            UserService.getAvailability(vm.userId).success(function (result) {
                 console.log("existing");
                 console.log(result);
-                if (result.startTime.length == 0) {
+
+                if (result == null) {
                     // button is created
 
                     // ng-hide variables
@@ -203,15 +215,16 @@
 
                 }
                 else {
+                    vm.timingDisplayList=[];
                     for (var d in result.startTime) {
                         var st = new Date(result.startTime[d]);
                         var et = new Date(result.endTime[d]);
-                        console.log(st.toString());
-                        console.log(et.toString());
+                        console.log(st.toUTCString());
+                        console.log(et.toUTCString());
                         vm.timingDisplayList.push({
-                            date: st.toISOString().slice(0, 10),
-                            start: ((st.getHours()) < 10 ? '0' : '') + (st.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes(),
-                            end: ((et.getHours()) < 10 ? '0' : '') + (et.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes()
+                            date: st.toUTCString().slice(0, 11),
+                            start: ((st.getUTCHours()) < 10 ? '0' : '') + (st.getUTCHours()) + ' : ' + (et.getUTCMinutes() < 10 ? '0' : '') + et.getUTCMinutes(),
+                            end: ((et.getUTCHours()) < 10 ? '0' : '') + (et.getUTCHours()) + ' : ' + (et.getUTCMinutes() < 10 ? '0' : '') + et.getUTCMinutes()
                         });
 
                         console.log(vm.timingDisplayList);
@@ -285,7 +298,11 @@
 
             if (index > -1) {
                 vm.timingDisplayList.splice(index, 1);
+                vm.start.splice(index,1);
+                vm.end.splice(index,1);
+
             }
+            console.log(vm.start.length);
 
             if (vm.timingDisplayList.length == 0) {
                 vm.updateButton = true;
@@ -848,11 +865,13 @@
                     var finalData = [];
                     console.log("candidates");
                     console.log(vm.candidatesByJob);
+                    console.log("fdfgfwwwwwWWwwwwwwwwwwwww");
                     for (var c in vm.candidatesByJob) {
                         var match = false;
                         for (var i in interviews) {
                             if (vm.candidatesByJob[c]._applicant._id === interviews[i]._applicant) {
                                 var temp = vm.candidatesByJob[c];
+                                console.log(interviews[i]);
                                 temp._interviewer = {
                                     _id: interviews[i]._interviewer._id,
                                     firstName: interviews[i]._interviewer.firstName,
@@ -866,6 +885,7 @@
                         if(!match)
                             finalData.push(vm.candidatesByJob[c]);
                     }
+                    console.log("fdfgfwwwwwWWwwwwwwwwwwwww");
                     console.log(finalData);
                     vm.finalData = finalData;
                     dropdownTodo();
@@ -882,18 +902,30 @@
             }
         }
 
+        function getRawInterviewer(name) {
+            for (var i in vm.rawInterviewer){
+                var nm = vm.rawInterviewer[i]._interviewer.firstName+ '  ' +vm.rawInterviewer[i]._interviewer.lastName;
+                if(nm == name){
+                    // console.log(vm.rawInterviewer[i]._id);
+                    return vm.rawInterviewer[i]._interviewer;
+                }
+            }
+        }
+
         function assignInterviewer(candidate,index) {
-            console.log("assign Interviewer");
-            console.log(index);
-            console.log(vm.rawInterviewer);
+            console.log("1221`21212121212   assign Interviewer");
+            console.log(vm.rawInterviewer[index]['_interviewer']);
+            console.log(getRawInterviewer(vm.interviewerDetails[index]));
+            console.log("12121212121212 assign Interviewer");
             var users = {
                 _applicant: candidate._applicant._id,
-                _interviewer: vm.rawInterviewer[index]['_interviewer'],
+                _interviewer: getRawInterviewer(vm.interviewerDetails[index]),
                 _position: candidate._position
             };
             console.log(users);
             InterviewService.assignInterviewer(users)
                 .success(function (interview) {
+                    console.log("success");
                     console.log(interview)
                 })
                 .error(function (error) {

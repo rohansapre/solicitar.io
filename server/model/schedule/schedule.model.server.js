@@ -64,6 +64,7 @@ function createInterview(hire) {
 function getUpcomingInterviewsForApplicant(userId) {
     console.log(userId);
     return scheduleModel.find({$and: [{_applicant: userId}, {$or: [ {start: {$exists: false}}, {start: {$gte: new Date()}} ]}]})
+        .populate('_interviewer', 'firstName lastName')
         .populate('_position')
         .exec();
 }

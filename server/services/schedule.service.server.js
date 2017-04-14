@@ -19,17 +19,25 @@ module.exports = function (app, model) {
 
     function createInterview(req, res) {
         var hire = req.body;
+        console.log("hire");
+        console.log(hire);
         model.schedule
             .createInterview(hire)
             .then(function (schedule) {
-                var firepad = createFirePadInstance();
-                model.firepad
-                    .createFirepad(firepad)
-                    .then(function (firepad) {
-                        res.json(schedule);
-                    }, function (error) {
-                        res.sendStatus(500).send(error);
-                    });
+                console.log("schedule");
+                console.log(schedule);
+                res.json(schedule);
+                // var fp = createFirePadInstance();
+                // console.log(fp);
+                // model.firepad
+                //     .createFirepad(fp)
+                //     .then(function (firepad) {
+                //         console.log("firepad");
+                //         console.log(firepad);
+                //         res.json(schedule);
+                //     }, function (error) {
+                //         res.sendStatus(500).send(error);
+                //     });
             }, function (error) {
                 res.sendStatus(500).send(error);
             })
@@ -147,13 +155,15 @@ module.exports = function (app, model) {
     // Firepad Instance Creation
     // returns a unique key which is used to get firebase db refrence
     function createFirePadInstance() {
+        console.log("sdljfhsdflksdf");
         var firebase = require('firebase');
         var firebaseRef = firebase.database().ref();
-        var dbRef = firepadRef.child('solicitarInterview').push();
+        var dbRef = firebaseRef.child('solicitarInterview').push();
         var key = dbRef.key;
-        firebaseRef.child("solicitarInterview").child(key).set({
-            "language": "Python"
-        });
+        // firebaseRef.child("solicitarInterview").child(key).set({
+        //     "language": "Python"
+        // });
+        console.log(key);
         return key;
     }
 
@@ -192,9 +202,11 @@ module.exports = function (app, model) {
 
     function getScheduledInterviews(req, res) {
         var positionId = req.params.positionId;
+        console.log(positionId);
         model.schedule
             .getScheduledInterviews(positionId)
             .then(function (interviews) {
+                console.log(interviews);
                 res.json(interviews);
             }, function (error) {
                 res.sendStatus(500).send(error);

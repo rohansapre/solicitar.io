@@ -22,6 +22,7 @@ userModel.findUserByFacebookId = findUserByFacebookId;
 userModel.updateStatus = updateStatus;
 userModel.findUserByGoogleId = findUserByGoogleId;
 userModel.findUserByType = findUserByType;
+userModel.findUsersByIds = findUsersByIds;
 
 module.exports = userModel;
 
@@ -123,4 +124,8 @@ function findUserByGoogleId(googleId) {
 
 function findUserByType(type) {
     return userModel.find({type: type});
+}
+
+function findUsersByIds(userIds) {
+    return userModel.find({_id: {$in: userIds}});
 }
