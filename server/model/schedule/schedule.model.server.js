@@ -26,7 +26,7 @@ scheduleModel.getScheduledInterviews = getScheduledInterviews;
 module.exports = scheduleModel;
 
 function getUpcomingPositions(interviewerId) {
-    return scheduleModel.find({_interviewer: interviewerId, start: {$gte: new Date()}})
+    return scheduleModel.find({$and: [{_interviewer: interviewerId}, {$or: [ {start: {$exists: false}}, {start: {$gte: new Date()}} ]}]})
         .distinct('_position')
         .populate('_position')
         .populate('_recruiter', 'firstName lastName')
@@ -62,6 +62,7 @@ function createInterview(hire) {
 }
 
 function getUpcomingInterviewsForApplicant(userId) {
+    console.log(userId);
     return scheduleModel.find({$and: [{_applicant: userId}, {$or: [ {start: {$exists: false}}, {start: {$gte: new Date()}} ]}]})
         .populate('_position')
         .exec();

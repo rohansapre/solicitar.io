@@ -6,9 +6,12 @@ module.exports = function (app, model) {
     app.get("/api/company/:recruiterId", getInterviewers);
     app.delete("/api/company/:interviewerId", deleteInterviewer);
 
+    var bcrypt = require('bcrypt-nodejs');
+
     function createInterviewer(req, res) {
         var recruiterId = req.params.recruiterId;
         var interviewer = req.body;
+        interviewer.password = bcrypt.hashSync(interviewer.password);
         model.user
             .createUser(interviewer)
             .then(function (user) {

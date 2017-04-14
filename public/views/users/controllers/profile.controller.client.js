@@ -163,7 +163,7 @@
         }
 
         function updateTimings() {
-            UserService.setAvailability($routeParams['uid'], {
+            UserService.updateAvailability($routeParams['uid'], {
                 'start': vm.start,
                 'end': vm.end
             }).success(function (data) {
@@ -206,11 +206,12 @@
                     for (var d in result.startTime) {
                         var st = new Date(result.startTime[d]);
                         var et = new Date(result.endTime[d]);
-                        console.log("sdfsd");
+                        console.log(st.toString());
+                        console.log(et.toString());
                         vm.timingDisplayList.push({
                             date: st.toISOString().slice(0, 10),
-                            start: ((st.getHours() + 4) < 10 ? '0' : '') + (4 + st.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes(),
-                            end: ((et.getHours() + 4) < 10 ? '0' : '') + (4 + et.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes()
+                            start: ((st.getHours()) < 10 ? '0' : '') + (st.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes(),
+                            end: ((et.getHours()) < 10 ? '0' : '') + (et.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes()
                         });
 
                         console.log(vm.timingDisplayList);
@@ -552,8 +553,6 @@
         }
 
         function scheduleInterviewOnClick() {
-
-
             var from = vm.scheduleFrom.split(':');
             var to = vm.scheduleTo.split(':');
             var dateArr = vm.scheduleDate.split('-');
@@ -696,7 +695,7 @@
 
         function addInterviewer(user) {
             console.log('in profile controller addInterviewer');
-            if (user.password == user.passverify) {
+            if (user.password === user.passverify) {
                 var userInterviewer = {
                     username: user.username,
                     password: user.password,
@@ -705,7 +704,7 @@
                     lastName: user.lastName,
                     type: 'INTERVIEWER',
                     organisation: vm.user.organisation,
-                    status: 'INVITED'
+                    status: 'JOINED'
                 };
                 RecruiterService.createInterviewer(vm.userId, userInterviewer)
                     .success(function (interviewer) {
