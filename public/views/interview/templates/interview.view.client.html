@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>-->
 
 <nav id="mainNav" class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse">
     <div class="col-xs-12 col-lg-3">
@@ -22,17 +22,17 @@
                 <!--ng-options="c for c in model.languages" >-->
             <!--<option>First</option>-->
         <!--</select>-->
-        <div class="dropdown pull-right">
-            <button class="btn btn-outline-info dropdown-toggle marginRight" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{model.language}}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li ng-repeat="c in model.languages" class="list-group">
-                    <a class="dropdown-item" href ng-click="model.changeLanguage(c)">{{c}}</a>
-                </li>
-            </div>
-        </div>
+        <!--<div class="dropdown pull-right">-->
+            <!--<button class="btn btn-outline-info dropdown-toggle marginRight" type="button" id="dropdownMenuButton"-->
+                    <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                <!--{{model.language}}-->
+            <!--</button>-->
+            <!--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+                <!--<li ng-repeat="c in model.languages" class="list-group">-->
+                    <!--<a class="dropdown-item" href ng-click="model.changeLanguage(c)">{{c}}</a>-->
+                <!--</li>-->
+            <!--</div>-->
+        <!--</div>-->
 
         <div class="navbar-text">
             This is in col-8
@@ -81,15 +81,6 @@
         <div class="hidden-md-down col-lg-9">
             <div class="row">
                 <div class="col-lg-8">
-                    <!--<div class="form-group">-->
-                    <!--<label for="languageOptions">Size</label>-->
-                    <!--<select id="languageOptions" class="form-control" ng-model="model.language"-->
-                    <!--ng-options="c for c in model.languages"></select>-->
-                    <!--<button class="btn-block" ng-click="model.changeLanguage()">Change Language</button>-->
-                    <!--</div>-->
-                    <!--<a class="btn btn-success btn-block" ng-click="model.createNewPad()" ng-show="model.visible">Create-->
-                    <!--New-->
-                    <!--Pad</a>-->
                     <div class="card card-inverse"
                          style="background-color: #292b2c; border-color: #292b2c; margin-top: 10px; padding: 0.25rem;">
                         <div class="card-header">
@@ -100,15 +91,12 @@
                                 <div class="col-lg-5 col-md-5 col-sm-4">
                                 </div>
                                 <div class="col-sm-4 col-md-3 col-lg-3 pull-right">
-                                    <select class="form-control" style="background: transparent; color: white;"
-                                            ng-change="model.changeLanguage(c)"
-                                            ng-model="model.setLanguage"
-                                            ng-options="c for c in model.languages">
-                                        <option>First</option>
+                                    Python
                                     </select>
                                 </div>
                             </div>
                         </div>
+
                         <div class="card-block" style="padding: 0.25rem;">
                             <div id="myCode"></div>
                         </div>
@@ -130,13 +118,14 @@
                     <div class="card card-inverse w-100"
                          style="background-color: #292b2c; border-color: #292b2c; margin-top: 10px; padding: 0.25rem;">
                         <div class="card-header">
-                            Console Output
+                            Console Output {{model.language}}
                         </div>
                         <div class="card-block" style="padding: 0.25rem;">
                             <!--<div class="form-group" style="margin-left: 10px; margin-top: 10px;">-->
                             <textarea ng-model="model.result" class="form-control" rows="20"
                                       id="output" readonly
                                       style="background-color: black; color: white; font-family: 'Courier New', Courier, monospace;">
+
                             </textarea>
                         </div>
                     </div>

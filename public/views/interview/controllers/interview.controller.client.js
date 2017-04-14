@@ -36,6 +36,7 @@
         vm.ownId = "dd";
 
         vm.language = 'Python';
+        vm.prevLanguage='Python';
         var ownId;
         var editor;
         vm.key = '-Kh9odJIjnUeoAQue4Al';
@@ -46,6 +47,26 @@
             version: 2,
             singleLineStringErrors: false
         };
+
+
+        // var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        //     mode: {name: "python",
+        //         version: 3,
+        //         singleLineStringErrors: false},
+        //     lineNumbers: true,
+        //     indentUnit: 4,
+        //     matchBrackets: true
+        // });
+        //
+        // CodeMirror.fromTextArea(document.getElementById("code-cython"), {
+        //     mode: {name: "text/x-cython",
+        //         version: 2,
+        //         singleLineStringErrors: false},
+        //     lineNumbers: true,
+        //     indentUnit: 4,
+        //     matchBrackets: true
+        // });
+
         var javaOptions = "text/x-java";
 
         var cppOptions = "text/x-c++src";
@@ -75,6 +96,7 @@
         }
 
         init();
+        var count=0;
 
 
         //-------------- START TWILIO --------------------------
@@ -315,37 +337,22 @@
             return null;
         }
 
-        // function createNewPad() {
-        //
-        //     //var ref = firebase.database().ref();
-        //     //ref = ref.child('codepadList').push(); // generate unique location.
-        //     //window.location = window.location + '#' + ref.key; // add it as a hash to the URL.
-        //     $location.url("/user/" + $routeParams['uid'] + "/interview/" + 'dfssd');
-        // }
 
         function initializePad() {
             var myTextarea = document.getElementById("myCode");
             console.log(myTextarea);
             editor = CodeMirror(myTextarea, {
-                mode: getCodeMirrorMode(),
+                mode: pythonOptions,
                 lineNumbers: true,
+                indentUnit: 4,
                 matchBrackets: true,
                 theme: 'base16-dark'
             });
 
             editor.setOption("theme", "base16-dark");
+            // editor.on("change", listenchanges);
 
-
-            // Get Firebase Database reference.
-            // var firepadRef = firebase.database().ref();
-            // var key= firepadRef.child('codepadList').push();
-            // var actualKey = key.key
-            // var java = "Java"
-            // firepadRef.child("codepadList").child(actualKey).set({
-            //     "Language":"Java"
-            // });
             var firebaseReference = firebase.database().ref().child('solicitarInterview').child(vm.key);
-
 
             var firepad = Firepad.fromCodeMirror(firebaseReference, editor, {
                 defaultText: pythonInitializationCode
@@ -358,14 +365,74 @@
 
             $('.powered-by-firepad').remove();
 
-            var starCountRef = firebase.database().ref().child('solicitarInterview').child(vm.key).child('language');
-            starCountRef.on('value', function (snapshot) {
-                console.log(vm.language + snapshot.val());
-                if (snapshot.val() != vm.language)
-                    changeLanguageWithoutUpdate(snapshot.val());
-                console.log(vm.language);
-            });
 
+        }
+
+        function listenchanges(cm,change) {
+
+            console.log("listen changes");
+
+                if(cm.getValue() == pythonInitializationCode){
+                    console.log(vm.language+ (++count));
+                    vm.language = vm.languages[0];
+                    console.log(vm.language+ (++count));
+
+                }
+                else if(cm.getValue() == javaInitializationCode){
+                    console.log(vm.language+ (++count));
+                    console.log("Java");
+                    console.log(vm.language+ (++count));
+                    vm.language =  vm.languages[1];
+
+                }
+                else if(cm.getValue() == cppInitializationCode){
+                    console.log(vm.language+ (++count));
+                    console.log("CPPPPPPP");
+                    console.log(vm.language+ (++count));
+                    vm.language = vm.languages[2];
+
+                }
+            console.log(vm.language+ (++count));
+        }
+
+        function changeLanguage(c) {
+            console.log("inChangeLanguage");
+            console.log(c);
+            console.log(vm.prevLanguage);
+            console.log(vm.language);
+
+            if (vm.prevLanguage != vm.language) {
+                vm.prevLanguage=vm.language;
+                switch (vm.language) {
+                    case 'Python': {
+                        editor.setOption('mode', pythonOptions);
+                        editor.setOption('indentUnit', 4);
+                        editor.setOption('tabMode', "shift");
+                        languageId = 4;
+                        firepadReference.setText(pythonInitializationCode);
+                        vm.language = "Python";
+                        break;
+                    }
+                    case 'Java': {
+                        editor.setOption('mode', javaOptions);
+                        languageId = 10;
+                        vm.language = "Java";
+                        firepadReference.setText(javaInitializationCode);
+                        break;
+                    }
+                    case 'C++': {
+                        editor.setOption('mode', cppOptions);
+                        languageId = 1;
+                        vm.language = "C++";
+                        firepadReference.setText(cppInitializationCode);
+                        break;
+                    }
+
+                }
+
+                // console.log(editor.getOption('mode'));
+
+            }
         }
 
         function compile() {
@@ -429,93 +496,12 @@
                 );
             console.log(redo);
             if (redo)
-                setTimeout(function () {getResults();}, 2000);
+                setTimeout(function () {
+                    getResults();
+                }, 2000);
         }
 
-        function changeLanguageWithoutUpdate(c) {
-            console.log("language");
-            console.log(vm.language + c);
-            console.log("change is constant");
-            // firebase.database().ref().child('solicitarInterview').child(vm.key)
-            //     .set({
-            //         'language':c
-            //     });
-            switch (c) {
-                case 'Python': {
-                    editor.setOption('mode', pythonOptions);
-                    editor.setOption('indentUnit', 4);
-                    editor.setOption('tabMode', "shift");
-                    languageId = 4;
-                    firepadReference.setText(pythonInitializationCode);
-                    vm.language = "Python";
-                    break;
-                }
-                case 'Java': {
-                    editor.setOption('mode', javaOptions);
-                    languageId = 10;
-                    vm.language = "Java";
-                    firepadReference.setText(javaInitializationCode);
-                    break;
-                }
-                case 'C++': {
-                    editor.setOption('mode', cppOptions);
-                    languageId = 1;
-                    vm.language = "C++";
-                    firepadReference.setText(cppInitializationCode);
-                    break;
-                }
 
-            }
-
-            console.log(editor.getOption('mode'));
-
-
-        }
-
-        function changeLanguage(c) {
-            console.log("language");
-            console.log(vm.language);
-
-            if (vm.language != c) {
-                var updates = {};
-                console.log("change is constant");
-                updates['/solicitarInterview/' + vm.key + '/language'] = c;
-                firebase.database().ref().update(updates);
-                // firebase.database().ref().child('solicitarInterview').child(vm.key)
-                //     .set({
-                //         'language':c
-                //     });
-                switch (c) {
-                    case 'Python': {
-                        editor.setOption('mode', pythonOptions);
-                        editor.setOption('indentUnit', 4);
-                        editor.setOption('tabMode', "shift");
-                        languageId = 4;
-                        firepadReference.setText(pythonInitializationCode);
-                        vm.language = "Python";
-                        break;
-                    }
-                    case 'Java': {
-                        editor.setOption('mode', javaOptions);
-                        languageId = 10;
-                        vm.language = "Java";
-                        firepadReference.setText(javaInitializationCode);
-                        break;
-                    }
-                    case 'C++': {
-                        editor.setOption('mode', cppOptions);
-                        languageId = 1;
-                        vm.language = "C++";
-                        firepadReference.setText(cppInitializationCode);
-                        break;
-                    }
-
-                }
-
-                console.log(editor.getOption('mode'));
-
-            }
-        }
 
 
         // ----- END Firepad -----------
@@ -531,7 +517,7 @@
                     console.log("error");
                     console.log(error);
                 });
-            $location.url('')
+            // $location.url('')
 
         }
 
