@@ -21,6 +21,7 @@
         vm.leaveRoom = leaveRoom;
 
         vm.endInterview = endInterview;
+        vm.getInterviewDetails = getInterviewDetails;
 
         vm.languages = ['Python', 'Java', 'C++'];
         var languageId = 4;
@@ -524,6 +525,16 @@
                 });
             // $location.url('')
 
+        }
+
+        function getInterviewDetails(scheduleId) {
+            InterviewService.getInterviewDetails(scheduleId)
+                .success(function (interview) {
+                    console.log(interview);
+                })
+                .error(function (error) {
+                    console.log(error);
+                })
         }
 
     }

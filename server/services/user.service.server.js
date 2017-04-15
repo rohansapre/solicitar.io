@@ -305,11 +305,13 @@ function uploadCoverLetter(req, res) {
                                 res.sendStatus(500).send(error);
                         })
                 } else {
+                    console.log("reached else error");
                     var error = {
                         "message": "You have not been invited yet, you can't register without an invitation"
                     };
-                    res.statusMessage = JSON.stringify(error);
-                    res.status(500).end();
+                    res.json(error);
+                    // res.statusMessage = JSON.stringify(error);
+                    // res.status(500).end();
                 }
             }, function (error) {
                 res.sendStatus(500).send(error);
