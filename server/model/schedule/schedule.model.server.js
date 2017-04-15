@@ -22,7 +22,8 @@ scheduleModel.endInterview = endInterview;
 scheduleModel.getInterviewsForPosition = getInterviewsForPosition;
 scheduleModel.deleteSchedule = deleteSchedule;
 scheduleModel.getScheduledInterviews = getScheduledInterviews;
-scheduleModel.getPositionsByIds = getPositionsByIds;
+scheduleModel.getUpcomingPositionsByIds = getUpcomingPositionsByIds;
+scheduleModel.getPastPositionsByIds = getPastPositionsByIds;
 
 module.exports = scheduleModel;
 
@@ -33,6 +34,8 @@ function getUpcomingPositions(interviewerId) {
 }
 
 function getPastPositions(interviewerId) {
+    console.log("past positions in db");
+    console.log(interviewerId);
     return scheduleModel.find({_interviewer: interviewerId, end: {$lt: new Date()}})
         .distinct('_position')
         .exec();
@@ -40,10 +43,7 @@ function getPastPositions(interviewerId) {
 
 function getCandidatesForUpcomingPositions(interviewerId, positionId) {
     return scheduleModel.find({$and: [{_interviewer: interviewerId}, {_position: positionId}, {$or: [ {start: {$exists: false}}, {start: {$gte: new Date()}} ]}]})
-<<<<<<< HEAD
     // return scheduleModel.find({_interviewer: interviewerId, _position: positionId, start: {$gte: new Date()}}, '_applicant')
-=======
->>>>>>> ab60f3590c78467d78425715806c71cf0a6721c7
         .populate('_applicant')
         .exec();
 }
@@ -130,8 +130,14 @@ function getScheduledInterviews(positionId) {
         .populate('_interviewer', 'firstName lastName');
 }
 
-function getPositionsByIds(positions) {
-    return scheduleModel.find({_position: {$in: positions}})
+function getPastPositionsByIds(interviewerId, positions) {
+    return scheduleModel.find({_interviewer: interviewerId, end: {$lt: new Date()}, _position: {$in: positions}})
+        .populate('_position')
+        .exec();
+}
+
+function getUpcomingPositionsByIds(interviewerId, positions) {
+    return scheduleModel.find({$and: [{_interviewer: interviewerId}, {_position: {$in: positions}}, {$or: [ {start: {$exists: false}}, {start: {$gte: new Date()}} ]}]})
         .populate('_position')
         .exec();
 }

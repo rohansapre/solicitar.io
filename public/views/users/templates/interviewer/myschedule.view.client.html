@@ -7,6 +7,9 @@
     <div ng-show="model.emptySchedule" class="alert alert-danger" role="alert">
         No Interviews found!
     </div>
+    <div ng-show="model.startInterviewMessage" class="alert alert-danger" role="alert">
+        The Interview can be accessed only 1 hour before the start time!
+    </div>
     <div class="card" ng-hide="model.emptySchedule">
         <div class="table-responsive">
             <table class="table">
@@ -20,19 +23,19 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="interview in model.mySchedule">
-                    <td data-label="Candidate Name: ">
+                    <td data-label="Candidate Name ">
                         {{interview._applicant.firstName}}  {{interview._applicant.lastName}}
                     </td>
-                    <td data-label="Position: ">
+                    <td data-label="Position ">
                         {{interview._position.name}}
                     </td>
-                    <td data-label="Date: ">
-                        {{interview.start}}
+                    <td data-label="Date ">
+                        <span ng-bind="model.getBeautifulDate(interview.start)"></span>
+                        <!--{{interview.start}}-->
                     </td>
                     <!--CHANGE HERE TO START INTERVIEW-->
-                    <td data-label="Status: ">
-                        <span class="badge badge-default badge-pill" ng-click="model.toStartInterview(interview) && model.startInterview(interview)"
-                              ng-disabled="">Start Interview</span>
+                    <td data-label="Status">
+                        <span class="badge badge-default badge-pill" href ng-click="model.toStartInterview(interview) && model.startInterview(interview)">Start Interview</span>
                     </td>
                 </tr>
                 </tbody>

@@ -40,7 +40,7 @@ module.exports = function (app, model) {
             })
     }
 
-    // MAKE IT BOUG FREE
+    // MAKE IT BOUG FREE - COOOOOOL DONE
     function getUpcomingPositions(req, res) {
         var interviewerId = req.params.interviewerId;
         console.log("reached upcoming positions");
@@ -50,11 +50,21 @@ module.exports = function (app, model) {
                 console.log("position server");
                 console.log(positions);
                 model.schedule
-                    .getPositionsByIds(positions)
+                    .getUpcomingPositionsByIds(interviewerId, positions)
                     .then(function (posObjs) {
-                        console.log(posObjs[0]);
+                        // console.log("POSOBS");
+                        // console.log(posObjs);
                         var arr=[];
-                        arr.push(posObjs[0]);
+                        var posArr=[];
+                        for(var i in posObjs){
+                            // console.log(posArr.indexOf(posObjs[i]._position) == -1);
+                            if(posArr.indexOf(posObjs[i]._position) == -1){
+                                arr.push(posObjs[i]);
+                                posArr.push(posObjs[i]._position);
+                            }
+                        }
+                        // console.log(arr);
+                        //arr.push(posObjs[0]);
                         res.json(arr);
                     }, function (error) {
                         res.sendStatus(500).send(error);
@@ -73,11 +83,19 @@ module.exports = function (app, model) {
                 console.log(positions);
                 // res.json(positions);
                 model.schedule
-                    .getPositionsByIds(positions)
+                    .getPastPositionsByIds(interviewerId, positions)
                     .then(function (posObjs) {
-                        console.log(posObjs[0]);
                         var arr=[];
-                        arr.push(posObjs[0]);
+                        var posArr=[];
+                        for(var i in posObjs){
+                            // console.log(posArr.indexOf(posObjs[i]._position) == -1);
+                            if(posArr.indexOf(posObjs[i]._position) == -1){
+                                arr.push(posObjs[i]);
+                                posArr.push(posObjs[i]._position);
+                            }
+                        }
+                        // console.log(arr);
+
                         res.json(arr);
                     }, function (error) {
                         res.sendStatus(500).send(error);

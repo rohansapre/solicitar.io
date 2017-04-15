@@ -39,6 +39,7 @@
         vm.initializeInterviewerPast = initializeInterviewerPast;
         vm.initializeInterviewerSchedule = initializeInterviewerSchedule;
         vm.toStartInterview = toStartInterview;
+        vm.getBeautifulDate=getBeautifulDate;
 
 
         vm.interview = null;
@@ -92,6 +93,16 @@
         }
 
         init();
+
+
+        function getBeautifulDate(date){
+            // console.log("sfg");
+            var dt=new Date(date);
+            var str= dt.toUTCString();
+
+            // console.log(dt.toUTCString())
+            return str.substring(0, str.length - 3);
+        }
 
         function addTimeToList() {
             var m;
@@ -464,16 +475,24 @@
         }
 
         function toStartInterview(interview) {
-            var interviewDate = interview.start;
+            var interviewDate = new  Date(interview.start);
+            console.log(interviewDate);
+
             var currDate = new Date();
+
+            console.log(currDate);
 
             var diff = interviewDate - currDate;
             var hh = Math.floor(diff / 1000 / 60 / 60);
-
+            console.log(diff);
             if (hh < 1) {
+                console.log(true);
                 return true;
             }
+            console.log(false);
+            vm.startInterviewMessage=true;
             return false;
+
         }
 
 
@@ -524,7 +543,7 @@
                     console.log("positions: ");
                     console.log(positions);
                     vm.interviewerUpcomingInterviews = positions;
-                    if (positions.length == 0) {
+                    if (positions[0] == null) {
                         vm.emptyUpcomingInterviews = true;
                     } else {
                         vm.emptyUpcomingInterviews = false;
@@ -538,9 +557,9 @@
 
         // Upcoming Interview -> View Candidates
         function initializeViewCandidates() {
-            // var positionId=vm.interviewInstance._position._id;
+            var positionId=vm.interviewInstance._position._id;
             console.log("sgsgsgs");
-            var positionId= vm.interviewInstance;
+            //var positionId= vm.interviewInstance;
             console.log("sgsgsgs");
             console.log(vm.interviewInstance);
             console.log(vm.tab);
@@ -624,6 +643,7 @@
         // Past Interviews
         function initializeInterviewerPast() {
             changeBackgorund('interviewerPast');
+            console.log("in past interviews")
             InterviewService.getPastInterviewPositions(vm.userId)
                 .success(function (positions) {
                     console.log("positions: ");
@@ -667,6 +687,8 @@
         // My Schedule
         function initializeInterviewerSchedule() {
             changeBackgorund('interviewerSchedule');
+            vm.startInterviewMessage=false;
+            vm.emptySchedule=false;
             InterviewService.getInterviewerSchedule(vm.userId)
                 .success(function (schedule) {
                     console.log("My Schedule");
