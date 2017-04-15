@@ -92,6 +92,7 @@ module.exports = function (app) {
     var positionModel = require('./model/position/position.model.server');
     var companyModel = require('./model/company/company.model.server');
     var firepadModel = require('./model/firepad/firepad.model.server');
+
     var model = {
         user: userModel,
         calendar: calendarModel,
@@ -110,4 +111,6 @@ module.exports = function (app) {
     require('./services/candidate.service.server')(app, model);
     require('./services/position.service.server')(app, model);
     require('./services/company.service.server')(app, model);
+    require('./services/admin.service.server')(app,model);
+
 };

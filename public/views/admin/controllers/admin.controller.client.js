@@ -1,4 +1,4 @@
-/**
+    /**
  * Created by rohansapre on 4/14/17.
  */
 (function () {
@@ -27,6 +27,7 @@
         function getRecruiters() {
             AdminService.getRecruiters()
                 .success(function (users) {
+                    vm.whatever = users;
                     console.log(users);
                 })
                 .error(function (error) {
@@ -37,6 +38,7 @@
         function getApplicants() {
             AdminService.getApplicants()
                 .success(function (users) {
+                    vm.whatever = users;
                     console.log(users);
                 })
                 .error(function (error) {
@@ -47,6 +49,7 @@
         function getInterviewers() {
             AdminService.getInterviewers()
                 .success(function (users) {
+                    vm.whatever = users;
                     console.log(users);
                 })
                 .error(function (error) {
@@ -88,9 +91,19 @@
         }
 
         function deleteUser(userId) {
+            vm.currentUser =
             AdminService.deleteUser(userId)
                 .success(function (user) {
                     console.log(user);
+                    if (vm.now=='RECRUITER') {
+                        getRecruiters();
+                    }
+                    if (vm.now=='APPLICANT') {
+                        getApplicants();
+                    }
+                    if (vm.now=='INTERVIEWER') {
+                        getInterviewers();
+                    }
                 })
                 .error(function (error) {
                     console.log(error);
