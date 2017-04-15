@@ -475,6 +475,10 @@
         }
 
         function toStartInterview(interview) {
+            console.log("inteirnewlonbkgdfgolhe");
+            console.log(interview)
+
+            return true;
             var interviewDate = new  Date(interview.start);
             console.log(interviewDate);
 

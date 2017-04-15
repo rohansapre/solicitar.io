@@ -87,6 +87,11 @@
             $("body").removeClass("dashboardMargin");
             vm.ownId = ownId;
 
+
+            // Get FirebaseId and get twilio room name
+
+
+
             initializePad();
 
             initializeTwilio();
