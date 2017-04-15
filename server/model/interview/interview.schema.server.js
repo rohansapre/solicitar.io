@@ -6,7 +6,7 @@ var prog_languages = ['Python', 'Java', 'C++'];
 var interviewSchema = mongoose.Schema({
     _schedule: {type: mongoose.Schema.Types.ObjectId, ref: 'Schedule'},
     firebase: String,
-    twilioRoom: String,
+    twilio: String,
     language: {type: String, enum: prog_languages, default: prog_languages[0]},
     studentFeedback: String,
     recruiterFeedback: String,

@@ -29,7 +29,8 @@ module.exports = function (app, model) {
                 var firebase = createFirePadInstance();
                 var interview = {
                     _schedule: schedule._id,
-                    firebase: firebase
+                    firebase: firebase,
+                    twilio: getTwilioRoom()
                 };
                 model.interview
                     .createInterview(interview)
@@ -255,5 +256,10 @@ module.exports = function (app, model) {
             }, function (error) {
                 res.sendStatus(500).send(error);
             })
+    }
+
+    function getTwilioRoom() {
+        var current = new Date().toString();
+        return current;
     }
 };
