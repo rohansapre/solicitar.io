@@ -32,24 +32,13 @@ app.use(express.static(__dirname + '/public'));
 
 require ("./setup/app.js")(app);
 
-
 var options = {
     key: fs.readFileSync('setup/keys/agent2-key.pem'),
     cert: fs.readFileSync('setup/keys/agent2-cert.pem')
 };
 
-
-
-
 var server = require('./server/app.js');
 server(app);
-
-//app.listen(9000);
-//
-// // Create an HTTP service.
-// app.listen(9000);
-// // Create an HTTPS service identical to the HTTP service.
-// https.createServer(options, app).listen(8443);
 
 https.createServer(options, app).listen(8443);
 http.createServer(function (req, res) {

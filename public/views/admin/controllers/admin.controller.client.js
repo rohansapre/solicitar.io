@@ -76,8 +76,9 @@
                 })
         }
 
-        function addInterviewer(interviewer) {
+        function addInterviewer(recruiterId, interviewer) {
             interviewer.type = 'INTERVIEWER';
+            interviewer._recruiter = recruiterId;
             AdminService.createUser(interviewer)
                 .success(function (interviewer) {
                     console.log(interviewer);

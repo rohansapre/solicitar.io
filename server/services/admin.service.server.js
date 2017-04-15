@@ -13,10 +13,26 @@ module.exports = function (app, model) {
         var user = req.body;
         user.status = 'JOINED';
         user.password = bcrypt.hashSync(user.password);
+        var flag = false;
+        if(user._recruiter !== "undefined")
+            flag = true;
         model.user
             .createUser(user)
             .then(function (user) {
-                res.json(user);
+                if (flag) {
+                    var company = {
+                        _recruiter: user._recruiter,
+                        _interviewer: user._id
+                    };
+                    model.company
+                        .createCompany(company)
+                        .then(function (newCompany) {
+                            res.json(user);
+                        }, function (error) {
+                            res.sendStatus(500).send(error);
+                        })
+                } else
+                    res.json(user);
             }, function (error) {
                 res.sendStatus(500).send(error);
             })
