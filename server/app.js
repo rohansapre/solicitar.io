@@ -4,6 +4,11 @@
 module.exports = function (app) {
     var bcrypt = require('bcrypt-nodejs');
     var password = bcrypt.hashSync('pass');
+    var admin = {
+        username: 'admin',
+        password: bcrypt.hashSync('admin'),
+        type: 'ADMIN'
+    };
     var applicant1 = {
         username: 'rohan1',
         password: password,
@@ -78,6 +83,7 @@ module.exports = function (app) {
     };
 
     var userModel = require('./model/user/user.model.server');
+    userModel.createUser(admin);
     userModel.createUser(applicant1);
     userModel.createUser(applicant2);
     userModel.createUser(applicant3);
