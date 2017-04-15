@@ -43,6 +43,7 @@
         }
 
         function login(user) {
+            console.log(user);
             if (user !== null) {
                 if (user.username == "admin" && user.password == 'admin') {
                     console.log('God Mode');

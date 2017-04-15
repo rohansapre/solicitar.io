@@ -30,8 +30,8 @@ module.exports = function(app)
 
     firebase.initializeApp(config);
 
-    console.log("initialized firebase");
-    console.log(firebase);
+    // console.log("initialized firebase");
+    // console.log(firebase);
 
 
 };
