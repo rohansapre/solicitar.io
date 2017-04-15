@@ -22,27 +22,28 @@ scheduleModel.endInterview = endInterview;
 scheduleModel.getInterviewsForPosition = getInterviewsForPosition;
 scheduleModel.deleteSchedule = deleteSchedule;
 scheduleModel.getScheduledInterviews = getScheduledInterviews;
+scheduleModel.getUpcomingPositionsByIds = getUpcomingPositionsByIds;
+scheduleModel.getPastPositionsByIds = getPastPositionsByIds;
 
 module.exports = scheduleModel;
 
 function getUpcomingPositions(interviewerId) {
     return scheduleModel.find({$and: [{_interviewer: interviewerId}, {$or: [ {start: {$exists: false}}, {start: {$gte: new Date()}} ]}]})
         .distinct('_position')
-        .populate('_position')
-        .populate('_recruiter', 'firstName lastName')
         .exec();
 }
 
 function getPastPositions(interviewerId) {
+    console.log("past positions in db");
+    console.log(interviewerId);
     return scheduleModel.find({_interviewer: interviewerId, end: {$lt: new Date()}})
         .distinct('_position')
-        .populate('_position')
-        .populate('_recruiter', 'firstName lastName')
         .exec();
 }
 
 function getCandidatesForUpcomingPositions(interviewerId, positionId) {
     return scheduleModel.find({$and: [{_interviewer: interviewerId}, {_position: positionId}, {$or: [ {start: {$exists: false}}, {start: {$gte: new Date()}} ]}]})
+    // return scheduleModel.find({_interviewer: interviewerId, _position: positionId, start: {$gte: new Date()}}, '_applicant')
         .populate('_applicant')
         .exec();
 }
@@ -54,7 +55,9 @@ function getCandidatesForPastPositions(interviewerId, positionId) {
 }
 
 function updateInterviewTime(interviewId, time) {
-    return scheduleModel.findByIdAndUpdate(interviewId, {$set: {start: time.start, end: time.end}});
+    console.log("in db");
+    console.log(time);
+    return scheduleModel.updateOne({_id: interviewId}, {$set: {start: time.start, end: time.end}});
 }
 
 function createInterview(hire) {
@@ -125,4 +128,16 @@ function deleteSchedule(scheduleId) {
 function getScheduledInterviews(positionId) {
     return scheduleModel.find({_position: positionId})
         .populate('_interviewer', 'firstName lastName');
+}
+
+function getPastPositionsByIds(interviewerId, positions) {
+    return scheduleModel.find({_interviewer: interviewerId, end: {$lt: new Date()}, _position: {$in: positions}})
+        .populate('_position')
+        .exec();
+}
+
+function getUpcomingPositionsByIds(interviewerId, positions) {
+    return scheduleModel.find({$and: [{_interviewer: interviewerId}, {_position: {$in: positions}}, {$or: [ {start: {$exists: false}}, {start: {$gte: new Date()}} ]}]})
+        .populate('_position')
+        .exec();
 }

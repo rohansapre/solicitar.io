@@ -22,11 +22,11 @@
                 delete user.passverify;
                 UserService.register(user)
                     .success(function (user) {
-                        console.log(user);
-                        if (user) {
+                        if (user.message != null) {
+                            vm.error = user.message;
+                        } else if (user) {
                             $location.url("/user/" + user._id);
-                        } else
-                            vm.error = "The user cannot be registered";
+                        }
                     })
                     .error(function (error) {
                         console.log(error);

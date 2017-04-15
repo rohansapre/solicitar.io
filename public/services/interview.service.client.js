@@ -19,7 +19,8 @@
             "getNextInterviewForInterviewer": getNextInterviewForInterviewer,
             "getNextInterviewForApplicant": getNextInterviewForApplicant,
             "endInterview": endInterview,
-            "deleteCandidate": deleteCandidate
+            "deleteCandidate": deleteCandidate,
+            "getInterviewDetails": getInterviewDetails
         };
         return api;
         
@@ -71,6 +72,10 @@
 
         function deleteCandidate(candidateId) {
             return $http.delete("/api/candidate/" + candidateId);
+        }
+
+        function getInterviewDetails(scheduleId) {
+            return $http.get("/api/interview/" + scheduleId);
         }
     }
 

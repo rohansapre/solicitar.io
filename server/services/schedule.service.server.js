@@ -26,12 +26,17 @@ module.exports = function (app, model) {
             .then(function (schedule) {
                 console.log("schedule");
                 console.log(schedule);
-                var firepad = createFirePadInstance();
-                model.firepad
-                    .createFirepad(firepad)
-                    .then(function (firepad) {
-                        console.log(firepad);
-                        res.json(schedule);
+                var firebase = createFirePadInstance();
+                var interview = {
+                    _schedule: schedule._id,
+                    firebase: firebase,
+                    twilio: getTwilioRoom()
+                };
+                model.interview
+                    .createInterview(interview)
+                    .then(function (interview) {
+                        console.log(interview);
+                        res.json(interview);
                     }, function (error) {
                         res.sendStatus(500).send(error);
                     });
@@ -40,6 +45,7 @@ module.exports = function (app, model) {
             })
     }
 
+    // MAKE IT BOUG FREE - COOOOOOL DONE
     function getUpcomingPositions(req, res) {
         var interviewerId = req.params.interviewerId;
         console.log("reached upcoming positions");
@@ -48,7 +54,26 @@ module.exports = function (app, model) {
             .then(function (positions) {
                 console.log("position server");
                 console.log(positions);
-                res.json(positions);
+                model.schedule
+                    .getUpcomingPositionsByIds(interviewerId, positions)
+                    .then(function (posObjs) {
+                        // console.log("POSOBS");
+                        // console.log(posObjs);
+                        var arr=[];
+                        var posArr=[];
+                        for(var i in posObjs){
+                            // console.log(posArr.indexOf(posObjs[i]._position) == -1);
+                            if(posArr.indexOf(posObjs[i]._position) == -1){
+                                arr.push(posObjs[i]);
+                                posArr.push(posObjs[i]._position);
+                            }
+                        }
+                        // console.log(arr);
+                        //arr.push(posObjs[0]);
+                        res.json(arr);
+                    }, function (error) {
+                        res.sendStatus(500).send(error);
+                    });
             }, function (error) {
                 res.sendStatus(500).send(error);
             });
@@ -61,7 +86,25 @@ module.exports = function (app, model) {
             .then(function (positions) {
                 console.log("position server");
                 console.log(positions);
-                res.json(positions);
+                // res.json(positions);
+                model.schedule
+                    .getPastPositionsByIds(interviewerId, positions)
+                    .then(function (posObjs) {
+                        var arr=[];
+                        var posArr=[];
+                        for(var i in posObjs){
+                            // console.log(posArr.indexOf(posObjs[i]._position) == -1);
+                            if(posArr.indexOf(posObjs[i]._position) == -1){
+                                arr.push(posObjs[i]);
+                                posArr.push(posObjs[i]._position);
+                            }
+                        }
+                        // console.log(arr);
+
+                        res.json(arr);
+                    }, function (error) {
+                        res.sendStatus(500).send(error);
+                    });
             }, function (error) {
                 res.sendStatus(500).send(error);
             });
@@ -95,10 +138,12 @@ module.exports = function (app, model) {
 
     function updateInterviewTime(req, res) {
         var interviewId = req.params.scheduleId;
-        var time = req.params.time;
+        var time = req.body;
         model.schedule
             .updateInterviewTime(interviewId, time)
             .then(function (interview) {
+                console.log("after update");
+                console.log(interview);
                 model.user
                     .updateStatus(interview._applicant, 'WAITING')
                     .then(function (user) {
@@ -141,9 +186,12 @@ module.exports = function (app, model) {
 
     function getInterviewerSchedule(req, res) {
         var interviewerId = req.params.interviewerId;
+        console.log(interviewerId);
         model.schedule
             .getInterviewerSchedule(interviewerId)
             .then(function (interviews) {
+                console.log("interviews");
+                console.log(interviews);
                 res.json(interviews);
             }, function (error) {
                 res.sendStatus(500).send(error);
@@ -208,5 +256,10 @@ module.exports = function (app, model) {
             }, function (error) {
                 res.sendStatus(500).send(error);
             })
+    }
+
+    function getTwilioRoom() {
+        var current = new Date().toString();
+        return current;
     }
 };

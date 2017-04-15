@@ -12,18 +12,13 @@
         <div class="col-xl-3 col-sm-6 mb-3" ng-repeat="interview in model.interviewerUpcomingInterviews">
             <div class="card">
                 <div class="card-block">
-                    <h4 class="card-title">{{interview.position}}</h4>
+                    <h4 class="card-title">{{interview._position.name}}</h4>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{interview.location}}</li>
+                    <li class="list-group-item">{{interview._position.location}}</li>
                 </ul>
-                <div class="card-block">
-                    <h6 class="card-title">Recruiter: </h6>
-                    <a href="" class="card-link">{{interview.recruiterName}}</a>
-                </div>
-                <a class="card-footer clearfix small z-1">
-                    <span class="float-left"
-                          href ng-click="model.interviewInstance=interview; model.tab='interviewerViewCandidates'">View Candidates</span>
+                <a class="card-footer clearfix small z-1" href ng-click="model.interviewInstance=interview; model.interviewpositionname= interview._posiiton.name; model.tab='interviewerViewCandidates'">
+                    <span class="float-left">View Candidates</span>
                     <span class="float-right"><i class="fa fa-angle-right"></i></span>
                 </a>
             </div>
