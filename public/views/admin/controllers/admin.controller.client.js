@@ -1,4 +1,4 @@
-/**
+    /**
  * Created by rohansapre on 4/14/17.
  */
 (function () {
@@ -17,7 +17,7 @@
         vm.addInterviewer = addInterviewer;
         vm.deleteUser = deleteUser;
         vm.updateUser = updateUser;
-        vm.becomeUser = becomeUser;
+        vm.becomeGod = becomeGod;
 
         function init() {
 
@@ -27,6 +27,7 @@
         function getRecruiters() {
             AdminService.getRecruiters()
                 .success(function (users) {
+                    vm.whatever = users;
                     console.log(users);
                 })
                 .error(function (error) {
@@ -37,6 +38,7 @@
         function getApplicants() {
             AdminService.getApplicants()
                 .success(function (users) {
+                    vm.whatever = users;
                     console.log(users);
                 })
                 .error(function (error) {
@@ -47,6 +49,7 @@
         function getInterviewers() {
             AdminService.getInterviewers()
                 .success(function (users) {
+                    vm.whatever = users;
                     console.log(users);
                 })
                 .error(function (error) {
@@ -76,8 +79,9 @@
                 })
         }
 
-        function addInterviewer(interviewer) {
+        function addInterviewer(recruiterId, interviewer) {
             interviewer.type = 'INTERVIEWER';
+            interviewer._recruiter = recruiterId;
             AdminService.createUser(interviewer)
                 .success(function (interviewer) {
                     console.log(interviewer);
@@ -88,9 +92,19 @@
         }
 
         function deleteUser(userId) {
+            vm.currentUser =
             AdminService.deleteUser(userId)
                 .success(function (user) {
                     console.log(user);
+                    if (vm.now=='RECRUITER') {
+                        getRecruiters();
+                    }
+                    if (vm.now=='APPLICANT') {
+                        getApplicants();
+                    }
+                    if (vm.now=='INTERVIEWER') {
+                        getInterviewers();
+                    }
                 })
                 .error(function (error) {
                     console.log(error);
@@ -107,7 +121,7 @@
                 })
         }
 
-        function becomeUser(userId) {
+        function becomeGod(userId) {
             $location.url("/user/" + userId);
         }
     }

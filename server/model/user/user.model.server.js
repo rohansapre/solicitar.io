@@ -21,8 +21,8 @@ userModel.insertUsers = insertUsers;
 userModel.findUserByFacebookId = findUserByFacebookId;
 userModel.updateStatus = updateStatus;
 userModel.findUserByGoogleId = findUserByGoogleId;
-userModel.findUserByType = findUserByType;
 userModel.findUsersByIds = findUsersByIds;
+userModel.findUsersByType = findUsersByType;
 
 module.exports = userModel;
 
@@ -122,8 +122,8 @@ function findUserByGoogleId(googleId) {
     return userModel.findOne({'google.id': googleId});
 }
 
-function findUserByType(type) {
-    return userModel.find({type: type});
+function findUsersByType(type) {
+    return userModel.find({type: type}, '-password');
 }
 
 function findUsersByIds(userIds) {

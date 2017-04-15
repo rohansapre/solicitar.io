@@ -111,4 +111,5 @@ module.exports = function (app) {
     require('./services/position.service.server')(app, model);
     require('./services/company.service.server')(app, model);
     require('./services/interview.service.server')(app, model);
+    require('./services/admin.service.server')(app,model);
 };
