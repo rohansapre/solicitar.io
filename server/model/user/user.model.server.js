@@ -123,7 +123,7 @@ function findUserByGoogleId(googleId) {
 }
 
 function findUsersByType(type) {
-    return userModel.find({type: type});
+    return userModel.find({type: type}, '-password');
 }
 
 function findUsersByIds(userIds) {

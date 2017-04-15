@@ -17,7 +17,7 @@
         vm.addInterviewer = addInterviewer;
         vm.deleteUser = deleteUser;
         vm.updateUser = updateUser;
-        vm.becomeUser = becomeUser;
+        vm.becomeGod = becomeGod;
 
         function init() {
 
@@ -121,7 +121,7 @@
                 })
         }
 
-        function becomeUser(userId) {
+        function becomeGod(userId) {
             $location.url("/user/" + userId);
         }
     }
