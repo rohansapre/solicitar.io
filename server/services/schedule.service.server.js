@@ -26,12 +26,16 @@ module.exports = function (app, model) {
             .then(function (schedule) {
                 console.log("schedule");
                 console.log(schedule);
-                var firepad = createFirePadInstance();
-                model.firepad
-                    .createFirepad(firepad)
-                    .then(function (firepad) {
-                        console.log(firepad);
-                        res.json(schedule);
+                var firebase = createFirePadInstance();
+                var interview = {
+                    _schedule: schedule._id,
+                    firebase: firebase
+                };
+                model.interview
+                    .createInterview(interview)
+                    .then(function (interview) {
+                        console.log(interview);
+                        res.json(interview);
                     }, function (error) {
                         res.sendStatus(500).send(error);
                     });
