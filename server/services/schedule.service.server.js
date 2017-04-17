@@ -35,6 +35,7 @@ module.exports = function (app, model) {
                 model.interview
                     .createInterview(interview)
                     .then(function (interview) {
+                        console.log("created interview");
                         console.log(interview);
                         res.json(interview);
                     }, function (error) {

@@ -43,23 +43,23 @@
         }
 
         function login(user) {
+            console.log(user);
             if (user !== null) {
-                if (user.username == "admin" && user.password == 'admin') {
-                    console.log('God Mode');
-                    $location.url("/admin");
-                }
                 UserService.login(user)
-                    .success(function(user) {
-                    if (user) {
-                        $rootScope.currentUser = user;
-                        if(user.type === 'RECRUITER') {
-                            $location.url("/user/" + user._id);
-                        } else
-                            $location.url("/user/" + user._id);
-                    }
+                    .success(function (user) {
+                        if (user) {
+                            $rootScope.currentUser = user;
+                            if (user.type === 'RECRUITER') {
+                                $location.url("/user/" + user._id);
+                            } else if (user.type === 'ADMIN') {
+                                console.log('God Mode');
+                                $location.url("/admin");
+                            } else
+                                $location.url("/user/" + user._id);
+                        }
 
-                })
-                    .error(function(error) {
+                    })
+                    .error(function (error) {
                         if (error === 'Unauthorized') {
                             vm.error = "User not found!";
                             user.username = "";

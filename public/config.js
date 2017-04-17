@@ -63,10 +63,11 @@
                 controller: "playgroundController",
                 controllerAs: "model"
             })
-            .when("/user/:uid/interview/:pgid",{
+            .when("/user/:uid/interview/:schid",{
                 templateUrl: "views/interview/templates/interview.view.client.html",
                 controller: "interviewController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: { loggedin: checkLoggedin }
             })
             .when("/user/:uid/interview", {
                 templateUrl: "views/interview/templates/interview.view.client.html",

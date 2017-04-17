@@ -6,7 +6,7 @@
         .module("ProjectMaker")
         .controller("interviewController", interviewController);
 
-    function interviewController($routeParams, $location, playgroundService) {
+    function interviewController($rootScope, $routeParams, $location, playgroundService,InterviewService) {
         //     $('body').removeClass('dashboardMargin');
         var vm = this;
 
@@ -40,7 +40,7 @@
         vm.prevLanguage='Python';
         var ownId;
         var editor;
-        vm.key = '-Kh9odJIjnUeoAQue4Al';
+        //vm.key = '-Kh9odJIjnUeoAQue4Al';
 
         // ---- code Mirror options -------
         var pythonOptions = {
@@ -87,10 +87,14 @@
         function init() {
             $("body").removeClass("dashboardMargin");
             vm.ownId = ownId;
+            vm.scheduleId= $routeParams['schid'];
 
-            initializePad();
+            console.log(vm.scheduleId);
 
-            initializeTwilio();
+            getInterviewDetails(vm.scheduleId);
+
+
+
 
 
             //setupTwilio();
@@ -125,11 +129,13 @@
                 console.log("identity");
                 console.log(identity);
 
-                document.getElementById('room-controls').style.display = 'block';
+                // document.getElementById('room-controls').style.display = 'block';
 
                 vm.joinDisabled = false;
                 vm.leaveDisabled = false;
                 twilioData = data;
+
+                joinRoom();
 
 
             });
@@ -154,7 +160,7 @@
                 console.log("identity");
                 console.log(identity);
 
-                document.getElementById('room-controls').style.display = 'block';
+                // document.getElementById('room-controls').style.display = 'block';
 
                 vm.joinDisabled = false;
                 vm.leaveDisabled = false;
@@ -197,7 +203,8 @@
         }
 
         function joinRoom() {
-            roomName = document.getElementById('room-name').value;
+            // roomName = document.getElementById('room-name').value;
+            roomName=vm.roomName;
             if (roomName) {
                 console.log("Joining room '" + roomName + "'...");
 
@@ -209,6 +216,8 @@
                 Twilio.Video.connect(twilioData.token, connectOptions).then(roomJoined, function (error) {
                     console.log('Could not connect to Twilio: ' + error.message);
                 });
+
+                console.log("done");
             } else {
                 alert('Please enter a room name.');
             }
@@ -250,6 +259,10 @@
             if (activeRoom) {
                 activeRoom.disconnect();
             }
+            if(!($("body").hasClass("dashboardMargin"))){
+                $("body").addClass("dashboardMargin");
+            }
+
         }
 
 
@@ -260,8 +273,8 @@
             activeRoom = room;
 
             console.log("Joined as '" + identity + "'");
-            document.getElementById('button-join').style.display = 'none';
-            document.getElementById('button-leave').style.display = 'inline';
+            // document.getElementById('button-join').style.display = 'none';
+            // document.getElementById('button-leave').style.display = 'inline';
 
             // Draw local video, if not already previewing
             var previewContainer = document.getElementById('local-media');
@@ -304,8 +317,8 @@
                 detachParticipantTracks(room.localParticipant);
                 room.participants.forEach(detachParticipantTracks);
                 activeRoom = null;
-                document.getElementById('button-join').style.display = 'inline';
-                document.getElementById('button-leave').style.display = 'none';
+                // document.getElementById('button-join').style.display = 'inline';
+                // document.getElementById('button-leave').style.display = 'none';
             });
         }
 
@@ -509,14 +522,19 @@
 
         function endInterview() {
             // pass the current interview ID
-            $("body").addClass("dashboardMargin");
-            InterviewService.endInterview(interviewId)
+
+            InterviewService.endInterview(vm.interviewId)
                 .success(function (interview) {
+                    console.log("")
                     console.log(interview);
+                    $("body").addClass("dashboardMargin");
+                    leaveRoomIfJoined();
+                   $location.url("/user/" + $rootScope.currentUser._id);
                 })
                 .error(function (error) {
                     console.log("error");
                     console.log(error);
+
                 });
             // $location.url('')
 
@@ -525,7 +543,15 @@
         function getInterviewDetails(scheduleId) {
             InterviewService.getInterviewDetails(scheduleId)
                 .success(function (interview) {
+                    console.log("getInterviewDetails");
                     console.log(interview);
+                    vm.interviewId= interview._id;
+                    vm.key=interview.firebase;
+                    vm.roomName= interview.twilio;
+                    initializePad();
+
+                    initializeTwilio();
+
                 })
                 .error(function (error) {
                     console.log(error);

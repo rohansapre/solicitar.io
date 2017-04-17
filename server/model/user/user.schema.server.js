@@ -2,7 +2,7 @@
  * Created by rohansapre on 3/22/17.
  */
 var mongoose = require('mongoose');
-var users = ['APPLICANT', 'INTERVIEWER', 'RECRUITER'];
+var users = ['APPLICANT', 'INTERVIEWER', 'RECRUITER', 'ADMIN'];
 var statuses = ['NONE', 'INVITED', 'JOINED', 'READY', 'WAITING', 'DONE'];
 var userSchema = mongoose.Schema({
     username: { type: String, index: { unique: true } },

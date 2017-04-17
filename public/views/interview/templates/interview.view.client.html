@@ -1,6 +1,3 @@
-<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>-->
-
 <nav id="mainNav" class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse">
     <div class="col-xs-12 col-lg-3">
         <a class="navbar-brand" href="">solicitar.io</a>
@@ -9,34 +6,16 @@
         </div>
     </div>
     <div class="hidden-md-down col-sm-9">
-        <div class="pull-right">
-            <button class="btn btn-outline-danger">End Interview</button>
+        <div class="pull-right" >
+            <button class="btn btn-outline-danger" ng-click="model.endInterview()">End Interview</button>
         </div>
         <div class="pull-right">
             <button class="btn btn-outline-success marginRight" ng-click="model.compile()">Compile Code</button>
         </div>
 
-        <!--<select-->
-                <!--ng-change="model.changeLanguage(c)"-->
-                <!--ng-model="model.setLanguage"-->
-                <!--ng-options="c for c in model.languages" >-->
-            <!--<option>First</option>-->
-        <!--</select>-->
-        <!--<div class="dropdown pull-right">-->
-            <!--<button class="btn btn-outline-info dropdown-toggle marginRight" type="button" id="dropdownMenuButton"-->
-                    <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                <!--{{model.language}}-->
-            <!--</button>-->
-            <!--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
-                <!--<li ng-repeat="c in model.languages" class="list-group">-->
-                    <!--<a class="dropdown-item" href ng-click="model.changeLanguage(c)">{{c}}</a>-->
-                <!--</li>-->
-            <!--</div>-->
+        <!--<div class="navbar-text">-->
+            <!--This is in col-8-->
         <!--</div>-->
-
-        <div class="navbar-text">
-            This is in col-8
-        </div>
     </div>
 </nav>
 
@@ -58,19 +37,19 @@
                             <div id="local-media"></div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <button id="button-preview" class="btn btn-outline-info" ng-click="model.cameraPreview()">
-                            Preview My Camera
-                        </button>
-                    </div>
+                    <!--<div class="card-footer">-->
+                        <!--<button id="button-preview" class="btn btn-outline-info" ng-click="model.cameraPreview()">-->
+                            <!--Preview My Camera-->
+                        <!--</button>-->
+                    <!--</div>-->
                 </div>
 
-                <div id="room-controls">
-                    <p class="instructions">Room Name:</p>
-                    <input id="room-name" type="text" placeholder="Enter a room name"/>
-                    <button id="button-join" ng-click="model.joinDisabled || model.joinRoom()">Join Room</button>
-                    <button id="button-leave" ng-click="model.leaveDisabled || model.leaveRoom()">Leave Room</button>
-                </div>
+                <!--<div id="room-controls">-->
+                    <!--<p class="instructions">Room Name:</p>-->
+                    <!--<input id="room-name" type="text" placeholder="Enter a room name"/>-->
+                    <!--<button id="button-join" ng-click="model.joinDisabled || model.joinRoom()">Join Room</button>-->
+                    <!--<button id="button-leave" ng-click="model.leaveDisabled || model.leaveRoom()">Leave Room</button>-->
+                <!--</div>-->
 
 
                 <div id="log"></div>

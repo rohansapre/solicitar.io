@@ -39,7 +39,7 @@
         vm.initializeInterviewerPast = initializeInterviewerPast;
         vm.initializeInterviewerSchedule = initializeInterviewerSchedule;
         vm.toStartInterview = toStartInterview;
-        vm.getBeautifulDate=getBeautifulDate;
+        vm.getBeautifulDate = getBeautifulDate;
 
 
         vm.interview = null;
@@ -50,10 +50,10 @@
         vm.initializeRecruiterPositions = initializeRecruiterPositions;
         vm.addInterviewer = addInterviewer;
         vm.getInterviewers = getInterviewers;
-        vm.assignInterviewer= assignInterviewer;
+        vm.assignInterviewer = assignInterviewer;
         vm.deleteCandidate = deleteCandidate;
-        vm.initializeRecruiterProfile=initializeRecruiterProfile;
-        vm.initializeRecruiterDashboard=initializeRecruiterDashboard;
+        vm.initializeRecruiterProfile = initializeRecruiterProfile;
+        vm.initializeRecruiterDashboard = initializeRecruiterDashboard;
 
 
         vm.posts = [];
@@ -95,10 +95,10 @@
         init();
 
 
-        function getBeautifulDate(date){
+        function getBeautifulDate(date) {
             // console.log("sfg");
-            var dt=new Date(date);
-            var str= dt.toUTCString();
+            var dt = new Date(date);
+            var str = dt.toUTCString();
 
             // console.log(dt.toUTCString())
             return str.substring(0, str.length - 3);
@@ -135,18 +135,18 @@
             // check for duplicate timings
 
             if (nowDate > startDate || nowDate > endDate) {
-                vm.applicantMessage=null;
-                vm.applicantError= "Invalid Time, please try again";
+                vm.applicantMessage = null;
+                vm.applicantError = "Invalid Time, please try again";
                 //error
             }
             else if (startDate >= endDate) {
-                vm.applicantMessage=null;
-                vm.applicantError= "Invalid Time, please try again";
+                vm.applicantMessage = null;
+                vm.applicantError = "Invalid Time, please try again";
                 //error
             }
             else {
-                vm.applicantMessage=null;
-                vm.applicantError=null;
+                vm.applicantMessage = null;
+                vm.applicantError = null;
                 vm.start.push(startDate);
                 vm.end.push(endDate);
 
@@ -169,14 +169,16 @@
 
 
         function newTimings() {
-            UserService.setAvailability(vm.userId, {
-                'start': vm.start,
-                'end': vm.end
-            }).success(function (data) {
-                vm.applicantError=null;
-                vm.applicantMessage="Success! Your interviewer will be notified of your availability!";
-                console.log(data);
-            });
+            if (vm.start.length > 0) {
+                UserService.setAvailability(vm.userId, {
+                    'start': vm.start,
+                    'end': vm.end
+                }).success(function (data) {
+                    vm.applicantError = null;
+                    vm.applicantMessage = "Success! Your interviewer will be notified of your availability!";
+                    console.log(data);
+                });
+            }
         }
 
         function updateTimings() {
@@ -184,8 +186,8 @@
                 'start': vm.start,
                 'end': vm.end
             }).success(function (data) {
-                vm.applicantError=null;
-                vm.applicantMessage="Success! Your interviewer will be notified of your updated availability!";
+                vm.applicantError = null;
+                vm.applicantMessage = "Success! Your interviewer will be notified of your updated availability!";
 
                 console.log(data);
 
@@ -204,8 +206,8 @@
             yyyy = today.getFullYear();
             setDays();
             setHours();
-            vm.applicantMessage=null;
-            vm.applicantError=null;
+            vm.applicantMessage = null;
+            vm.applicantError = null;
             // get existing timings
             getExistingTimings();
 
@@ -226,7 +228,7 @@
 
                 }
                 else {
-                    vm.timingDisplayList=[];
+                    vm.timingDisplayList = [];
                     for (var d in result.startTime) {
                         var st = new Date(result.startTime[d]);
                         var et = new Date(result.endTime[d]);
@@ -309,8 +311,8 @@
 
             if (index > -1) {
                 vm.timingDisplayList.splice(index, 1);
-                vm.start.splice(index,1);
-                vm.end.splice(index,1);
+                vm.start.splice(index, 1);
+                vm.end.splice(index, 1);
 
             }
             console.log(vm.start.length);
@@ -396,8 +398,8 @@
             vm.emails = [];
         }
 
-        function startInterview() {
-            $location.url("/user/" + vm.user._id + "/interview/");
+        function startInterview(interview) {
+            $location.url("/user/" + vm.user._id + "/interview/" + interview._id);
         }
 
 
@@ -423,6 +425,7 @@
             console.log(interviewId);
             InterviewService.updateInterviewTime(interviewId, time)
                 .success(function (s) {
+                    vm.scheduleError = null;
                     vm.scheduleMessage = 'Interview is Scheduled Successfully!';
                 })
                 .error(function (error) {
@@ -437,7 +440,7 @@
             UserService.getAvailability(applicantId)
 
                 .success(function (result) {
-                    vm.result=result;
+                    vm.result = result;
                     // result = {
                     //     startTime: [new Date(), new Date(), new Date(), new Date(), new Date()],
                     //     endTime: [new Date(), new Date(), new Date(), new Date(), new Date()]
@@ -475,7 +478,11 @@
         }
 
         function toStartInterview(interview) {
-            var interviewDate = new  Date(interview.start);
+            console.log("inteirnewlonbkgdfgolhe");
+            console.log(interview);
+
+            return true;
+            var interviewDate = new Date(interview.start);
             console.log(interviewDate);
 
             var currDate = new Date();
@@ -490,7 +497,7 @@
                 return true;
             }
             console.log(false);
-            vm.startInterviewMessage=true;
+            vm.startInterviewMessage = true;
             return false;
 
         }
@@ -515,7 +522,7 @@
             InterviewService.getNextInterviewForInterviewer(vm.userId)
                 .success(function (interview) {
                     console.log(interview);
-                    vm.nextInterviewForInterviewer=interview;
+                    vm.nextInterviewForInterviewer = interview;
                 })
                 .error(function (error) {
                     console.log("error");
@@ -557,7 +564,7 @@
 
         // Upcoming Interview -> View Candidates
         function initializeViewCandidates() {
-            var positionId=vm.interviewInstance._position._id;
+            var positionId = vm.interviewInstance._position._id;
             console.log("sgsgsgs");
             //var positionId= vm.interviewInstance;
             console.log("sgsgsgs");
@@ -593,6 +600,8 @@
 
         // Upcoming Interview -> View Candidates -> Schedule Interview
         function interviewerScheduleInterview() {
+            vm.scheduleError = null;
+            vm.scheduleMessage = null;
             populateCandidateTimeSlots();
         }
 
@@ -603,7 +612,7 @@
             from = new Date(Date.UTC(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], from[0], from[1]));
             to = new Date(Date.UTC(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], to[0], to[1]));
             var success = false;
-            var result= vm.result;
+            var result = vm.result;
             console.log(result);
             console.log(from);
             console.log(to);
@@ -632,6 +641,7 @@
 
             else {
                 console.log("ERROR");
+                vm.scheduleMessage = null;
                 vm.scheduleError = 'Invalid Date/Time. Please try again';
             }
 
@@ -687,8 +697,8 @@
         // My Schedule
         function initializeInterviewerSchedule() {
             changeBackgorund('interviewerSchedule');
-            vm.startInterviewMessage=false;
-            vm.emptySchedule=false;
+            vm.startInterviewMessage = false;
+            vm.emptySchedule = false;
             InterviewService.getInterviewerSchedule(vm.userId)
                 .success(function (schedule) {
                     console.log("My Schedule");
@@ -772,9 +782,9 @@
             RecruiterService.getInterviewers(vm.userId)
                 .success(function (interviewers) {
                     console.log(interviewers);
-                    vm.rawInterviewer= interviewers;
-                    vm.interviewerarray=[];
-                    for (var interviewer in interviewers){
+                    vm.rawInterviewer = interviewers;
+                    vm.interviewerarray = [];
+                    for (var interviewer in interviewers) {
                         var interviewerName = interviewers[interviewer]['_interviewer']['firstName'] + '  ' + interviewers[interviewer]['_interviewer']['lastName'];
                         vm.interviewerarray.push(interviewerName);
 
@@ -858,10 +868,10 @@
         }
 
         function getCandidates(positionId) {
-            
+
             RecruiterService.getCandidates(positionId)
                 .success(function (candidates) {
-                    vm.candidatesByJob=candidates;
+                    vm.candidatesByJob = candidates;
                     getScheduledInterviews(positionId);
                 })
         }
@@ -869,23 +879,23 @@
         function dropdownTodo() {
             console.log("candidates are:");
             console.log(vm.finalData);
-            vm.interviewerDropdown=[];
-            vm.interviewerDetails=[];
+            vm.interviewerDropdown = [];
+            vm.interviewerDetails = [];
 
 
-            var candidates=vm.finalData;
+            var candidates = vm.finalData;
 
 
-            for(var c in candidates){
+            for (var c in candidates) {
                 console.log("in for loop")
                 console.log(('undefined' === typeof candidates[c]._interviewer));
-                if(('undefined' === typeof candidates[c]._interviewer)){
-                    vm.interviewerDropdown[c]=false;
-                    vm.interviewerDetails[c]="";
+                if (('undefined' === typeof candidates[c]._interviewer)) {
+                    vm.interviewerDropdown[c] = false;
+                    vm.interviewerDetails[c] = "";
                 }
-                else{
-                    vm.interviewerDropdown[c]=true;
-                    vm.interviewerDetails[c]= candidates[c]._interviewer.firstName+ '  ' +candidates[c]._interviewer.lastName;
+                else {
+                    vm.interviewerDropdown[c] = true;
+                    vm.interviewerDetails[c] = candidates[c]._interviewer.firstName + '  ' + candidates[c]._interviewer.lastName;
                     console.log("dsfsgsdg");
                     // console.log(candidates[c]._interviewer.firstName);
                     console.log(vm.interviewerDetails[c]);
@@ -917,7 +927,7 @@
                                 break;
                             }
                         }
-                        if(!match)
+                        if (!match)
                             finalData.push(vm.candidatesByJob[c]);
                     }
                     console.log("fdfgfwwwwwWWwwwwwwwwwwwww");
@@ -932,20 +942,20 @@
         }
 
         function setInterviewer(candidates) {
-            for (var i in candidates){
+            for (var i in candidates) {
                 console.log(candidates[i]);
             }
         }
 
         function getRawInterviewer(name) {
-            for (var i in vm.rawInterviewer){
-                var nm = vm.rawInterviewer[i]._interviewer.firstName+ '  ' +vm.rawInterviewer[i]._interviewer.lastName;
-                if(nm == name)
+            for (var i in vm.rawInterviewer) {
+                var nm = vm.rawInterviewer[i]._interviewer.firstName + '  ' + vm.rawInterviewer[i]._interviewer.lastName;
+                if (nm == name)
                     return vm.rawInterviewer[i]._interviewer;
             }
         }
 
-        function assignInterviewer(candidate,index) {
+        function assignInterviewer(candidate, index) {
             console.log("1221`21212121212   assign Interviewer");
             console.log(vm.rawInterviewer[index]['_interviewer']);
             console.log(getRawInterviewer(vm.interviewerDetails[index]));
@@ -1008,7 +1018,7 @@
             changeBackgorund("applicantUpcomingInterviews");
             initializeCalender();
 
-           }
+        }
 
 
         function getUpcomingInterviewForApplicant(userId) {
@@ -1063,7 +1073,7 @@
             InterviewService.getNextInterviewForApplicant(vm.userId)
                 .success(function (interview) {
                     console.log(interview);
-                    vm.applicantNextInterview=interview;
+                    vm.applicantNextInterview = interview;
                 }, function (error) {
                     console.log("error");
                     console.log(error);
