@@ -427,10 +427,10 @@ th, td {
 
 div#texter { width: 0px; height: 2em; white-space: nowrap; overflow: hidden;  }
 
-option {
-    background: #333333;
-    color: white;
-}
+/*option {*/
+    /*background: #333333;*/
+    /*color: white;*/
+/*}*/
 
 /*select.btn-mini {*/
     /*height: auto;*/

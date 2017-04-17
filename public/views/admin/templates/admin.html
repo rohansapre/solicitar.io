@@ -245,12 +245,25 @@
                                             <input type="password" class="form-control" id="passwordagain" ng-model="user.passverify" placeholder="Retype Password" />
                                         </div>
                                     </div>
-                                    <div class="form-group dropdown">
-                                        <button class="btn btn-default dropdown-toggle form-control" type="button" data-toggle="dropdown">{{model.setRecruiter.firstName}}
-                                            <span class="caret"></span></button>
-                                        <ul class="dropdown-menu">
-                                            <li ng-repeat="c in model.selectRecruiter"><a href ng-click="model.setRecruiter=c">{{c.firstName}} {{c.lastName}}</a></li>
-                                        </ul>
+                                    <div class="form-group dropdown row container-fluid">
+                                        <div class="col-sm-6">
+                                            Select Recruiter for this Interviewer:
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <select class="form-control"
+                                                    ng-change="model.setRecruiter=model.selRec"
+                                                    ng-model="model.selRec"
+                                                    ng-options="c.firstName for c in model.selectRecruiter" >
+                                            </select>
+                                        </div>
+                                        <!--<div class="col-sm-6">-->
+                                            <!--<button class="btn btn-info form-control dropdown-toggle" type="button" data-toggle="dropdown">{{model.setRecruiter.firstName}}-->
+                                                <!--<span class="caret"></span></button>-->
+
+                                            <!--<ul class="dropdown-menu form-control">-->
+                                                <!--<li ng-repeat="c in model.selectRecruiter"><a href ng-click="model.setRecruiter=c">{{c.firstName}} {{c.lastName}}</a></li>-->
+                                            <!--</ul>-->
+                                        <!--</div>-->
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-12">
