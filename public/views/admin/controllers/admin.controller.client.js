@@ -6,7 +6,7 @@
         .module("ProjectMaker")
         .controller("AdminController", AdminController);
 
-    function AdminController(AdminService, $location) {
+    function AdminController(AdminService, UserService, $location, $rootScope) {
         var vm = this;
 
         vm.getRecruiters = getRecruiters;
@@ -18,9 +18,11 @@
         vm.deleteUser = deleteUser;
         vm.updateUser = updateUser;
         vm.becomeGod = becomeGod;
+        vm.logout = logout;
 
         function init() {
-
+            console.log("in admin");
+            console.log($rootScope.currentUser);
         }
         init();
 
@@ -28,6 +30,7 @@
             AdminService.getRecruiters()
                 .success(function (users) {
                     vm.whatever = users;
+                    vm.selectRecruiter = users;
                     console.log(users);
                 })
                 .error(function (error) {
@@ -121,8 +124,19 @@
                 })
         }
 
-        function becomeGod(userId) {
-            $location.url("/user/" + userId);
+        function becomeGod(user) {
+            $rootScope.currentUser = user;
+            $location.url("/user/" + user._id);
+        }
+
+        function logout() {
+            console.log("reached logout");
+            UserService.logout()
+                .then(function (response) {
+                    console.log("reached back");
+                    $rootScope.adminUser = null;
+                    $location.url("/");
+                });
         }
     }
 })();

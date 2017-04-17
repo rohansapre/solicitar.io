@@ -9,8 +9,7 @@
         No Interviews found!
     </div>
     <div class="card-deck" ng-hide="model.emptyUpcomingInterviews">
-        <div class="col-xl-3 col-sm-6 mb-3" ng-repeat="interview in model.interviewerUpcomingInterviews">
-            <div class="card">
+        <div class="card col-xl-3 col-sm-6 mb-3" ng-repeat="interview in model.interviewerUpcomingInterviews">
                 <div class="card-block">
                     <h4 class="card-title">{{interview._position.name}}</h4>
                 </div>
@@ -21,7 +20,6 @@
                     <span class="float-left">View Candidates</span>
                     <span class="float-right"><i class="fa fa-angle-right"></i></span>
                 </a>
-            </div>
         </div>
     </div>
 </div>
