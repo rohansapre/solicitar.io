@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css"
+      href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 <div class="container-fluid">
 
     <ol class="breadcrumb my-3">
@@ -20,13 +22,38 @@
     <div class="card-deck">
         <div class="card">
             <div class="card-block">
-                <h4 class="card-title">Schedule Interview with {{model.applicant.name}}</h4>
+                <h4 class="card-title">Schedule Interview with {{model.interviewpositionname}}</h4>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item" ng-repeat="timing in model.applicantTiming">
-                    {{timing.date}} : {{timing.start}} --> {{timing.end}}
-                </li>
-            </ul>
+
+            <div class="card-block">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Start Time</th>
+                            <th>EndTime</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="timing in model.applicantTiming">
+                            <td data-label="Date: ">
+                                {{timing.date}}
+                            </td>
+
+                            <td data-label="Start Time: ">
+                                {{timing.start}}
+                            </td>
+
+                            <td data-label="End Time: ">
+                                {{timing.end}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="card-block card-footer">
                 <div class="table-responsive">
                     <table class="table">
@@ -41,7 +68,7 @@
                         <tbody>
                         <tr>
                             <td data-label="Date: ">
-                                <div class="form-group" >
+                                <div class="form-group">
                                     <select id="toOptions" class="form-control" ng-model="model.scheduleDate"
                                             ng-options="c for c in model.scheduleDates"></select>
                                 </div>
@@ -49,18 +76,22 @@
 
                             <td data-label="Start Time: ">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="from" placeholder="HH:MM" ng-model="model.scheduleFrom">
+                                    <input type="text" class="form-control" id="from" placeholder="HH:MM"
+                                           ng-model="model.scheduleFrom">
                                 </div>
                             </td>
 
                             <td data-label="End Time: ">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="to" placeholder="HH:MM" ng-model="model.scheduleTo">
+                                    <input type="text" class="form-control" id="to" placeholder="HH:MM"
+                                           ng-model="model.scheduleTo">
                                 </div>
                             </td>
 
                             <td>
-                                <button class="btn btn-block btn-success" ng-click="model.scheduleInterviewOnClick()"> Schedule Interview </button>
+                                <button class="btn btn-block btn-success" ng-click="model.scheduleInterviewOnClick()">
+                                    Schedule Interview
+                                </button>
                             </td>
                         </tr>
                         </tbody>

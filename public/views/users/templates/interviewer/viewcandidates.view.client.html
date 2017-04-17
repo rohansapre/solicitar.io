@@ -1,7 +1,7 @@
 <div class="container-fluid">
 
     <ol class="breadcrumb my-3">
-        <li class="breadcrumb-item"><a href="">Homepage</a></li>
+        <li class="breadcrumb-item"><a href ng-click="model.tab='interviewerDash'">Homepage</a></li>
         <li class="breadcrumb-item"><a href ng-click="model.tab='interviewerUpcoming'">{{model.user.firstName}}'s
             Upcoming Interviews</a></li>
         <li class="breadcrumb-item active">View Candidates</li>
@@ -13,10 +13,10 @@
     <div class="card-deck" ng-hide="model.emptyUpcomingCandidates">
         <div class="card col-sm-4" ng-repeat="applicant in model.interviewApplicants">
             <div class="card-header">
-                {{model.interviewpositionname}} Dummy Text
+                {{model.interviewpositionname}}
             </div>
             <div class="card-block">
-                    {{applicant._applicant.firstName}} {{applicant._applicant.lastName}}
+                <b>Candidate Name: </b> {{applicant._applicant.firstName}} {{applicant._applicant.lastName}}
             </div>
             <div class="card-footer">
                 <span class="float-left"><a href ng-click="model.applicantInstance=applicant; model.tab='interviewerScheduleInterview'">Schedule Interview</a></span>
