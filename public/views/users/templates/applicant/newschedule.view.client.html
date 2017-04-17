@@ -83,13 +83,45 @@
         </div>
 
         <div class="card-block">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Start Time</th>
+                            <th>EndTime</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="timing in model.timingDisplayList">
+                            <td data-label="Date: ">
+                                {{timing.date}}
+                            </td>
 
-            <ul class="list-group">
-                <li class="list-group-item justify-content-between" ng-repeat="timing in model.timingDisplayList" id="timingList">
-                    {{timing.date}} : {{timing.start}} --> {{timing.end}}
-                    <span class="badge badge-default badge-pill" ng-click="model.deleteTiming(timing)">Delete</span>
-                </li>
-            </ul>
+                            <td data-label="Start Time: ">
+                                {{timing.start}}
+                            </td>
+
+                            <td data-label="End Time: ">
+                                {{timing.end}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+            <!--<ul class="list-group">-->
+                <!---->
+                <!---->
+                <!---->
+                <!--<li class="list-group-item justify-content-between" ng-repeat="timing in model.timingDisplayList" id="timingList">-->
+                    <!--{{timing.date}} : {{timing.start}} &ndash;&gt; {{timing.end}}-->
+                    <!--<span class="badge badge-default badge-pill" ng-click="model.deleteTiming(timing)">Delete</span>-->
+                <!--</li>-->
+            <!--</ul>-->
         </div>
     </div>
 
