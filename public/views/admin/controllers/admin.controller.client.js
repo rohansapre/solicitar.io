@@ -92,6 +92,7 @@
             interviewer.type = 'INTERVIEWER';
             interviewer._recruiter = recruiterId;
             console.log(recruiterId);
+            console.log(interviewer);
             AdminService.createUser(interviewer)
                 .success(function (interviewer) {
                     console.log(interviewer);
