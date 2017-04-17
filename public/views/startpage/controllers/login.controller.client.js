@@ -13,6 +13,8 @@
 
         function init() {
             vm.error=null;
+            $('body').addClass('backgroundPic');
+            $('body').removeClass('noBackgroundPic');
         }
 
         init();

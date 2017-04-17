@@ -10,14 +10,20 @@ html{
 body {
     padding-top: 54px;
     pading-left: 0;
+
+
+}
+
+.backgroundPic{
     background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('picture.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
-
-
+.noBackgroundPic{
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) );
+}
 
 @media (min-width: 992px) {
     body.dashboardMargin {

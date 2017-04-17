@@ -84,6 +84,8 @@
 
 
         function init() {
+            $('body').removeClass('backgroundPic');
+            $('body').addClass('noBackgroundPic');
             vm.user = $rootScope.currentUser;
             vm.userId = vm.user._id;
             vm.name = vm.user.firstName + " " + vm.user.lastName;
