@@ -16,9 +16,12 @@ module.exports = function (app, model) {
         var flag = false;
         if ("undefined" !== typeof user._recruiter)
             flag = true;
+        console.log(flag);
+        console.log(user);
         model.user
             .createUser(user)
             .then(function (user) {
+                console.log("created user");
                 if (flag) {
                     var company = {
                         _recruiter: user._recruiter,
@@ -27,6 +30,7 @@ module.exports = function (app, model) {
                     model.company
                         .createCompany(company)
                         .then(function (newCompany) {
+                            console.log("created company");
                             res.json(user);
                         }, function (error) {
                             res.sendStatus(500).send(error);
@@ -34,6 +38,7 @@ module.exports = function (app, model) {
                 } else
                     res.json(user);
             }, function (error) {
+                console.log(error);
                 res.sendStatus(500).send(error);
             })
     }
