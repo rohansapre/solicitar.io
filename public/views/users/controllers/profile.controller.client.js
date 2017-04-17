@@ -566,6 +566,12 @@
                 .success(function (interview) {
                     console.log(interview);
                     vm.nextInterviewForInterviewer = interview;
+                    if(interview.length == 0){
+                        vm.dashboardNonEmpty=false;
+                    }
+                    else{
+                        vm.dashboardNonEmpty=true;
+                    }
                 })
                 .error(function (error) {
                     console.log("error");
@@ -1146,6 +1152,12 @@
                 .success(function (interview) {
                     console.log(interview);
                     vm.applicantNextInterview = interview;
+                    if(interview.length == 0){
+                        vm.dashboardNonEmpty=false;
+                    }
+                    else{
+                        vm.dashboardNonEmpty=true;
+                    }
                 }, function (error) {
                     console.log("error");
                     console.log(error);

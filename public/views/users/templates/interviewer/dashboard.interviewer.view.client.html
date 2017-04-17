@@ -76,7 +76,14 @@
         <div class="card-header">
             <i class="fa fa-bar-chart"></i> Next Interview
         </div>
-        <div class="card-block">
+
+
+        <div class="card-block" ng-hide="model.dashboardNonEmpty">
+            No Recent Upcoming Interview!
+        </div>
+
+
+        <div class="card-block" ng-show="model.dashboardNonEmpty">
             <b>Candidate Name: </b> {{model.nextInterviewForInterviewer[0]._applicant.firstName}} {{model.nextInterviewForInterviewer[0]._applicant.lastName}}<br>
             <b>Position: </b> {{model.nextInterviewForInterviewer[0]._position.name}} <br>
             <b>Location: </b> {{model.nextInterviewForInterviewer[0]._position.location}} <br>
