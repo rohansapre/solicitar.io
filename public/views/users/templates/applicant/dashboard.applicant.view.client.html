@@ -5,97 +5,100 @@
         <li class="breadcrumb-item active">{{model.user.firstName}}'s Dashboard</li>
     </ol>
 
-    <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card card-inverse card-primary o-hidden h-100">
-                <div class="card-block">
-                    <div class="card-block-icon">
-                        <i class="fa fa-fw fa-comments"></i>
-                    </div>
-                    <div class="mr-5">
-                        26 New Messages!
-                    </div>
-                </div>
-                <a href="#" class="card-footer clearfix small z-1">
-                    <span class="float-left">View Details</span>
-                    <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                </a>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card card-inverse card-success o-hidden h-100">
-                <div class="card-block">
-                    <div class="card-block-icon">
-                        <i class="fa fa-fw fa-list"></i>
-                    </div>
-                    <div class="mr-5">
-                        11 New Tasks!
-                    </div>
-                </div>
-                <a href="#" class="card-footer clearfix small z-1">
-                    <span class="float-left">View Details</span>
-                    <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                </a>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card card-inverse card-warning o-hidden h-100">
-                <div class="card-block">
-                    <div class="card-block-icon">
-                        <i class="fa fa-fw fa-shopping-cart"></i>
-                    </div>
-                    <div class="mr-5">
-                        123 New Orders!
-                    </div>
-                </div>
-                <a href="#" class="card-footer clearfix small z-1">
-                    <span class="float-left">View Details</span>
-                    <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                </a>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card card-inverse card-danger o-hidden h-100">
-                <div class="card-block">
-                    <div class="card-block-icon">
-                        <i class="fa fa-fw fa-support"></i>
-                    </div>
-                    <div class="mr-5">
-                        Start Interview!
-                    </div>
-                </div>
-                <a href ng-click="model.startInterview()" class="card-footer clearfix small z-1">
-                    <span class="float-left">Go to Interview Page</span>
-                    <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                </a>
-            </div>
-        </div>
-    </div>
+    <!--<div class="row">-->
+        <!--<div class="col-xl-3 col-sm-6 mb-3">-->
+            <!--<div class="card card-inverse card-primary o-hidden h-100">-->
+                <!--<div class="card-block">-->
+                    <!--<div class="card-block-icon">-->
+                        <!--<i class="fa fa-fw fa-comments"></i>-->
+                    <!--</div>-->
+                    <!--<div class="mr-5">-->
+                        <!--26 New Messages!-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<a href="#" class="card-footer clearfix small z-1">-->
+                    <!--<span class="float-left">View Details</span>-->
+                    <!--<span class="float-right"><i class="fa fa-angle-right"></i></span>-->
+                <!--</a>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-xl-3 col-sm-6 mb-3">-->
+            <!--<div class="card card-inverse card-success o-hidden h-100">-->
+                <!--<div class="card-block">-->
+                    <!--<div class="card-block-icon">-->
+                        <!--<i class="fa fa-fw fa-list"></i>-->
+                    <!--</div>-->
+                    <!--<div class="mr-5">-->
+                        <!--11 New Tasks!-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<a href="#" class="card-footer clearfix small z-1">-->
+                    <!--<span class="float-left">View Details</span>-->
+                    <!--<span class="float-right"><i class="fa fa-angle-right"></i></span>-->
+                <!--</a>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-xl-3 col-sm-6 mb-3">-->
+            <!--<div class="card card-inverse card-warning o-hidden h-100">-->
+                <!--<div class="card-block">-->
+                    <!--<div class="card-block-icon">-->
+                        <!--<i class="fa fa-fw fa-shopping-cart"></i>-->
+                    <!--</div>-->
+                    <!--<div class="mr-5">-->
+                        <!--123 New Orders!-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<a href="#" class="card-footer clearfix small z-1">-->
+                    <!--<span class="float-left">View Details</span>-->
+                    <!--<span class="float-right"><i class="fa fa-angle-right"></i></span>-->
+                <!--</a>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-xl-3 col-sm-6 mb-3">-->
+            <!--<div class="card card-inverse card-danger o-hidden h-100">-->
+                <!--<div class="card-block">-->
+                    <!--<div class="card-block-icon">-->
+                        <!--<i class="fa fa-fw fa-support"></i>-->
+                    <!--</div>-->
+                    <!--<div class="mr-5">-->
+                        <!--Start Interview!-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<a href ng-click="model.startInterview()" class="card-footer clearfix small z-1">-->
+                    <!--<span class="float-left">Go to Interview Page</span>-->
+                    <!--<span class="float-right"><i class="fa fa-angle-right"></i></span>-->
+                <!--</a>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
     <!-- Area Chart Example -->
-    <div class="card mb-3">
+    <div class="card mb-3 col-sm-12">
         <div class="card-header">
             <i class="fa fa-bar-chart"></i> Next Interview
         </div>
         <div class="card-block">
-            {{model.applicantNextInterview}}
+            <b>Interviewer: </b> {{model.applicantNextInterview[0]._interviewer.firstName}} {{model.applicantNextInterview[0]._interviewer.lastName}}<br>
+            <b>Position: </b> {{model.applicantNextInterview[0]._position.name}} <br>
+            <b>Location: </b> {{model.applicantNextInterview[0]._position.location}}
+            <button class="btn btn-primary form-control">Start Interview</button>
         </div>
         <div class="card-footer text-muted">
-            <small>2 Days Ago</small>
+            <!--<small>2 Days Ago</small>-->
         </div>
     </div>
 
-    <!-- Card Columns -->
-    <div class="card-columns">
-        <div class="card">
-            <img class="card-img-top img-fluid w-100" src="http://placehold.it/350x150" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Card title</h4>
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-        </div>
-    </div>
+    <!--&lt;!&ndash; Card Columns &ndash;&gt;-->
+    <!--<div class="card-columns">-->
+        <!--<div class="card">-->
+            <!--<img class="card-img-top img-fluid w-100" src="http://placehold.it/350x150" alt="Card image cap">-->
+            <!--<div class="card-block">-->
+                <!--<h4 class="card-title">Card title</h4>-->
+                <!--<p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>-->
+            <!--</div>-->
+            <!--<div class="card-footer">-->
+                <!--<small class="text-muted">Last updated 3 mins ago</small>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 </div>

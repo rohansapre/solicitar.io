@@ -515,11 +515,11 @@
                     <th>Options</th>
                 </thead>
                 <tr ng-repeat="c in model.whatever">
-                    <td data-label="First Name: " ng-click="model.becomeGod(c._id)">{{c.firstName}}</td>
-                    <td data-label="Last Name: " ng-click="model.becomeGod(c._id)">{{c.lastName}}</td>
-                    <td data-label="User Name: " ng-click="model.becomeGod(c._id)">{{c.username}}</td>
-                    <td data-label="Email: " ng-click="model.becomeGod(c._id)">{{c.email}}</td>
-                    <td data-label="Status: " ng-click="model.becomeGod(c._id)">{{c.status}}</td>
+                    <td data-label="First Name: "><a ng-click="model.becomeGod(c._id)">{{c.firstName}}</a></td>
+                    <td data-label="Last Name: "><a ng-click="model.becomeGod(c._id)">{{c.lastName}}</a></td>
+                    <td data-label="User Name: "><a ng-click="model.becomeGod(c._id)">{{c.username}}</a></td>
+                    <td data-label="Email: "><a ng-click="model.becomeGod(c._id)">{{c.email}}</a></td>
+                    <td data-label="Status: "><a ng-click="model.becomeGod(c._id)">{{c.status}}</a></td>
                     <td><a href ng-click="model.deleteUser(c._id)">Delete</a><a> </a><a ng-click="model.usr=c" data-toggle="modal" data-target="#myModal4">Update</a></td>
                 </tr>
             </table>

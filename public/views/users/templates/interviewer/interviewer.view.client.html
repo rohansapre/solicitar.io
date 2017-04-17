@@ -148,7 +148,8 @@
     </div>
 
     <div ng-switch-default>
-        <ng-include src="'views/users/templates/interviewer/dashboard.interviewer.view.client.html'"></ng-include>
+        <ng-include src="'views/users/templates/interviewer/dashboard.interviewer.view.client.html'"
+                    onload="model.initializeInterviewerDashboard()"></ng-include>
     </div>
 </div>
 <script>

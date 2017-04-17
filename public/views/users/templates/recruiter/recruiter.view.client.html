@@ -201,7 +201,8 @@
         <ng-include src="'views/users/templates/recruiter/addinterviewer.view.client.html'"></ng-include>
     </div>
     <div ng-switch-default>
-        <ng-include src="'views/users/templates/recruiter/dashboard.recruiter.view.client.html'"></ng-include>
+        <ng-include src="'views/users/templates/recruiter/dashboard.recruiter.view.client.html'"
+                    onload="model.initializeRecruiterDashboard()"></ng-include>
     </div>
 </div>
 

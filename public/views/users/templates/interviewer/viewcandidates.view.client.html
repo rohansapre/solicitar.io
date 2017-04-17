@@ -11,32 +11,17 @@
         No Candidates found!
     </div>
     <div class="card-deck" ng-hide="model.emptyUpcomingCandidates">
-        <div class="card">
-            <div class="card-block">
-                <h4 class="card-title">{{model.interviewpositionname}}</h4>
+        <div class="card col-sm-4" ng-repeat="applicant in model.interviewApplicants">
+            <div class="card-header">
+                {{model.interviewpositionname}} Dummy Text
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item" ng-repeat="applicant in model.interviewApplicants">
-                    <span class="float-left">{{applicant._applicant.firstName}} {{applicant._applicant.lastName}}</span>
-                    <div class="container-fluid pull-right">
-
-                        <div class="float-right card-footer">
-                            <!--<a href ng-click="model.applicantId=applicant._applicant._id; model.tab='interviewerScheduleInterview'"-->
-                            <a href ng-click="model.applicantInstance=applicant; model.tab='interviewerScheduleInterview'"
-                               class=" clearfix small">
-                                <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                                <span class="float-right"> Schedule Interview </span>
-
-                            </a>
-                        </div>
-
-                        <div class="float-right card-footer">
-                            <a href ng-click="model.applicantId=applicant._applicant._id; model.tab='interviewerViewCandidateProfile'" class=" clearfix small">
-                                <span class="float-right">View Profile</span></a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+            <div class="card-block">
+                    {{applicant._applicant.firstName}} {{applicant._applicant.lastName}}
+            </div>
+            <div class="card-footer">
+                <span class="float-left"><a href ng-click="model.applicantInstance=applicant; model.tab='interviewerScheduleInterview'">Schedule Interview</a></span>
+                <span class="float-right"><a href ng-click="model.applicantId=applicant._applicant._id; model.tab='interviewerViewCandidateProfile'">View Profile</a></span>
+            </div>
         </div>
     </div>
 </div>

@@ -321,7 +321,7 @@ body .modal {
 }
 
 .white {
-    top: 25vh;
+    top: 10vw;
     left: 0vh;
     position: fixed;
     font-family: 'Open Sans', sans-serif;
