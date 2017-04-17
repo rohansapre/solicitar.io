@@ -28,6 +28,7 @@
             AdminService.getRecruiters()
                 .success(function (users) {
                     vm.whatever = users;
+                    vm.selectRecruiter = users;
                     console.log(users);
                 })
                 .error(function (error) {
