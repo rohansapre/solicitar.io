@@ -19,12 +19,18 @@
         vm.updateUser = updateUser;
         vm.becomeGod = becomeGod;
         vm.logout = logout;
+        vm.dummyPrint = dummyPrint;
 
         function init() {
+            getRecruiters();
             console.log("in admin");
             console.log($rootScope.currentUser);
         }
         init();
+
+        function dummyPrint() {
+            console.log("here");
+        }
 
         function getRecruiters() {
             AdminService.getRecruiters()
@@ -85,6 +91,7 @@
         function addInterviewer(recruiterId, interviewer) {
             interviewer.type = 'INTERVIEWER';
             interviewer._recruiter = recruiterId;
+            console.log(recruiterId);
             AdminService.createUser(interviewer)
                 .success(function (interviewer) {
                     console.log(interviewer);
