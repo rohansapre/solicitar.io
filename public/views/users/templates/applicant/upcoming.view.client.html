@@ -16,10 +16,10 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">{{interview._position.location}}</li>
-                    <li class="list-group-item" ng-bind="interview.date? 'Interview Date: '+interview.date : 'Interview Date: Yet to Confirm'">Interview Date: {{interview.date}}</li>
+                    <li class="list-group-item"><b>Interview Date:</b> {{interview.date}}</li>
                 </ul>
                 <div class="card-block">
-                    <h5 class="card-title">Interviewer: </h5>
+                    <b class="card-title">Interviewer: </b>
                     <a class="card-link">{{interview._interviewer.firstName}} {{interview._interviewer.lastName}}</a>
                 </div>
 
