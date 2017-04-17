@@ -9,7 +9,10 @@
         $http.get('api/loggedin').success(function (user) {
             $rootScope.errorMessage = null;
             if (user !== '0') {
-                $rootScope.currentUser = user;
+                if (user.type === 'ADMIN')
+                    $rootScope.adminUser = user;
+                else
+                    $rootScope.currentUser = user;
                 deffered.resolve();
             } else {
                 deffered.reject();

@@ -88,7 +88,7 @@
             vm.userId = vm.user._id;
             vm.name = vm.user.firstName + " " + vm.user.lastName;
             console.log("user");
-            console.log(vm.user);
+            console.log($rootScope.currentUser);
             console.log(vm.userId);
             console.log(vm.name);
         }
@@ -1082,11 +1082,17 @@
         }
 
         function logout() {
-            UserService.logout()
-                .then(function (response) {
-                    $rootScope.currentUser = null;
-                    $location.url("/");
-                })
+            if ('undefined' === typeof $rootScope.adminUser) {
+                console.log("in if");
+                UserService.logout()
+                    .then(function (response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+            } else {
+                $rootScope.currentUser = null;
+                $location.url("/admin");
+            }
         }
     }
 })();
