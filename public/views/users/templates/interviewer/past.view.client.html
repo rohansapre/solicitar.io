@@ -1,7 +1,7 @@
 <div class="container-fluid">
 
     <ol class="breadcrumb my-3">
-        <li class="breadcrumb-item"><a href="">Homepage</a></li>
+        <li class="breadcrumb-item"><a href ng-click="model.tab='interviewerDash'">Homepage</a></li>
         <li class="breadcrumb-item active">{{model.user.firstName}}'s Past Interviews</li>
     </ol>
     <div ng-show="model.emptyPastInterviews" class="alert alert-danger" role="alert">
@@ -15,7 +15,7 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">{{interview._position.location}}</li>
-                    <li class="list-group-item">Date :<span ng-bind="model.getBeautifulDate(interview.start)"></span></li>
+                    <li class="list-group-item"><b>Date: </b> {{model.getBeautifulDate(interview.start)}}</li>
 
                 </ul>
             </div>

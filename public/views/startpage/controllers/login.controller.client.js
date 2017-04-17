@@ -12,6 +12,7 @@
         vm.create = create;
 
         function init() {
+            vm.error=null;
         }
 
         init();
