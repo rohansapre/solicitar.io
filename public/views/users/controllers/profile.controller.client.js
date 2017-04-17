@@ -1153,7 +1153,9 @@
         }
 
         function logout() {
-            if ('undefined' === typeof $rootScope.adminUser) {
+            console.log("admin");
+            console.log($rootScope.adminUser);
+            if ('undefined' === typeof $rootScope.adminUser || $rootScope.adminUser === null) {
                 console.log("in if");
                 UserService.logout()
                     .then(function (response) {

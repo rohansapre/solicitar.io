@@ -80,8 +80,9 @@
         <div class="card-block">
             <b>Interviewer: </b> {{model.applicantNextInterview[0]._interviewer.firstName}} {{model.applicantNextInterview[0]._interviewer.lastName}}<br>
             <b>Position: </b> {{model.applicantNextInterview[0]._position.name}} <br>
-            <b>Location: </b> {{model.applicantNextInterview[0]._position.location}}
-            <button class="btn btn-primary form-control">Start Interview</button>
+            <b>Location: </b> {{model.applicantNextInterview[0]._position.location}} <br>
+            <b>Start Time : </b> {{ model.getBeautifulDate(model.applicantNextInterview[0].start)}}<br>
+            <button class="btn btn-primary form-control" href ng-click="model.toStartInterview(model.applicantNextInterview[0]) && model.startInterview(model.applicantNextInterview[0])">Start Interview</button>
         </div>
         <div class="card-footer text-muted">
             <!--<small>2 Days Ago</small>-->
