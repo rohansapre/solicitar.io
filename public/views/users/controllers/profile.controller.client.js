@@ -469,7 +469,14 @@
                         }
 
                     }
+                    $("#dtBox").DateTimePicker({
+                        dateFormat: "yyyy-MM-dd",
+                        minDate: dateArray[0],
+                        maxDate: dateArray[dateArray.length - 1]
+                    });
+                    // vm.minDate = dateArray[0];
                     vm.scheduleDate = dateArray[0];
+
                     vm.scheduleDates = dateArray;
                 })
 
@@ -603,47 +610,56 @@
         function interviewerScheduleInterview() {
             vm.scheduleError = null;
             vm.scheduleMessage = null;
+            vm.scheduleError=null;
             populateCandidateTimeSlots();
         }
 
         function scheduleInterviewOnClick() {
-            var from = vm.scheduleFrom.split(':');
-            var to = vm.scheduleTo.split(':');
-            var dateArr = vm.scheduleDate.split('-');
-            from = new Date(Date.UTC(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], from[0], from[1]));
-            to = new Date(Date.UTC(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], to[0], to[1]));
-            var success = false;
-            var result = vm.result;
-            console.log(result);
-            console.log(from);
-            console.log(to);
-            for (var d in result.startTime) {
-                var st = new Date(result.startTime[d]);
-                var et = new Date(result.endTime[d]);
-                et.setSeconds(0);
-                st.setSeconds(0);
-                console.log(from.setSeconds(10));
-                console.log(st);
+            vm.scheduleFrom= document.getElementById('from').value;
+            vm.scheduleTo=  document.getElementById('to').value ;
+            console.log(vm.scheduleFrom);
+            if(typeof vm.scheduleFrom == '' || typeof vm.scheduleTo == ''){
+                vm.scheduleError = "Please select Time! ";
+            }
+            else {
+                var from = vm.scheduleFrom.split(':');
+                var to = vm.scheduleTo.split(':');
+                var dateArr = vm.scheduleDate.split('-');
+                from = new Date(Date.UTC(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], from[0], from[1]));
+                to = new Date(Date.UTC(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], to[0], to[1]));
+                var success = false;
+                var result = vm.result;
+                console.log(result);
+                console.log(from);
+                console.log(to);
+                for (var d in result.startTime) {
+                    var st = new Date(result.startTime[d]);
+                    var et = new Date(result.endTime[d]);
+                    et.setSeconds(0);
+                    st.setSeconds(0);
+                    console.log(from.setSeconds(10));
+                    console.log(st);
 
-                console.log((from <= st));
-                console.log((to <= et));
-                if ((from >= st) && (to <= et)) {
-                    success = true;
-                    break;
+                    console.log((from <= st));
+                    console.log((to <= et));
+                    if ((from >= st) && (to <= et)) {
+                        success = true;
+                        break;
+                    }
+
                 }
 
-            }
+                if (success) {
+                    console.log("Yo");
+                    console.log(vm.applicantInstance);
+                    updateInterviewTime(vm.applicantInstance._id, from, to);
+                }
 
-            if (success) {
-                console.log("Yo");
-                console.log(vm.applicantInstance);
-                updateInterviewTime(vm.applicantInstance._id, from, to);
-            }
-
-            else {
-                console.log("ERROR");
-                vm.scheduleMessage = null;
-                vm.scheduleError = 'Invalid Date/Time. Please try again';
+                else {
+                    console.log("ERROR");
+                    vm.scheduleMessage = null;
+                    vm.scheduleError = 'Invalid Date/Time. Please try again';
+                }
             }
 
         }

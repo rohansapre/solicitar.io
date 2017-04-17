@@ -1,5 +1,3 @@
-<link rel="stylesheet" type="text/css"
-      href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 <div class="container-fluid">
 
     <ol class="breadcrumb my-3">
@@ -69,22 +67,30 @@
                         <tr>
                             <td data-label="Date: ">
                                 <div class="form-group">
-                                    <select id="toOptions" class="form-control" ng-model="model.scheduleDate"
-                                            ng-options="c for c in model.scheduleDates"></select>
+                                    <input id="toOptions" type="text" data-field="date" class="form-control"
+                                           ng-model="model.scheduleDate" readonly>
                                 </div>
+                                <!--<div class="form-group">-->
+                                <!--<select id="toOptions" class="form-control" ng-model="model.scheduleDate"-->
+                                <!--ng-options="c for c in model.scheduleDates"></select>-->
+                                <!--</div>-->
                             </td>
 
                             <td data-label="Start Time: ">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="from" placeholder="HH:MM"
-                                           ng-model="model.scheduleFrom">
+                                    <input class="form-control" id="from" type="text" data-field="time"
+                                           ng-model="model.scheduleFrom" readonly>
+                                    <!--<input type="text" class="form-control" id="from" placeholder="HH:MM"-->
+                                    <!--ng-model="model.scheduleFrom">-->
                                 </div>
                             </td>
 
                             <td data-label="End Time: ">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="to" placeholder="HH:MM"
-                                           ng-model="model.scheduleTo">
+                                    <input class="form-control" id="to" type="text" data-field="time"
+                                           ng-model="model.scheduleTo" readonly>
+                                    <!--<input type="text" class="form-control" id="to" placeholder="HH:MM"-->
+                                           <!--ng-model="model.scheduleTo">-->
                                 </div>
                             </td>
 
@@ -101,3 +107,5 @@
         </div>
     </div>
 </div>
+
+<div id="dtBox"></div>
