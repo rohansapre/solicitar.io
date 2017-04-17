@@ -48,17 +48,18 @@
                 UserService.login(user)
                     .success(function (user) {
                         if (user) {
-                            if (user.username === 'admin')
-                                $rootScope.adminUser = user;
-                            else
-                                $rootScope.currentUser = user;
                             if (user.type === 'RECRUITER') {
+                                $rootScope.currentUser = user;
                                 $location.url("/user/" + user._id);
                             } else if (user.type === 'ADMIN') {
                                 console.log('God Mode');
+                                $rootScope.adminUser = user;
                                 $location.url("/admin");
-                            } else
+                            } else {
+                                $rootScope.currentUser = user;
                                 $location.url("/user/" + user._id);
+                            }
+
                         }
 
                     })
