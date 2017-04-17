@@ -8,8 +8,7 @@
         No Interviews found!
     </div>
     <div class="card-deck" ng-hide="model.emptyPastInterviews">
-        <div class="col-xl-3 col-sm-6 mb-3" ng-repeat="interview in model.interviewerPastInterviews">
-            <div class="card">
+        <div class=" card col-xl-3 col-sm-6 mb-3" ng-repeat="interview in model.interviewerPastInterviews">
                 <div class="card-block">
                     <h4 class="card-title">{{interview._position.name}}</h4>
                 </div>
@@ -18,7 +17,6 @@
                     <li class="list-group-item">Date :<span ng-bind="model.getBeautifulDate(interview.start)"></span></li>
 
                 </ul>
-            </div>
         </div>
     </div>
 

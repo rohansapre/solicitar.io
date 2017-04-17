@@ -87,6 +87,7 @@
             vm.user = $rootScope.currentUser;
             vm.userId = vm.user._id;
             vm.name = vm.user.firstName + " " + vm.user.lastName;
+            console.log("user");
             console.log(vm.user);
             console.log(vm.userId);
             console.log(vm.name);

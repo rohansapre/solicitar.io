@@ -6,7 +6,7 @@
         .module("ProjectMaker")
         .controller("AdminController", AdminController);
 
-    function AdminController(AdminService, $location) {
+    function AdminController(AdminService, $location, $rootScope) {
         var vm = this;
 
         vm.getRecruiters = getRecruiters;
@@ -121,8 +121,10 @@
                 })
         }
 
-        function becomeGod(userId) {
-            $location.url("/user/" + userId);
+        function becomeGod(user) {
+            $rootScope.currentUser = user;
+            console.log($rootScope.currentUser);
+            $location.url("/user/" + user._id);
         }
     }
 })();
