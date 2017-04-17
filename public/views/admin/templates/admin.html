@@ -246,15 +246,15 @@
                                         </div>
                                     </div>
                                     <div class="form-group dropdown">
-                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Recruiter
+                                        <button class="btn btn-default dropdown-toggle form-control" type="button" data-toggle="dropdown">Select Recruiter
                                             <span class="caret"></span></button>
                                         <ul class="dropdown-menu">
-                                            <li ng-repeat="c in model.selectRecruiter">{{c.firstName}}</></li>
+                                            <li ng-repeat="c in model.selectRecruiter"><a href ng-click="model.setRecruiter=c._id">{{c.firstName}} {{c.lastName}}</a></li>
                                         </ul>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-12">
-                                            <a class="btn btn-primary col-12" ng-click= "model.addInterviewer(user)">
+                                            <a class="btn btn-primary col-12" ng-click= "model.addInterviewer(model.setRecruiter, user)">
                                                 <div class="colwhite" data-dismiss="modal" aria-hidden="true">Register</div></a>
                                         </div>
                                     </div>
