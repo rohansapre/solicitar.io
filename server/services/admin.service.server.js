@@ -14,7 +14,7 @@ module.exports = function (app, model) {
         user.status = 'JOINED';
         user.password = bcrypt.hashSync(user.password);
         var flag = false;
-        if(user._recruiter !== "undefined")
+        if ("undefined" !== typeof user._recruiter)
             flag = true;
         model.user
             .createUser(user)
