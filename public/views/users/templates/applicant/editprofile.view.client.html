@@ -1,17 +1,21 @@
 <div class="container-fluid" onpageshow="getwidth()">
 
-    <ol class="breadcrumb my-3">
-        <li class="breadcrumb-item"><a href="">Homepage</a></li>
-        <li class="breadcrumb-item active">{{model.user.firstName}}'s Profile</li>
-    </ol>
+    <div class="container-fluid">
+        <ol class="breadcrumb my-3">
+            <li class="breadcrumb-item"><a href="">Homepage</a></li>
+            <li class="breadcrumb-item active">{{model.user.firstName}}'s Profile</li>
+        </ol>
+    </div>
     <!-- Card Columns -->
     <div class="card-deck">
-        <div class="card col-sm-12 col-md-4 mb-3">
-            <h3 class="card-header">
-                <small>Profile</small>
-                <button class="btn btn-primary pull-right" ng-click="model.updateUser(model.user)">Update Profile
+        <div class="col-md-12 col-lg-4 mb-3">
+            <div class="card" style="height: 80vh;">
+                <div class="card-header">
+                    Profile
+                    <button class="btn btn-sm btn-primary pull-right" ng-click="model.updateUser(model.user)">Update
+                        Profile
                 </button>
-            </h3>
+                </div>
             <div class="card-footer clearfix small" id="imgoverlay">
                 <form action="/api/upload/image" method="post" enctype="multipart/form-data">
                     <img class="card-img-top img-fluid w-100" src="{{model.user.picture}}" alt="Card image cap">
@@ -20,7 +24,7 @@
                     <input name="email" value="{{model.user.email}}" style="display: none"/>
                     <input name="firstName" value="{{model.user.firstName}}" style="display: none"/>
                     <input name="lastName" value="{{model.user.lastName}}" style="display: none"/>
-                    <button type="submit" class="btn btn-primary pull-right image-upload">Upload</button>
+                    <button type="submit" class="btn btn-sm btn-primary pull-right image-upload">Upload</button>
                 </form>
             </div>
             <div ng-show="model.error" class="alert alert-danger" role="alert">
@@ -62,54 +66,44 @@
             <!--<small class="text-muted">Last updated 3 mins ago</small>-->
             <!--</div>-->
         </div>
-        <div class="card fullHeight col-sm-12 col-md-4 mb-3" >
-            <h3 class="card-header">
-                <small>Resume</small>
-                <button onclick="document.forms['resumeForm'].submit()" class="btn btn-primary pull-right">Upload</button>
-            </h3>
-            <div class="card-block content-body">
-                <!--<iframe src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf#view=fit"></iframe>-->
-                <embed id="resumeframe" class="resume" src='{{model.user.resume}}' width="100%">
-                    <!--<div><iframe id="resumeframe" src="http://www.orimi.com/pdf-test.pdf" onload="getwidth()" style="border: none;"></iframe></div>-->
-            </div>
-            <div class="card-footer clearfix small">
-                <form action="/api/upload/resume" method="post" enctype="multipart/form-data" name="resumeForm">
-                    <div class="card-block">
-                        <!--TODO: Modify CSS file for updating class resume-upload-->
-                        <input class="resume-upload" type="file" id="resume-upload" name="resume"/>
-                        <input name="userId" value="{{model.user._id}}" style="display: none"/>
-                    </div>
-                </form>
+        </div>
+        <div class="col-md-12 col-lg-4 mb-3">
+            <div class="card" style="height: 80vh;">
+                <div class="card-header">
+                    Resume
+                    <button onclick="document.forms['resumeForm'].submit()" class="btn btn-sm btn-primary pull-right">
+                        Upload
+                    </button>
+                </div>
+                <div class="card-block content-body">
+                    <!--<iframe src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf#view=fit"></iframe>-->
+                    <embed id="resumeframe" class="resume" src='{{model.user.resume}}' width="100%">
+                        <!--<div><iframe id="resumeframe" src="http://www.orimi.com/pdf-test.pdf" onload="getwidth()" style="border: none;"></iframe></div>-->
+                </div>
+                <div class="card-footer clearfix small">
+                    <form action="/api/upload/resume" method="post" enctype="multipart/form-data" name="resumeForm">
+                            <input class="resume-upload" type="file" id="resume-upload" name="resume"/>
+                            <input name="userId" value="{{model.user._id}}" style="display: none"/>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="card fullHeight col-sm-12 col-md-4 mb-3">
-            <!--<form action="/api/upload/cover-letter" method="post" enctype="multipart/form-data">-->
-            <h3 class="card-header">
-                <small>Cover Letter</small>
-                <button type="submit" class="btn btn-primary pull-right">Upload</button>
-            </h3>
-            <!--<div class="card-block">-->
-            <!--&lt;!&ndash;TODO: Modify CSS file for updating class resume-upload&ndash;&gt;-->
-            <!--<input class="resume-upload" type="file" id="cover-letter-upload" name="cover-letter" />-->
-            <!--<input name="userId" value="{{model.user._id}}" style="display: none"/>-->
-            <!--</div>-->
-            <div class="card-block content-body">
-                <!--<iframe src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf#view=fit"></iframe>-->
-                <embed id="cover-letter-frame" class="cover-letter" src="{{model.user.coverLetter}}"
-                       width="100%">
-                    <!--<div><iframe id="resumeframe" src="http://www.orimi.com/pdf-test.pdf" onload="getwidth()" style="border: none;"></iframe></div>-->
-            </div>
-            <div class="card-footer clearfix small">
-                <form action="/api/upload/cover-letter" method="post" enctype="multipart/form-data">
-                    <div class="card-block">
-                        <!--TODO: Modify CSS file for updating class resume-upload-->
+        <div class="col-md-12 col-lg-4 mb-3">
+            <div class="card" style="height: 80vh;">
+                <div class="card-header">
+                    Cover Letter
+                    <button type="submit" class="btn btn-sm btn-primary pull-right">Upload</button>
+                </div>
+                <div class="card-block content-body">
+                    <embed id="cover-letter-frame" class="cover-letter" src="{{model.user.coverLetter}}" width="100%">
+                </div>
+                <div class="card-footer clearfix small">
+                    <form action="/api/upload/cover-letter" method="post" enctype="multipart/form-data">
                         <input class="resume-upload" type="file" id="cover-letter-upload" name="cover-letter"/>
                         <input name="userId" value="{{model.user._id}}" style="display: none"/>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-
-            <!--</form>-->
         </div>
 
         <!--<div class="card hidden-lg-up col-sm-12" id="forthewidth">-->
