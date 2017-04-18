@@ -374,7 +374,7 @@ body .modal {
 }
 
 .resume{
-    display: table-cell;
+    height:65vh;
     /*height:100%;*/
 }
 
@@ -434,8 +434,10 @@ th, td {
 div#texter { width: 0px; height: 2em; white-space: nowrap; overflow: hidden;  }
 
 .cover-letter{
-    height: 80vh;   
+    height: 65vh;
 }
+
+.
 /*option {*/
     /*background: #333333;*/
     /*color: white;*/
