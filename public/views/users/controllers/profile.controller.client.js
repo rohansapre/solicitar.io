@@ -93,6 +93,7 @@
             console.log($rootScope.currentUser);
             console.log(vm.userId);
             console.log(vm.name);
+            getInterviewers();
         }
 
         init();
@@ -791,6 +792,7 @@
         //changebackground
         function initializeRecruiterDashboard() {
             changeBackgorund('recruiterdash');
+            getPositions();
 
         }
 
@@ -848,6 +850,7 @@
                 .success(function (interviewers) {
                     console.log(interviewers);
                     vm.rawInterviewer = interviewers;
+                    vm.interviewerLength = vm.rawInterviewer.length;
                     vm.interviewerarray = [];
                     for (var interviewer in interviewers) {
                         var interviewerName = interviewers[interviewer]['_interviewer']['firstName'] + '  ' + interviewers[interviewer]['_interviewer']['lastName'];

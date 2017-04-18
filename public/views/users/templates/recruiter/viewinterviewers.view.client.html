@@ -1,0 +1,25 @@
+<div class="container-fluid">
+    <div class="container-fluid">
+        <ol class="breadcrumb my-3">
+            <li class="breadcrumb-item"><a href ng-click="model.tab='recruiterdash'">Homepage</a></li>
+            <li class="breadcrumb-item active">List of Interviewers</li>
+        </ol>
+    </div>
+
+    <div class="card-deck">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3"
+             ng-repeat="interviewer in model.interviewerarray">
+            <div class="card o-hidden">
+                <div class="card-block">
+                    <div>
+                        {{interviewer}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>

@@ -200,6 +200,9 @@
     <div ng-switch-when="recruiterAddInterviewer">
         <ng-include src="'views/users/templates/recruiter/addinterviewer.view.client.html'"></ng-include>
     </div>
+    <div ng-switch-when="recruiterInterviewers">
+        <ng-include src="'views/users/templates/recruiter/viewinterviewers.view.client.html'"></ng-include>
+    </div>
     <div ng-switch-default>
         <ng-include src="'views/users/templates/recruiter/dashboard.recruiter.view.client.html'"
                     onload="model.initializeRecruiterDashboard()"></ng-include>
