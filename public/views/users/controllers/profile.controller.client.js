@@ -84,6 +84,8 @@
 
 
         function init() {
+            $('body').removeClass('backgroundPic');
+            $('body').addClass('noBackgroundPic');
             vm.user = $rootScope.currentUser;
             vm.userId = vm.user._id;
             vm.name = vm.user.firstName + " " + vm.user.lastName;
@@ -98,41 +100,67 @@
 
 
         function getBeautifulDate(date) {
-            // console.log("sfg");
+
+            console.log("sfg");
+            console.log(date);
             var dt = new Date(date);
-            var str = dt.toUTCString();
+            var str = dt.toDateString()+" " +dt.toTimeString().split(" ")[0];
 
             // console.log(dt.toUTCString())
-            return str.substring(0, str.length - 3);
+            return str;
         }
 
         function addTimeToList() {
-            var m;
-            for (var u in months) {
-                if (months[u] == vm.month) {
-                    m = u;
-                }
-            }
-            m = parseInt(m) + 1;
-            if (m < 10) {
-                m = '0' + m;
-            }
-            var dy;
-            dy = vm.day;
+            // var m;
+            // for (var u in months) {
+            //     if (months[u] == vm.month) {
+            //         m = u;
+            //     }
+            // }
+            // m = parseInt(m) + 1;
+            // if (m < 10) {
+            //     m = '0' + m;
+            // }
+            // var dy;
+            // dy = vm.day;
+            //
+            // if (parseInt(vm.day) < 10) {
+            //     dy = '0' + vm.day;
+            // }
+            //
+            //
+            // var fr = vm.from.split(" ")[0];
+            // var to = vm.to.split(" ")[0];
+            // console.log(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00');
+            // console.log(new Date(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00'));
 
-            if (parseInt(vm.day) < 10) {
-                dy = '0' + vm.day;
-            }
+
+            vm.scheduleFrom = document.getElementById('from').value;
+            vm.scheduleTo = document.getElementById('to').value;
+            vm.scheduleDate = document.getElementById('schDate').value;
+
+            console.log(vm.scheduleFrom);
+            console.log(vm.scheduleTo);
+            var month =vm.scheduleDate.split('-')[1];
+            var year =vm.scheduleDate.split('-')[0];
+            var date =vm.scheduleDate.split('-')[2];
+
+            var frHr= parseInt(vm.scheduleFrom.split(':')[0]);
+            var frMn= vm.scheduleFrom.split(':')[1];
+
+            var toHr= parseInt(vm.scheduleTo.split(':')[0]);
+            var toMn= vm.scheduleTo.split(':')[1];
 
 
-            var fr = vm.from.split(" ")[0];
-            var to = vm.to.split(" ")[0];
-            console.log(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00');
-            console.log(new Date(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00'));
-
-            var startDate = new Date(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00');
-            var endDate = new Date(yyyy + '-' + m + '-' + dy + 'T' + to + ':00');
+            console.log(vm.scheduleDate+ 'T' + vm.scheduleFrom + ':00Z');
+            var startDate = new Date(year,month-1,date,frHr,frMn,00);
+            var endDate = new Date(year,month-1,date,toHr,toMn,00);
             var nowDate = new Date();
+
+            console.log("sgsgs");
+            console.log(startDate);
+            console.log(nowDate);
+
 
             // check for duplicate timings
 
@@ -149,14 +177,18 @@
             else {
                 vm.applicantMessage = null;
                 vm.applicantError = null;
+
                 vm.start.push(startDate);
                 vm.end.push(endDate);
 
                 vm.timingDisplayList.push({
                     date: startDate.toUTCString().slice(0, 11),
-                    start: ((startDate.getUTCHours()) < 10 ? '0' : '') + (startDate.getUTCHours()) + ' : ' + (startDate.getUTCMinutes() < 10 ? '0' : '') + startDate.getUTCMinutes(),
-                    end: ((endDate.getUTCHours()) < 10 ? '0' : '') + (endDate.getUTCHours()) + ' : ' + (endDate.getUTCMinutes() < 10 ? '0' : '') + endDate.getUTCMinutes()
+                    start: ((startDate.getHours()) < 10 ? '0' : '') + (startDate.getHours()) + ' : ' + (startDate.getMinutes() < 10 ? '0' : '') + startDate.getMinutes(),
+                    end: ((endDate.getHours()) < 10 ? '0' : '') + (endDate.getHours()) + ' : ' + (endDate.getMinutes() < 10 ? '0' : '') + endDate.getMinutes()
                 });
+                vm.scheduleDate="";
+                vm.scheduleFrom="";
+                vm.scheduleTo="";
             }
 
             if (vm.timingDisplayList.length == 1) {
@@ -184,6 +216,9 @@
         }
 
         function updateTimings() {
+            console.log("Update timings");
+            console.log(vm.end);
+            console.log(vm.start);
             UserService.updateAvailability(vm.userId, {
                 'start': vm.start,
                 'end': vm.end
@@ -206,8 +241,8 @@
             vm.month = months[mm];
             cMon = months[mm];
             yyyy = today.getFullYear();
-            setDays();
-            setHours();
+            // setDays();
+            // setHours();
             vm.applicantMessage = null;
             vm.applicantError = null;
             // get existing timings
@@ -234,12 +269,14 @@
                     for (var d in result.startTime) {
                         var st = new Date(result.startTime[d]);
                         var et = new Date(result.endTime[d]);
+                        vm.start.push(st);
+                        vm.end.push(et);
                         console.log(st.toUTCString());
                         console.log(et.toUTCString());
                         vm.timingDisplayList.push({
                             date: st.toUTCString().slice(0, 11),
-                            start: ((st.getUTCHours()) < 10 ? '0' : '') + (st.getUTCHours()) + ' : ' + (et.getUTCMinutes() < 10 ? '0' : '') + et.getUTCMinutes(),
-                            end: ((et.getUTCHours()) < 10 ? '0' : '') + (et.getUTCHours()) + ' : ' + (et.getUTCMinutes() < 10 ? '0' : '') + et.getUTCMinutes()
+                            start: ((st.getHours()) < 10 ? '0' : '') + (st.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes(),
+                            end: ((et.getHours()) < 10 ? '0' : '') + (et.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes()
                         });
 
                         console.log(vm.timingDisplayList);
@@ -454,8 +491,8 @@
                         console.log("sdfsd");
                         vm.applicantTiming.push({
                             date: st.toUTCString().slice(0, 11),
-                            start: ((st.getUTCHours()) < 10 ? '0' : '') + (st.getUTCHours()) + ' : ' + (et.getUTCMinutes() < 10 ? '0' : '') + et.getUTCMinutes(),
-                            end: ((et.getUTCHours()) < 10 ? '0' : '') + ( et.getUTCHours()) + ' : ' + (et.getUTCMinutes() < 10 ? '0' : '') + et.getUTCMinutes()
+                            start: ((st.getHours()) < 10 ? '0' : '') + (st.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes(),
+                            end: ((et.getHours()) < 10 ? '0' : '') + ( et.getHours()) + ' : ' + (et.getMinutes() < 10 ? '0' : '') + et.getMinutes()
                         });
 
                     }
@@ -490,7 +527,7 @@
             console.log("inteirnewlonbkgdfgolhe");
             console.log(interview);
 
-            return true;
+            // return true;
             var interviewDate = new Date(interview.start);
             console.log(interviewDate);
 
@@ -532,6 +569,12 @@
                 .success(function (interview) {
                     console.log(interview);
                     vm.nextInterviewForInterviewer = interview;
+                    if(interview.length == 0){
+                        vm.dashboardNonEmpty=false;
+                    }
+                    else{
+                        vm.dashboardNonEmpty=true;
+                    }
                 })
                 .error(function (error) {
                     console.log("error");
@@ -611,25 +654,28 @@
         function interviewerScheduleInterview() {
             vm.scheduleError = null;
             vm.scheduleMessage = null;
-            vm.scheduleError=null;
+            vm.scheduleError = null;
             populateCandidateTimeSlots();
         }
 
         function scheduleInterviewOnClick() {
-            vm.scheduleFrom= document.getElementById('from').value;
-            vm.scheduleTo=  document.getElementById('to').value ;
+            vm.scheduleFrom = document.getElementById('from').value;
+            vm.scheduleTo = document.getElementById('to').value;
+            vm.scheduleDate = document.getElementById('toOptions').value;
+
             console.log(vm.scheduleFrom);
-            if(typeof vm.scheduleFrom == '' || typeof vm.scheduleTo == ''){
+            if (typeof vm.scheduleFrom == '' || typeof vm.scheduleTo == '') {
                 vm.scheduleError = "Please select Time! ";
             }
             else {
                 var from = vm.scheduleFrom.split(':');
                 var to = vm.scheduleTo.split(':');
                 var dateArr = vm.scheduleDate.split('-');
-                from = new Date(Date.UTC(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], from[0], from[1]));
-                to = new Date(Date.UTC(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], to[0], to[1]));
+                from = new Date(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], from[0], from[1]);
+                to = new Date(dateArr[0], parseInt(dateArr[1]) - 1, dateArr[2], to[0], to[1]);
                 var success = false;
                 var result = vm.result;
+                console.log("sendinbwguiosgddbg");
                 console.log(result);
                 console.log(from);
                 console.log(to);
@@ -638,7 +684,9 @@
                     var et = new Date(result.endTime[d]);
                     et.setSeconds(0);
                     st.setSeconds(0);
-                    console.log(from.setSeconds(10));
+                    from.setSeconds(10);
+                    console.log("compare")
+                    console.log(from);
                     console.log(st);
 
                     console.log((from <= st));
@@ -1036,6 +1084,13 @@
 
         function applicantSchedule() {
             changeBackgorund("applicantUpcomingInterviews");
+            var rightNow = new Date();
+            var res = rightNow.toISOString().slice(0,10);
+            $("#dtBox").DateTimePicker({
+                dateFormat: "yyyy-MM-dd",
+                minDate: res
+                // maxDate: dateArray[dateArray.length - 1]
+            });
             initializeCalender();
 
         }
@@ -1052,6 +1107,14 @@
                     else {
                         vm.emptyUpcomingInterviews = false;
                         vm.applicantUpcomingInterviews = interviews;
+                        for (var v in vm.applicantUpcomingInterviews) {
+                            if ("start" in vm.applicantUpcomingInterviews[v]) {
+                                vm.applicantUpcomingInterviews[v].date = getBeautifulDate(vm.applicantUpcomingInterviews[v].start);
+                            }
+                            else{
+                                vm.applicantUpcomingInterviews[v].date ="Yet To Schedule"
+                            }
+                        }
                         console.log(vm.applicantUpcomingInterviews);
                     }
                 })
@@ -1094,6 +1157,12 @@
                 .success(function (interview) {
                     console.log(interview);
                     vm.applicantNextInterview = interview;
+                    if(interview.length == 0){
+                        vm.dashboardNonEmpty=false;
+                    }
+                    else{
+                        vm.dashboardNonEmpty=true;
+                    }
                 }, function (error) {
                     console.log("error");
                     console.log(error);
@@ -1101,7 +1170,9 @@
         }
 
         function logout() {
-            if ('undefined' === typeof $rootScope.adminUser) {
+            console.log("admin");
+            console.log($rootScope.adminUser);
+            if ('undefined' === typeof $rootScope.adminUser || $rootScope.adminUser === null) {
                 console.log("in if");
                 UserService.logout()
                     .then(function (response) {

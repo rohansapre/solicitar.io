@@ -59,7 +59,8 @@
             .when("/admin", {
                 templateUrl: "views/admin/templates/admin.html",
                 controller: "AdminController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: { loggedin: checkLoggedin }
             })
             .when("/playground/:pgid", {
                 templateUrl: "playground/playground.html",

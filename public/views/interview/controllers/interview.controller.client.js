@@ -523,9 +523,9 @@
         function endInterview() {
             // pass the current interview ID
 
-            InterviewService.endInterview(vm.interviewId)
+            InterviewService.endInterview(vm.scheduleId)
                 .success(function (interview) {
-                    console.log("")
+                    console.log("interview done");
                     console.log(interview);
                     $("body").addClass("dashboardMargin");
                     leaveRoomIfJoined();

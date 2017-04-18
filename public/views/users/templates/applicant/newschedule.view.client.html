@@ -2,7 +2,8 @@
 
     <ol class="breadcrumb my-3">
         <li class="breadcrumb-item"><a href ng-click="model.tab='dash'">Homepage</a></li>
-        <li class="breadcrumb-item"><a href ng-click="model.tab='upcoming'">{{model.user.firstName}}'s Upcoming Interview</a></li>
+        <li class="breadcrumb-item"><a href ng-click="model.tab='upcoming'">{{model.user.firstName}}'s Upcoming
+            Interview</a></li>
         <li class="breadcrumb-item active">Schedule Interview</li>
     </ol>
 
@@ -23,7 +24,6 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Month</th>
                         <th>Date</th>
                         <th>Start Time</th>
                         <th>EndTime</th>
@@ -34,34 +34,43 @@
                     <tr>
                         <td>
                             <div class="form-group">
-                                <select id="monthOptions" class="form-control" ng-change="model.setDays()"
-                                        ng-model="model.month"
-                                        ng-options="c for c in model.months"></select>
+                                <div class="form-group">
+                                    <input id="schDate" type="text" data-field="date" class="form-control"
+                                           ng-model="model.scheduleDate" readonly>
+                                </div>
+                                <!--<select id="monthOptions" class="form-control" ng-change="model.setDays()"-->
+                                <!--ng-model="model.month"-->
+                                <!--ng-options="c for c in model.months"></select>-->
                             </div>
                         </td>
                         <td>
                             <div class="form-group">
-                                <select id="dayOptions" class="form-control" ng-model="model.day"
-                                        ng-change="model.setHours()"
-                                        ng-options="c for c in model.days"></select>
+                                <input class="form-control" id="from" type="text" data-field="time"
+                                       ng-model="model.scheduleFrom" readonly>
+                                <!--<select id="dayOptions" class="form-control" ng-model="model.day"-->
+                                <!--ng-change="model.setHours()"-->
+                                <!--ng-options="c for c in model.days"></select>-->
                             </div>
                         </td>
                         <td>
                             <div class="form-group">
-                                <select id="fromOptions" class="form-control" ng-model="model.from"
-                                        ng-disabled='model.weekend'
-                                        ng-options="c for c in model.hours"></select>
+                                <input class="form-control" id="to" type="text" data-field="time"
+                                       ng-model="model.scheduleTo" readonly>
+                                <!--<select id="fromOptions" class="form-control" ng-model="model.from"-->
+                                <!--ng-disabled='model.weekend'-->
+                                <!--ng-options="c for c in model.hours"></select>-->
                             </div>
                         </td>
-                        <td>
-                            <div class="form-group">
-                                <select id="toOptions" class="form-control" ng-model="model.to" ng-disabled='model.weekend'
-                                        ng-options="c for c in model.hours"></select>
-                            </div>
-                        </td>
+                        <!--<td>-->
+                        <!--<div class="form-group">-->
+                        <!--<select id="toOptions" class="form-control" ng-model="model.to" ng-disabled='model.weekend'-->
+                        <!--ng-options="c for c in model.hours"></select>-->
+                        <!--</div>-->
+                        <!--</td>-->
 
                         <td>
-                            <button class="btn btn-block btn-success" ng-click="model.addTimeToList()"> Select Time </button>
+                            <button class="btn btn-block btn-success" ng-click="model.addTimeToList()"> Select Time
+                            </button>
                         </td>
                     </tr>
                     </tbody>
@@ -83,46 +92,47 @@
         </div>
 
         <div class="card-block">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Start Time</th>
-                            <th>EndTime</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="timing in model.timingDisplayList">
-                            <td data-label="Date: ">
-                                {{timing.date}}
-                            </td>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Start Time</th>
+                        <th>EndTime</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="timing in model.timingDisplayList">
+                        <td data-label="Date: ">
+                            {{timing.date}}
+                        </td>
 
-                            <td data-label="Start Time: ">
-                                {{timing.start}}
-                            </td>
+                        <td data-label="Start Time: ">
+                            {{timing.start}}
+                        </td>
 
-                            <td data-label="End Time: ">
-                                {{timing.end}}
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                        <td data-label="End Time: ">
+                            {{timing.end}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-
-
-
-            <!--<ul class="list-group">-->
-                <!---->
-                <!---->
-                <!---->
-                <!--<li class="list-group-item justify-content-between" ng-repeat="timing in model.timingDisplayList" id="timingList">-->
-                    <!--{{timing.date}} : {{timing.start}} &ndash;&gt; {{timing.end}}-->
-                    <!--<span class="badge badge-default badge-pill" ng-click="model.deleteTiming(timing)">Delete</span>-->
-                <!--</li>-->
-            <!--</ul>-->
         </div>
-    </div>
 
+
+        <!--<ul class="list-group">-->
+        <!---->
+        <!---->
+        <!---->
+        <!--<li class="list-group-item justify-content-between" ng-repeat="timing in model.timingDisplayList" id="timingList">-->
+        <!--{{timing.date}} : {{timing.start}} &ndash;&gt; {{timing.end}}-->
+        <!--<span class="badge badge-default badge-pill" ng-click="model.deleteTiming(timing)">Delete</span>-->
+        <!--</li>-->
+        <!--</ul>-->
+    </div>
 </div>
+
+<!--</div>-->
+
+<div id="dtBox"></div>

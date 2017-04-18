@@ -105,6 +105,8 @@ function getNextInterviewForApplicant(applicantId) {
 }
 
 function endInterview(interviewId) {
+    console.log("updating db end interview");
+    console.log(interviewId);
     return scheduleModel.update({_id: interviewId}, {$set: {end: new Date()}});
 }
 

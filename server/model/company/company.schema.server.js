@@ -4,7 +4,8 @@
 var mongoose = require('mongoose');
 var companySchema = mongoose.Schema({
     _recruiter: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    _interviewer: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    _interviewer: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    dateCreated: { type: Date, default: Date.now() }
 }, {collection: 'company'});
 
 companySchema.post('remove', function () {
