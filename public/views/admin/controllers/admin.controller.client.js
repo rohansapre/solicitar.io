@@ -68,6 +68,10 @@
 
         function addRecruiter(recruiter) {
             recruiter.type = 'RECRUITER';
+            var companies = ['Apple', 'Tesla', 'Microsoft', 'SpaceX', 'Yahoo'];
+            var c = Math.floor(Math.random() * 4);
+            recruiter.organization = companies[c];
+            console.log("in controller");
             AdminService.createUser(recruiter)
                 .success(function (recruiter) {
                     console.log(recruiter);

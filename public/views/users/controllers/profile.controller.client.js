@@ -855,7 +855,9 @@
                     for (var interviewer in interviewers) {
                         var interviewerName = interviewers[interviewer]['_interviewer']['firstName'] + '  ' + interviewers[interviewer]['_interviewer']['lastName'];
                         vm.interviewerarray.push(interviewerName);
-
+                    }
+                    if (vm.interviewerarray.length == 0) {
+                        vm.emptyInterviewers = true;
                     }
                 })
                 .error(function (error) {

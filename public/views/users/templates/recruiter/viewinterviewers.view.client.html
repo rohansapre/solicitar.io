@@ -6,6 +6,12 @@
         </ol>
     </div>
 
+    <div class="container-fluid">
+    <div ng-show="model.emptyInterviewers" class="alert alert-danger" role="alert">
+        No Interviewers found!
+    </div>
+    </div>
+
     <div class="card-deck">
         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3"
              ng-repeat="interviewer in model.interviewerarray">
@@ -19,7 +25,3 @@
         </div>
     </div>
 </div>
-
-<script>
-
-</script>
