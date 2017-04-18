@@ -433,6 +433,9 @@ th, td {
 
 div#texter { width: 0px; height: 2em; white-space: nowrap; overflow: hidden;  }
 
+.cover-letter{
+    height: 80vh;   
+}
 /*option {*/
     /*background: #333333;*/
     /*color: white;*/
