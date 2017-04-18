@@ -92,13 +92,13 @@
             <div class="card" style="height: 80vh;">
                 <div class="card-header">
                     Cover Letter
-                    <button type="submit" class="btn btn-sm btn-primary pull-right">Upload</button>
+                    <button type="submit" onclick="document.forms['coverLetterForm'].submit()" class="btn btn-sm btn-primary pull-right">Upload</button>
                 </div>
                 <div class="card-block content-body">
                     <embed id="cover-letter-frame" class="cover-letter" src="{{model.user.coverLetter}}" width="100%">
                 </div>
                 <div class="card-footer clearfix small">
-                    <form action="/api/upload/cover-letter" method="post" enctype="multipart/form-data">
+                    <form action="/api/upload/cover-letter" method="post" enctype="multipart/form-data" name="coverLetterForm">
                         <input class="resume-upload" type="file" id="cover-letter-upload" name="cover-letter"/>
                         <input name="userId" value="{{model.user._id}}" style="display: none"/>
                     </form>
