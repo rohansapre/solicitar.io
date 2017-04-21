@@ -8,7 +8,7 @@
   Documentation : https://nehakadam.github.io/DateTimePicker
 
  ----------------------------------------------------------------------------- */
- 
+
 .dtpicker-overlay
 {
 	z-index: 2000;
@@ -36,7 +36,7 @@
 	height: 100%;
 }
 
-.dtpicker-overlay * 
+.dtpicker-overlay *
 {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -63,7 +63,6 @@
 {
 	position: relative;
 	top: 50%;
-
 	-webkit-transform: translateY(-50%);
 	-moz-transform: translateY(-50%);
 	-o-transform: translateY(-50%);
@@ -110,24 +109,24 @@
 	position: absolute;
 	top: -0.7em;
 	right: 0.3em;
-	
+
 	padding: 0.5em 0.5em 1em 1em;
-	
-	color: #449D44;
+
+	color: #FF3B30;
 	font-size: 1.5em;
-	
+
 	cursor: pointer;
 }
 
 .dtpicker-header .dtpicker-close:hover
 {
-	color: #449D44;
+	color: #FF3B30;
 }
 
 .dtpicker-header .dtpicker-value
 {
 	padding:  0.8em 0.2em 0.2em 0.2em;
-	color: #449D44;
+	color: #FF3B30;
 	text-align: center;
 
 	font-size: 1.4em;
@@ -137,7 +136,6 @@
 {
 	overflow: hidden;
 	margin: 1em 1em;
-	
 	font-size: 1.3em;
 }
 
@@ -246,6 +244,7 @@
 {
 	overflow: hidden;
 	margin: 0.2em 1em;
+	color:white;
 }
 
 .dtpicker-buttonCont .dtpicker-button
@@ -253,13 +252,18 @@
 	display: block;
 	padding: 0.6em 0;
 	width: 47%;
-	background: #449D44;
-	color: #FFFFFF;
+	background: #5cb85c;
+	color: white;
 	text-align: center;
 	font-size: 1.3em;
 
 	cursor: pointer;
 }
+.dtpicker-button a{
+	color: white;
+
+}
+
 
 .dtpicker-buttonCont .dtpicker-button:hover
 {
