@@ -12,7 +12,7 @@
         <ul class="navbar-nav ml-auto">
 
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle mr-lg-5" data-toggle="dropdown">Login<span class="fa fa-arrow-circle-right"></span></a>
+                <a class="nav-link dropdown-toggle mr-lg-5" data-toggle="dropdown">Login <span class="fa fa-arrow-circle-right"></span></a>
                 <div class="dropdown-menu">
                     <div class="dropdown-item social-buttons">
                         <a href="/auth/facebook">
@@ -38,7 +38,6 @@
                             <label for="passwords" class="sr-only">Password</label>
                             <input type="password" class="form-control" id="passwords" placeholder="Password"
                                    ng-model="user.password" required>
-                            <!--<div class="help-block text-right"><a href="">Forgot password?</a></div>-->
                         </div>
                         <div class="form-group container-fluid">
                             <button type="submit" class="btn btn-primary btn-block"
@@ -46,21 +45,10 @@
                                 In
                             </button>
                         </div>
-                        <!--<div class="checkbox container-fluid">-->
-                            <!--<label>-->
-                                <!--<input type="checkbox"> Remember Me !-->
-                            <!--</label>-->
-                        <!--</div>-->
                     </form>
 
                 </div>
             </li>
-
-            <!--<li class="nav-item">-->
-            <!--<a class="btn btn-primary" href="#/register"><i class="fa fa-fw fa-sign-out"></i> Sign-->
-            <!--Up-->
-            <!--</a>-->
-            <!--</li>-->
             <li class="nav-item">
                 <button class="btn btn-primary" id="buttonup" data-toggle="modal" data-target="#myModal" ng-click="model.error=null;"><i
                         class="fa fa-fw fa-sign-out"></i>

@@ -16,7 +16,7 @@
                 </h3>
                 <div class="card-block" id="imgoverlay">
                     <form action="/api/upload/image" method="post" enctype="multipart/form-data">
-                        <img class="card-img-top img-fluid w-100" src="{{model.user.picture}}" alt="Card image cap">
+                        <img class="card-img-top img-fluid w-100" ng-src="{{model.user.picture}}" alt="Card image cap">
                         <input class="image-upload pull-left" type="file" id="picture-upload" name="profile-picture"/>
                         <input name="userId" value="{{model.user._id}}" style="display: none"/>
                         <input name="email" value="{{model.user.email}}" style="display: none"/>

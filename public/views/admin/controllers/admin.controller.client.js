@@ -22,6 +22,7 @@
         vm.dummyPrint = dummyPrint;
 
         function init() {
+            vm.user = null;
             getRecruiters();
             console.log("in admin");
             console.log($rootScope.currentUser);
@@ -75,6 +76,8 @@
             AdminService.createUser(recruiter)
                 .success(function (recruiter) {
                     console.log(recruiter);
+                    vm.user = null;
+                    getRecruiters();
                 })
                 .error(function (error) {
                     console.log(error);
@@ -100,6 +103,7 @@
             AdminService.createUser(interviewer)
                 .success(function (interviewer) {
                     console.log(interviewer);
+                    vm.user2 = null;
                 })
                 .error(function (error) {
                     console.log(error);

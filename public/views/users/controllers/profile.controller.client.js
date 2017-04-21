@@ -111,30 +111,6 @@
         }
 
         function addTimeToList() {
-            // var m;
-            // for (var u in months) {
-            //     if (months[u] == vm.month) {
-            //         m = u;
-            //     }
-            // }
-            // m = parseInt(m) + 1;
-            // if (m < 10) {
-            //     m = '0' + m;
-            // }
-            // var dy;
-            // dy = vm.day;
-            //
-            // if (parseInt(vm.day) < 10) {
-            //     dy = '0' + vm.day;
-            // }
-            //
-            //
-            // var fr = vm.from.split(" ")[0];
-            // var to = vm.to.split(" ")[0];
-            // console.log(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00');
-            // console.log(new Date(yyyy + '-' + m + '-' + dy + 'T' + fr + ':00'));
-
-
             vm.scheduleFrom = document.getElementById('from').value;
             vm.scheduleTo = document.getElementById('to').value;
             vm.scheduleDate = document.getElementById('schDate').value;
@@ -440,16 +416,6 @@
         function startInterview(interview) {
             $location.url("/user/" + vm.user._id + "/interview/" + interview._id);
         }
-
-
-        // function getCandidates() {
-        //     console.log("inside profile.controller.client.js");
-        //     RecruiterService.getCandidates(vm.userId)
-        //         .success(function (info) {
-        //             vm.candidates = info;
-        //         });
-        // }
-
 
         //------------------------------------------------------------------
         // Interviewer :
@@ -978,9 +944,6 @@
             RecruiterService.getScheduledInterviews(positionId)
                 .success(function (interviews) {
                     var finalData = [];
-                    console.log("candidates");
-                    console.log(vm.candidatesByJob);
-                    console.log("fdfgfwwwwwWWwwwwwwwwwwwww");
                     for (var c in vm.candidatesByJob) {
                         var match = false;
                         for (var i in interviews) {
@@ -1000,7 +963,6 @@
                         if (!match)
                             finalData.push(vm.candidatesByJob[c]);
                     }
-                    console.log("fdfgfwwwwwWWwwwwwwwwwwwww");
                     console.log(finalData);
                     vm.finalData = finalData;
                     dropdownTodo();
@@ -1071,6 +1033,7 @@
         }
 
         function applicantProfile() {
+            vm.resume=vm.user.resume;
             changeBackgorund("applicantProfile");
         }
 
@@ -1142,17 +1105,6 @@
                     console.log(error);
                 })
         }
-
-        // function getInterviewerSchedule() {
-        //     InterviewService.getInterviewerSchedule(vm.userId)
-        //         .success(function (schedule) {
-        //             console.log(schedule);
-        //         })
-        //         .error(function (error) {
-        //             console.log("error");
-        //             console.log(error);
-        //         });
-        // }
 
         function getNextInterviewForApplicant() {
             InterviewService.getNextInterviewForApplicant(vm.userId)

@@ -23,9 +23,6 @@
     };
 
     function configuration($routeProvider, $locationProvider, $httpProvider) {
-
-        // /$httpProvider.defaults.headers.post['Content-Type'] = 'application/json';
-        //$httpProvider.defaults.headers.removeAttr()
         $httpProvider.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
 
         $routeProvider

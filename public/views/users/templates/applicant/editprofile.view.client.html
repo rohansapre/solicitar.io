@@ -18,7 +18,7 @@
                 </div>
             <div class="card-footer clearfix small" id="imgoverlay">
                 <form action="/api/upload/image" method="post" enctype="multipart/form-data">
-                    <img class="card-img-top img-fluid w-100" src="{{model.user.picture}}" alt="Card image cap">
+                    <img class="card-img-top img-fluid w-100" ng-src="{{model.user.picture}}" alt="Card image cap">
                     <input class="image-upload pull-left" type="file" id="picture-upload" name="profile-picture"/>
                     <input name="userId" value="{{model.user._id}}" style="display: none"/>
                     <input name="email" value="{{model.user.email}}" style="display: none"/>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="card-block content-body">
                     <!--<iframe src="http://www.cameronmoll.com/about/cameronmoll_bio.pdf#view=fit"></iframe>-->
-                    <embed id="resumeframe" class="resume" src='{{model.user.resume}}' width="100%">
+                    <embed id="resumeframe" class="resume" ng-src="{{model.resume}}" width="100%">
                         <!--<div><iframe id="resumeframe" src="http://www.orimi.com/pdf-test.pdf" onload="getwidth()" style="border: none;"></iframe></div>-->
                 </div>
                 <div class="card-footer clearfix small">
@@ -95,7 +95,7 @@
                     <button type="submit" onclick="document.forms['coverLetterForm'].submit()" class="btn btn-sm btn-primary pull-right">Upload</button>
                 </div>
                 <div class="card-block content-body">
-                    <embed id="cover-letter-frame" class="cover-letter" src="{{model.user.coverLetter}}" width="100%">
+                    <embed id="cover-letter-frame" class="cover-letter" ng-src="{{model.user.coverLetter}}" width="100%">
                 </div>
                 <div class="card-footer clearfix small">
                     <form action="/api/upload/cover-letter" method="post" enctype="multipart/form-data" name="coverLetterForm">

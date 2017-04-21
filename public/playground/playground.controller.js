@@ -441,59 +441,8 @@
                     firepadReference.setText(cppInitializationCode);
                     break;
                 }
-
             }
-
             console.log(editor.getOption('mode'));
-
-
         }
-
-
-        // ----- END Firepad -----------
-
-        // function login() {
-        //     name = vm.name;
-        //     peer_id = vm.peerId;
-        //     if(peer_id){
-        //         conn = peer.connect(peer_id, {metadata: {
-        //             'username': name
-        //         }});
-        //         conn.on('data', handleMessage);
-        //     }
-        //
-        //     vm.chatHide = false;
-        //     vm.connectHide = true;
-        // }
-        //
-        //  function sendMessage(){
-        //      var text = $('#message').val();
-        //      var data = {'from': name, 'text': text};
-        //
-        //      conn.send(data);
-        //      handleMessage(data);
-        //      $('#message').val('');
-        //  }
-        //
-        //  function call() {
-        //      console.log('now calling: ' + peer_id);
-        //      console.log(peer);
-        //      var call = peer.call(peer_id, window.localStream);
-        //      call.on('stream', function(stream){
-        //          window.peer_stream = stream;
-        //          onReceiveStream(stream, 'peer-camera');
-        //      });
-        //
-        //  }
-        //
-        //
-        //
-        //  function onReceiveCall(call) {
-        //      call.answer(window.localStream);
-        //      call.on('stream', function (stream) {
-        //          window.peer_stream = stream;
-        //          onReceiveStream(stream, 'peer-camera');
-        //      });
-        //  }
     }
 })();
